@@ -76,12 +76,11 @@
   padding-right: 16px;
 }
 
-.logoDot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--gradient-primary);
-  box-shadow: 0 0 8px var(--accent-indigo);
+.logoImg {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  border-radius: 6px;
   flex-shrink: 0;
 }
 
@@ -144,6 +143,30 @@
 @keyframes sparklePulse {
   0%, 100% { opacity: 0.5; }
   50%       { opacity: 1; }
+}
+
+/* ── About button ─────────────────────────────────────── */
+.aboutBtn {
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  height: 38px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: color 0.15s, background 0.15s;
+  margin-left: 4px;
+}
+
+.aboutBtn:hover {
+  color: var(--text-primary);
+  background: rgba(0, 0, 0, 0.04);
 }
 
 /* ── Resume button — primary filled ──────────────────── */

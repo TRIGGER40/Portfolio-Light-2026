@@ -63,9 +63,12 @@ export function Nav({ hidden = false }: { hidden?: boolean }) {
           <div className={`${styles.pill} ${focused ? styles.pillFocused : ''}`}>
 
             {/* Logo */}
-            <a href="#" className={styles.logo}>
-              <span className={styles.logoDot} />
-              MK
+            <a
+              href="#"
+              className={styles.logo}
+              onClick={e => { e.preventDefault(); navigate('/'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            >
+              <img src="/Logo.png" alt="MK" className={styles.logoImg} />
             </a>
 
             {/* Divider */}
@@ -94,6 +97,14 @@ export function Nav({ hidden = false }: { hidden?: boolean }) {
 
               <span className={styles.sparkle}>✦</span>
             </div>
+
+            {/* About */}
+            <button
+              className={styles.aboutBtn}
+              onClick={() => navigate('/about')}
+            >
+              About
+            </button>
 
             {/* Resume */}
             <a

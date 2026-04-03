@@ -244,6 +244,38 @@
 
 @media (max-width: 640px) {
   .content { padding-top: 40px; }
-  .metric { padding: 12px 18px; }
-  .metrics { gap: 0; }
+
+  /* 2-col grid: 6+ and 250+ stack in left column, 10M in right */
+  .metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  /* 10M spans the full right column across both rows */
+  .metric:nth-child(2) {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    border-right: none;
+    border-left: 1px solid var(--glass-border);
+    padding: 12px 0 12px 18px;
+  }
+
+  .metric {
+    padding: 12px 0;
+    border-right: none;
+  }
+
+  .metric:first-child {
+    padding-left: 0;
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  /* 250+ — left column, row 2, flush with 6+ above */
+  .metric:nth-child(3) {
+    grid-column: 1;
+    grid-row: 2;
+    padding-left: 0;
+    border-bottom: none;
+  }
 }

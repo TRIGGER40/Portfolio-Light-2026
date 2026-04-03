@@ -70,7 +70,7 @@ const articleDesignerAiConductor: Omit<Article, "searchBlob"> = {
       type: "p",
       text: "With AI stepping into the picture, I've found myself in a very different role. I'm no longer just the one creating; now, I'm guiding, tweaking, and collaborating with AI tools to bring ideas to life. It's a strange, exciting, and sometimes overwhelming shift, one that's making me rethink what it means to be a creative.",
     },
-    { type: "p\", text: \"Here's what this change looks like for me:" },
+    { type: "p", text: "Here's what this change looks like for me:" },
     { type: "h2", text: "From Making to Orchestrating" },
     {
       type: "p",

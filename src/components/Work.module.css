@@ -261,17 +261,34 @@
 }
 
 @media (max-width: 640px) {
+  /* Break the shared container — each card becomes its own pill */
+  .grid {
+    gap: 12px;
+    border: none;
+    border-radius: 0;
+    overflow: visible;
+    background: transparent;
+  }
+
   .card,
   .card:nth-child(even) {
     grid-template-columns: 1fr;
     min-height: unset;
+    border-bottom: none;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
   }
+
   .thumbnail { height: 200px; align-self: auto; }
+
+  /* Remove the gradient fade over the image on mobile */
   .thumbnailOverlay,
   .card:nth-child(even) .thumbnailOverlay {
-    background: linear-gradient(to bottom, transparent 60%, var(--bg-surface) 100%);
+    display: none;
   }
-  .body { padding: 20px 20px 16px; gap: 8px; }
+
+  .body { padding: 20px 20px 24px; gap: 8px; }
   .cardTitle { font-size: 18px; }
   .problem { font-size: 13px; }
 }

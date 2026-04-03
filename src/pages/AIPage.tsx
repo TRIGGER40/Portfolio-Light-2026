@@ -4,6 +4,22 @@ import { useChat } from '../hooks/useChat';
 import { SUGGESTED_PROMPTS } from '../data/aiContext';
 import styles from './AIPage.module.css';
 
+/* ── Marquee images ──────────────────────────────────── */
+const MARQUEE_IMAGES = [
+  '/Gen AI screen.png',
+  '/images/articles/ai-conductor.jpeg',
+  '/joining screen.png',
+  '/images/articles/ai-replace-designers.jpeg',
+  '/QC improvement.png',
+  '/images/articles/creative-tax.jpeg',
+  '/PPE.png',
+  '/images/articles/decoding-intuitiveness.jpeg',
+  '/quiz pod.png',
+  '/images/articles/intellectual-masturbation.jpeg',
+  '/images/case-studies/bizongo-ums.png',
+  '/images/articles/teaching-inquisitively.jpeg',
+];
+
 /* ── Word-by-word typing with per-word fade+rise ─────── */
 function WordTyping({
   text,
@@ -57,7 +73,6 @@ function MessageContent({ content }: { content: string }) {
           return <h4 key={i} className={styles.msgH4}>{line.slice(3)}</h4>;
         if (line.startsWith('**') && line.endsWith('**'))
           return <strong key={i} className={styles.msgStrong}>{line.slice(2, -2)}</strong>;
-        // Treat both • and - as bullet markers
         if (line.startsWith('• ') || line.startsWith('- '))
           return (
             <div key={i} className={styles.msgListItem}>
@@ -78,22 +93,8 @@ function formatInline(text: string): string {
     .replace(/\*(.*?)\*/g, '<em>$1</em>');
 }
 
-/* ── Ambient glow words ──────────────────────────────── */
-function getAmbientWords(summary: string, keyword: string): string[] {
-  const stopwords = new Set(['the','and','for','with','his','her','has','been','that','this','are','was','were','from','they','have','will','can','its','but','not','yet','all','any','our','their','more','also','into','than','then','when','where','what','who','how','just','about']);
-  const words = summary
-    .replace(/[^a-zA-Z0-9%+×x]/g, ' ')
-    .split(/\s+/)
-    .filter(w => w.length > 3 && !stopwords.has(w.toLowerCase()) && w.toLowerCase() !== keyword.toLowerCase());
-  return [...new Set(words)].slice(0, 4);
-}
-
 /* ── Main page ───────────────────────────────────────── */
-interface AIPageProps {
-  onChatActive?: (active: boolean) => void;
-}
-
-export function AIPage({ onChatActive }: AIPageProps) {
+export function AIPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { messages, loading, insight, send } = useChat();
@@ -104,27 +105,55 @@ export function AIPage({ onChatActive }: AIPageProps) {
   const latestUserMsgRef = useRef<HTMLDivElement>(null);
   const didAutoSubmit = useRef(false);
 
+  // Track when all marquee images have loaded
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+  useEffect(() => {
+    let loaded = 0;
+    const total = MARQUEE_IMAGES.length;
+    MARQUEE_IMAGES.forEach(src => {
+      const img = new window.Image();
+      img.onload = img.onerror = () => {
+        loaded++;
+        if (loaded >= total) setImagesLoaded(true);
+      };
+      img.src = src;
+    });
+  }, []);
+
+
+  // Escape → back to portfolio
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') navigate('/');
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
+
   useEffect(() => {
     window.scrollTo(0, 0);
     const q = searchParams.get('q');
     if (q && !didAutoSubmit.current) {
       didAutoSubmit.current = true;
       send(q);
+    } else {
+      // Auto-focus input on landing
+      setTimeout(() => inputRef.current?.focus(), 100);
     }
   }, []);
 
   useEffect(() => {
     const container = messagesContainerRef.current;
     if (!container) return;
-    // New query started — scroll to top so the query is always at the top
     if (messages.length === 1) {
       container.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }, [messages.length]);
 
-  const handleSend = () => {
-    if (!input.trim() || loading) return;
-    send(input.trim());
+  const handleSend = (text?: string) => {
+    const msg = text ?? input.trim();
+    if (!msg || loading) return;
+    send(msg);
     setInput('');
   };
 
@@ -132,10 +161,31 @@ export function AIPage({ onChatActive }: AIPageProps) {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); }
   };
 
+  // Pill carousel auto-scroll
+  const pillWrapRef = useRef<HTMLDivElement>(null);
+  const pillScrollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const startPillScroll = () => {
+    const el = pillWrapRef.current;
+    if (!el) return;
+    pillScrollRef.current = setInterval(() => {
+      el.scrollLeft += 1;
+      if (el.scrollLeft >= el.scrollWidth / 2) el.scrollLeft = 0;
+    }, 16);
+  };
+
+  const stopPillScroll = () => {
+    if (pillScrollRef.current) clearInterval(pillScrollRef.current);
+  };
+
+  useEffect(() => {
+    startPillScroll();
+    return stopPillScroll;
+  }, []);
+
   const hasMessages = messages.length > 0;
   const hasInsight = !!insight?.summary;
 
-  // Keep last insight visible while fading out when a new query clears it
   const [fadingInsight, setFadingInsight] = useState<typeof insight>(null);
   const [insightVisible, setInsightVisible] = useState(false);
 
@@ -150,23 +200,123 @@ export function AIPage({ onChatActive }: AIPageProps) {
     }
   }, [insight]);
 
-  // 2 follow-up suggestions: pick prompts not similar to the last user message
   const lastUserMsg = [...messages].reverse().find(m => m.role === 'user')?.content.toLowerCase() ?? '';
   const followUpSuggestions = SUGGESTED_PROMPTS
     .filter(p => !p.toLowerCase().split(' ').some(w => w.length > 4 && lastUserMsg.includes(w)))
-    .slice(0, 2);
+    .slice(0, 3);
 
-  // Notify parent to hide/show the nav
+  // Restart pill scroll when chat view becomes active
   useEffect(() => {
-    onChatActive?.(hasMessages);
-    return () => onChatActive?.(false);
+    if (hasMessages) {
+      stopPillScroll();
+      setTimeout(() => startPillScroll(), 50);
+      return stopPillScroll;
+    }
   }, [hasMessages]);
 
+  /* ── Landing (no messages yet) ─────────────────────── */
+  if (!hasMessages) {
+    return (
+      <div className={styles.landing}>
+
+        {/* Back button */}
+        <button className={styles.landingBackBtn} onClick={() => navigate('/')} aria-label="Back to portfolio">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          Back
+        </button>
+
+        {/* Background grid */}
+        <div className={styles.landingGrid} aria-hidden />
+
+        {/* Top marquee — right to left */}
+        <div className={`${styles.marqueeWrap} ${styles.marqueeTop} ${imagesLoaded ? styles.marqueeVisible : ''}`}>
+          <div className={styles.marqueeTrack}>
+            {[...MARQUEE_IMAGES, ...MARQUEE_IMAGES].map((src, i) => (
+              <img key={i} src={src} className={styles.marqueeImg} alt="" draggable={false} />
+            ))}
+          </div>
+        </div>
+
+        {/* Ambient orbs */}
+        <div className={styles.landingOrbs} aria-hidden>
+          <div className={styles.landingOrb1} />
+          <div className={styles.landingOrb2} />
+          <div className={styles.landingOrb3} />
+        </div>
+
+        {/* Center content */}
+        <div className={styles.landingCenter}>
+          <span className={styles.sectionLabel}>— AI Assistant</span>
+          <h1 className={styles.title}>
+            Ask anything about
+            <br />
+            <span className={styles.titleGradient}>Midhun's work</span>
+          </h1>
+          <p className={styles.subtitle}>
+            Have a free conversation about Midhun and his works with the AI.
+          </p>
+
+          {/* Input */}
+          <div className={styles.landingInputRow}>
+            <textarea
+              ref={inputRef}
+              className={styles.input}
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              onKeyDown={handleKey}
+              placeholder="Ask about Midhun's work…"
+              rows={1}
+            />
+            <button
+              className={`${styles.sendBtn} ${input.trim() ? styles.sendActive : ''}`}
+              onClick={() => handleSend()}
+              disabled={!input.trim() || loading}
+              aria-label="Send"
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M14 8L2 2l3 6-3 6 12-6z" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+
+          {/* Suggested prompts — scrolling pill carousel */}
+          <div
+            ref={pillWrapRef}
+            className={styles.pillCarouselWrap}
+            onMouseEnter={stopPillScroll}
+            onMouseLeave={startPillScroll}
+          >
+            <div className={styles.pillTrack}>
+              {[...SUGGESTED_PROMPTS, ...SUGGESTED_PROMPTS].map((p, i) => (
+                <button key={i} className={styles.pill} onClick={() => handleSend(p)}>
+                  {p}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom marquee — left to right */}
+        <div className={`${styles.marqueeWrap} ${styles.marqueeBottom} ${imagesLoaded ? styles.marqueeVisible : ''}`}>
+          <div className={`${styles.marqueeTrack} ${styles.marqueeReverse}`}>
+            {[...MARQUEE_IMAGES, ...MARQUEE_IMAGES].map((src, i) => (
+              <img key={i} src={src} className={styles.marqueeImg} alt="" draggable={false} />
+            ))}
+          </div>
+        </div>
+
+      </div>
+    );
+  }
+
+  /* ── Chat view (has messages) ──────────────────────── */
   return (
-    <div className={`${styles.page} ${hasMessages ? styles.hasInsight : ''} ${hasMessages ? styles.chatActive : ''}`}>
+    <div className={`${styles.page} ${styles.hasInsight} ${styles.chatActive}`}>
 
       {/* ── Left / chat panel ── */}
-      <div className={`${styles.left} ${hasMessages ? styles.leftChatActive : ''}`}>
+      <div className={`${styles.left} ${styles.leftChatActive}`}>
         <div className={styles.inner}>
 
           {/* Back */}
@@ -177,35 +327,17 @@ export function AIPage({ onChatActive }: AIPageProps) {
             Back to portfolio
           </button>
 
-          {/* Header */}
-          <div className={styles.header}>
-            <span className={styles.sectionLabel}>— AI Assistant</span>
-            <h1 className={styles.title}>
-              Ask anything about
-              <br />
-              <span className={styles.titleGradient}>Midhun's work</span>
-            </h1>
-            <p className={styles.subtitle}>
-              Have a free conversation about Midhun and his works with the AI.
-            </p>
+          {/* Scaled-down page header */}
+          <div className={styles.chatHeader}>
+            <span className={styles.chatHeaderLabel}>— AI Assistant</span>
+            <h2 className={styles.chatHeaderTitle}>
+              Ask anything about <span className={styles.titleGradient}>Midhun's work</span>
+            </h2>
+            <p className={styles.chatHeaderSubtitle}>Have a free conversation about Midhun and his works with the AI.</p>
           </div>
 
           {/* Messages */}
           <div ref={messagesContainerRef} className={styles.messages}>
-            {!hasMessages && (
-              <div className={styles.emptyState}>
-                <p className={styles.emptyLabel}>Try asking</p>
-                <div className={styles.suggestions}>
-                  {SUGGESTED_PROMPTS.map(p => (
-                    <button key={p} className={styles.suggestion} onClick={() => send(p)}>
-                      <span className={styles.suggestionIcon}>✦</span>
-                      {p}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
             {messages.map((msg, i) => {
               const isLastUser = msg.role === 'user' && messages.slice(i + 1).every(m => m.role !== 'user');
               return (
@@ -233,22 +365,27 @@ export function AIPage({ onChatActive }: AIPageProps) {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Follow-up suggestions */}
-          {hasMessages && !loading && followUpSuggestions.length > 0 && (
-            <div className={styles.followUps}>
-              {followUpSuggestions.map(p => (
-                <button key={p} className={styles.followUpChip} onClick={() => { send(p); }}>
-                  <span className={styles.suggestionIcon}>✦</span>
-                  {p}
-                </button>
-              ))}
+          {/* Follow-up suggestions — pill carousel */}
+          {!loading && followUpSuggestions.length > 0 && (
+            <div
+              ref={pillWrapRef}
+              className={styles.followUps}
+              onMouseEnter={stopPillScroll}
+              onMouseLeave={startPillScroll}
+            >
+              <div className={styles.pillTrack}>
+                {[...followUpSuggestions, ...followUpSuggestions].map((p, i) => (
+                  <button key={i} className={styles.pill} onClick={() => handleSend(p)}>
+                    {p}
+                  </button>
+                ))}
+              </div>
             </div>
           )}
 
           {/* Input */}
           <div className={styles.inputWrap}>
             <textarea
-              ref={inputRef}
               className={styles.input}
               value={input}
               onChange={e => setInput(e.target.value)}
@@ -258,7 +395,7 @@ export function AIPage({ onChatActive }: AIPageProps) {
             />
             <button
               className={`${styles.sendBtn} ${input.trim() ? styles.sendActive : ''}`}
-              onClick={handleSend}
+              onClick={() => handleSend()}
               disabled={!input.trim() || loading}
               aria-label="Send"
             >
@@ -272,9 +409,8 @@ export function AIPage({ onChatActive }: AIPageProps) {
       </div>
 
       {/* ── Right / insight panel ── */}
-      <div className={`${styles.right} ${hasMessages ? styles.rightVisible : ''} ${hasMessages ? styles.rightChatActive : ''}`}>
-        {/* Ambient glow orbs — converge when loading, retreat when insight arrives */}
-        <div className={`${styles.orbLayer} ${hasMessages && !hasInsight ? styles.orbsLoading : ''} ${hasInsight ? styles.orbsDone : ''}`} aria-hidden>
+      <div className={`${styles.right} ${styles.rightVisible} ${styles.rightChatActive}`}>
+        <div className={`${styles.orbLayer} ${!hasInsight ? styles.orbsLoading : ''} ${hasInsight ? styles.orbsDone : ''}`} aria-hidden>
           <div className={styles.orb1} />
           <div className={styles.orb2} />
           <div className={styles.orb3} />

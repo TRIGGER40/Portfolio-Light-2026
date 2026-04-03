@@ -45,8 +45,8 @@
 
   /* Spacing */
   --section-pad: clamp(80px, 10vw, 140px);
-  --container-max: 1160px;
-  --container-pad: clamp(20px, 5vw, 60px);
+  --container-max: 1320px;
+  --container-pad: clamp(20px, 5vw, 80px);
 
   /* Typography */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;

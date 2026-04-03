@@ -10,6 +10,7 @@ import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { BackgroundGlow } from './components/BackgroundGlow';
 import { AIPage } from './pages/AIPage';
+import { AboutPage } from './pages/AboutPage';
 
 function HomePage() {
   return (
@@ -31,29 +32,48 @@ function HomePage() {
   );
 }
 
-const pageVariants = {
+const homeVariants = {
   initial: { opacity: 0, y: 24 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] } },
-  exit:    { opacity: 0, y: -16, transition: { duration: 0.3, ease: [0.4, 0, 1, 1] } },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] as [number,number,number,number] } },
+  exit:    { opacity: 0, y: -16, transition: { duration: 0.25, ease: [0.4, 0, 1, 1] as [number,number,number,number] } },
+};
+
+// AI page uses position:fixed children — only fade, no y-transform
+// (transforms on a parent change the containing block for fixed descendants)
+const aiVariants = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1, transition: { duration: 0.5, ease: 'easeOut' } },
+  exit:    { opacity: 0,   transition: { duration: 0.25, ease: 'easeIn' } },
 };
 
 export default function App() {
-  const [navHidden, setNavHidden] = useState(false);
   const location = useLocation();
+  const isAIPage = location.pathname === '/ask';
 
   return (
     <>
-      <Nav hidden={navHidden} />
+      <Nav hidden={isAIPage} />
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={
-            <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
+            <motion.div variants={homeVariants} initial="initial" animate="animate" exit="exit">
               <HomePage />
             </motion.div>
           } />
+          <Route path="/about" element={
+            <motion.div variants={homeVariants} initial="initial" animate="animate" exit="exit">
+              <AboutPage />
+            </motion.div>
+          } />
           <Route path="/ask" element={
-            <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
-              <AIPage onChatActive={setNavHidden} />
+            <motion.div
+              variants={aiVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              style={{ position: 'fixed', inset: 0 }}
+            >
+              <AIPage />
             </motion.div>
           } />
         </Routes>
