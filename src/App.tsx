@@ -42,8 +42,8 @@ const homeVariants = {
 // (transforms on a parent change the containing block for fixed descendants)
 const aiVariants = {
   initial: { opacity: 0 },
-  animate: { opacity: 1, transition: { duration: 0.5, ease: 'easeOut' } },
-  exit:    { opacity: 0,   transition: { duration: 0.25, ease: 'easeIn' } },
+  animate: { opacity: 1, transition: { duration: 0.5, ease: 'easeOut' as const } },
+  exit:    { opacity: 0,   transition: { duration: 0.25, ease: 'easeIn' as const } },
 };
 
 export default function App() {
