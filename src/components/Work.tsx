@@ -1,6 +1,12 @@
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { CASE_STUDIES } from '../data/portfolioData';
 import styles from './Work.module.css';
+
+const INTERNAL_ROUTES: Record<string, string> = {
+  'quiz-pod':      '/work/quiz',
+  'event-joining': '/work/joining',
+};
 
 const FEATURED_IDS = ['gen-ai', 'event-joining', 'bizongo-qc', 'quiz-pod', 'bizongo-ecom'];
 
@@ -20,6 +26,7 @@ function parseMetric(raw: string): { value: string; label: string } {
 }
 
 export function Work() {
+  const navigate = useNavigate();
   const featured = CASE_STUDIES.filter((cs) => FEATURED_IDS.includes(cs.id));
 
   return (
@@ -50,10 +57,13 @@ export function Work() {
             const rawMetric = project.metrics?.[0] ?? null;
             const metric = rawMetric ? parseMetric(rawMetric) : null;
 
+            const internalRoute = INTERNAL_ROUTES[project.id];
+
             return (
               <motion.div
                 key={project.id}
-                className={styles.card}
+                className={`${styles.card} ${internalRoute ? styles.cardClickable : ''}`}
+                onClick={() => internalRoute && navigate(internalRoute)}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}

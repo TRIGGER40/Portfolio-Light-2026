@@ -39,6 +39,10 @@
   border-bottom: none;
 }
 
+.cardClickable {
+  cursor: pointer;
+}
+
 .card:hover {
   background: var(--bg-elevated);
 }

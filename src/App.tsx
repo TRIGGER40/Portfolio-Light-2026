@@ -11,6 +11,8 @@ import { Footer } from './components/Footer';
 import { BackgroundGlow } from './components/BackgroundGlow';
 import { AIPage } from './pages/AIPage';
 import { AboutPage } from './pages/AboutPage';
+import { CaseStudyQuiz } from './pages/CaseStudyQuiz';
+import { CaseStudyJoining } from './pages/CaseStudyJoining';
 
 function HomePage() {
   return (
@@ -63,6 +65,16 @@ export default function App() {
           <Route path="/about" element={
             <motion.div variants={homeVariants} initial="initial" animate="animate" exit="exit">
               <AboutPage />
+            </motion.div>
+          } />
+          <Route path="/work/quiz" element={
+            <motion.div variants={homeVariants} initial="initial" animate="animate" exit="exit">
+              <CaseStudyQuiz />
+            </motion.div>
+          } />
+          <Route path="/work/joining" element={
+            <motion.div variants={homeVariants} initial="initial" animate="animate" exit="exit">
+              <CaseStudyJoining />
             </motion.div>
           } />
           <Route path="/ask" element={

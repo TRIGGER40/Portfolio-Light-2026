@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useChat } from '../hooks/useChat';
-import { SUGGESTED_PROMPTS } from '../data/aiContext';
+import { SUGGESTED_PROMPTS, getSmartFollowUps } from '../data/aiContext';
 import styles from './AIPage.module.css';
 
 /* ── Marquee images ──────────────────────────────────── */
@@ -200,10 +200,7 @@ export function AIPage() {
     }
   }, [insight]);
 
-  const lastUserMsg = [...messages].reverse().find(m => m.role === 'user')?.content.toLowerCase() ?? '';
-  const followUpSuggestions = SUGGESTED_PROMPTS
-    .filter(p => !p.toLowerCase().split(' ').some(w => w.length > 4 && lastUserMsg.includes(w)))
-    .slice(0, 3);
+  const followUpSuggestions = getSmartFollowUps(messages);
 
   // Restart pill scroll when chat view becomes active
   useEffect(() => {
@@ -213,6 +210,15 @@ export function AIPage() {
       return stopPillScroll;
     }
   }, [hasMessages]);
+
+  // Restart pill scroll whenever loading finishes (follow-up pills just mounted)
+  useEffect(() => {
+    if (!loading && hasMessages) {
+      stopPillScroll();
+      setTimeout(() => startPillScroll(), 80);
+      return stopPillScroll;
+    }
+  }, [loading]);
 
   /* ── Landing (no messages yet) ─────────────────────── */
   if (!hasMessages) {
@@ -248,7 +254,7 @@ export function AIPage() {
 
         {/* Center content */}
         <div className={styles.landingCenter}>
-          <span className={styles.sectionLabel}>— AI Assistant</span>
+          <span className={styles.sectionLabel}>AI Assistant</span>
           <h1 className={styles.title}>
             Ask anything about
             <br />
@@ -329,7 +335,7 @@ export function AIPage() {
 
           {/* Scaled-down page header */}
           <div className={styles.chatHeader}>
-            <span className={styles.chatHeaderLabel}>— AI Assistant</span>
+            <span className={styles.chatHeaderLabel}>AI Assistant</span>
             <h2 className={styles.chatHeaderTitle}>
               Ask anything about <span className={styles.titleGradient}>Midhun's work</span>
             </h2>
@@ -349,16 +355,20 @@ export function AIPage() {
                   {msg.role === 'assistant' && <span className={styles.aiIcon}>✦</span>}
                   {msg.role === 'user'
                     ? <div className={styles.userBubble}><p className={styles.userText}>{msg.content}</p></div>
-                    : <div className={styles.aiBubble}><MessageContent content={msg.content} /></div>}
+                    : <div className={styles.aiBubble}><span className={styles.aiResponseLabel}>AI response</span><MessageContent content={msg.content} /></div>}
                 </div>
               );
             })}
 
             {loading && (
               <div className={`${styles.message} ${styles.assistantMessage}`}>
-                <span className={styles.aiIcon}>✦</span>
-                <div className={styles.typingDots}>
-                  <span /><span /><span />
+                <div className={styles.aiBubble}>
+                  <div className={styles.generatingRow}>
+                    <span className={styles.generatingLabel}>Generating response</span>
+                    <div className={styles.typingDots}>
+                      <span /><span /><span />
+                    </div>
+                  </div>
                 </div>
               </div>
             )}

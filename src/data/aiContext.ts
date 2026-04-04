@@ -113,3 +113,61 @@ export const SUGGESTED_PROMPTS = [
   "How does he collaborate with engineers and product teams?",
   "Why should we hire him for a senior product design role?",
 ] as const;
+
+export type PromptTopic = 'identity' | 'experience' | 'projects' | 'process' | 'ai' | 'collaboration' | 'hiring';
+
+export const TAGGED_PROMPTS: { text: string; topic: PromptTopic }[] = [
+  { text: "What kind of designer is he and what are his core strengths?",        topic: 'identity' },
+  { text: "What drives his design philosophy and values?",                        topic: 'identity' },
+  { text: "Can you summarize his experience at Adobe and key contributions?",     topic: 'experience' },
+  { text: "What roles has he held and how has his career evolved?",               topic: 'experience' },
+  { text: "Show me his most impactful projects and what he achieved.",            topic: 'projects' },
+  { text: "Tell me about the Quiz Pod project and its outcomes.",                 topic: 'projects' },
+  { text: "What enterprise UX challenges has he solved?",                         topic: 'projects' },
+  { text: "How does he approach problem-solving and product thinking?",           topic: 'process' },
+  { text: "How does he balance user needs with business goals?",                  topic: 'process' },
+  { text: "What is his experience with AI in design workflows and products?",     topic: 'ai' },
+  { text: "How does he use AI to speed up or improve his design process?",        topic: 'ai' },
+  { text: "How does he collaborate with engineers and product teams?",            topic: 'collaboration' },
+  { text: "How does he communicate design decisions to stakeholders?",            topic: 'collaboration' },
+  { text: "Why should we hire him for a senior product design role?",             topic: 'hiring' },
+  { text: "What makes him stand out from other product designers?",               topic: 'hiring' },
+];
+
+const TOPIC_KEYWORDS: Record<PromptTopic, string[]> = {
+  identity:      ['designer', 'strengths', 'who', 'kind', 'philosophy', 'values', 'drives'],
+  experience:    ['experience', 'adobe', 'career', 'roles', 'history', 'worked', 'contributions'],
+  projects:      ['project', 'work', 'impactful', 'built', 'quiz', 'enterprise', 'case'],
+  process:       ['approach', 'process', 'problem', 'thinking', 'method', 'how does he'],
+  ai:            ['ai', 'artificial', 'intelligence', 'workflow', 'machine', 'gpt'],
+  collaboration: ['collaborate', 'team', 'engineer', 'stakeholder', 'communicate', 'cross'],
+  hiring:        ['hire', 'hiring', 'stand out', 'why', 'senior', 'role'],
+};
+
+export function getSmartFollowUps(messages: { role: string; content: string }[]): string[] {
+  const usedTexts = new Set(
+    messages.filter(m => m.role === 'user').map(m => m.content.trim().toLowerCase())
+  );
+
+  const lastUser = [...messages].reverse().find(m => m.role === 'user')?.content.toLowerCase() ?? '';
+  const lastAssistant = [...messages].reverse().find(m => m.role === 'assistant')?.content.toLowerCase() ?? '';
+  const context = lastUser + ' ' + lastAssistant;
+
+  // Score each topic by keyword hits in context
+  const topicScores: Record<PromptTopic, number> = {} as Record<PromptTopic, number>;
+  for (const [topic, keywords] of Object.entries(TOPIC_KEYWORDS) as [PromptTopic, string[]][]) {
+    topicScores[topic] = keywords.filter(k => context.includes(k)).length;
+  }
+
+  // Current topic = highest scoring
+  const currentTopic = (Object.entries(topicScores) as [PromptTopic, number][])
+    .sort((a, b) => b[1] - a[1])[0]?.[0] ?? 'identity';
+
+  // Pick unused prompts, deprioritise current topic
+  const unused = TAGGED_PROMPTS.filter(p => !usedTexts.has(p.text.toLowerCase()));
+  const otherTopics = unused.filter(p => p.topic !== currentTopic);
+  const sameTopics  = unused.filter(p => p.topic === currentTopic);
+
+  // Return up to 4: prefer other topics, fall back to same
+  return [...otherTopics, ...sameTopics].slice(0, 4).map(p => p.text);
+}
