@@ -6,6 +6,7 @@ import styles from './Work.module.css';
 const INTERNAL_ROUTES: Record<string, string> = {
   'quiz-pod':      '/work/quiz',
   'event-joining': '/work/joining',
+  'bizongo-qc':    '/work/qc',
 };
 
 const FEATURED_IDS = ['gen-ai', 'event-joining', 'bizongo-qc', 'quiz-pod', 'bizongo-ecom'];

@@ -1,0 +1,263 @@
+/* ════════════════════════════════════════════
+   QC CASE STUDY — page-specific styles
+   Shared layout uses CaseStudyQuiz.module.css
+   ════════════════════════════════════════════ */
+
+/* ── Context ─────────────────────────────── */
+.contextSection {
+  padding: clamp(48px, 6vw, 80px) 0;
+  border-bottom: 1px solid var(--glass-border);
+  background: var(--bg-surface);
+}
+.contextInner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 64px; align-items: center;
+}
+.contextText { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+.contextBody {
+  font-size: clamp(14px, 1.3vw, 16px); color: var(--text-secondary);
+  line-height: 1.7; margin: 0;
+}
+.contextStats {
+  display: flex; flex-direction: column; gap: 1px;
+  border: 1px solid var(--glass-border); border-radius: 20px; overflow: hidden;
+}
+.contextStat {
+  padding: 24px 28px; background: var(--bg-base);
+  display: flex; flex-direction: column; gap: 4px;
+  border-bottom: 1px solid var(--glass-border);
+}
+.contextStat:last-child { border-bottom: none; }
+.contextStatVal {
+  font-size: clamp(32px, 4vw, 52px); font-weight: 900;
+  letter-spacing: -0.04em; line-height: 1;
+  background: linear-gradient(135deg, var(--accent-indigo), var(--accent-violet));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.contextStatLbl {
+  font-size: 13px; color: var(--text-secondary); font-weight: 500;
+}
+
+/* ── Approach ────────────────────────────── */
+.approachSection {
+  padding: clamp(48px, 6vw, 80px) 0;
+  border-bottom: 1px solid var(--glass-border);
+}
+.approachGrid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1px; background: var(--glass-border);
+  border: 1px solid var(--glass-border); border-radius: 20px;
+  overflow: hidden; margin-top: 32px;
+}
+.approachCard {
+  background: var(--bg-surface); padding: 28px 24px;
+  display: flex; flex-direction: column; gap: 10px;
+  transition: background 0.2s;
+}
+.approachCard:hover { background: var(--bg-elevated); }
+.approachNum {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent-indigo);
+  font-family: var(--font-mono);
+}
+.approachTitle {
+  font-size: 16px; font-weight: 700; color: var(--text-primary); margin: 0; line-height: 1.3;
+}
+.approachDesc {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 0;
+}
+
+/* ── Analysis ────────────────────────────── */
+.analysisSection {
+  padding: clamp(48px, 6vw, 80px) 0;
+  border-bottom: 1px solid var(--glass-border);
+  background: var(--bg-surface);
+}
+
+.analysisCalc {
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px; flex-wrap: wrap;
+  margin: 48px 0 40px;
+  padding: 40px 32px;
+  border: 1px solid var(--glass-border); border-radius: 24px;
+  background: var(--bg-base);
+}
+.calcBlock {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 20px 28px;
+  border-radius: 16px;
+  background: var(--bg-surface);
+  border: 1px solid var(--glass-border);
+  min-width: 100px;
+}
+.calcBlock.calcResult {
+  background: linear-gradient(135deg, rgba(82,84,216,0.08), rgba(124,58,237,0.08));
+  border-color: rgba(82,84,216,0.3);
+}
+.calcVal {
+  font-size: clamp(28px, 3.5vw, 44px); font-weight: 900;
+  letter-spacing: -0.04em; line-height: 1;
+  color: var(--text-primary);
+}
+.calcResult .calcVal {
+  background: linear-gradient(135deg, var(--accent-indigo), var(--accent-violet));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.calcLabel {
+  font-size: 11px; color: var(--text-tertiary); text-align: center;
+  font-weight: 500; max-width: 90px; line-height: 1.4;
+}
+.calcOp {
+  font-size: 28px; font-weight: 300; color: var(--text-tertiary);
+  line-height: 1;
+}
+
+.analysisFindings {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.analysisFinding {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 24px; border: 1px solid var(--glass-border);
+  border-radius: 16px; background: var(--bg-base);
+  transition: border-color 0.2s, transform 0.2s;
+}
+.analysisFinding:hover { border-color: rgba(82,84,216,0.25); transform: translateY(-2px); }
+.findingIcon {
+  font-size: 20px; line-height: 1; flex-shrink: 0;
+  width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+  border-radius: 8px; background: rgba(82,84,216,0.08); color: var(--accent-indigo);
+  font-weight: 700;
+}
+.findingTitle {
+  font-size: 15px; font-weight: 700; color: var(--text-primary); margin: 0 0 6px;
+}
+.findingDesc {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 0;
+}
+
+/* ── Structure / Inspection flow ─────────── */
+.structureSection {
+  padding: clamp(48px, 6vw, 80px) 0;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.inspectionFlow {
+  display: flex; align-items: stretch;
+  gap: 0; margin-top: 40px;
+  border: 1px solid var(--glass-border); border-radius: 24px;
+  overflow: hidden; background: var(--glass-border);
+}
+.inspectionTier {
+  flex: 1; display: flex; align-items: stretch;
+  position: relative;
+}
+.tierConnector {
+  width: 1px; background: var(--glass-border);
+  flex-shrink: 0; align-self: stretch;
+}
+.tierCard {
+  flex: 1; background: var(--bg-surface);
+  padding: 28px 24px; display: flex; flex-direction: column; gap: 12px;
+  transition: background 0.2s;
+  border-left: 3px solid var(--tier-color, var(--accent-indigo));
+}
+.tierCard:hover { background: var(--bg-elevated); }
+.tierHeader {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.tierIcon {
+  display: flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border-radius: 10px;
+  background: rgba(82,84,216,0.07);
+  flex-shrink: 0;
+}
+.tierNum {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; font-family: var(--font-mono);
+}
+.tierName {
+  font-size: 16px; font-weight: 700; color: var(--text-primary); margin: 0; line-height: 1.3;
+}
+.tierDesc {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 0; flex: 1;
+}
+.tierExamples {
+  display: flex; flex-direction: column; gap: 4px;
+  margin-top: 4px;
+}
+.tierExample {
+  font-size: 11px; color: var(--text-tertiary);
+  font-family: var(--font-mono); line-height: 1.5;
+}
+
+/* ── Validation ──────────────────────────── */
+.validationSection {
+  padding: clamp(48px, 6vw, 80px) 0;
+  border-bottom: 1px solid var(--glass-border);
+}
+.validationGrid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 24px; margin-top: 32px;
+}
+.validationCard {
+  display: flex; flex-direction: column;
+  border: 1px solid var(--glass-border); border-radius: 20px;
+  overflow: hidden; background: var(--bg-surface);
+  transition: transform 0.2s, border-color 0.2s;
+}
+.validationCard:hover { transform: translateY(-3px); border-color: rgba(82,84,216,0.25); }
+.validationCardBody { padding: 20px 20px 24px; display: flex; flex-direction: column; gap: 8px; }
+.validationMethod {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--accent-indigo);
+}
+.validationText {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 0;
+}
+
+/* ── Execution ───────────────────────────── */
+.executionSection {
+  padding: clamp(48px, 6vw, 80px) 0;
+  border-bottom: 1px solid var(--glass-border);
+  background: var(--bg-surface);
+}
+.executionGrid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 24px; margin-top: 32px;
+}
+.executionCard {
+  padding: 28px 24px; border: 1px solid var(--glass-border);
+  border-radius: 20px; background: var(--bg-base);
+  display: flex; flex-direction: column; gap: 12px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.executionCard:hover { border-color: rgba(82,84,216,0.2); transform: translateY(-2px); }
+.executionIcon {
+  width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+  border-radius: 10px; background: rgba(82,84,216,0.07);
+  color: var(--accent-indigo); flex-shrink: 0;
+}
+.executionTitle {
+  font-size: 16px; font-weight: 700; color: var(--text-primary); margin: 0; line-height: 1.3;
+}
+.executionBody {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 0;
+}
+
+/* ── Responsive ──────────────────────────── */
+@media (max-width: 1024px) {
+  .contextInner       { grid-template-columns: 1fr; gap: 36px; }
+  .approachGrid       { grid-template-columns: repeat(2, 1fr); }
+  .analysisFindings   { grid-template-columns: 1fr; }
+  .inspectionFlow     { flex-direction: column; border-radius: 20px; }
+  .tierConnector      { width: auto; height: 1px; }
+  .tierCard           { border-left: none; border-top: 3px solid var(--tier-color, var(--accent-indigo)); }
+  .validationGrid     { grid-template-columns: 1fr; }
+  .executionGrid      { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .approachGrid       { grid-template-columns: 1fr; }
+  .analysisCalc       { gap: 8px; padding: 24px 16px; }
+  .calcBlock          { padding: 14px 18px; min-width: 80px; }
+}

@@ -13,6 +13,7 @@ import { AIPage } from './pages/AIPage';
 import { AboutPage } from './pages/AboutPage';
 import { CaseStudyQuiz } from './pages/CaseStudyQuiz';
 import { CaseStudyJoining } from './pages/CaseStudyJoining';
+import { CaseStudyQC } from './pages/CaseStudyQC';
 
 function HomePage() {
   return (
@@ -75,6 +76,11 @@ export default function App() {
           <Route path="/work/joining" element={
             <motion.div variants={homeVariants} initial="initial" animate="animate" exit="exit">
               <CaseStudyJoining />
+            </motion.div>
+          } />
+          <Route path="/work/qc" element={
+            <motion.div variants={homeVariants} initial="initial" animate="animate" exit="exit">
+              <CaseStudyQC />
             </motion.div>
           } />
           <Route path="/ask" element={
