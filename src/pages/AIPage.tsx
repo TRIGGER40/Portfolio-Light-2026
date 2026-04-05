@@ -136,8 +136,9 @@ export function AIPage() {
   useEffect(() => {
     window.scrollTo(0, 0);
     const q = searchParams.get('q');
-    // Only auto-submit if no messages are already loaded from sessionStorage
-    if (q && !didAutoSubmit.current && messages.length === 0) {
+    // Submit if there's a query param and it's either a fresh session or a new/different query
+    const lastUserMsg = messages.filter(m => m.role === 'user').pop()?.content;
+    if (q && !didAutoSubmit.current && (messages.length === 0 || lastUserMsg !== q)) {
       didAutoSubmit.current = true;
       send(q);
     } else {
