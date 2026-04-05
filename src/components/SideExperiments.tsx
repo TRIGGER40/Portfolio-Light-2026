@@ -98,6 +98,41 @@ export function SideExperiments() {
             </div>
           </motion.div>
 
+          {/* ── 04 Safe Routes in Google Maps ── */}
+          <motion.div
+            className={`${pStyles.labRow} ${pStyles.labRowReverse}`}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className={pStyles.labRowVideoStack}>
+              <div className={pStyles.labStackItem}>
+                <img
+                  src="/images/safe-routes-1.jpg"
+                  alt="Safe Routes concept screen 1"
+                  className={pStyles.labVideo}
+                  style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+                />
+              </div>
+              <div className={pStyles.labStackItem}>
+                <img
+                  src="/images/safe-routes-2.jpg"
+                  alt="Safe Routes concept screen 2"
+                  className={pStyles.labVideo}
+                  style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+                />
+              </div>
+            </div>
+            <div className={pStyles.labRowText}>
+              <span className={pStyles.labNum}>04</span>
+              <h3 className={pStyles.labTitle}>Safe Routes in Google Maps</h3>
+              <p className={pStyles.labDesc}>
+                Sometimes it's not the fastest, it's the safest that matters. After hearing about a recent incident in Hyderabad, I started thinking about how Google Maps could be more than just efficient. By studying factors like lighting, incident history, and foot traffic, it could assign safety badges to routes, gently cautioning users travelling at night. With the scale Google Maps operates at, this isn't a nice-to-have. It's a responsibility.
+              </p>
+            </div>
+          </motion.div>
+
         </div>
       </div>
     </section>

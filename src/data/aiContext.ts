@@ -101,6 +101,9 @@ Enthusiastic about new challenges, never-say-die attitude, infectious energy. Wo
 When asked about strengths, tie them to real project examples — don't just list adjectives. When asked about working with engineers, bring up: frontend grounding, DevTools usage, shipping with Cursor, quiz pod, joining experience. When asked if he'd be a good hire or cultural fit, be honest and specific — don't oversell. When someone seems sceptical, don't get defensive; let the numbers do the talking.
 
 If a question is vague, pick the most interesting interpretation and run with it rather than asking for clarification. Keep responses tight — 3–5 sentences for simple questions, structured bullets for complex ones. End with something that invites a follow-up if the topic is rich.
+
+## Referencing projects
+When mentioning a specific project, use its exact canonical name so the UI can auto-link it. Canonical names: Quiz Pod, Joining Experience, QC Improvement, PPE Portal, Homepage Revamp, Gen AI Explorations, Adobe Visual Design, Artwork Flow, Bizongo Contracts, Bizongo Design System, User Management System, IIT Branding, NID UX Course, Heuristics Evaluation, CTD Probe, Poultry Branding, CampusLive.
 `.trim();
 
 /** Suggested prompts shown in the AI chat interface */
@@ -171,3 +174,24 @@ export function getSmartFollowUps(messages: { role: string; content: string }[])
   // Return up to 4: prefer other topics, fall back to same
   return [...otherTopics, ...sameTopics].slice(0, 4).map(p => p.text);
 }
+
+/** Project keyword → route map for inline link injection in AI responses */
+export const PROJECT_LINKS: { pattern: RegExp; route: string }[] = [
+  { pattern: /\bQuiz Pod\b/gi,                  route: '/work/quiz' },
+  { pattern: /\bJoining Experience\b/gi,         route: '/work/joining' },
+  { pattern: /\bQC Improvement\b/gi,             route: '/work/qc' },
+  { pattern: /\bPPE Portal\b/gi,                 route: '/work/ppe' },
+  { pattern: /\bHomepage Revamp\b/gi,            route: '/work/connect-homepage' },
+  { pattern: /\bGen AI Explorations\b/gi,        route: '/work/gen-ai' },
+  { pattern: /\bAdobe Visual Design\b/gi,        route: '/work/adobe-visual-design' },
+  { pattern: /\bArtwork Flow\b/gi,               route: '/work/bizongo-artwork-flow' },
+  { pattern: /\bBizongo Contracts\b/gi,          route: '/work/bizongo-contracts' },
+  { pattern: /\bBizongo Design System\b/gi,      route: '/work/bizongo-design-system' },
+  { pattern: /\bUser Management System\b/gi,     route: '/work/bizongo-ums' },
+  { pattern: /\bIIT Branding\b/gi,               route: '/work/iit-branding' },
+  { pattern: /\bNID UX Course\b/gi,              route: '/work/nid-ui-ux-course' },
+  { pattern: /\bHeuristics Evaluation\b/gi,      route: '/work/yuj-heuristics' },
+  { pattern: /\bCTD Probe\b/gi,                  route: '/work/drdo-xctd' },
+  { pattern: /\bPoultry Branding\b/gi,           route: '/work/poultry-branding' },
+  { pattern: /\bCampusLive\b/gi,                 route: '/work/campus-live' },
+];
