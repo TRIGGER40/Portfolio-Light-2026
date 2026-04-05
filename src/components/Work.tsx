@@ -7,6 +7,7 @@ const INTERNAL_ROUTES: Record<string, string> = {
   'quiz-pod':      '/work/quiz',
   'event-joining': '/work/joining',
   'bizongo-qc':    '/work/qc',
+  'bizongo-ecom':  '/work/ppe',
 };
 
 const FEATURED_IDS = ['gen-ai', 'event-joining', 'bizongo-qc', 'quiz-pod', 'bizongo-ecom'];
@@ -63,6 +64,7 @@ export function Work() {
             return (
               <motion.div
                 key={project.id}
+                id={project.id}
                 className={`${styles.card} ${internalRoute ? styles.cardClickable : ''}`}
                 onClick={() => internalRoute && navigate(internalRoute)}
                 initial={{ opacity: 0, y: 20 }}
@@ -144,17 +146,15 @@ export function Work() {
           viewport={{ once: true }}
           transition={{ delay: 0.3, duration: 0.5 }}
         >
-          <a
-            href="https://www.midhunkrishnakumar.info"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
             className="btn btn-secondary"
+            onClick={() => navigate('/work/all')}
           >
             View all work on portfolio
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <path d="M2 7h10M9 4l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-          </a>
+          </button>
         </motion.div>
       </div>
     </section>

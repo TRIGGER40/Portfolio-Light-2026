@@ -1,177 +1,300 @@
+import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { AWARDS, CAREER_EVOLUTION, MENTORSHIP } from '../data/portfolioData';
-import styles from './About.module.css';
+import { AWARDS } from '../data/portfolioData';
+import { SideExperiments } from './SideExperiments';
+import { PersonalSection } from './PersonalSection';
+import pStyles from '../pages/AboutPage.module.css';
 
-const STRENGTHS = [
+
+const RECOGNITION = [
   {
-    icon: '⬡',
-    title: 'AI-first design',
-    desc: 'Embedding generative AI and intelligent defaults into products, not as features, but as design philosophy.',
+    title: 'AI-First Product Thinking',
+    desc: 'Designing experiences where AI is not a feature, but part of the core interaction model.',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2a4 4 0 0 1 4 4v1h1a3 3 0 0 1 0 6h-1v1a4 4 0 0 1-8 0v-1H7a3 3 0 0 1 0-6h1V6a4 4 0 0 1 4-4z"/>
+        <path d="M9.5 13.5 12 11l2.5 2.5"/>
+      </svg>
+    ),
   },
   {
-    icon: '◈',
-    title: 'Enterprise UX at scale',
-    desc: 'Complex workflows, 1000+ users, real constraints. Making dense systems feel effortless.',
+    title: 'Complex Problem Simplification',
+    desc: 'Breaking down high-ambiguity problems into clear, intuitive user experiences.',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/>
+      </svg>
+    ),
   },
   {
-    icon: '◻',
-    title: 'Design systems',
-    desc: 'Built and scaled systems from scratch and extended Adobe Spectrum. Reuse, consistency, velocity.',
+    title: 'Systems & Scalable Design',
+    desc: 'Creating design solutions that scale across flows, features, and products, not just screens.',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="3" width="20" height="5" rx="2"/>
+        <rect x="2" y="10" width="9" height="5" rx="2"/>
+        <rect x="13" y="10" width="9" height="5" rx="2"/>
+        <rect x="2" y="17" width="5" height="4" rx="1"/>
+        <rect x="9" y="17" width="5" height="4" rx="1"/>
+        <rect x="16" y="17" width="6" height="4" rx="1"/>
+      </svg>
+    ),
   },
   {
-    icon: '◇',
-    title: 'Engineering collaboration',
-    desc: 'Ships with Cursor + Claude Code. Reviews fidelity in DevTools. Closes the design–dev gap.',
+    title: 'End-to-End Product Ownership',
+    desc: 'Driving work from problem definition to shipped experience with strong product alignment.',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M5 12h14"/>
+        <path d="m12 5 7 7-7 7"/>
+        <circle cx="5" cy="12" r="2" fill="currentColor" stroke="none"/>
+      </svg>
+    ),
+  },
+  {
+    title: 'Frontend-Aware Design Execution',
+    desc: 'Designing with deep understanding of implementation, enabling faster and higher-quality builds.',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="16 18 22 12 16 6"/>
+        <polyline points="8 6 2 12 8 18"/>
+      </svg>
+    ),
+  },
+  {
+    title: 'Cross-Functional Collaboration',
+    desc: 'Working closely with product, engineering, and stakeholders to align and ship effectively.',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="9" cy="7" r="3"/>
+        <circle cx="17" cy="9" r="2.5"/>
+        <path d="M2 20c0-3.3 3.1-6 7-6s7 2.7 7 6"/>
+        <path d="M17 14c2.2.4 4 2 4 4"/>
+      </svg>
+    ),
+  },
+];
+
+const EXPERIENCES = [
+  {
+    id: 'adobe',
+    company: 'Adobe',
+    logo: '/Adobe.webp',
+    role: 'Product Designer 2',
+    period: '2022 – Present',
+    type: 'Full-time',
+    highlights: [
+      'Leading design for Adobe Connect, a collaboration platform used by thousands of enterprise users daily.',
+      'Embedded generative AI into core workflows: smart summaries, intelligent defaults, AI-assisted host tools.',
+      'Shipped Gen AI explorations that directly influenced product direction and roadmap.',
+      'Maintained and extended the Adobe Spectrum design system across the Connect surface.',
+      'Partnered closely with engineering to ensure implementation fidelity at every release.',
+    ],
+    tags: ['AI-first', 'Enterprise UX', 'Design Systems', 'Adobe Spectrum'],
+    cta: '/work/all?company=Adobe',
+  },
+  {
+    id: 'yuj',
+    company: 'YUJ Designs',
+    logo: '/YUJ.svg',
+    role: 'UX Designer',
+    period: '2021 – 2022',
+    type: 'Full-time',
+    highlights: [
+      'Worked on enterprise UX projects across multiple client verticals: BFSI, healthcare, and SaaS.',
+      'Led end-to-end design: research, flows, wireframes, and high-fidelity prototypes for handoff.',
+      'Collaborated with cross-functional teams across design and development to ship client products.',
+      'Developed and maintained design guidelines and reusable component libraries.',
+      'Conducted usability studies and synthesised findings into actionable design improvements.',
+    ],
+    tags: ['Enterprise UX', 'B2B', 'Research', 'Prototyping'],
+  },
+  {
+    id: 'bizongo',
+    company: 'Bizongo',
+    logo: '/Bizongo.png',
+    role: 'Product Designer',
+    period: '2019 – 2021',
+    type: 'Full-time',
+    highlights: [
+      'Designed core ERP and supply-chain management surfaces for a B2B packaging platform.',
+      'Owned design across multiple product pods: procurement, vendor management, and order tracking.',
+      'Built scalable patterns for complex data-heavy workflows with real operational constraints.',
+      'Worked directly with PMs and engineers in an agile environment to ship fast and iterate.',
+      'Contributed to the internal design system, defining components used across the platform.',
+    ],
+    tags: ['ERP', 'Supply Chain', 'B2B', 'Design Systems'],
+    cta: '/work/all?company=Bizongo',
+  },
+  {
+    id: 'adobe-intern',
+    company: 'Adobe (Internship)',
+    logo: '/Adobe.webp',
+    role: 'Product Design Intern',
+    period: '2018 – 2019',
+    type: 'Internship',
+    highlights: [
+      'Graduation internship at Adobe, working on product UX under senior design mentorship.',
+      "Contributed to interaction design explorations for Adobe's enterprise collaboration suite.",
+      'Developed a deep understanding of large-scale product design processes at a world-class organisation.',
+      'Worked on design research, user journey mapping, and concept visualisation.',
+      'This internship formed the foundation of my return to Adobe as a full-time designer.',
+    ],
+    tags: ['Internship', 'Interaction Design', 'Research'],
+  },
+  {
+    id: 'drdo',
+    company: 'NPOL DRDO',
+    logo: '/DRDO.jpeg',
+    role: 'Design Intern',
+    period: '2017',
+    type: 'Internship',
+    highlights: [
+      "Interned at the Naval Physical & Oceanographic Laboratory under India's Defence R&D Organisation.",
+      'Worked on human factors and ergonomics for defence equipment interfaces.',
+      'Applied industrial design principles to real-world, high-stakes product challenges.',
+      'Developed an appreciation for designing under strict constraints, safety standards, and operational requirements.',
+      'Early exposure to complex systems design that shaped a systems-first approach to all future work.',
+    ],
+    tags: ['Industrial Design', 'Ergonomics', 'Defence', 'Human Factors'],
   },
 ];
 
 export function About() {
-  const recentAwards = AWARDS.slice(0, 4);
+  const navigate = useNavigate();
+  const [activeId, setActiveId] = useState(EXPERIENCES[0].id);
+  const active = EXPERIENCES.find(e => e.id === activeId)!;
+
+  // Awards carousel
+  const awardsRowRef = useRef<HTMLDivElement>(null);
+  const awardsScrollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const startAwardsScroll = () => {
+    const el = awardsRowRef.current;
+    if (!el) return;
+    awardsScrollRef.current = setInterval(() => {
+      el.scrollLeft += 1;
+      if (el.scrollLeft >= el.scrollWidth / 2) el.scrollLeft = 0;
+    }, 16);
+  };
+  const stopAwardsScroll = () => {
+    if (awardsScrollRef.current) clearInterval(awardsScrollRef.current);
+  };
+  useEffect(() => { startAwardsScroll(); return stopAwardsScroll; }, []);
 
   return (
-    <section className="section" id="about">
-      <div className="container">
-        <motion.div
-          className={styles.header}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <span className="section-label">About</span>
-          <h2 className={`text-display ${styles.title}`}>
-            Designer, builder,
-            <br />
-            <span className="gradient-text">AI-first thinker</span>
-          </h2>
-        </motion.div>
-
-        <div className={styles.twoCol}>
-          {/* Left: narrative + career path */}
-          <motion.div
-            className={styles.leftCol}
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className={styles.narrative}>
-              <p className={styles.lead}>
-                I'm Midhun, a product designer who started with computer science, built physical
-                products at NID, and spent the last 7 years designing enterprise and AI-native
-                digital experiences.
-              </p>
-              <p className={styles.body}>
-                Currently leading design for Adobe Connect at Adobe, embedding AI into collaboration
-                workflows, shipping features that measurably reduce friction, and maintaining the
-                design language across a platform used by thousands daily.
-              </p>
-              <p className={styles.body}>
-                I work at the intersection of design craft and AI tooling, using Cursor and Claude
-                to ship fast, think in systems, and stay close to implementation quality.
-              </p>
-            </div>
-
-            {/* Career timeline */}
-            <div className={styles.timeline}>
-              <p className="text-label" style={{ marginBottom: '20px' }}>Career arc</p>
-              {CAREER_EVOLUTION.slice(1).map((stage, i) => (
-                <motion.div
-                  key={stage.id}
-                  className={styles.timelineItem}
-                  initial={{ opacity: 0, x: -12 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.08, duration: 0.5 }}
+    <>
+      {/* ── Experience ── */}
+      <section className={pStyles.expSection}>
+        <div className="container">
+          <span className="section-label">Experience</span>
+          <h2 className={`text-display ${pStyles.expTitle}`}>Where I've worked</h2>
+          <div className={pStyles.expLayout}>
+            <div className={pStyles.expCards}>
+              {EXPERIENCES.map(exp => (
+                <button
+                  key={exp.id}
+                  className={`${pStyles.expCard} ${activeId === exp.id ? pStyles.expCardActive : ''}`}
+                  onClick={() => setActiveId(exp.id)}
                 >
-                  <div className={styles.timelineDot} />
-                  <div className={styles.timelineContent}>
-                    <div className={styles.timelineRow}>
-                      <span className={styles.timelineStage}>{stage.stage}</span>
-                      <span className={styles.timelinePeriod}>{stage.period}</span>
-                    </div>
-                    <p className={styles.timelineFocus}>{stage.focus}</p>
+                  <img src={exp.logo} alt={exp.company} className={pStyles.expLogo} />
+                  <div className={pStyles.expCardText}>
+                    <span className={pStyles.expCompany}>{exp.company}</span>
+                    <span className={pStyles.expRole}>{exp.role}</span>
+                    <span className={pStyles.expPeriod}>{exp.period}</span>
                   </div>
-                </motion.div>
+                  <span className={`${pStyles.expType} ${exp.type === 'Internship' ? pStyles.expTypeIntern : ''}`}>
+                    {exp.type}
+                  </span>
+                </button>
               ))}
             </div>
 
-            {/* Mentorship */}
-            <div className={styles.mentorRow}>
-              {MENTORSHIP.map((m) => (
-                <div key={m.id} className={`glass-card ${styles.mentorCard}`}>
-                  <div className={styles.mentorRole}>{m.role}</div>
-                  <div className={styles.mentorOrg}>{m.org}</div>
-                  <div className={styles.mentorPeriod}>{m.period}</div>
+            <div className={pStyles.expDetail} key={activeId}>
+              <div className={pStyles.expDetailHeader}>
+                <img src={active.logo} alt={active.company} className={pStyles.expDetailLogo} />
+                <div className={pStyles.expDetailMeta}>
+                  <p className={pStyles.expDetailCompany}>{active.company}</p>
+                  <h3 className={pStyles.expDetailRole}>{active.role}</h3>
+                  <p className={pStyles.expDetailPeriod}>{active.period}</p>
                 </div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Right: strengths + awards */}
-          <motion.div
-            className={styles.rightCol}
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          >
-            {/* Strengths */}
-            <div className={styles.strengthsBlock}>
-              <p className="text-label" style={{ marginBottom: '20px' }}>Core strengths</p>
-              <div className={styles.strengths}>
-                {STRENGTHS.map((s, i) => (
-                  <motion.div
-                    key={s.title}
-                    className={`glass-card ${styles.strengthCard}`}
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.08, duration: 0.5 }}
-                  >
-                    <span className={styles.strengthIcon}>{s.icon}</span>
-                    <div>
-                      <div className={styles.strengthTitle}>{s.title}</div>
-                      <div className={styles.strengthDesc}>{s.desc}</div>
-                    </div>
-                  </motion.div>
+              </div>
+              <ul className={pStyles.expHighlights}>
+                {active.highlights.map((h, i) => (
+                  <li key={i} className={pStyles.expHighlight}>
+                    <span className={pStyles.expBullet}>↳</span>
+                    <span>{h}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className={pStyles.expTags}>
+                {active.tags.map(t => (
+                  <span key={t} className={pStyles.expTag}>{t}</span>
                 ))}
               </div>
-            </div>
-
-            {/* Awards */}
-            <div className={styles.awardsBlock}>
-              <p className="text-label" style={{ marginBottom: '20px' }}>Recognition</p>
-              <div className={styles.awards}>
-                {recentAwards.map((award) => (
-                  <div key={award.id} className={styles.awardItem}>
-                    <div className={styles.awardIcon}>★</div>
-                    <div className={styles.awardInfo}>
-                      <div className={styles.awardTitle}>{award.title}</div>
-                      <div className={styles.awardMeta}>
-                        {award.issuer} · {award.date}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              {AWARDS.length > 4 && (
-                <p className={styles.moreAwards}>+{AWARDS.length - 4} more awards</p>
+              {active.cta && (
+                <button className={pStyles.expCtaLarge} onClick={() => navigate(active.cta!)}>
+                  View Works
+                  <svg width="15" height="15" viewBox="0 0 14 14" fill="none">
+                    <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
               )}
             </div>
+          </div>
+        </div>
+      </section>
 
-            {/* Tools */}
-            <div className={styles.toolsBlock}>
-              <p className="text-label" style={{ marginBottom: '14px' }}>Tools</p>
-              <div className={styles.tools}>
-                {['Figma', 'Cursor', 'Claude Code', 'GitHub', 'Vercel', 'DevTools', 'Adobe XD'].map((t) => (
-                  <span key={t} className={styles.tool}>{t}</span>
+      {/* ── Recognition ── */}
+      <section className={pStyles.recSection}>
+        <div className="container">
+          <span className="section-label">Recognition</span>
+          <h2 className={`text-display ${pStyles.recTitle}`}>
+            Across my experience,<br />
+            <span className="gradient-text">I was recognised for</span>
+          </h2>
+          <div className={pStyles.recGrid}>
+            {RECOGNITION.map((item, i) => (
+              <div key={i} className={pStyles.recCard}>
+                <div className={pStyles.recIconWrap}>{item.icon}</div>
+                <div className={pStyles.recCardBody}>
+                  <h4 className={pStyles.recCardTitle}>{item.title}</h4>
+                  <p className={pStyles.recCardDesc}>{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className={pStyles.awardsCarouselWrap}>
+            <p className={pStyles.awardsSubLabel}>
+              Recognitions
+              <span className={pStyles.awardsCount}>{AWARDS.length}</span>
+            </p>
+            <div
+              ref={awardsRowRef}
+              className={pStyles.awardsRow}
+              onMouseEnter={stopAwardsScroll}
+              onMouseLeave={startAwardsScroll}
+            >
+              <div className={pStyles.awardsTrack}>
+                {[...AWARDS, ...AWARDS].map((a, i) => (
+                  <div key={i} className={pStyles.awardTile}>
+                    <span className={pStyles.awardStar}>★</span>
+                    <p className={pStyles.awardTileTitle}>{a.title}</p>
+                    <p className={pStyles.awardTileDate}>{a.issuer}</p>
+                    <p className={pStyles.awardTileDate}>{a.date}</p>
+                    <p className={pStyles.awardTileDesc}>{a.description}</p>
+                  </div>
                 ))}
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <PersonalSection />
+      <SideExperiments />
+    </>
   );
 }

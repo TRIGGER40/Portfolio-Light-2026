@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Footer } from '../components/Footer';
+import { ProjectCarousel } from '../components/ProjectCarousel';
 import styles from './CaseStudyQuiz.module.css';
 import jStyles from './CaseStudyJoining.module.css';
 
@@ -26,7 +27,7 @@ export function CaseStudyJoining() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
-  useEffect(() => { window.scrollTo(0, 0); }, []);
+  useEffect(() => { window.scrollTo({ top: 0, behavior: 'instant' }); }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -48,7 +49,7 @@ export function CaseStudyJoining() {
       {/* ── HERO ─────────────────────────────────── */}
       <section ref={setRef('overview')} id="overview" className={styles.heroSection}>
         <div className={styles.container}>
-          <button className={styles.backBtn} onClick={() => { window.location.href = '/#work'; }}>
+          <button className={styles.backBtn} onClick={() => { window.location.href = '/#event-joining'; }}>
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
               <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
@@ -424,10 +425,12 @@ export function CaseStudyJoining() {
         </div>
       </section>
 
+      <ProjectCarousel currentId="event-joining" />
+
       {/* Bottom bar */}
       <div className={styles.bottomBar}>
         <div className={styles.container}>
-          <button className={styles.bottomBack} onClick={() => { window.location.href = '/#work'; }}>
+          <button className={styles.bottomBack} onClick={() => { window.location.href = '/#event-joining'; }}>
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
               <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>

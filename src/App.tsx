@@ -14,6 +14,9 @@ import { AboutPage } from './pages/AboutPage';
 import { CaseStudyQuiz } from './pages/CaseStudyQuiz';
 import { CaseStudyJoining } from './pages/CaseStudyJoining';
 import { CaseStudyQC } from './pages/CaseStudyQC';
+import { CaseStudyPPE } from './pages/CaseStudyPPE';
+import { AllWorksPage } from './pages/AllWorksPage';
+import { MinimalCaseStudyPage } from './pages/MinimalCaseStudyPage';
 
 function HomePage() {
   return (
@@ -81,6 +84,21 @@ export default function App() {
           <Route path="/work/qc" element={
             <motion.div variants={homeVariants} initial="initial" animate="animate" exit="exit">
               <CaseStudyQC />
+            </motion.div>
+          } />
+          <Route path="/work/ppe" element={
+            <motion.div variants={homeVariants} initial="initial" animate="animate" exit="exit">
+              <CaseStudyPPE />
+            </motion.div>
+          } />
+          <Route path="/work/all" element={
+            <motion.div variants={homeVariants} initial="initial" animate="animate" exit="exit">
+              <AllWorksPage />
+            </motion.div>
+          } />
+          <Route path="/work/:id" element={
+            <motion.div variants={homeVariants} initial="initial" animate="animate" exit="exit">
+              <MinimalCaseStudyPage />
             </motion.div>
           } />
           <Route path="/ask" element={

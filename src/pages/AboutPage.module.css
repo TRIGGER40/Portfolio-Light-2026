@@ -207,8 +207,10 @@
   flex-direction: column;
   justify-content: flex-end;
   gap: 4px;
-  background: transparent;
-  transition: background 0.25s ease;
+  background: rgba(255, 255, 255, 0.58);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: background 0.25s ease, border-color 0.25s ease;
   cursor: default;
   overflow: hidden;
 }
@@ -603,4 +605,298 @@
   .expType { display: none; }
   .expRole { display: none; }
   .expPeriod { display: none; }
+}
+
+/* ════════════════════════════════════════════
+   SIDE EXPERIMENTS / CURIOSITY LAB
+   ════════════════════════════════════════════ */
+
+.expLabSection {
+  padding: 80px 0 100px;
+  border-top: 1px solid var(--glass-border);
+}
+
+.expLabTitle {
+  margin: 8px 0 12px;
+}
+.expLabSub {
+  font-size: clamp(14px, 1.3vw, 16px);
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin: 0 0 48px;
+  max-width: 480px;
+}
+
+/* ── Stacked rows ── */
+.expLabStack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Each row: video + text side by side ── */
+.labRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  min-height: 320px;
+}
+.labRow:hover {
+  border-color: rgba(82, 84, 216, 0.22);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+}
+
+/* Reverse: text left, video right */
+.labRowReverse {
+  direction: rtl;
+}
+.labRowReverse > * {
+  direction: ltr;
+}
+
+/* ── Video half ── */
+.labRowVideo {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #1c2128 100%);
+  border-right: 1px solid var(--glass-border);
+}
+.labRowReverse .labRowVideo,
+.labRowReverse .labRowVideoPortrait,
+.labRowReverse .labRowVideoStack {
+  border-right: none;
+  border-left: 1px solid var(--glass-border);
+}
+.labVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Portrait video half */
+.labRowVideoPortrait {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0a0f1e 0%, #111827 50%, #1a2234 100%);
+  border-right: 1px solid var(--glass-border);
+  padding: 20px;
+}
+.labVideoPortrait {
+  width: auto;
+  height: 100%;
+  max-height: 360px;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
+  border-radius: 8px;
+}
+
+/* Two stacked videos for CampusLive */
+.labRowVideoStack {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-right: 1px solid var(--glass-border);
+  background: linear-gradient(160deg, #0c1220 0%, #131e30 50%, #1a2840 100%);
+}
+.labStackItem {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  background: linear-gradient(160deg, #0c1220 0%, #131e30 100%);
+}
+.labStackItem:first-child {
+  border-bottom: 1px solid var(--glass-border);
+}
+.labStackItem .labVideo {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+
+/* Label badge on video */
+.labVideoLabel {
+  position: absolute;
+  bottom: 10px; left: 12px;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(6px);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+
+/* ── Text half ── */
+.labRowText {
+  padding: 32px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+.labNum {
+  font-size: 11px; font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  opacity: 0.4;
+}
+.labTitle {
+  font-size: clamp(16px, 1.5vw, 20px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.3;
+  color: var(--text-primary);
+  margin: 0;
+}
+.labDesc {
+  font-size: clamp(13px, 1.1vw, 14px);
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 560px) {
+  .labRow {
+    grid-template-columns: 1fr;
+    direction: ltr;
+    min-height: auto;
+  }
+  .labRowReverse {
+    direction: ltr;
+  }
+  .labRowVideo, .labRowVideoPortrait, .labRowVideoStack {
+    border-right: none !important;
+    border-left: none !important;
+    border-bottom: 1px solid var(--glass-border);
+    min-height: 200px;
+  }
+  .labRowVideoPortrait {
+    padding: 16px;
+  }
+  .labVideoPortrait {
+    max-height: 220px;
+  }
+  .labRowText {
+    padding: 24px;
+  }
+}
+
+/* (kept for any residual references) */
+.labVideoPortrait {
+}
+
+/* ── Personal Section ─────────────────────────────────── */
+.personalSection {
+  padding: clamp(64px, 10vw, 120px) 0;
+}
+
+.personalHeader {
+  margin-bottom: clamp(40px, 5vw, 64px);
+}
+
+.personalTitle {
+  margin: 8px 0 0;
+}
+
+.personalGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.personalCard {
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 24px rgba(82, 84, 216, 0.06), 0 1px 4px rgba(0,0,0,0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.personalCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(82, 84, 216, 0.1), 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* image placeholder area */
+.personalCardImg {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.personalCardImgEl {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.personalCard:hover .personalCardImgEl {
+  opacity: 0.85;
+}
+
+.personalCardImgIcon {
+  position: absolute;
+  bottom: 12px;
+  left: 14px;
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.8);
+}
+
+.personalCardBody {
+  padding: 20px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* legacy, kept for safety */
+.personalIconWrap {
+  display: none;
+}
+
+.personalCardLabel {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.personalCardText {
+  font-size: 13.5px;
+  line-height: 1.72;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+@media (max-width: 560px) {
+  .personalGrid {
+    grid-template-columns: 1fr;
+  }
 }

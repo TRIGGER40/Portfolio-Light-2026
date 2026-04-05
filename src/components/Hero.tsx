@@ -1,4 +1,3 @@
-import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PhoneStack } from './PhoneStack';
 import styles from './Hero.module.css';
@@ -11,25 +10,12 @@ const METRICS = [
 
 export function Hero() {
   const navigate = useNavigate();
-  const orb1 = useRef<HTMLDivElement>(null);
-  const orb2 = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const onMove = (e: MouseEvent) => {
-      const x = e.clientX / window.innerWidth;
-      const y = e.clientY / window.innerHeight;
-      orb1.current?.style.setProperty('transform', `translate(${x * 30}px, ${y * 30}px)`);
-      orb2.current?.style.setProperty('transform', `translate(${-x * 20}px, ${-y * 20}px)`);
-    };
-    window.addEventListener('mousemove', onMove, { passive: true });
-    return () => window.removeEventListener('mousemove', onMove);
-  }, []);
 
   return (
     <section className={styles.hero}>
       <div className={styles.bg}>
-        <div ref={orb1} className={`${styles.orb} ${styles.orb1}`} />
-        <div ref={orb2} className={`${styles.orb} ${styles.orb2}`} />
+        <div className={`${styles.orb} ${styles.orb1}`} />
+        <div className={`${styles.orb} ${styles.orb2}`} />
         <div className={styles.grid} />
       </div>
 

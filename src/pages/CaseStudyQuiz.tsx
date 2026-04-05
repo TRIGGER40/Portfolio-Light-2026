@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Footer } from '../components/Footer';
+import { ProjectCarousel } from '../components/ProjectCarousel';
 import styles from './CaseStudyQuiz.module.css';
 
 /* Swap src to a real path once the image is ready.
@@ -38,7 +39,7 @@ export function CaseStudyQuiz() {
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
   useEffect(() => {
@@ -77,7 +78,7 @@ export function CaseStudyQuiz() {
       {/* ── HERO ─────────────────────────────────── */}
       <section ref={setRef('overview')} id="overview" className={styles.heroSection}>
         <div className={styles.container}>
-          <button className={styles.backBtn} onClick={() => { window.location.href = '/#work'; }}>
+          <button className={styles.backBtn} onClick={() => { window.location.href = '/#quiz-pod'; }}>
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
               <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
@@ -353,10 +354,12 @@ export function CaseStudyQuiz() {
         </div>
       </section>
 
+      <ProjectCarousel currentId="quiz-pod" />
+
       {/* Bottom bar */}
       <div className={styles.bottomBar}>
         <div className={styles.container}>
-          <button className={styles.bottomBack} onClick={() => { window.location.href = '/#work'; }}>
+          <button className={styles.bottomBack} onClick={() => { window.location.href = '/#quiz-pod'; }}>
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
               <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>

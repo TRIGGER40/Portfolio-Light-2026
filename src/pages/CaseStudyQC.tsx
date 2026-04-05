@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Footer } from '../components/Footer';
+import { ProjectCarousel } from '../components/ProjectCarousel';
 import styles from './CaseStudyQuiz.module.css';
 import qStyles from './CaseStudyQC.module.css';
 
@@ -24,7 +25,7 @@ export function CaseStudyQC() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
-  useEffect(() => { window.scrollTo(0, 0); }, []);
+  useEffect(() => { window.scrollTo({ top: 0, behavior: 'instant' }); }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -46,7 +47,7 @@ export function CaseStudyQC() {
       {/* ── HERO ─────────────────────────────────── */}
       <section ref={setRef('overview')} id="overview" className={styles.heroSection}>
         <div className={styles.container}>
-          <button className={styles.backBtn} onClick={() => { window.location.href = '/#work'; }}>
+          <button className={styles.backBtn} onClick={() => { window.location.href = '/#bizongo-qc'; }}>
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
               <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
@@ -65,13 +66,13 @@ export function CaseStudyQC() {
                 <span className={styles.heroDot}>·</span>
                 <span className={styles.heroMeta}>8 Weeks</span>
               </div>
-              <h1 className={styles.heroTitle}>Enhancing QC to improve warehouse efficiency</h1>
+              <h1 className={styles.heroTitle}>Quality check made easy!</h1>
               <p className={styles.heroSubtitle}>Redesigning the inward quality check process inside Bizongo's DCMS to eliminate compounding inefficiencies at high-volume warehouse operations.</p>
               <div className={styles.heroMetaBar}>
                 {[
-                  { k: 'Role',     v: 'Lead UX Designer' },
+                  { k: 'Role',     v: 'UX Designer 2' },
                   { k: 'Scope',    v: 'QC module within DCMS' },
-                  { k: 'Platform', v: 'Bizongo Warehouse App' },
+                  { k: 'Platform', v: 'Bizongo DCMS' },
                   { k: 'Impact',   v: '~70% efficiency gain' },
                 ].map(({ k, v }) => (
                   <div key={k} className={styles.heroMetaItem}>
@@ -92,7 +93,7 @@ export function CaseStudyQC() {
             <div className={qStyles.contextText}>
               <span className={styles.tag}>Context</span>
               <h2 className={styles.sectionTitle}>A critical process at the heart of warehouse cost</h2>
-              <p className={qStyles.contextBody}>The Inward Quality Check is one of the highest-frequency operations in a Bizongo warehouse. Every incoming shipment passes through QC before it can be stocked. Inefficiencies here don't just slow things down — they directly inflate return rates and operational costs at scale.</p>
+              <p className={qStyles.contextBody}>The Inward Quality Check is one of the highest-frequency operations in a Bizongo warehouse. Every incoming shipment passes through QC before it can be stocked. Inefficiencies here don't just slow things down , they directly inflate return rates and operational costs at scale.</p>
             </div>
             <div className={qStyles.contextStats}>
               {[
@@ -146,7 +147,7 @@ export function CaseStudyQC() {
 
           <div className={styles.problemImgWrap}>
             <ImgSlot
-              src={undefined}
+              src="/QC Changes/QC Before screen.png"
               label="Before: flat QC checklist with no grouping, excessive taps per criterion"
               aspect="21/9"
             />
@@ -167,7 +168,7 @@ export function CaseStudyQC() {
           </blockquote>
           <div className={styles.insightBeads}>
             {[
-              { title: 'QC is a physical act first', desc: 'Inspectors move around, handle goods, and use their senses in sequence. The interface had to match how the body actually works — not the other way around.' },
+              { title: 'QC is a physical act first', desc: 'Inspectors move around, handle goods, and use their senses in sequence. The interface had to match how the body actually works , not the other way around.' },
               { title: 'Environment shapes behavior', desc: 'Staffing pressure, device quality, and network reliability all affect how QC gets done. We had to work around constraints we couldn\'t fix.' },
               { title: 'Alignment beats optimisation', desc: 'Reducing clicks matters less than aligning the digital flow with the natural inspection sequence. When those match, speed follows naturally.' },
             ].map(b => (
@@ -238,13 +239,26 @@ export function CaseStudyQC() {
               <span className={qStyles.calcVal}>~6 min</span>
               <span className={qStyles.calcLabel}>per product, unoptimised</span>
             </div>
+            <span className={qStyles.calcOp}>&amp;</span>
+            <div className={`${qStyles.calcBlock} ${qStyles.calcResult}`}>
+              <span className={qStyles.calcVal}>~300</span>
+              <span className={qStyles.calcLabel}>clicks per product</span>
+            </div>
           </div>
 
           <div className={qStyles.analysisFindings}>
             {[
               { icon: '↘', title: 'No prioritisation',   desc: 'Criteria were presented in the same visual weight regardless of how critical or fast they were to check.' },
               { icon: '↔', title: 'Flat list structure',  desc: 'All 25 items in a single scroll. No grouping meant executives couldn\'t build a mental model of progress.' },
-              { icon: '⚡', title: 'Volume amplification', desc: 'At 1000 pieces/hr, a 6-minute check cycle creates compounding delay — and that\'s before accounting for returns.' },
+              {
+                icon: (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 20 C6 20 8 18 10 14 C12 10 13 5 21 3"/>
+                    <path d="M3 20h18"/>
+                  </svg>
+                ),
+                title: 'Volume amplification', desc: 'At 1000 pieces/hr, a 6-minute check cycle creates compounding delay , and that\'s before accounting for returns.'
+              },
             ].map(f => (
               <div key={f.title} className={qStyles.analysisFinding}>
                 <span className={qStyles.findingIcon}>{f.icon}</span>
@@ -265,18 +279,18 @@ export function CaseStudyQC() {
           <h2 className={styles.sectionTitle}>Reorganising QC by how inspection actually happens</h2>
           <p className={styles.sectionSub}>We mapped all 25 criteria to four natural inspection modes based on physical proximity and sensory method. This became the new structure of the QC interface.</p>
 
-          <div className={qStyles.inspectionFlow}>
+          <div className={qStyles.inspectionGrid}>
             {[
               {
                 tier: '01',
                 name: 'Far Observation',
                 icon: (
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>
                   </svg>
                 ),
                 color: 'var(--accent-indigo)',
-                desc: 'Visual checks done from a standing distance — packaging integrity, labeling, quantity count.',
+                desc: 'Visual checks done from a standing distance , packaging integrity, labeling, quantity count.',
                 examples: ['Packaging intact', 'Label visible', 'Quantity match'],
               },
               {
@@ -284,11 +298,11 @@ export function CaseStudyQC() {
                 name: 'Near Observation',
                 icon: (
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>
+                    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
                   </svg>
                 ),
                 color: 'var(--accent-violet)',
-                desc: 'Product-level inspection up close — surface defects, color consistency, print quality.',
+                desc: 'Product-level inspection up close , surface defects, color consistency, print quality.',
                 examples: ['Surface defects', 'Color consistency', 'Print accuracy'],
               },
               {
@@ -301,7 +315,7 @@ export function CaseStudyQC() {
                   </svg>
                 ),
                 color: 'var(--accent-blue)',
-                desc: 'Tactile validation — material texture, structural firmness, flexibility checks.',
+                desc: 'Tactile validation , material texture, structural firmness, flexibility checks.',
                 examples: ['Material texture', 'Firmness check', 'Flexibility test'],
               },
               {
@@ -313,24 +327,23 @@ export function CaseStudyQC() {
                   </svg>
                 ),
                 color: 'var(--accent-cyan)',
-                desc: 'Measurable attributes recorded with instruments — thickness, weight, humidity, dimensions.',
+                desc: 'Measurable attributes recorded with instruments , thickness, weight, humidity, dimensions.',
                 examples: ['Thickness (mm)', 'Humidity (%)', 'Weight (g)'],
               },
-            ].map((tier, i) => (
-              <div key={tier.tier} className={qStyles.inspectionTier}>
-                {i > 0 && <div className={qStyles.tierConnector} />}
-                <div className={qStyles.tierCard} style={{ '--tier-color': tier.color } as React.CSSProperties}>
-                  <div className={qStyles.tierHeader}>
-                    <span className={qStyles.tierIcon} style={{ color: tier.color }}>{tier.icon}</span>
-                    <span className={qStyles.tierNum} style={{ color: tier.color }}>{tier.tier}</span>
+            ].map((tier) => (
+              <div key={tier.tier} className={qStyles.tierCard} style={{ '--tier-color': tier.color } as React.CSSProperties}>
+                <div className={qStyles.tierTop}>
+                  <div className={qStyles.tierIconWrap} style={{ background: `color-mix(in srgb, ${tier.color} 12%, transparent)` }}>
+                    <span style={{ color: tier.color }}>{tier.icon}</span>
                   </div>
-                  <h3 className={qStyles.tierName}>{tier.name}</h3>
-                  <p className={qStyles.tierDesc}>{tier.desc}</p>
-                  <div className={qStyles.tierExamples}>
-                    {tier.examples.map(e => (
-                      <span key={e} className={qStyles.tierExample}>{e}</span>
-                    ))}
-                  </div>
+                  <span className={qStyles.tierNum} style={{ color: tier.color }}>{tier.tier}</span>
+                </div>
+                <h3 className={qStyles.tierName}>{tier.name}</h3>
+                <p className={qStyles.tierDesc}>{tier.desc}</p>
+                <div className={qStyles.tierExamples}>
+                  {tier.examples.map(e => (
+                    <span key={e} className={qStyles.tierExample}>{e}</span>
+                  ))}
                 </div>
               </div>
             ))}
@@ -338,7 +351,7 @@ export function CaseStudyQC() {
 
           <div className={styles.problemResult} style={{ marginTop: 40 }}>
             <span className={styles.resultLabel}>Result</span>
-            <p className={styles.resultText}>Aligning the digital interface with this physical progression meant QC executives could complete checks in the same order they naturally inspected goods — no mental context switching required.</p>
+            <p className={styles.resultText}>Aligning the digital interface with this physical progression meant QC executives could complete checks in the same order they naturally inspected goods , no mental context switching required.</p>
           </div>
         </div>
       </section>
@@ -358,7 +371,7 @@ export function CaseStudyQC() {
               color: 'var(--accent-indigo)',
               desc: 'Reorganised all QC criteria into the four inspection-mode groups. Executives move through the interface in the same sequence as the physical inspection, eliminating mental overhead.',
               attrs: ['Grouped by inspection mode', 'Matches physical workflow', 'Clear progress within groups'],
-              img: undefined,
+              img: '/QC Changes/Structured QC Flow.png',
               imgLabel: 'QC criteria grouped by inspection mode, Far Observation through Metric',
             },
             {
@@ -366,7 +379,7 @@ export function CaseStudyQC() {
               color: 'var(--accent-violet)',
               desc: 'Simplified each criterion interaction from 12 clicks to a direct pass/fail toggle. Non-critical sub-steps were collapsed into progressive disclosure to reduce default complexity.',
               attrs: ['Pass/fail toggle', 'Progressive disclosure', 'Fewer required taps'],
-              img: undefined,
+              img: '/QC Changes/Reduced Interaction Load.png',
               imgLabel: 'Before vs after: 12-click criterion flow vs. single toggle interaction',
             },
             {
@@ -374,7 +387,7 @@ export function CaseStudyQC() {
               color: 'var(--accent-blue)',
               desc: 'Designed for on-the-move use. Large tap targets, a persistent progress bar, and a sticky summary panel mean executives never lose context even while handling goods.',
               attrs: ['Large tap targets', 'Sticky summary panel', 'Persistent progress indicator'],
-              img: undefined,
+              img: '/QC Changes/Mobile and Tablet First.png',
               imgLabel: 'QC screen on tablet with sticky summary and large touch targets',
             },
             {
@@ -382,7 +395,7 @@ export function CaseStudyQC() {
               color: 'var(--accent-cyan)',
               desc: 'Failed items are flagged inline with a mandatory note prompt. This captures discrepancy data at the point of discovery rather than during a separate review phase.',
               attrs: ['Inline flag and note', 'Captured at source', 'Direct audit trail'],
-              img: undefined,
+              img: '/QC Changes/Inline Discrepancy Flagging.png',
               imgLabel: 'Failed criterion with inline flag prompt and mandatory reason field',
             },
           ].map((s, i) => (
@@ -447,21 +460,21 @@ export function CaseStudyQC() {
           <p className={styles.sectionSub}>Improvements were validated through live warehouse observation and measurable operational metrics, not usability testing alone.</p>
           <div className={qStyles.validationGrid}>
             <div className={qStyles.validationCard}>
-              <ImgSlot src={undefined} label="On-floor observation of QC executives completing checks in the redesigned flow" aspect="4/3" />
+              <ImgSlot src="/QC Changes/On ground observation.jpeg" label="On-floor observation of QC executives completing checks in the redesigned flow" aspect="4/3" />
               <div className={qStyles.validationCardBody}>
                 <span className={qStyles.validationMethod}>On-floor observation</span>
                 <p className={qStyles.validationText}>Watched QC executives complete full inward checks using the redesigned flow. Completion time dropped significantly and executives reported feeling less mentally loaded.</p>
               </div>
             </div>
             <div className={qStyles.validationCard}>
-              <ImgSlot src={undefined} label="Operational metrics comparing QC cycle times before and after redesign" aspect="4/3" />
+              <ImgSlot src="/QC Changes/Operational metrics.jpeg" label="Operational metrics comparing QC cycle times before and after redesign" aspect="4/3" />
               <div className={qStyles.validationCardBody}>
                 <span className={qStyles.validationMethod}>Operational metrics</span>
                 <p className={qStyles.validationText}>QC cycle times measured against the baseline before the redesign. The 50%+ reduction held consistently across different product categories and volume conditions.</p>
               </div>
             </div>
             <div className={qStyles.validationCard}>
-              <ImgSlot src={undefined} label="Sanity score trend showing QC accuracy improvement from 30% to 80%" aspect="4/3" />
+              <ImgSlot src="/QC Changes/QC Sanity scores.jpeg" label="Sanity score trend showing QC accuracy improvement from 30% to 80%" aspect="4/3" />
               <div className={qStyles.validationCardBody}>
                 <span className={qStyles.validationMethod}>QC sanity scores</span>
                 <p className={qStyles.validationText}>Accuracy tracking showed the sanity score rising from around 30% to 80% as structured grouping reduced missed or incorrectly recorded checks.</p>
@@ -476,7 +489,7 @@ export function CaseStudyQC() {
         <div className={styles.container}>
           <span className={styles.tag}>Execution</span>
           <h2 className={styles.sectionTitle}>Working within real-world constraints</h2>
-          <p className={styles.sectionSub}>Not every problem was solvable by design — knowing the boundary was as important as what we built inside it.</p>
+          <p className={styles.sectionSub}>Not every problem was solvable by design , knowing the boundary was as important as what we built inside it.</p>
           <div className={qStyles.executionGrid}>
             {[
               {
@@ -539,10 +552,12 @@ export function CaseStudyQC() {
         </div>
       </section>
 
+      <ProjectCarousel currentId="bizongo-qc" />
+
       {/* Bottom bar */}
       <div className={styles.bottomBar}>
         <div className={styles.container}>
-          <button className={styles.bottomBack} onClick={() => { window.location.href = '/#work'; }}>
+          <button className={styles.bottomBack} onClick={() => { window.location.href = '/#bizongo-qc'; }}>
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
               <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>

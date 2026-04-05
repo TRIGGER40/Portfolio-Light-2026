@@ -2,6 +2,8 @@ import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BackgroundGlow } from '../components/BackgroundGlow';
 import { Footer } from '../components/Footer';
+import { SideExperiments } from '../components/SideExperiments';
+import { PersonalSection } from '../components/PersonalSection';
 import { AWARDS } from '../data/portfolioData';
 import styles from './AboutPage.module.css';
 
@@ -347,6 +349,8 @@ export function AboutPage() {
           </div>
         </section>
 
+        <PersonalSection />
+        <SideExperiments />
         <Footer />
       </main>
     </>
