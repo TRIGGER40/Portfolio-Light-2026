@@ -1,7 +1,8 @@
-import { useRef, useEffect, useState, forwardRef, useImperativeHandle } from 'react';
+import { useRef, useEffect, useState, forwardRef, useImperativeHandle, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useChat } from '../hooks/useChat';
-import { SUGGESTED_PROMPTS } from '../data/aiContext';
+import { SUGGESTED_PROMPTS, TAGGED_PROMPTS } from '../data/aiContext';
+import type { PromptTopic } from '../data/aiContext';
 import styles from './AIChat.module.css';
 
 export interface AIChatHandle {
@@ -9,9 +10,67 @@ export interface AIChatHandle {
   submit: (query: string) => void;
 }
 
+// ── Follow-up prompt engine ───────────────────────────────
+function pickFollowUps(lastResponse: string, usedTexts: Set<string>): string[] {
+  const t = lastResponse.toLowerCase();
+
+  const scores: Record<PromptTopic, number> = {
+    identity: 0, experience: 0, projects: 0,
+    process: 0, ai: 0, collaboration: 0, hiring: 0,
+  };
+
+  if (t.includes('adobe') || t.includes('connect'))          scores.experience  += 3;
+  if (t.includes('bizongo'))                                  scores.experience  += 2;
+  if (t.includes('quiz') || t.includes('ppe') || t.includes('qc') || t.includes('project'))
+                                                              scores.projects    += 3;
+  if (t.includes('ai') || t.includes('generative') || t.includes('artificial'))
+                                                              scores.ai          += 3;
+  if (t.includes('engineer') || t.includes('stakeholder') || t.includes('collaborat'))
+                                                              scores.collaboration += 3;
+  if (t.includes('process') || t.includes('research') || t.includes('approach') || t.includes('system'))
+                                                              scores.process     += 3;
+  if (t.includes('strength') || t.includes('philosophy') || t.includes('value') || t.includes('who'))
+                                                              scores.identity    += 3;
+  if (t.includes('hire') || t.includes('role') || t.includes('senior') || t.includes('stand out'))
+                                                              scores.hiring      += 3;
+
+  // Boost topics NOT yet covered so we spread the conversation
+  const coveredTopics = new Set<PromptTopic>();
+  TAGGED_PROMPTS.forEach(p => { if (usedTexts.has(p.text)) coveredTopics.add(p.topic); });
+  (Object.keys(scores) as PromptTopic[]).forEach(topic => {
+    if (!coveredTopics.has(topic)) scores[topic] += 1;
+  });
+
+  const sortedTopics = (Object.keys(scores) as PromptTopic[])
+    .sort((a, b) => scores[b] - scores[a]);
+
+  const result: string[] = [];
+  for (const topic of sortedTopics) {
+    if (result.length >= 3) break;
+    const candidates = TAGGED_PROMPTS.filter(p => p.topic === topic && !usedTexts.has(p.text));
+    if (candidates.length) result.push(candidates[0].text);
+  }
+
+  // Fill remaining with any unused prompt
+  if (result.length < 3) {
+    TAGGED_PROMPTS
+      .filter(p => !usedTexts.has(p.text) && !result.includes(p.text))
+      .slice(0, 3 - result.length)
+      .forEach(p => result.push(p.text));
+  }
+
+  return result;
+}
+
+// ─────────────────────────────────────────────────────────
 export const AIChat = forwardRef<AIChatHandle>((_, ref) => {
   const { messages, loading, send, clear } = useChat();
   const [input, setInput] = useState('');
+  const [displayedPrompts, setDisplayedPrompts] = useState<string[]>(
+    SUGGESTED_PROMPTS.slice(0, 4) as unknown as string[]
+  );
+  const [promptKey, setPromptKey] = useState(0); // triggers re-animation
+  const usedTextsRef = useRef<Set<string>>(new Set());
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const hasMessages = messages.length > 0;
@@ -27,15 +86,29 @@ export const AIChat = forwardRef<AIChatHandle>((_, ref) => {
     },
   }));
 
+  // Scroll to bottom on new messages
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, loading]);
 
-  const handleSend = () => {
+  // Update prompts after every new assistant response
+  useEffect(() => {
+    if (loading) return;
+    const lastAssistant = [...messages].reverse().find(m => m.role === 'assistant');
+    if (!lastAssistant) return;
+    const next = pickFollowUps(lastAssistant.content, usedTextsRef.current);
+    if (next.length > 0) {
+      setDisplayedPrompts(next);
+      setPromptKey(k => k + 1);
+    }
+  }, [messages, loading]);
+
+  const handleSend = useCallback(() => {
     if (!input.trim()) return;
+    usedTextsRef.current.add(input.trim());
     send(input);
     setInput('');
-  };
+  }, [input, send]);
 
   const handleKey = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -45,7 +118,15 @@ export const AIChat = forwardRef<AIChatHandle>((_, ref) => {
   };
 
   const handlePrompt = (prompt: string) => {
+    usedTextsRef.current.add(prompt);
     send(prompt);
+  };
+
+  const handleClear = () => {
+    clear();
+    usedTextsRef.current.clear();
+    setDisplayedPrompts(SUGGESTED_PROMPTS.slice(0, 4) as unknown as string[]);
+    setPromptKey(k => k + 1);
   };
 
   return (
@@ -86,12 +167,12 @@ export const AIChat = forwardRef<AIChatHandle>((_, ref) => {
                 <div className={styles.chatName}>Midhun's AI</div>
                 <div className={styles.chatStatus}>
                   <span className={styles.statusDot} />
-                  Ready to answer
+                  {loading ? 'Thinking…' : 'Ready to answer'}
                 </div>
               </div>
             </div>
             {hasMessages && (
-              <button className={`btn btn-ghost ${styles.clearBtn}`} onClick={clear}>
+              <button className={`btn btn-ghost ${styles.clearBtn}`} onClick={handleClear}>
                 Clear chat
               </button>
             )}
@@ -148,30 +229,33 @@ export const AIChat = forwardRef<AIChatHandle>((_, ref) => {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Suggested prompts */}
-          <AnimatePresence>
-            {!hasMessages && (
+          {/* Suggested prompts — always visible, updates after each response */}
+          <div className={styles.prompts}>
+            <p className={styles.promptsLabel}>
+              {hasMessages ? 'You might also ask' : 'Suggested prompts'}
+            </p>
+            <AnimatePresence mode="wait">
               <motion.div
-                className={styles.prompts}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0, height: 0 }}
+                key={promptKey}
+                className={styles.promptPills}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
               >
-                <p className={styles.promptsLabel}>Suggested prompts</p>
-                <div className={styles.promptPills}>
-                  {SUGGESTED_PROMPTS.map((p) => (
-                    <button
-                      key={p}
-                      className={styles.promptPill}
-                      onClick={() => handlePrompt(p)}
-                    >
-                      {p}
-                    </button>
-                  ))}
-                </div>
+                {displayedPrompts.map((p) => (
+                  <button
+                    key={p}
+                    className={styles.promptPill}
+                    onClick={() => handlePrompt(p)}
+                    disabled={loading}
+                  >
+                    {p}
+                  </button>
+                ))}
               </motion.div>
-            )}
-          </AnimatePresence>
+            </AnimatePresence>
+          </div>
 
           {/* Input area */}
           <div className={styles.inputArea}>
