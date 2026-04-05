@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Footer } from '../components/Footer';
 import { ProjectCarousel } from '../components/ProjectCarousel';
+import { GoBackButton } from '../components/GoBackButton';
 import styles from './CaseStudyQuiz.module.css';
 import jStyles from './CaseStudyJoining.module.css';
 
@@ -23,7 +23,6 @@ function ImgSlot({ src, label, aspect = '16/9' }: { src?: string; label: string;
 }
 
 export function CaseStudyJoining() {
-  const navigate = useNavigate();
   const [scrollProgress, setScrollProgress] = useState(0);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
@@ -49,12 +48,7 @@ export function CaseStudyJoining() {
       {/* ── HERO ─────────────────────────────────── */}
       <section ref={setRef('overview')} id="overview" className={styles.heroSection}>
         <div className={styles.container}>
-          <button className={styles.backBtn} onClick={() => { window.location.href = '/#event-joining'; }}>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-              <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            All work
-          </button>
+          <GoBackButton className={styles.backBtn} />
 
           <div className={styles.heroLayout}>
             <div className={styles.heroImgCol}>
@@ -430,12 +424,7 @@ export function CaseStudyJoining() {
       {/* Bottom bar */}
       <div className={styles.bottomBar}>
         <div className={styles.container}>
-          <button className={styles.bottomBack} onClick={() => { window.location.href = '/#event-joining'; }}>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-              <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            Back to all work
-          </button>
+          <GoBackButton className={styles.bottomBack} label="Go back" />
           <span className={styles.bottomMeta}>Joining Experience · Adobe Connect · 2022</span>
         </div>
       </div>

@@ -1,16 +1,18 @@
 import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { ARTICLES } from '../data/articles';
 import type { Article } from '../data/articles';
+import { saveScrollBeforeLeave } from '../hooks/useScrollRestoration';
 import styles from './Insights.module.css';
 
 function FadeCard({ article }: { article: Article; index: number }) {
+  const navigate = useNavigate();
   return (
-    <a
-      href={`https://www.midhunkrishnakumar.info/articles/${article.slug}`}
-      target="_blank"
-      rel="noopener noreferrer"
+    <button
+      onClick={() => { saveScrollBeforeLeave(); navigate(`/articles/${article.slug}`); }}
       className={`glass-card ${styles.card}`}
+      style={{ border: 'none', cursor: 'pointer', textAlign: 'left' }}
     >
       {/* Thumbnail */}
       <div className={styles.imgWrap}>
@@ -45,11 +47,12 @@ function FadeCard({ article }: { article: Article; index: number }) {
           <span className={styles.readMore}>Read →</span>
         </div>
       </div>
-    </a>
+    </button>
   );
 }
 
 export function Insights() {
+  const navigate = useNavigate();
   const trackRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -151,17 +154,15 @@ export function Insights() {
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
         >
-          <a
-            href="https://www.midhunkrishnakumar.info"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
             className="btn btn-secondary"
+            onClick={() => { saveScrollBeforeLeave(); navigate(`/articles/${ARTICLES[0].slug}`); }}
           >
-            All articles
+            Read articles
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <path d="M2 7h10M9 4l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-          </a>
+          </button>
         </motion.div>
       </div>
     </section>

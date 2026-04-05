@@ -3,6 +3,8 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Footer } from '../components/Footer';
 import { BackgroundGlow } from '../components/BackgroundGlow';
+import { GoBackButton } from '../components/GoBackButton';
+import { useScrollRestoration, saveScrollBeforeLeave } from '../hooks/useScrollRestoration';
 import styles from './AllWorksPage.module.css';
 
 const INTERNAL_ROUTES: Record<string, string> = {
@@ -141,6 +143,8 @@ export function AllWorksPage() {
   const [searchParams] = useSearchParams();
   const companyFilter = searchParams.get('company'); // e.g. "Adobe" | "Bizongo" | null
 
+  useScrollRestoration();
+
   const filteredFeatured = companyFilter
     ? FEATURED.filter(p => p.company === companyFilter)
     : FEATURED;
@@ -150,8 +154,6 @@ export function AllWorksPage() {
 
   const totalCount = filteredFeatured.length + filteredOther.length;
 
-  useEffect(() => { window.scrollTo({ top: 0, behavior: 'instant' }); }, []);
-
   return (
     <>
       <BackgroundGlow />
@@ -160,12 +162,7 @@ export function AllWorksPage() {
         {/* ── Header ── */}
         <section className={styles.header}>
           <div className="container">
-            <button className={styles.backBtn} onClick={() => navigate(companyFilter ? '/' : '/')}>
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              Home
-            </button>
+            <GoBackButton className={styles.backBtn} fallback="/" />
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -200,7 +197,7 @@ export function AllWorksPage() {
                   <motion.div
                     key={p.id}
                     className={styles.featuredCard}
-                    onClick={() => route && navigate(route)}
+                    onClick={() => { if (route) { saveScrollBeforeLeave(); navigate(route); } }}
                     initial={{ opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-40px' }}
@@ -257,7 +254,7 @@ export function AllWorksPage() {
                   <motion.div
                     key={p.id}
                     className={styles.otherCard}
-                    onClick={() => navigate(`/work/${p.id}`)}
+                    onClick={() => { saveScrollBeforeLeave(); navigate(`/work/${p.id}`); }}
                     style={{ cursor: 'pointer' }}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}

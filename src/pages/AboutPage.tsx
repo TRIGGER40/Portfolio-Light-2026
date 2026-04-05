@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useScrollRestoration, saveScrollBeforeLeave } from '../hooks/useScrollRestoration';
 import { BackgroundGlow } from '../components/BackgroundGlow';
 import { Footer } from '../components/Footer';
 import { SideExperiments } from '../components/SideExperiments';
@@ -95,7 +96,7 @@ const EXPERIENCES = [
       'Partnered closely with engineering to ensure implementation fidelity at every release.',
     ],
     tags: ['AI-first', 'Enterprise UX', 'Design Systems', 'Adobe Spectrum'],
-    cta: '/#work',
+    cta: '/work/all?company=Adobe',
   },
   {
     id: 'yuj',
@@ -128,7 +129,7 @@ const EXPERIENCES = [
       'Contributed to the internal design system, defining components used across the platform.',
     ],
     tags: ['ERP', 'Supply Chain', 'B2B', 'Design Systems'],
-    cta: '/#work',
+    cta: '/work/all?company=Bizongo',
   },
   {
     id: 'adobe-intern',
@@ -167,6 +168,7 @@ const EXPERIENCES = [
 /* ── Page ─────────────────────────────────────────────── */
 export function AboutPage() {
   const navigate = useNavigate();
+  useScrollRestoration();
   const [activeId, setActiveId] = useState(EXPERIENCES[0].id);
 
   // Awards carousel — JS scroll so hover-pause and native scroll both work
@@ -287,7 +289,7 @@ export function AboutPage() {
                 </div>
 
                 {active.cta && (
-                  <button className={styles.expCtaLarge} onClick={() => navigate(active.cta!)}>
+                  <button className={styles.expCtaLarge} onClick={() => { saveScrollBeforeLeave(); navigate(active.cta!); }}>
                     View Works
                     <svg width="15" height="15" viewBox="0 0 14 14" fill="none">
                       <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>

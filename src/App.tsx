@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
+import { useScrollRestoration } from './hooks/useScrollRestoration';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Nav } from './components/Nav';
 import { Hero } from './components/Hero';
@@ -17,8 +18,10 @@ import { CaseStudyQC } from './pages/CaseStudyQC';
 import { CaseStudyPPE } from './pages/CaseStudyPPE';
 import { AllWorksPage } from './pages/AllWorksPage';
 import { MinimalCaseStudyPage } from './pages/MinimalCaseStudyPage';
+import { ArticlePage } from './pages/ArticlePage';
 
 function HomePage() {
+  useScrollRestoration();
   return (
     <>
       <BackgroundGlow />
@@ -99,6 +102,11 @@ export default function App() {
           <Route path="/work/:id" element={
             <motion.div variants={homeVariants} initial="initial" animate="animate" exit="exit">
               <MinimalCaseStudyPage />
+            </motion.div>
+          } />
+          <Route path="/articles/:slug" element={
+            <motion.div variants={homeVariants} initial="initial" animate="animate" exit="exit">
+              <ArticlePage />
             </motion.div>
           } />
           <Route path="/ask" element={

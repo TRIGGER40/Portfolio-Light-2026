@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { CASE_STUDIES } from '../data/portfolioData';
+import { saveScrollBeforeLeave } from '../hooks/useScrollRestoration';
 import styles from './Work.module.css';
 
 const INTERNAL_ROUTES: Record<string, string> = {
@@ -66,7 +67,7 @@ export function Work() {
                 key={project.id}
                 id={project.id}
                 className={`${styles.card} ${internalRoute ? styles.cardClickable : ''}`}
-                onClick={() => internalRoute && navigate(internalRoute)}
+                onClick={() => { if (internalRoute) { saveScrollBeforeLeave(); navigate(internalRoute); } }}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}

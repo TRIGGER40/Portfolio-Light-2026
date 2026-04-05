@@ -136,7 +136,8 @@ export function AIPage() {
   useEffect(() => {
     window.scrollTo(0, 0);
     const q = searchParams.get('q');
-    if (q && !didAutoSubmit.current) {
+    // Only auto-submit if no messages are already loaded from sessionStorage
+    if (q && !didAutoSubmit.current && messages.length === 0) {
       didAutoSubmit.current = true;
       send(q);
     } else {

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Footer } from '../components/Footer';
 import { ProjectCarousel } from '../components/ProjectCarousel';
+import { GoBackButton } from '../components/GoBackButton';
 import styles from './CaseStudyQuiz.module.css';
 import pStyles from './CaseStudyPPE.module.css';
 
@@ -47,12 +48,7 @@ export function CaseStudyPPE() {
       {/* ── HERO ─────────────────────────────────── */}
       <section ref={setRef('overview')} id="overview" className={styles.heroSection}>
         <div className={styles.container}>
-          <button className={styles.backBtn} onClick={() => { window.location.href = '/#bizongo-ecom'; }}>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-              <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            All work
-          </button>
+          <GoBackButton className={styles.backBtn} />
 
           <div className={styles.heroLayout}>
             <div className={styles.heroImgCol}>
@@ -507,12 +503,7 @@ export function CaseStudyPPE() {
       {/* Bottom bar */}
       <div className={styles.bottomBar}>
         <div className={styles.container}>
-          <button className={styles.bottomBack} onClick={() => { window.location.href = '/#bizongo-ecom'; }}>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-              <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            Back to all work
-          </button>
+          <GoBackButton className={styles.bottomBack} label="Go back" />
           <span className={styles.bottomMeta}>ShieldWise · Bizongo · 2020</span>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { saveScrollBeforeLeave } from '../hooks/useScrollRestoration';
 import { motion } from 'framer-motion';
 import { AWARDS } from '../data/portfolioData';
 import { SideExperiments } from './SideExperiments';
@@ -234,7 +235,7 @@ export function About() {
                 ))}
               </div>
               {active.cta && (
-                <button className={pStyles.expCtaLarge} onClick={() => navigate(active.cta!)}>
+                <button className={pStyles.expCtaLarge} onClick={() => { saveScrollBeforeLeave(); navigate(active.cta!); }}>
                   View Works
                   <svg width="15" height="15" viewBox="0 0 14 14" fill="none">
                     <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>

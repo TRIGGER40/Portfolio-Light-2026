@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Footer } from '../components/Footer';
 import { BackgroundGlow } from '../components/BackgroundGlow';
+import { GoBackButton } from '../components/GoBackButton';
 import styles from './MinimalCaseStudyPage.module.css';
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -256,12 +257,7 @@ export function MinimalCaseStudyPage() {
         {/* ── Hero: two-column ── */}
         <section className={styles.heroSection}>
           <div className={styles.container}>
-            <button className={styles.backBtn} onClick={() => navigate(project.backTo || '/work/all')}>
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              All work
-            </button>
+            <GoBackButton className={styles.backBtn} fallback="/work/all" />
 
             <div className={styles.heroLayout}>
               {/* Left: text */}
@@ -340,12 +336,7 @@ export function MinimalCaseStudyPage() {
         {/* ── Bottom bar ── */}
         <section className={styles.bottomBar}>
           <div className={styles.container}>
-            <button className={styles.backBtnBottom} onClick={() => navigate(project.backTo || '/work/all')}>
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              Back to all work
-            </button>
+            <GoBackButton className={styles.backBtnBottom} fallback="/work/all" />
           </div>
         </section>
 
