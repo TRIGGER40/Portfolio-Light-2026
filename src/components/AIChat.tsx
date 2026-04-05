@@ -2,21 +2,10 @@ import { useRef, useEffect, useState, forwardRef, useImperativeHandle, useCallba
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useChat } from '../hooks/useChat';
-import { SUGGESTED_PROMPTS, TAGGED_PROMPTS, PROJECT_LINKS } from '../data/aiContext';
+import { SUGGESTED_PROMPTS, TAGGED_PROMPTS } from '../data/aiContext';
 import type { PromptTopic } from '../data/aiContext';
+import { injectProjectLinks } from '../utils/projectLinks';
 import styles from './AIChat.module.css';
-
-/** Inject <a data-nav="/path"> tags around project name keywords */
-function injectProjectLinks(text: string): string {
-  let result = text;
-  for (const { pattern, route } of PROJECT_LINKS) {
-    result = result.replace(
-      pattern,
-      (match) => `<a data-nav="${route}" class="${styles.projectLink}">${match}</a>`
-    );
-  }
-  return result;
-}
 
 export interface AIChatHandle {
   focus: () => void;

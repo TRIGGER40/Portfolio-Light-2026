@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useChat } from '../hooks/useChat';
 import { SUGGESTED_PROMPTS, getSmartFollowUps } from '../data/aiContext';
+import { injectProjectLinks } from '../utils/projectLinks';
 import styles from './AIPage.module.css';
 
 /* ── Marquee images ──────────────────────────────────── */
@@ -88,9 +89,11 @@ function MessageContent({ content }: { content: string }) {
 }
 
 function formatInline(text: string): string {
-  return text
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.*?)\*/g, '<em>$1</em>');
+  return injectProjectLinks(
+    text
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+  );
 }
 
 /* ── Main page ───────────────────────────────────────── */
@@ -343,7 +346,14 @@ export function AIPage() {
           </div>
 
           {/* Messages */}
-          <div ref={messagesContainerRef} className={styles.messages}>
+          <div
+            ref={messagesContainerRef}
+            className={styles.messages}
+            onClick={(e) => {
+              const link = (e.target as HTMLElement).closest('[data-nav]') as HTMLElement | null;
+              if (link?.dataset.nav) { e.preventDefault(); navigate(link.dataset.nav); }
+            }}
+          >
             {messages.map((msg, i) => {
               const isLastUser = msg.role === 'user' && messages.slice(i + 1).every(m => m.role !== 'user');
               return (
