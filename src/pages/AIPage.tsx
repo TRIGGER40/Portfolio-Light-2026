@@ -4,6 +4,7 @@ import { useChat } from '../hooks/useChat';
 import { SUGGESTED_PROMPTS, getSmartFollowUps } from '../data/aiContext';
 import { injectProjectLinks } from '../utils/projectLinks';
 import styles from './AIPage.module.css';
+import { GoBackButton } from '../components/GoBackButton';
 
 /* ── Marquee images ──────────────────────────────────── */
 const MARQUEE_IMAGES = [
@@ -231,12 +232,7 @@ export function AIPage() {
       <div className={styles.landing}>
 
         {/* Back button */}
-        <button className={styles.landingBackBtn} onClick={() => navigate('/')} aria-label="Back to portfolio">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          Back
-        </button>
+        <GoBackButton className={styles.landingBackBtn} fallback="/" label="Back" />
 
         {/* Background grid */}
         <div className={styles.landingGrid} aria-hidden />
@@ -331,12 +327,7 @@ export function AIPage() {
         <div className={styles.inner}>
 
           {/* Back */}
-          <button className={styles.backBtn} onClick={() => navigate('/')}>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            Back to portfolio
-          </button>
+          <GoBackButton className={styles.backBtn} fallback="/" label="Back to portfolio" />
 
           {/* Scaled-down page header */}
           <div className={styles.chatHeader}>

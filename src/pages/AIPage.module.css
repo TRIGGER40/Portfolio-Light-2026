@@ -97,20 +97,8 @@
   top: 20px;
   left: 24px;
   z-index: 10;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  font-family: inherit;
-  color: var(--text-muted);
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 6px 4px;
-  transition: color 0.15s ease;
   animation: fadeIn 0.5s ease 0.1s both;
 }
-.landingBackBtn:hover { color: var(--text-primary); }
 
 /* ── Shared entrance keyframe ────────────────────────── */
 @keyframes fadeUp {
@@ -321,23 +309,11 @@
   margin: 0;
 }
 
-/* Back */
 /* Back button */
 .backBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  color: var(--text-muted);
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
   margin-bottom: 32px;
   flex-shrink: 0;
-  transition: color 0.15s ease;
 }
-.backBtn:hover { color: var(--text-primary); }
 
 /* Header */
 .header { flex-shrink: 0; margin-bottom: 32px; }

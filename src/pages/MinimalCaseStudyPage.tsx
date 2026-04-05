@@ -242,7 +242,7 @@ export function MinimalCaseStudyPage() {
     return (
       <div className={styles.notFound}>
         <p>Project not found.</p>
-        <button onClick={() => navigate('/work/all')}>Back to all work</button>
+        <GoBackButton fallback="/work/all" label="Back to all work" />
       </div>
     );
   }
