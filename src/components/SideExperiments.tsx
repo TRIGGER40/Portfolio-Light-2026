@@ -26,7 +26,7 @@ export function SideExperiments() {
           >
             <div className={pStyles.labRowVideo}>
               <video
-                src="/videos/youtube-routine-web.mp4"
+                src="/VIDEOS/youtube-routine-web.mp4"
                 autoPlay muted loop playsInline preload="auto"
                 className={pStyles.labVideo}
               />
@@ -50,7 +50,7 @@ export function SideExperiments() {
           >
             <div className={pStyles.labRowVideoPortrait}>
               <video
-                src="/videos/rethinking-money-web.mp4"
+                src="/VIDEOS/rethinking-money-web.mp4"
                 autoPlay muted loop playsInline preload="auto"
                 className={pStyles.labVideoPortrait}
               />
@@ -75,14 +75,14 @@ export function SideExperiments() {
             <div className={pStyles.labRowVideoStack}>
               <div className={pStyles.labStackItem}>
                 <video
-                  src="/videos/campus-live-web.mp4"
+                  src="/VIDEOS/campus-live-web.mp4"
                   autoPlay muted loop playsInline preload="auto"
                   className={pStyles.labVideo}
                 />
               </div>
               <div className={pStyles.labStackItem}>
                 <video
-                  src="/videos/exploration-web.mp4"
+                  src="/VIDEOS/exploration-web.mp4"
                   autoPlay muted loop playsInline preload="auto"
                   className={pStyles.labVideo}
                 />

@@ -11,7 +11,7 @@ export default defineConfig({
       name: 'serve-videos',
       configureServer(server) {
         server.middlewares.use((req, res, next) => {
-          if (!req.url?.startsWith('/videos/')) return next();
+          if (!req.url?.startsWith('/VIDEOS/')) return next();
           const filePath = path.join(__dirname, 'public', req.url.split('?')[0]);
           if (!fs.existsSync(filePath)) return next();
           const ext = path.extname(filePath).toLowerCase();
