@@ -48,12 +48,8 @@
 }
 
 .backBtn {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: none; border: none; font-size: 13px; font-weight: 500;
-  color: var(--text-muted); cursor: pointer; transition: color 0.15s; padding: 0;
   margin-bottom: 36px;
 }
-.backBtn:hover { color: var(--text-primary); }
 
 .heroLayout {
   display: grid; grid-template-columns: 1fr 1fr;
@@ -404,11 +400,8 @@
 .bottomBar { border-top: 1px solid var(--glass-border); padding: 20px 0; }
 .bottomBar .container { display: flex; align-items: center; justify-content: space-between; }
 .bottomBack {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: none; border: none; font-size: 13px; font-weight: 500;
-  color: var(--text-secondary); cursor: pointer; transition: color 0.15s; padding: 0;
+  margin-top: 8px;
 }
-.bottomBack:hover { color: var(--text-primary); }
 .bottomMeta { font-size: 12px; color: var(--text-muted); font-family: var(--font-mono); }
 
 /* ════════════════════════════════════════════

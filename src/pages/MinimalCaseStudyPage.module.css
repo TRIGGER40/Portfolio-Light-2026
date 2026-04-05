@@ -21,12 +21,8 @@
 }
 
 .backBtn {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: none; border: none; font-size: 13px; font-weight: 500;
-  color: var(--text-muted); cursor: pointer; transition: color 0.15s; padding: 0;
   margin-bottom: 40px;
 }
-.backBtn:hover { color: var(--text-primary); }
 
 /* Two-column hero layout */
 .heroLayout {
@@ -185,16 +181,7 @@
   padding: 40px 0 60px;
 }
 .backBtnBottom {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: none; border: 1px solid var(--glass-border);
-  border-radius: 999px; font-size: 13px; font-weight: 500;
-  color: var(--text-muted); cursor: pointer;
-  padding: 10px 20px;
-  transition: color 0.15s, border-color 0.15s;
-}
-.backBtnBottom:hover {
-  color: var(--text-primary);
-  border-color: rgba(255,255,255,0.15);
+  margin-top: 4px;
 }
 
 /* ── Not found ── */

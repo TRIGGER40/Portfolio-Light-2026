@@ -16,12 +16,8 @@
 }
 
 .backBtn {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: none; border: none; font-size: 13px; font-weight: 500;
-  color: var(--text-muted); cursor: pointer; transition: color 0.15s; padding: 0;
   margin-bottom: 32px;
 }
-.backBtn:hover { color: var(--text-primary); }
 
 .pageTitle {
   font-size: clamp(32px, 5vw, 56px);
