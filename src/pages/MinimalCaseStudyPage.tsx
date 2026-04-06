@@ -37,7 +37,7 @@ const PROJECTS: Project[] = [
     category: 'AI',
     timeFrame: '1 Week',
     metric: '40% less asset creation effort',
-    heroImage: '/images/case-studies/gen-ai.png',
+    heroImage: '/Gen AI explorations.avif',
     opportunity: 'Exploring how product explorations using Gen AI can reduce effort and cost in content creation workflows for Adobe Connect hosts.',
     outcomes: [
       'Reduced asset creation effort by 40% using Gen AI image and content generators.',
@@ -55,7 +55,7 @@ const PROJECTS: Project[] = [
     category: 'UX',
     timeFrame: '16 Weeks',
     metric: '35% increase in engagement',
-    heroImage: '/images/case-studies/connect-homepage.png',
+    heroImage: '/Connect central revamp.png',
     opportunity: 'Adobe Connect Central is the creation and management hub for all webinars and trainings. The existing interface lacked hierarchy, discoverability, and modern usability standards.',
     outcomes: [
       '35% increase in user engagement post-launch.',
@@ -73,7 +73,7 @@ const PROJECTS: Project[] = [
     category: 'UX',
     timeFrame: 'Ongoing',
     metric: '100% of active users impacted',
-    heroImage: '/images/case-studies/adobe-visual-design.png',
+    heroImage: '/visual revamp.png',
     opportunity: 'Core UI revamps across Adobe Connect to modernise the visual language, improve consistency with Adobe Spectrum, and elevate the overall design quality for enterprise users.',
     outcomes: [
       '25% reduction in UI support tickets after visual revamps.',
@@ -85,13 +85,31 @@ const PROJECTS: Project[] = [
     backTo: '/work/all?company=Adobe',
   },
   {
+    id: 'mobile-revamp',
+    title: 'Adobe Connect Mobile App Revamp',
+    company: 'Adobe',
+    category: 'UX',
+    timeFrame: '3 Weeks',
+    metric: 'Mobile usage: 11% → 23%',
+    heroImage: '/Mobile revamp.png',
+    opportunity: 'The Adobe Connect mobile experience was lagging behind modern user expectations, with outdated UX patterns and broken core journeys. Critical entry points such as onboarding, login, and calendar workflows created friction, limiting adoption despite strong in-room capabilities.',
+    outcomes: [
+      'Increased mobile usage from 11% to 23% post-launch — more than doubling adoption.',
+      'Improved first-time user experience and session join success rates.',
+      'Streamlined key user journeys: session discovery, joining, and calendar workflows.',
+      'Established a scalable foundation for future mobile enhancements.',
+    ],
+    tags: ['Adobe Connect', 'Mobile UX', 'Enterprise UX'],
+    backTo: '/work/all?company=Adobe',
+  },
+  {
     id: 'bizongo-ums',
     title: 'Managing Users Effectively',
     company: 'Bizongo',
     category: 'UX',
     timeFrame: '2 Weeks',
     metric: '50% faster user onboarding',
-    heroImage: '/images/case-studies/bizongo-ums.png',
+    heroImage: '/Bizongo UMS.png',
     opportunity: 'User Management System was handled entirely from the backend until 2020. Bringing all features to the front end and making it intuitive for admins without engineering dependency was the core challenge.',
     outcomes: [
       '50% faster user onboarding for new team members.',
@@ -109,7 +127,7 @@ const PROJECTS: Project[] = [
     category: 'UX',
     timeFrame: '2 Weeks',
     metric: '60% less workflow setup time',
-    heroImage: '/images/case-studies/bizongo-artwork-flow.png',
+    heroImage: '/Seamless approval workflow.png',
     opportunity: "Artwork Flow's workflow setup UI had evolved organically and needed to become more intuitive as the product scaled to hundreds of teams managing complex approval chains.",
     outcomes: [
       '60% reduction in workflow setup time.',
@@ -127,7 +145,7 @@ const PROJECTS: Project[] = [
     category: 'UX',
     timeFrame: '2 Weeks',
     metric: '70% faster contract creation',
-    heroImage: '/images/case-studies/bizongo-contracts.png',
+    heroImage: '/Digital contract creation.png',
     opportunity: 'Bizongo handles hundreds of clients with distinct terms. Creating customised contracts with minimal effort while keeping everything trackable and audit-ready was critical at scale.',
     outcomes: [
       '70% faster contract creation compared to the previous process.',
@@ -145,7 +163,7 @@ const PROJECTS: Project[] = [
     category: 'UX',
     timeFrame: '2021',
     metric: '40% better heuristic scores',
-    heroImage: '/images/case-studies/yuj-heuristics.png',
+    heroImage: '/Heuristics evaluation.png',
     opportunity: 'Design evaluations at YUJ needed to be more systematic and repeatable. Ad-hoc heuristic reviews were inconsistent across client projects, reducing their credibility and impact.',
     outcomes: [
       '40% improvement in heuristic evaluation scores across reviewed products.',
@@ -163,7 +181,7 @@ const PROJECTS: Project[] = [
     category: 'Design Systems',
     timeFrame: '1+ yr',
     metric: '50%+ reduction in feature dev time',
-    heroImage: '/images/case-studies/bizongo-design-system.png',
+    heroImage: '/Maintaining design systems.webp',
     opportunity: "Bizongo's design system was derived from Ant Design but needed significant modification to fit B2B use cases, with proper documentation and component coverage across 5 product verticals.",
     outcomes: [
       '50%+ reduction in feature development time through reusable components.',
@@ -199,7 +217,7 @@ const PROJECTS: Project[] = [
     category: 'Internship',
     timeFrame: '2 months',
     metric: 'Full brand identity delivered',
-    heroImage: '/images/case-studies/iit-branding.png',
+    heroImage: '/POULTRY BRANDING.png',
     opportunity: 'Creating a complete branding and marketing presence for local poultry farmers to help them expand into Tier-1 cities. The challenge was building brand trust and accessibility for a traditionally unbranded market.',
     outcomes: [
       'Full brand identity delivered: logo, colour system, typography.',
@@ -217,7 +235,7 @@ const PROJECTS: Project[] = [
     category: 'Internship',
     timeFrame: '2017',
     metric: 'Inducted design into Navy',
-    heroImage: '/images/case-studies/npol-ctd-probe.png',
+    heroImage: '/npol-ctd-probe.png',
     opportunity: 'Designing a re-usable CTD (Conductivity, Temperature, Depth) probe structure for naval applications at the Naval Physical and Oceanographic Laboratory under DRDO. The challenge was designing under strict operational and safety constraints.',
     outcomes: [
       'Design inducted into the Indian Navy in April 2018.',
