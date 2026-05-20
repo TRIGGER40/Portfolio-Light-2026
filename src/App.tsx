@@ -16,7 +16,7 @@ import { AIPage } from './pages/AIPage';
 import { AboutPage } from './pages/AboutPage';
 import { CaseStudyQuiz } from './pages/CaseStudyQuiz';
 import { CaseStudyJoining } from './pages/CaseStudyJoining';
-import { CaseStudyALMVC } from './pages/CaseStudyALMVC';
+import { PasswordGate } from './components/PasswordGate';
 import { CaseStudyQC } from './pages/CaseStudyQC';
 import { CaseStudyPPE } from './pages/CaseStudyPPE';
 import { AllWorksPage } from './pages/AllWorksPage';
@@ -99,7 +99,10 @@ export default function App() {
           } />
           <Route path="/work/almvc" element={
             <motion.div variants={homeVariants} initial="initial" animate="animate" exit="exit">
-              <CaseStudyALMVC />
+              <PasswordGate
+                id="almvc"
+                loader={() => import('./pages/CaseStudyALMVC').then(m => ({ default: m.CaseStudyALMVC }))}
+              />
             </motion.div>
           } />
           <Route path="/work/qc" element={
