@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { SUGGESTED_PROMPTS } from '../data/aiContext';
 import styles from './Nav.module.css';
-import { ANALYTICS_SECRET, triggerAnalyticsDashboard } from '../lib/analytics';
+import { ANALYTICS_SECRET, triggerAnalyticsDashboard, track } from '../lib/analytics';
 
 const loadResumePdf = () => import('../lib/resumePdf');
 
@@ -115,7 +115,7 @@ export function Nav({ hidden = false }: { hidden?: boolean }) {
             {/* Resume */}
             <button
               className={styles.resumeBtn}
-              onClick={() => loadResumePdf().then(({ downloadResumePdf }) => downloadResumePdf())}
+              onClick={() => { track('resume_click', { source: 'nav' }); loadResumePdf().then(({ downloadResumePdf }) => downloadResumePdf()); }}
             >
               <i className="bi bi-download" style={{ fontSize: '13px' }} aria-hidden="true" />
               <span className={styles.resumeText}>Resume</span>
