@@ -2,6 +2,8 @@ import { motion } from 'framer-motion';
 import { CONTACT } from '../data/portfolioData';
 import styles from './Contact.module.css';
 
+const loadResumePdf = () => import('../lib/resumePdf');
+
 export function Contact() {
   return (
     <section className="section" id="contact">
@@ -54,11 +56,9 @@ export function Contact() {
               <div className={styles.tileArrow}>→</div>
             </a>
 
-            <a
-              href={CONTACT.resume}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
               className={`glass-card ${styles.tile}`}
+              onClick={() => loadResumePdf().then(({ downloadResumePdf }) => downloadResumePdf())}
             >
               <div className={styles.tileIcon}>↓</div>
               <div className={styles.tileBody}>
@@ -66,7 +66,7 @@ export function Contact() {
                 <div className={styles.tileValue}>Download PDF</div>
               </div>
               <div className={styles.tileArrow}>→</div>
-            </a>
+            </button>
           </div>
         </motion.div>
       </div>

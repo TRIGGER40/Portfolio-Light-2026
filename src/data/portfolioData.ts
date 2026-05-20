@@ -79,18 +79,18 @@ export interface Award {
 
 export const CASE_STUDIES: CaseStudy[] = [
   {
-    id: "gen-ai",
-    title: "Gen AI Explorations",
+    id: "almvc",
+    title: "Virtual classrooms reimagined.",
     company: "Adobe",
-    category: "AI",
-    opportunity: "Being the buzz word of 2023, Gen AI has taken the world stage. Exploring how product explorations using Gen AI can reduce effort and cost.",
-    actions: ["Product explorations using Gen AI image and content generators", "Evaluated customized content in one click"],
-    outcomes: ["Utilising GenAI image and content generator can help reduce effort", "Easy to get customised content in a click", "Can reduce cost by needlessly subscribing to asset libraries"],
-    metrics: ["40% reduction in asset creation effort", "3x faster content turnaround"],
-    timeFrame: "1 Week",
-    tags: ["Adobe Connect", "AI Initiatives", "Enterprise UX"],
-    link: "https://www.midhunkrishnakumar.info/gen-ai-exploration",
-    thumbnail: "Gen AI screen.png",
+    category: "0→1 Product",
+    opportunity: "Adobe Learning Manager had no native virtual classroom. We built one from scratch, purpose-built for training, owning the full live learning lifecycle for the first time.",
+    actions: ["0→1 product UX direction", "Built joining & exit flows from scratch", "AI-assisted engagement systems", "Breakout orchestration and recording intelligence"],
+    outcomes: ["First native virtual classroom inside Adobe Learning Manager", "Full session lifecycle owned end-to-end", "AI-assisted engagement shipped as a core feature", "Recording viewer built as a structured learning asset"],
+    metrics: ["New launch", "5+ feature areas built from scratch"],
+    timeFrame: "6 Months",
+    tags: ["Adobe Learning Manager", "Enterprise UX", "AI"],
+    link: "https://midhunkrishnakumar-portfolio.vercel.app/work/almvc",
+    thumbnail: "ALMVC/ALMVC hero image.png",
   },
   {
     id: "quiz-pod",
@@ -367,7 +367,7 @@ export const CASE_STUDIES: CaseStudy[] = [
 ];
 
 export const FEATURED_PROJECT_IDS = [
-  "gen-ai",
+  "almvc",
   "event-joining",
   "bizongo-qc",
   "connect-homepage",

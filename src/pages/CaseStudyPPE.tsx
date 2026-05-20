@@ -8,15 +8,15 @@ import pStyles from './CaseStudyPPE.module.css';
 /* ── Image slot ──────────────────────────────────────── */
 function ImgSlot({ src, label, aspect = '16/9' }: { src?: string; label: string; aspect?: string }) {
   if (src) {
-    return <img src={src} alt={label} className={styles.imgSlotReal} style={{ aspectRatio: aspect }} />;
+    return (
+      <div className={styles.imgSlotWrap} style={{ aspectRatio: aspect }}>
+        <img src={src} alt={label} className={styles.imgSlotReal} />
+      </div>
+    );
   }
   return (
     <div className={styles.imgSlot} style={{ aspectRatio: aspect }}>
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className={styles.imgSlotIcon}>
-        <rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" strokeWidth="1.4"/>
-        <circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" strokeWidth="1.4"/>
-        <path d="M3 16l5-5 4 4 3-3 6 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
+      <i className={"bi bi-image " + styles.imgSlotIcon} style={{ fontSize: '20px' }} aria-hidden="true" />
       <span className={styles.imgSlotLabel}>{label}</span>
     </div>
   );
@@ -170,10 +170,7 @@ export function CaseStudyPPE() {
             ].map(b => (
               <div key={b.title} className={styles.insightBead}>
                 <span className={styles.insightBeadIcon}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M9 21h6M12 3a6 6 0 0 1 6 6c0 2.5-1.5 4.5-3 6H9c-1.5-1.5-3-3.5-3-6a6 6 0 0 1 6-6z"/>
-                    <path d="M9 17v1a3 3 0 0 0 6 0v-1"/>
-                  </svg>
+                  <i className="bi bi-lightbulb" style={{ fontSize: '18px' }} aria-hidden="true" />
                 </span>
                 <div>
                   <p className={styles.insightBeadTitle}>{b.title}</p>
@@ -218,45 +215,28 @@ export function CaseStudyPPE() {
           <div className={pStyles.complexityGrid}>
             {[
               {
-                icon: (
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
-                    <path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>
-                  </svg>
-                ),
+                icon: <i className="bi bi-box" style={{ fontSize: '22px' }} aria-hidden="true" />,
                 color: 'var(--accent-indigo)',
                 title: 'Bulk ordering',
                 stat: '500+ units',
                 desc: 'Minimum order quantities started at 500 units. The interface had to make large-quantity selection feel intuitive, not intimidating.',
               },
               {
-                icon: (
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
-                  </svg>
-                ),
+                icon: <i className="bi bi-geo-alt" style={{ fontSize: '22px' }} aria-hidden="true" />,
                 color: 'var(--accent-violet)',
                 title: 'Multiple delivery locations',
                 stat: 'Per client',
                 desc: 'A single order could ship to several warehouses or offices. The checkout had to support multiple delivery addresses without becoming overwhelming.',
               },
               {
-                icon: (
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <rect width="16" height="13" x="4" y="7" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M12 12v3"/><path d="M8 12h8"/>
-                  </svg>
-                ),
+                icon: <i className="bi bi-briefcase" style={{ fontSize: '22px' }} aria-hidden="true" />,
                 color: 'var(--accent-blue)',
                 title: 'Split deliveries',
                 stat: 'By availability',
                 desc: 'Bizongo\'s supplier network had multiple fulfilment partners. Orders were split based on stock availability, with clear communication of what shipped when and from which partner.',
               },
               {
-                icon: (
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20"/>
-                  </svg>
-                ),
+                icon: <i className="bi bi-credit-card" style={{ fontSize: '22px' }} aria-hidden="true" />,
                 color: 'var(--accent-cyan)',
                 title: 'Complex payment models',
                 stat: 'Advance, partial, COD',

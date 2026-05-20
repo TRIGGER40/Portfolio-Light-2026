@@ -8,15 +8,15 @@ import qStyles from './CaseStudyQC.module.css';
 /* ── Image slot ──────────────────────────────────────── */
 function ImgSlot({ src, label, aspect = '16/9' }: { src?: string; label: string; aspect?: string }) {
   if (src) {
-    return <img src={src} alt={label} className={styles.imgSlotReal} style={{ aspectRatio: aspect }} />;
+    return (
+      <div className={styles.imgSlotWrap} style={{ aspectRatio: aspect }}>
+        <img src={src} alt={label} className={styles.imgSlotReal} />
+      </div>
+    );
   }
   return (
     <div className={styles.imgSlot} style={{ aspectRatio: aspect }}>
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className={styles.imgSlotIcon}>
-        <rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" strokeWidth="1.4"/>
-        <circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" strokeWidth="1.4"/>
-        <path d="M3 16l5-5 4 4 3-3 6 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
+      <i className={"bi bi-image " + styles.imgSlotIcon} style={{ fontSize: '20px' }} aria-hidden="true" />
       <span className={styles.imgSlotLabel}>{label}</span>
     </div>
   );
@@ -170,10 +170,7 @@ export function CaseStudyQC() {
             ].map(b => (
               <div key={b.title} className={styles.insightBead}>
                 <span className={styles.insightBeadIcon}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M9 21h6M12 3a6 6 0 0 1 6 6c0 2.5-1.5 4.5-3 6H9c-1.5-1.5-3-3.5-3-6a6 6 0 0 1 6-6z"/>
-                    <path d="M9 17v1a3 3 0 0 0 6 0v-1"/>
-                  </svg>
+                  <i className="bi bi-lightbulb" style={{ fontSize: '18px' }} aria-hidden="true" />
                 </span>
                 <div>
                   <p className={styles.insightBeadTitle}>{b.title}</p>
@@ -247,12 +244,7 @@ export function CaseStudyQC() {
               { icon: '↘', title: 'No prioritisation',   desc: 'Criteria were presented in the same visual weight regardless of how critical or fast they were to check.' },
               { icon: '↔', title: 'Flat list structure',  desc: 'All 25 items in a single scroll. No grouping meant executives couldn\'t build a mental model of progress.' },
               {
-                icon: (
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M3 20 C6 20 8 18 10 14 C12 10 13 5 21 3"/>
-                    <path d="M3 20h18"/>
-                  </svg>
-                ),
+                icon: <i className="bi bi-graph-up" style={{ fontSize: '20px' }} aria-hidden="true" />,
                 title: 'Volume amplification', desc: 'At 1000 pieces/hr, a 6-minute check cycle creates compounding delay , and that\'s before accounting for returns.'
               },
             ].map(f => (
@@ -280,11 +272,7 @@ export function CaseStudyQC() {
               {
                 tier: '01',
                 name: 'Far Observation',
-                icon: (
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>
-                  </svg>
-                ),
+                icon: <i className="bi bi-eye" style={{ fontSize: '22px' }} aria-hidden="true" />,
                 color: 'var(--accent-indigo)',
                 desc: 'Visual checks done from a standing distance , packaging integrity, labeling, quantity count.',
                 examples: ['Packaging intact', 'Label visible', 'Quantity match'],
@@ -292,11 +280,7 @@ export function CaseStudyQC() {
               {
                 tier: '02',
                 name: 'Near Observation',
-                icon: (
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-                  </svg>
-                ),
+                icon: <i className="bi bi-search" style={{ fontSize: '22px' }} aria-hidden="true" />,
                 color: 'var(--accent-violet)',
                 desc: 'Product-level inspection up close , surface defects, color consistency, print quality.',
                 examples: ['Surface defects', 'Color consistency', 'Print accuracy'],
@@ -304,12 +288,7 @@ export function CaseStudyQC() {
               {
                 tier: '03',
                 name: 'Touch and Feel',
-                icon: (
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v4M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/>
-                    <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>
-                  </svg>
-                ),
+                icon: <i className="bi bi-hand-index" style={{ fontSize: '22px' }} aria-hidden="true" />,
                 color: 'var(--accent-blue)',
                 desc: 'Tactile validation , material texture, structural firmness, flexibility checks.',
                 examples: ['Material texture', 'Firmness check', 'Flexibility test'],
@@ -317,11 +296,7 @@ export function CaseStudyQC() {
               {
                 tier: '04',
                 name: 'Metric',
-                icon: (
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/>
-                  </svg>
-                ),
+                icon: <i className="bi bi-bar-chart" style={{ fontSize: '22px' }} aria-hidden="true" />,
                 color: 'var(--accent-cyan)',
                 desc: 'Measurable attributes recorded with instruments , thickness, weight, humidity, dimensions.',
                 examples: ['Thickness (mm)', 'Humidity (%)', 'Weight (g)'],
@@ -489,30 +464,17 @@ export function CaseStudyQC() {
           <div className={qStyles.executionGrid}>
             {[
               {
-                icon: (
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
-                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                  </svg>
-                ),
+                icon: <i className="bi bi-people" style={{ fontSize: '20px' }} aria-hidden="true" />,
                 title: 'Staffing gaps escalated, not solved',
                 body: 'Short-staffed warehouses created QC bottlenecks we couldn\'t fix with design. We identified these gaps and escalated them to management as separate operational issues requiring HR decisions.',
               },
               {
-                icon: (
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                    <rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/>
-                  </svg>
-                ),
+                icon: <i className="bi bi-tablet" style={{ fontSize: '20px' }} aria-hidden="true" />,
                 title: 'Device and network constraints noted',
                 body: 'Older tablets and unstable warehouse WiFi affected app responsiveness. We designed for graceful degradation and flagged infrastructure improvements as dependencies for full impact realisation.',
               },
               {
-                icon: (
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
-                  </svg>
-                ),
+                icon: <i className="bi bi-pencil" style={{ fontSize: '20px' }} aria-hidden="true" />,
                 title: 'Product scope deliberately maintained',
                 body: 'We resisted expanding the project into adjacent processes like supplier management or returns. Focused execution within the QC module delivered measurable wins without the risk of scope overrun.',
               },

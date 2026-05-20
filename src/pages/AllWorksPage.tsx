@@ -8,6 +8,7 @@ import { useScrollRestoration, saveScrollBeforeLeave } from '../hooks/useScrollR
 import styles from './AllWorksPage.module.css';
 
 const INTERNAL_ROUTES: Record<string, string> = {
+  'almvc':         '/work/almvc',
   'quiz-pod':      '/work/quiz',
   'event-joining': '/work/joining',
   'bizongo-qc':    '/work/qc',
@@ -25,6 +26,14 @@ const CATEGORY_COLORS: Record<string, string> = {
 };
 
 const FEATURED = [
+  {
+    id: 'almvc',
+    title: 'Adobe Learning Manager – Virtual Classroom',
+    company: 'Adobe', category: 'Product Design', timeFrame: '6 Months',
+    metric: '5+ feature areas redesigned',
+    desc: 'Reimagining live learning for the next generation of virtual classrooms — combining enterprise depth with modern simplicity.',
+    thumbnail: 'Gen AI screen.png',
+  },
   {
     id: 'quiz-pod',
     title: 'Quick quizzing in Adobe Connect',
@@ -60,13 +69,6 @@ const FEATURED = [
 ];
 
 const OTHER_WORKS = [
-  {
-    id: 'gen-ai',
-    title: 'Gen AI Explorations',
-    company: 'Adobe', category: 'AI', timeFrame: '1 Week',
-    metric: '40% less asset creation effort',
-    thumbnail: 'Gen AI explorations.avif',
-  },
   {
     id: 'connect-homepage',
     title: 'Revamping Adobe Connect homepage',
@@ -235,9 +237,7 @@ export function AllWorksPage() {
                         <span className={styles.metricPill}>{p.metric}</span>
                         <span className={styles.cta}>
                           View case study
-                          <svg width="12" height="12" viewBox="0 0 13 13" fill="none">
-                            <path d="M2.5 10.5l8-8M4 2.5h6.5v6.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
+                          <i className="bi bi-arrow-up-right" style={{ fontSize: '12px' }} aria-hidden="true" />
                         </span>
                       </div>
                     </div>
@@ -292,9 +292,7 @@ export function AllWorksPage() {
                         <span className={styles.metricPill}>{p.metric}</span>
                         <span className={styles.ctaExternal}>
                           View project
-                          <svg width="11" height="11" viewBox="0 0 13 13" fill="none">
-                            <path d="M2.5 10.5l8-8M4 2.5h6.5v6.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
+                          <i className="bi bi-arrow-up-right" style={{ fontSize: '11px' }} aria-hidden="true" />
                         </span>
                       </div>
                     </div>

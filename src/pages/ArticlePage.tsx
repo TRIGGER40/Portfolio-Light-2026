@@ -148,9 +148,7 @@ export function ArticlePage() {
                   className={styles.bodyLink}
                 >
                   <div className={styles.bodyLinkIcon}>
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                      <path d="M6 2H3a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V9M9 2h5m0 0v5m0-5L7 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
+                    <i className="bi bi-box-arrow-up-right" style={{ fontSize: '16px' }} aria-hidden="true" />
                   </div>
                   <div className={styles.bodyLinkText}>
                     <span className={styles.bodyLinkLabel}>{block.label}</span>

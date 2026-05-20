@@ -28,6 +28,7 @@ Role: Product Designer 2 | Lead Designer — Adobe Connect
 Domain: Enterprise collaboration platform (webinars, virtual training, real-time meetings)
 
 Key projects and impact:
+- ALMVC — Virtual Classroom (0→1 product, 2024): Built Adobe Learning Manager's first-ever native virtual classroom from scratch in 6 months. Owned the full live session lifecycle — joining, classroom layouts, AI-assisted engagement (inline poll generation), breakout orchestration with bird's-eye room view, and a topic-navigable recording viewer. Designed and validated audio cues from scratch (none existed in Adobe Spectrum). Full mobile-responsive design with touch-first interaction model. 5+ major feature areas shipped end-to-end as Lead Designer.
 - Gen AI Explorations: Reduced asset creation effort by 40%, enabled 3x faster content turnaround for hosts
 - Quiz Pod (new feature): 50% boost in host efficiency, 90% faster quiz creation vs. manual methods
 - Joining Experience Redesign: Cut device preference screen time by 50%, 2x faster room entry for returning users
@@ -103,7 +104,7 @@ When asked about strengths, tie them to real project examples — don't just lis
 If a question is vague, pick the most interesting interpretation and run with it rather than asking for clarification. Keep responses tight — 3–5 sentences for simple questions, structured bullets for complex ones. End with something that invites a follow-up if the topic is rich.
 
 ## Referencing projects
-When mentioning a specific project, use its exact canonical name so the UI can auto-link it. Canonical names: Quiz Pod, Joining Experience, QC Improvement, PPE Portal, Homepage Revamp, Gen AI Explorations, Adobe Visual Design, Artwork Flow, Bizongo Contracts, Bizongo Design System, User Management System, IIT Branding, NID UX Course, Heuristics Evaluation, CTD Probe, Poultry Branding, CampusLive.
+When mentioning a specific project, use its exact canonical name so the UI can auto-link it. Canonical names: ALMVC, Virtual Classroom, Quiz Pod, Joining Experience, QC Improvement, PPE Portal, Homepage Revamp, Gen AI Explorations, Adobe Visual Design, Artwork Flow, Bizongo Contracts, Bizongo Design System, User Management System, IIT Branding, NID UX Course, Heuristics Evaluation, CTD Probe, Poultry Branding, CampusLive.
 `.trim();
 
 /** Suggested prompts shown in the AI chat interface */
@@ -125,6 +126,7 @@ export const TAGGED_PROMPTS: { text: string; topic: PromptTopic }[] = [
   { text: "Can you summarize his experience at Adobe and key contributions?",     topic: 'experience' },
   { text: "What roles has he held and how has his career evolved?",               topic: 'experience' },
   { text: "Show me his most impactful projects and what he achieved.",            topic: 'projects' },
+  { text: "Tell me about the ALMVC virtual classroom project.",                   topic: 'projects' },
   { text: "Tell me about the Quiz Pod project and its outcomes.",                 topic: 'projects' },
   { text: "What enterprise UX challenges has he solved?",                         topic: 'projects' },
   { text: "How does he approach problem-solving and product thinking?",           topic: 'process' },
@@ -182,7 +184,8 @@ export const PROJECT_LINKS: { pattern: RegExp; route: string }[] = [
   { pattern: /\bQC Improvement\b/gi,             route: '/work/qc' },
   { pattern: /\bPPE Portal\b/gi,                 route: '/work/ppe' },
   { pattern: /\bHomepage Revamp\b/gi,            route: '/work/connect-homepage' },
-  { pattern: /\bGen AI Explorations\b/gi,        route: '/work/gen-ai' },
+  { pattern: /\bALMVC\b/gi,                      route: '/work/almvc' },
+  { pattern: /\bVirtual Classroom\b/gi,          route: '/work/almvc' },
   { pattern: /\bAdobe Visual Design\b/gi,        route: '/work/adobe-visual-design' },
   { pattern: /\bArtwork Flow\b/gi,               route: '/work/bizongo-artwork-flow' },
   { pattern: /\bBizongo Contracts\b/gi,          route: '/work/bizongo-contracts' },

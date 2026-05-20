@@ -5,7 +5,7 @@ import styles from './Hero.module.css';
 const METRICS = [
   { value: '6+', label: 'Years of exp.' },
   { value: '10M', label: 'Users impacted' },
-  { value: '250+', label: 'Releases shipped' },
+  { value: '20+', label: 'Products crafted' },
 ];
 
 export function Hero() {
@@ -51,9 +51,7 @@ export function Hero() {
             <div className={styles.ctas}>
               <a href="#work" className="btn btn-secondary">
                 View Work
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                <i className="bi bi-arrow-right" style={{ fontSize: '14px' }} aria-hidden="true" />
               </a>
               <button className={`btn btn-primary ${styles.askBtn}`} onClick={() => navigate('/ask')}>
                 <span className={styles.sparkle}>✦</span>

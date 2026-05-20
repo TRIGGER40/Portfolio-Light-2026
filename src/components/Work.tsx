@@ -5,13 +5,14 @@ import { saveScrollBeforeLeave } from '../hooks/useScrollRestoration';
 import styles from './Work.module.css';
 
 const INTERNAL_ROUTES: Record<string, string> = {
+  'almvc':         '/work/almvc',
   'quiz-pod':      '/work/quiz',
   'event-joining': '/work/joining',
   'bizongo-qc':    '/work/qc',
   'bizongo-ecom':  '/work/ppe',
 };
 
-const FEATURED_IDS = ['gen-ai', 'event-joining', 'bizongo-qc', 'quiz-pod', 'bizongo-ecom'];
+const FEATURED_IDS = ['almvc', 'event-joining', 'bizongo-qc', 'quiz-pod', 'bizongo-ecom'];
 
 const CATEGORY_COLORS: Record<string, string> = {
   AI: 'var(--accent-violet)',
@@ -116,8 +117,13 @@ export function Work() {
                 <div className={styles.aside}>
                   {metric && (
                     <div className={styles.impact}>
-                      <span className={styles.impactValue}>{metric.value}</span>
-                      <span className={styles.impactLabel}>{metric.label}</span>
+                      {metric.value
+                        ? <>
+                            <span className={styles.impactValue}>{metric.value}</span>
+                            <span className={styles.impactLabel}>{metric.label}</span>
+                          </>
+                        : <span className={styles.impactValue}>{metric.label}</span>
+                      }
                     </div>
                   )}
                   {project.link && (
@@ -129,9 +135,7 @@ export function Work() {
                       onClick={(e) => e.stopPropagation()}
                     >
                       View case study
-                      <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-                        <path d="M2.5 10.5l8-8M4 2.5h6.5v6.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
+                      <i className="bi bi-arrow-up-right" style={{ fontSize: '13px' }} aria-hidden="true" />
                     </a>
                   )}
                 </div>
@@ -152,9 +156,7 @@ export function Work() {
             onClick={() => navigate('/work/all')}
           >
             View all work on portfolio
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M2 7h10M9 4l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+            <i className="bi bi-arrow-right" style={{ fontSize: '14px' }} aria-hidden="true" />
           </button>
         </motion.div>
       </div>

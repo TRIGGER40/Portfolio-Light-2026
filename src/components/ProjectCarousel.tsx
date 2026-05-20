@@ -1,7 +1,10 @@
+import { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CASE_STUDIES } from '../data/portfolioData';
 import styles from './ProjectCarousel.module.css';
 
 const INTERNAL_ROUTES: Record<string, string> = {
+  'almvc':         '/work/almvc',
   'quiz-pod':      '/work/quiz',
   'event-joining': '/work/joining',
   'bizongo-qc':    '/work/qc',
@@ -9,39 +12,86 @@ const INTERNAL_ROUTES: Record<string, string> = {
 };
 
 const CATEGORY_COLORS: Record<string, string> = {
-  AI:               'var(--accent-violet)',
-  Feature:          'var(--accent-blue)',
-  UX:               'var(--accent-indigo)',
-  'Design Systems': 'var(--accent-cyan)',
+  'AI':            'var(--accent-violet)',
+  'Feature':       'var(--accent-blue)',
+  'UX':            'var(--accent-indigo)',
+  '0→1 Product':   'var(--accent-indigo)',
+  'Design Systems':'var(--accent-cyan)',
+  'Mentorship':    'var(--accent-blue)',
+  'Internship':    'var(--accent-cyan)',
 };
 
-const ALL_PROJECTS = [
-  { id: 'quiz-pod',      title: 'Quick quizzing in Adobe Connect',    company: 'Adobe',   category: 'Feature', thumbnail: 'quiz pod.png' },
-  { id: 'event-joining', title: 'Enhancing joining experience',        company: 'Adobe',   category: 'UX',     thumbnail: 'joining screen.png' },
-  { id: 'bizongo-qc',    title: 'Quality check made easy!',            company: 'Bizongo', category: 'UX',     thumbnail: 'QC improvement.png' },
-  { id: 'bizongo-ecom',  title: 'Making PPE kits more accessible',     company: 'Bizongo', category: 'UX',     thumbnail: 'PPE.png' },
-];
+const SPEED = 50; // px per second
 
 interface Props { currentId: string; }
 
 export function ProjectCarousel({ currentId }: Props) {
   const navigate = useNavigate();
-  const others = ALL_PROJECTS.filter(p => p.id !== currentId);
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const rafRef      = useRef<number>(0);
+  const pausedRef   = useRef(false);
+  const prevTimeRef = useRef(0);
+
+  // Triple the list for seamless looping
+  const looped = [...CASE_STUDIES, ...CASE_STUDIES, ...CASE_STUDIES];
+
+  /* ── Auto-scroll via rAF ── */
+  useEffect(() => {
+    const tick = (t: number) => {
+      const el = viewportRef.current;
+      if (el && !pausedRef.current) {
+        if (prevTimeRef.current) {
+          el.scrollLeft += SPEED * (t - prevTimeRef.current) / 1000;
+          const oneSet = el.scrollWidth / 3;
+          if (el.scrollLeft >= oneSet) el.scrollLeft -= oneSet;
+        }
+      }
+      prevTimeRef.current = t;
+      rafRef.current = requestAnimationFrame(tick);
+    };
+    rafRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, []);
+
+  /* ── Wheel: convert vertical scroll → horizontal, non-passive so preventDefault works ── */
+  useEffect(() => {
+    const el = viewportRef.current;
+    if (!el) return;
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      // Use whichever axis has movement; trackpad sends deltaX natively
+      el.scrollLeft += Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      const oneSet = el.scrollWidth / 3;
+      if (el.scrollLeft >= oneSet) el.scrollLeft -= oneSet;
+      else if (el.scrollLeft < 0) el.scrollLeft += oneSet;
+    };
+    el.addEventListener('wheel', onWheel, { passive: false });
+    return () => el.removeEventListener('wheel', onWheel);
+  }, []);
+
+  const pause  = () => { pausedRef.current = true; };
+  const resume = () => { pausedRef.current = false; prevTimeRef.current = 0; };
 
   return (
     <section className={styles.section}>
-      <div className={styles.container}>
-        <div className={styles.header}>
-          <span className={styles.label}>More work</span>
-          <h3 className={styles.title}>Continue exploring</h3>
-        </div>
-        <div className={styles.grid}>
-          {others.map(p => {
+      <div className={styles.header}>
+        <span className={styles.label}>More work</span>
+        <h3 className={styles.title}>Continue exploring</h3>
+      </div>
+
+      <div
+        ref={viewportRef}
+        className={styles.viewport}
+        onMouseEnter={pause}
+        onMouseLeave={resume}
+      >
+        <div className={styles.track}>
+          {looped.map((p, i) => {
             const color = CATEGORY_COLORS[p.category] || 'var(--accent-indigo)';
             const route = INTERNAL_ROUTES[p.id];
             return (
               <div
-                key={p.id}
+                key={`${p.id}-${i}`}
                 className={styles.card}
                 onClick={() => route && navigate(route)}
                 style={{ cursor: route ? 'pointer' : 'default' }}
@@ -54,7 +104,10 @@ export function ProjectCarousel({ currentId }: Props) {
                     onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
                   />
                   <div className={styles.imgOverlay} />
-                  <span className={styles.badge} style={{ '--badge-color': color } as React.CSSProperties}>
+                  <span
+                    className={styles.badge}
+                    style={{ '--badge-color': color } as React.CSSProperties}
+                  >
                     {p.category}
                   </span>
                 </div>
@@ -64,9 +117,7 @@ export function ProjectCarousel({ currentId }: Props) {
                   {route && (
                     <span className={styles.cta}>
                       View case study
-                      <svg width="12" height="12" viewBox="0 0 13 13" fill="none">
-                        <path d="M2.5 10.5l8-8M4 2.5h6.5v6.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
+                      <i className="bi bi-arrow-up-right" style={{ fontSize: '12px' }} aria-hidden="true" />
                     </span>
                   )}
                 </div>
