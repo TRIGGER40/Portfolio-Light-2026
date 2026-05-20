@@ -1,8 +1,10 @@
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { CASE_STUDIES } from '../data/portfolioData';
 import { saveScrollBeforeLeave } from '../hooks/useScrollRestoration';
 import styles from './Work.module.css';
+import { track } from '../lib/analytics';
 
 const INTERNAL_ROUTES: Record<string, string> = {
   'almvc':         '/work/almvc',
@@ -32,6 +34,8 @@ function parseMetric(raw: string): { value: string; label: string } {
 export function Work() {
   const navigate = useNavigate();
   const featured = CASE_STUDIES.filter((cs) => FEATURED_IDS.includes(cs.id));
+  const firstClickFired = useRef(false);
+  const hoverStart = useRef<Record<string, number>>({});
 
   return (
     <section className="section" id="work">
@@ -68,7 +72,25 @@ export function Work() {
                 key={project.id}
                 id={project.id}
                 className={`${styles.card} ${internalRoute ? styles.cardClickable : ''}`}
-                onClick={() => { if (internalRoute) { saveScrollBeforeLeave(); navigate(internalRoute); } }}
+                onMouseEnter={() => { hoverStart.current[project.id] = Date.now(); }}
+                onMouseLeave={() => {
+                  const start = hoverStart.current[project.id];
+                  if (start) {
+                    const duration = Date.now() - start;
+                    delete hoverStart.current[project.id];
+                    if (duration > 300) track('project_hover', { id: project.id, title: project.title, duration });
+                  }
+                }}
+                onClick={() => {
+                  if (internalRoute) {
+                    track('project_click', { id: project.id, title: project.title });
+                    if (!firstClickFired.current) {
+                      firstClickFired.current = true;
+                    }
+                    saveScrollBeforeLeave();
+                    navigate(internalRoute);
+                  }
+                }}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}

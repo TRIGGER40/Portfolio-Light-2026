@@ -1,0 +1,367 @@
+/* ── Overlay ───────────────────────────────────────── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #07070f;
+  overflow-y: auto;
+  overflow-x: hidden;
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Sticky header ─────────────────────────────────── */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(7, 7, 15, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.headerTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: -0.01em;
+}
+
+.headerBadge {
+  font-size: 11px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(124, 58, 237, 0.2);
+  color: #a78bfa;
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.clearBtn {
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clearBtn:hover {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.35);
+  color: #f87171;
+}
+
+.closeBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.closeBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ── Content layout ────────────────────────────────── */
+.content {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 32px 32px 80px;
+}
+
+/* ── Local data notice ─────────────────────────────── */
+.notice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: rgba(251, 191, 36, 0.07);
+  border: 1px solid rgba(251, 191, 36, 0.2);
+  color: rgba(251, 191, 36, 0.85);
+  font-size: 12px;
+  margin-bottom: 28px;
+}
+
+/* ── Overview stats ────────────────────────────────── */
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 768px) {
+  .statsRow { grid-template-columns: repeat(2, 1fr); }
+}
+
+.statCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+  padding: 20px 18px;
+}
+
+.statValue {
+  font-size: 30px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.65) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.statLabel {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.38);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+/* ── Sections ──────────────────────────────────────── */
+.section {
+  margin-bottom: 36px;
+}
+
+.sectionHead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sectionHead i {
+  font-size: 13px;
+  color: rgba(255,255,255,0.25);
+}
+
+.sectionCard {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 20px 22px;
+}
+
+/* ── Bar chart rows ────────────────────────────────── */
+.barRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 11px;
+}
+
+.barRow:last-child {
+  margin-bottom: 0;
+}
+
+.barLabel {
+  width: 180px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+  flex-shrink: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.barTrack {
+  flex: 1;
+  height: 7px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.barCount {
+  width: 38px;
+  text-align: right;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.35);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+.barPct {
+  width: 38px;
+  text-align: right;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.35);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+/* ── Two-column grid for sections ──────────────────── */
+.twoCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 680px) {
+  .twoCol { grid-template-columns: 1fr; }
+}
+
+/* ── Project table ─────────────────────────────────── */
+.projectTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.projectTable th {
+  font-size: 10px;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-align: left;
+  padding: 0 0 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-weight: 600;
+}
+
+.projectTable th:not(:first-child) {
+  text-align: center;
+}
+
+.projectTable td {
+  padding: 10px 0;
+  font-size: 13px;
+  color: rgba(255,255,255,0.65);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  vertical-align: middle;
+}
+
+.projectTable tr:last-child td {
+  border-bottom: none;
+}
+
+.projectTable td:not(:first-child) {
+  text-align: center;
+}
+
+.projectName {
+  font-weight: 600;
+  color: rgba(255,255,255,0.8);
+}
+
+.pill {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.pillGreen  { background: rgba(34,197,94,0.15);  color: #4ade80; }
+.pillViolet { background: rgba(124,58,237,0.15); color: #a78bfa; }
+.pillBlue   { background: rgba(59,130,246,0.15); color: #60a5fa; }
+
+/* ── Empty state ───────────────────────────────────── */
+.empty {
+  text-align: center;
+  padding: 60px 24px;
+  color: rgba(255,255,255,0.25);
+}
+
+.empty i {
+  font-size: 40px;
+  display: block;
+  margin-bottom: 16px;
+  opacity: 0.3;
+}
+
+.emptyTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 8px;
+}
+
+.emptyText {
+  font-size: 13px;
+  line-height: 1.6;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+/* ── Inline stat chips ─────────────────────────────── */
+.chipRow {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+}
+
+.chipValue {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.chipLabel {
+  font-size: 11px;
+  color: rgba(255,255,255,0.35);
+}

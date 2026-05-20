@@ -5,6 +5,7 @@ import { SUGGESTED_PROMPTS, getSmartFollowUps } from '../data/aiContext';
 import { injectProjectLinks } from '../utils/projectLinks';
 import styles from './AIPage.module.css';
 import { GoBackButton } from '../components/GoBackButton';
+import { ANALYTICS_SECRET, triggerAnalyticsDashboard } from '../lib/analytics';
 
 /* ── Marquee images ──────────────────────────────────── */
 const MARQUEE_IMAGES = [
@@ -159,6 +160,12 @@ export function AIPage() {
   const handleSend = (text?: string) => {
     const msg = text ?? input.trim();
     if (!msg || loading) return;
+    // Secret analytics key — intercept before sending to AI
+    if (msg === ANALYTICS_SECRET) {
+      setInput('');
+      triggerAnalyticsDashboard();
+      return;
+    }
     send(msg);
     setInput('');
   };
@@ -282,9 +289,7 @@ export function AIPage() {
               disabled={!input.trim() || loading}
               aria-label="Send"
             >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M14 8L2 2l3 6-3 6 12-6z" fill="currentColor"/>
-              </svg>
+              <i className="bi bi-send-fill" style={{ fontSize: '14px' }} aria-hidden="true" />
             </button>
           </div>
 
@@ -412,9 +417,7 @@ export function AIPage() {
               disabled={!input.trim() || loading}
               aria-label="Send"
             >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M14 8L2 2l3 6-3 6 12-6z" fill="currentColor"/>
-              </svg>
+              <i className="bi bi-send-fill" style={{ fontSize: '14px' }} aria-hidden="true" />
             </button>
           </div>
           <p className={styles.disclaimer}>AI generated responses may be inaccurate. Verify for accuracy.</p>

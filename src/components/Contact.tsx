@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { CONTACT } from '../data/portfolioData';
 import styles from './Contact.module.css';
+import { track } from '../lib/analytics';
 
 const loadResumePdf = () => import('../lib/resumePdf');
 
@@ -47,6 +48,7 @@ export function Contact() {
               target="_blank"
               rel="noopener noreferrer"
               className={`glass-card ${styles.tile}`}
+              onClick={() => track('linkedin_click', {})}
             >
               <div className={styles.tileIcon}>in</div>
               <div className={styles.tileBody}>
@@ -58,7 +60,7 @@ export function Contact() {
 
             <button
               className={`glass-card ${styles.tile}`}
-              onClick={() => loadResumePdf().then(({ downloadResumePdf }) => downloadResumePdf())}
+              onClick={() => { track('resume_click', {}); loadResumePdf().then(({ downloadResumePdf }) => downloadResumePdf()); }}
             >
               <div className={styles.tileIcon}>↓</div>
               <div className={styles.tileBody}>

@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { initScrollTracking, initGeoTracking } from './lib/analytics';
+import { AnalyticsDashboard } from './components/AnalyticsDashboard';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { useScrollRestoration } from './hooks/useScrollRestoration';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -24,6 +26,7 @@ import { ArticlePage } from './pages/ArticlePage';
 
 function HomePage() {
   useScrollRestoration();
+  useEffect(() => { initScrollTracking(); initGeoTracking(); }, []);
   return (
     <>
       <BackgroundGlow />
@@ -66,9 +69,18 @@ const aiVariants = {
 export default function App() {
   const location = useLocation();
   const isAIPage = location.pathname === '/ask';
+  const [showAnalytics, setShowAnalytics] = useState(false);
+
+  // Global listener — triggered from Nav header OR AI page input
+  useEffect(() => {
+    const handler = () => setShowAnalytics(true);
+    window.addEventListener('show-analytics', handler);
+    return () => window.removeEventListener('show-analytics', handler);
+  }, []);
 
   return (
     <>
+      {showAnalytics && <AnalyticsDashboard onClose={() => setShowAnalytics(false)} />}
       <Nav hidden={isAIPage} />
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>

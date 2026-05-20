@@ -1,6 +1,8 @@
+import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PhoneStack } from './PhoneStack';
 import styles from './Hero.module.css';
+import { track } from '../lib/analytics';
 
 const METRICS = [
   { value: '6+', label: 'Years of exp.' },
@@ -10,9 +12,21 @@ const METRICS = [
 
 export function Hero() {
   const navigate = useNavigate();
+  const heroRef = useRef<HTMLElement>(null);
+
+  // Fire hero_view once when it enters the viewport
+  useEffect(() => {
+    const el = heroRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { track('hero_view', {}); obs.disconnect(); }
+    }, { threshold: 0.4 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
 
   return (
-    <section className={styles.hero}>
+    <section className={styles.hero} ref={heroRef}>
       <div className={styles.bg}>
         <div className={`${styles.orb} ${styles.orb1}`} />
         <div className={`${styles.orb} ${styles.orb2}`} />
@@ -49,11 +63,12 @@ export function Hero() {
 
           <div className={styles.fadeUp} style={{ '--delay': '0.46s' } as React.CSSProperties}>
             <div className={styles.ctas}>
-              <a href="#work" className="btn btn-secondary">
+              <a href="#work" className="btn btn-secondary"
+                onClick={() => track('hero_cta', { cta: 'View Work' })}>
                 View Work
                 <i className="bi bi-arrow-right" style={{ fontSize: '14px' }} aria-hidden="true" />
               </a>
-              <button className={`btn btn-primary ${styles.askBtn}`} onClick={() => navigate('/ask')}>
+              <button className={`btn btn-primary ${styles.askBtn}`} onClick={() => { track('hero_cta', { cta: 'Ask AI About Me' }); navigate('/ask'); }}>
                 <span className={styles.sparkle}>✦</span>
                 Ask AI About Me
               </button>

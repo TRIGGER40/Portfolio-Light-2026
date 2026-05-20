@@ -3,6 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { SUGGESTED_PROMPTS } from '../data/aiContext';
 import styles from './Nav.module.css';
+import { ANALYTICS_SECRET, triggerAnalyticsDashboard } from '../lib/analytics';
+
+const loadResumePdf = () => import('../lib/resumePdf');
 
 export function Nav({ hidden = false }: { hidden?: boolean }) {
   const navigate = useNavigate();
@@ -22,6 +25,11 @@ export function Nav({ hidden = false }: { hidden?: boolean }) {
     setQuery('');
     setFocused(false);
     inputRef.current?.blur();
+    // Secret analytics key
+    if (text.trim() === ANALYTICS_SECRET) {
+      triggerAnalyticsDashboard();
+      return;
+    }
     navigate(`/ask?q=${encodeURIComponent(text.trim())}`);
   };
 
@@ -77,9 +85,7 @@ export function Nav({ hidden = false }: { hidden?: boolean }) {
             {/* Search */}
             <div className={styles.searchWrap} onClick={() => inputRef.current?.focus()}>
               <span className={styles.searchIcon}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-                </svg>
+                <i className="bi bi-search" style={{ fontSize: '14px' }} aria-hidden="true" />
               </span>
 
               <input
@@ -107,18 +113,13 @@ export function Nav({ hidden = false }: { hidden?: boolean }) {
             </button>
 
             {/* Resume */}
-            <a
-              href="/Midhun_Krishnakumar_Resume.pdf"
-              download
+            <button
               className={styles.resumeBtn}
+              onClick={() => loadResumePdf().then(({ downloadResumePdf }) => downloadResumePdf())}
             >
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                <polyline points="7 10 12 15 17 10"/>
-                <line x1="12" y1="15" x2="12" y2="3"/>
-              </svg>
+              <i className="bi bi-download" style={{ fontSize: '13px' }} aria-hidden="true" />
               <span className={styles.resumeText}>Resume</span>
-            </a>
+            </button>
           </div>
 
           {/* ── Suggestions dropdown ── */}
