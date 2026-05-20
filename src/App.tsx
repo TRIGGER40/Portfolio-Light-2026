@@ -8,12 +8,14 @@ import { Work } from './components/Work';
 import { About } from './components/About';
 import { Insights } from './components/Insights';
 import { Contact } from './components/Contact';
+import { HobbiesCarousel } from './components/HobbiesCarousel';
 import { Footer } from './components/Footer';
 import { BackgroundGlow } from './components/BackgroundGlow';
 import { AIPage } from './pages/AIPage';
 import { AboutPage } from './pages/AboutPage';
 import { CaseStudyQuiz } from './pages/CaseStudyQuiz';
 import { CaseStudyJoining } from './pages/CaseStudyJoining';
+import { CaseStudyALMVC } from './pages/CaseStudyALMVC';
 import { CaseStudyQC } from './pages/CaseStudyQC';
 import { CaseStudyPPE } from './pages/CaseStudyPPE';
 import { AllWorksPage } from './pages/AllWorksPage';
@@ -31,6 +33,12 @@ function HomePage() {
         <Work />
         <div className="divider" />
         <About />
+        <div className="divider" />
+        <section style={{ padding: '64px 0' }}>
+          <div className="container">
+            <HobbiesCarousel />
+          </div>
+        </section>
         <div className="divider" />
         <Insights />
         <div className="divider" />
@@ -82,6 +90,11 @@ export default function App() {
           <Route path="/work/joining" element={
             <motion.div variants={homeVariants} initial="initial" animate="animate" exit="exit">
               <CaseStudyJoining />
+            </motion.div>
+          } />
+          <Route path="/work/almvc" element={
+            <motion.div variants={homeVariants} initial="initial" animate="animate" exit="exit">
+              <CaseStudyALMVC />
             </motion.div>
           } />
           <Route path="/work/qc" element={

@@ -941,19 +941,22 @@
 }
 
 .hobbyCard {
-  flex: 0 0 150px;
-  height: 150px;
+  flex: 0 0 260px;
+  height: 260px;
   border-radius: 18px;
   overflow: hidden;
   position: relative;
-  border: 1px solid var(--glass-border);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+              opacity 0.3s ease;
 }
 .hobbyCard:hover {
   transform: scale(1.08);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
   z-index: 2;
+}
+
+/* Dim siblings when any card is hovered */
+.hobbiesTrack:has(.hobbyCard:hover) .hobbyCard:not(:hover) {
+  opacity: 0.4;
 }
 
 .hobbyImg {
