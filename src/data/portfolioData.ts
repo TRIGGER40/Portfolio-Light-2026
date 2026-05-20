@@ -366,6 +366,20 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
 ];
 
+// Projects with dedicated case study pages that don't follow /work/:id
+const DEDICATED_ROUTES: Record<string, string> = {
+  'almvc':         '/work/almvc',
+  'quiz-pod':      '/work/quiz',
+  'event-joining': '/work/joining',
+  'bizongo-qc':    '/work/qc',
+  'bizongo-ecom':  '/work/ppe',
+};
+
+// Single source of truth — falls back to /work/:id for all other projects
+export function getProjectRoute(id: string): string {
+  return DEDICATED_ROUTES[id] ?? `/work/${id}`;
+}
+
 export const FEATURED_PROJECT_IDS = [
   "almvc",
   "event-joining",

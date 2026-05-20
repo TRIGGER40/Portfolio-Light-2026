@@ -5,16 +5,9 @@ import { Footer } from '../components/Footer';
 import { BackgroundGlow } from '../components/BackgroundGlow';
 import { GoBackButton } from '../components/GoBackButton';
 import { useScrollRestoration, saveScrollBeforeLeave } from '../hooks/useScrollRestoration';
+import { getProjectRoute } from '../data/portfolioData';
 import styles from './AllWorksPage.module.css';
 
-const INTERNAL_ROUTES: Record<string, string> = {
-  'almvc':         '/work/almvc',
-  'quiz-pod':      '/work/quiz',
-  'event-joining': '/work/joining',
-  'bizongo-qc':    '/work/qc',
-  'bizongo-ecom':  '/work/ppe',
-  'mobile-revamp': '/work/mobile-revamp',
-};
 
 const CATEGORY_COLORS: Record<string, string> = {
   AI:               'var(--accent-violet)',
@@ -202,12 +195,12 @@ export function AllWorksPage() {
             <div className={styles.featuredGrid}>
               {filteredFeatured.map((p, i) => {
                 const color = CATEGORY_COLORS[p.category] || 'var(--accent-indigo)';
-                const route = INTERNAL_ROUTES[p.id];
+                const route = getProjectRoute(p.id);
                 return (
                   <motion.div
                     key={p.id}
                     className={styles.featuredCard}
-                    onClick={() => { if (route) { saveScrollBeforeLeave(); navigate(route); } }}
+                    onClick={() => { saveScrollBeforeLeave(); navigate(route); }}
                     initial={{ opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-40px' }}

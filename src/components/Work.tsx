@@ -1,18 +1,10 @@
 import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { CASE_STUDIES } from '../data/portfolioData';
+import { CASE_STUDIES, getProjectRoute } from '../data/portfolioData';
 import { saveScrollBeforeLeave } from '../hooks/useScrollRestoration';
 import styles from './Work.module.css';
 import { track } from '../lib/analytics';
-
-const INTERNAL_ROUTES: Record<string, string> = {
-  'almvc':         '/work/almvc',
-  'quiz-pod':      '/work/quiz',
-  'event-joining': '/work/joining',
-  'bizongo-qc':    '/work/qc',
-  'bizongo-ecom':  '/work/ppe',
-};
 
 const FEATURED_IDS = ['almvc', 'event-joining', 'bizongo-qc', 'quiz-pod', 'bizongo-ecom'];
 
@@ -65,13 +57,13 @@ export function Work() {
             const rawMetric = project.metrics?.[0] ?? null;
             const metric = rawMetric ? parseMetric(rawMetric) : null;
 
-            const internalRoute = INTERNAL_ROUTES[project.id];
+            const internalRoute = getProjectRoute(project.id);
 
             return (
               <motion.div
                 key={project.id}
                 id={project.id}
-                className={`${styles.card} ${internalRoute ? styles.cardClickable : ''}`}
+                className={`${styles.card} ${styles.cardClickable}`}
                 onMouseEnter={() => { hoverStart.current[project.id] = Date.now(); }}
                 onMouseLeave={() => {
                   const start = hoverStart.current[project.id];
@@ -82,14 +74,12 @@ export function Work() {
                   }
                 }}
                 onClick={() => {
-                  if (internalRoute) {
-                    track('project_click', { id: project.id, title: project.title });
-                    if (!firstClickFired.current) {
-                      firstClickFired.current = true;
-                    }
-                    saveScrollBeforeLeave();
-                    navigate(internalRoute);
+                  track('project_click', { id: project.id, title: project.title });
+                  if (!firstClickFired.current) {
+                    firstClickFired.current = true;
                   }
+                  saveScrollBeforeLeave();
+                  navigate(internalRoute);
                 }}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}

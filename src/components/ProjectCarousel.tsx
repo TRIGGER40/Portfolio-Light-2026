@@ -1,15 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CASE_STUDIES } from '../data/portfolioData';
+import { CASE_STUDIES, getProjectRoute } from '../data/portfolioData';
 import styles from './ProjectCarousel.module.css';
-
-const INTERNAL_ROUTES: Record<string, string> = {
-  'almvc':         '/work/almvc',
-  'quiz-pod':      '/work/quiz',
-  'event-joining': '/work/joining',
-  'bizongo-qc':    '/work/qc',
-  'bizongo-ecom':  '/work/ppe',
-};
 
 const CATEGORY_COLORS: Record<string, string> = {
   'AI':            'var(--accent-violet)',
@@ -89,13 +81,13 @@ export function ProjectCarousel({ currentId }: Props) {
         <div className={styles.track}>
           {looped.map((p, i) => {
             const color = CATEGORY_COLORS[p.category] || 'var(--accent-indigo)';
-            const route = INTERNAL_ROUTES[p.id];
+            const route = getProjectRoute(p.id);
             return (
               <div
                 key={`${p.id}-${i}`}
                 className={styles.card}
-                onClick={() => route && navigate(route)}
-                style={{ cursor: route ? 'pointer' : 'default' }}
+                onClick={() => navigate(route)}
+                style={{ cursor: 'pointer' }}
               >
                 <div className={styles.imgWrap}>
                   <img
@@ -115,12 +107,10 @@ export function ProjectCarousel({ currentId }: Props) {
                 <div className={styles.body}>
                   <span className={styles.company}>{p.company}</span>
                   <p className={styles.cardTitle}>{p.title}</p>
-                  {route && (
-                    <span className={styles.cta}>
-                      View case study
-                      <i className="bi bi-arrow-up-right" style={{ fontSize: '12px' }} aria-hidden="true" />
-                    </span>
-                  )}
+                  <span className={styles.cta}>
+                    View case study
+                    <i className="bi bi-arrow-up-right" style={{ fontSize: '12px' }} aria-hidden="true" />
+                  </span>
                 </div>
               </div>
             );
