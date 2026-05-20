@@ -46,8 +46,10 @@ export function HobbiesCarousel() {
     const el = viewportRef.current;
     if (!el) return;
     const onWheel = (e: WheelEvent) => {
+      // Only intercept horizontal swipes; let vertical scroll pass through
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
       e.preventDefault();
-      el.scrollLeft += Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      el.scrollLeft += e.deltaX;
       const oneSet = el.scrollWidth / 2;
       if (el.scrollLeft >= oneSet) el.scrollLeft -= oneSet;
       else if (el.scrollLeft < 0)  el.scrollLeft += oneSet;
