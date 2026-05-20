@@ -10,7 +10,6 @@ import { Work } from './components/Work';
 import { About } from './components/About';
 import { Insights } from './components/Insights';
 import { Contact } from './components/Contact';
-import { HobbiesCarousel } from './components/HobbiesCarousel';
 import { Footer } from './components/Footer';
 import { BackgroundGlow } from './components/BackgroundGlow';
 import { AIPage } from './pages/AIPage';
@@ -36,12 +35,6 @@ function HomePage() {
         <Work />
         <div className="divider" />
         <About />
-        <div className="divider" />
-        <section style={{ padding: '64px 0' }}>
-          <div className="container">
-            <HobbiesCarousel />
-          </div>
-        </section>
         <div className="divider" />
         <Insights />
         <div className="divider" />
