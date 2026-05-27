@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import styles from './PhoneStack.module.css';
+import { ImgSkeleton } from './ImgSkeleton';
 
 function IPhone({ imgSrc, imgAlt, className }: { imgSrc: string; imgAlt: string; className: string }) {
   return (
@@ -13,7 +14,7 @@ function IPhone({ imgSrc, imgAlt, className }: { imgSrc: string; imgAlt: string;
 
       {/* Screen + Dynamic Island */}
       <div className={styles.screen}>
-        <img src={imgSrc} alt={imgAlt} draggable={false} />
+        <ImgSkeleton src={imgSrc} alt={imgAlt} draggable={false} />
         <div className={styles.dynamicIsland} />
       </div>
 

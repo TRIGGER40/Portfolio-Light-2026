@@ -1,0 +1,101 @@
+/* ── Tracker button — quiet: no fill, no border ── */
+.tracker {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  opacity: 0.35;    /* subtle until discovered */
+  transition:
+    opacity 0.3s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Active (≥1 found) */
+.trackerActive {
+  opacity: 1;
+  background: transparent;
+}
+
+.trackerActive:hover {
+  background: rgba(82, 84, 216, 0.08);
+}
+
+/* All complete */
+.trackerComplete {
+  opacity: 1;
+  background: transparent;
+  overflow: hidden;
+}
+
+.trackerComplete:hover {
+  background: rgba(245, 158, 11, 0.08);
+}
+
+/* Looping golden shine sweep */
+.trackerComplete::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -80%;
+  width: 55%;
+  height: calc(100% + 4px);
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(245, 158, 11, 0.40) 50%,
+    transparent 100%
+  );
+  transform: skewX(-18deg);
+  animation: trackerShine 2.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes trackerShine {
+  0%, 40% { left: -80%; }
+  100%     { left: 140%; }
+}
+
+/* Hover on undiscovered — reveal slightly */
+.tracker:not(.trackerActive):hover {
+  opacity: 0.65;
+}
+
+/* ── Icon ── */
+.iconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ── Count text ── */
+.count {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  display: inline-block;
+  line-height: 1;
+}
+
+.trackerActive .count {
+  color: rgba(82, 84, 216, 0.8);
+}
+
+.trackerComplete .count {
+  color: rgba(245, 158, 11, 0.8);
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .trackerComplete::after { animation: none; }
+}

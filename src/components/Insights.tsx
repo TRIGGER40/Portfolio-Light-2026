@@ -82,10 +82,10 @@ export function Insights() {
       <div className="container">
         <motion.div
           className={styles.header}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 44, filter: 'blur(6px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
           <span className="section-label">Insights</span>
           <div className={styles.titleRow}>
@@ -108,9 +108,7 @@ export function Insights() {
                 aria-label="Previous article"
                 disabled={activeIndex === 0}
               >
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                <i className="bi bi-chevron-left" style={{ fontSize: '16px' }} aria-hidden="true" />
               </button>
               <button
                 className={`${styles.navBtn} ${activeIndex === ARTICLES.length - 1 ? styles.navBtnDisabled : ''}`}
@@ -118,9 +116,7 @@ export function Insights() {
                 aria-label="Next article"
                 disabled={activeIndex === ARTICLES.length - 1}
               >
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                <i className="bi bi-chevron-right" style={{ fontSize: '16px' }} aria-hidden="true" />
               </button>
             </div>
           </div>
@@ -149,19 +145,17 @@ export function Insights() {
 
         <motion.div
           className={styles.allRow}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
+          transition={{ delay: 0.3, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
           <button
             className="btn btn-secondary"
             onClick={() => { saveScrollBeforeLeave(); navigate(`/articles/${ARTICLES[0].slug}`); }}
           >
             Read articles
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M2 7h10M9 4l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+            <i className="bi bi-arrow-right" style={{ fontSize: '14px' }} aria-hidden="true" />
           </button>
         </motion.div>
       </div>

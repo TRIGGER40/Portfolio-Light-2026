@@ -2,21 +2,22 @@ import { useEffect, useRef, useState } from 'react';
 import { Footer } from '../components/Footer';
 import { ProjectCarousel } from '../components/ProjectCarousel';
 import { GoBackButton } from '../components/GoBackButton';
+import { useEggOnDeepRead } from '../hooks/useEggOnDeepRead';
 import styles from './CaseStudyQuiz.module.css';
 
 /* Swap src to a real path once the image is ready.
    Shows a labeled placeholder until then. */
 function ImgSlot({ src, label, aspect = '16/9' }: { src?: string; label: string; aspect?: string }) {
   if (src) {
-    return <img src={src} alt={label} className={styles.imgSlotReal} style={{ aspectRatio: aspect }} />;
+    return (
+      <div className={styles.imgSlotWrap} style={{ aspectRatio: aspect }}>
+        <img src={src} alt={label} className={styles.imgSlotReal} />
+      </div>
+    );
   }
   return (
     <div className={styles.imgSlot} style={{ aspectRatio: aspect }}>
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className={styles.imgSlotIcon}>
-        <rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" strokeWidth="1.4"/>
-        <circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" strokeWidth="1.4"/>
-        <path d="M3 16l5-5 4 4 3-3 6 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
+      <i className={"bi bi-image " + styles.imgSlotIcon} style={{ fontSize: '20px' }} aria-hidden="true" />
       <span className={styles.imgSlotLabel}>{label}</span>
     </div>
   );
@@ -50,6 +51,8 @@ export function CaseStudyQuiz() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEggOnDeepRead(scrollProgress);
+
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
     CHAPTERS.forEach(({ id }) => {
@@ -82,7 +85,7 @@ export function CaseStudyQuiz() {
           <div className={styles.heroLayout}>
             {/* Left: image */}
             <div className={styles.heroImgCol}>
-              <img src="/quiz pod.png" alt="Quiz Pod" className={styles.heroImg} />
+              <img src="/Projectcard-images/quiz pod.png" alt="Quiz Pod" className={styles.heroImg} />
             </div>
 
             {/* Right: content */}
@@ -291,11 +294,11 @@ export function CaseStudyQuiz() {
           <p className={styles.sectionSub}>Measurable gains across host efficiency, engagement, and session outcomes.</p>
           <div className={styles.impactMetrics}>
             <div className={styles.impactMetric}>
-              <span className={styles.impactVal}>50%</span>
+              <span className={styles.impactVal}>~50%</span>
               <span className={styles.impactLbl}>boost in host efficiency</span>
             </div>
             <div className={styles.impactMetric}>
-              <span className={styles.impactVal}>90%</span>
+              <span className={styles.impactVal}>~90%</span>
               <span className={styles.impactLbl}>faster quiz creation vs manual</span>
             </div>
             <div className={styles.impactMetric}>

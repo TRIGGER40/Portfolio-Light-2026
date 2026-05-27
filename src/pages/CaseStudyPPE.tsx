@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Footer } from '../components/Footer';
 import { ProjectCarousel } from '../components/ProjectCarousel';
 import { GoBackButton } from '../components/GoBackButton';
+import { useEggOnDeepRead } from '../hooks/useEggOnDeepRead';
 import styles from './CaseStudyQuiz.module.css';
 import pStyles from './CaseStudyPPE.module.css';
 
@@ -37,6 +38,8 @@ export function CaseStudyPPE() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEggOnDeepRead(scrollProgress);
+
   const setRef = (id: string) => (el: HTMLElement | null) => { sectionRefs.current[id] = el; };
 
   return (
@@ -52,7 +55,7 @@ export function CaseStudyPPE() {
 
           <div className={styles.heroLayout}>
             <div className={styles.heroImgCol}>
-              <img src="/PPE.png" alt="ShieldWise PPE Platform" className={styles.heroImg} />
+              <img src="/Projectcard-images/PPE.png" alt="ShieldWise PPE Platform" className={styles.heroImg} />
             </div>
             <div className={styles.heroContentCol}>
               <div className={styles.heroEyebrow}>
@@ -69,7 +72,7 @@ export function CaseStudyPPE() {
                   { k: 'Role',     v: 'UX Designer' },
                   { k: 'Scope',    v: 'End-to-end platform design' },
                   { k: 'Platform', v: 'ShieldWise Web' },
-                  { k: 'Impact',   v: '₹2Cr+ in PPE kit sales' },
+                  { k: 'Impact',   v: '$2M+ in PPE kit sales' },
                 ].map(({ k, v }) => (
                   <div key={k} className={styles.heroMetaItem}>
                     <span className={styles.asideKey}>{k}</span>
@@ -94,7 +97,7 @@ export function CaseStudyPPE() {
             <div className={pStyles.contextStats}>
               {[
                 { val: '4 wks',  lbl: 'From zero to shipped platform' },
-                { val: '₹2Cr+',  lbl: 'In PPE kit sales generated' },
+                { val: '$2M+',  lbl: 'In PPE kit sales generated' },
                 { val: '10K+',   lbl: 'Orders fulfilled through the platform' },
               ].map(s => (
                 <div key={s.val} className={pStyles.contextStat}>
@@ -384,7 +387,7 @@ export function CaseStudyPPE() {
           <p className={styles.sectionSub}>ShieldWise converted Bizongo's supplier advantage into a live, transacting platform before the demand window closed.</p>
           <div className={styles.impactMetrics}>
             <div className={styles.impactMetric}>
-              <span className={styles.impactVal}>₹2Cr+</span>
+              <span className={styles.impactVal}>$2M+</span>
               <span className={styles.impactLbl}>in PPE kit sales generated through the platform</span>
             </div>
             <div className={styles.impactMetric}>

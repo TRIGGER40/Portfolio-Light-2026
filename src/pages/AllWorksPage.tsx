@@ -7,6 +7,7 @@ import { GoBackButton } from '../components/GoBackButton';
 import { useScrollRestoration, saveScrollBeforeLeave } from '../hooks/useScrollRestoration';
 import { getProjectRoute } from '../data/portfolioData';
 import styles from './AllWorksPage.module.css';
+import { ImgSkeleton } from '../components/ImgSkeleton';
 
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -24,8 +25,8 @@ const FEATURED = [
     title: 'Adobe Learning Manager – Virtual Classroom',
     company: 'Adobe', category: 'Product Design', timeFrame: '6 Months',
     metric: '5+ feature areas redesigned',
-    desc: 'Reimagining live learning for the next generation of virtual classrooms — combining enterprise depth with modern simplicity.',
-    thumbnail: 'Gen AI screen.png',
+    desc: 'Reimagining live learning for the next generation of virtual classrooms, combining enterprise depth with modern simplicity.',
+    thumbnail: 'Projectcard-images/ALMVC hero image.png',
   },
   {
     id: 'quiz-pod',
@@ -33,7 +34,7 @@ const FEATURED = [
     company: 'Adobe', category: 'Feature', timeFrame: '3 Weeks',
     metric: '90% faster quiz creation',
     desc: 'A brand-new quiz pod built into Adobe Connect, letting hosts create and run quizzes in seconds.',
-    thumbnail: 'quiz pod.png',
+    thumbnail: 'Projectcard-images/quiz pod.png',
   },
   {
     id: 'event-joining',
@@ -41,7 +42,7 @@ const FEATURED = [
     company: 'Adobe', category: 'UX', timeFrame: '8 Weeks',
     metric: '~50% faster device setup',
     desc: 'Redesigning the end-to-end joining flow to reduce friction at the most critical moment.',
-    thumbnail: 'joining screen.png',
+    thumbnail: 'Projectcard-images/joining screen.png',
   },
   {
     id: 'bizongo-qc',
@@ -49,15 +50,15 @@ const FEATURED = [
     company: 'Bizongo', category: 'UX', timeFrame: '4 Weeks',
     metric: '~70% efficiency gain',
     desc: 'Redesigning the inward QC process to eliminate compounding inefficiencies at high-volume warehouses.',
-    thumbnail: 'QC improvement.png',
+    thumbnail: 'Projectcard-images/QC improvement.png',
   },
   {
     id: 'bizongo-ecom',
     title: 'Making PPE kits more accessible',
     company: 'Bizongo', category: 'UX', timeFrame: '4 Weeks',
-    metric: '₹2Cr+ in sales',
+    metric: '$2M+ in sales',
     desc: 'A B2B platform that put Bizongo\'s supplier network to work during the COVID-19 PPE demand surge.',
-    thumbnail: 'PPE.png',
+    thumbnail: 'Projectcard-images/PPE.png',
   },
 ];
 
@@ -67,56 +68,56 @@ const OTHER_WORKS = [
     title: 'Revamping Adobe Connect homepage',
     company: 'Adobe', category: 'UX', timeFrame: '16 Weeks',
     metric: '35% increase in engagement',
-    thumbnail: 'Connect central revamp.png',
+    thumbnail: 'Projectcard-images/Connect central revamp.png',
   },
   {
     id: 'adobe-visual-design',
     title: 'Visual design works at Adobe',
     company: 'Adobe', category: 'UX', timeFrame: 'Ongoing',
-    metric: '100% of active users impacted',
-    thumbnail: 'visual revamp.png',
+    metric: 'Positive business impact',
+    thumbnail: 'Projectcard-images/visual revamp.png',
   },
   {
     id: 'mobile-revamp',
     title: 'Adobe Connect Mobile App Revamp',
     company: 'Adobe', category: 'UX', timeFrame: '3 Weeks',
     metric: 'Mobile usage: 11% → 23%',
-    thumbnail: 'Mobile revamp.png',
+    thumbnail: 'Projectcard-images/Mobile revamp.png',
   },
   {
     id: 'bizongo-ums',
     title: 'Managing users effectively',
     company: 'Bizongo', category: 'UX', timeFrame: '2 Weeks',
     metric: '50% faster user onboarding',
-    thumbnail: 'Bizongo UMS.png',
+    thumbnail: 'Projectcard-images/Bizongo UMS.png',
   },
   {
     id: 'bizongo-artwork-flow',
     title: 'Seamless approval workflow creation',
     company: 'Bizongo', category: 'UX', timeFrame: '2 Weeks',
     metric: '60% less workflow setup time',
-    thumbnail: 'Seamless approval workflow.png',
+    thumbnail: 'Projectcard-images/Seamless approval workflow.png',
   },
   {
     id: 'bizongo-contracts',
     title: 'Modular contract / T&C creation',
     company: 'Bizongo', category: 'UX', timeFrame: '2 Weeks',
     metric: '70% faster contract creation',
-    thumbnail: 'Digital contract creation.png',
+    thumbnail: 'Projectcard-images/Digital contract creation.png',
   },
   {
     id: 'yuj-heuristics',
     title: 'Heuristics Evaluation Improvement',
     company: 'YUJ Designs', category: 'UX', timeFrame: '2021',
     metric: '40% better heuristic scores',
-    thumbnail: 'Heuristics evaluation.png',
+    thumbnail: 'Projectcard-images/Heuristics evaluation.png',
   },
   {
     id: 'bizongo-design-system',
     title: 'Managing and updating design system',
     company: 'Bizongo', category: 'Design Systems', timeFrame: '1+ yr',
     metric: '50%+ reduction in feature dev time',
-    thumbnail: 'Maintaining design systems.webp',
+    thumbnail: 'Projectcard-images/Maintaining design systems.webp',
   },
   {
     id: 'nid-ui-ux-course',
@@ -130,14 +131,14 @@ const OTHER_WORKS = [
     title: 'Branding for Local Poultry Farmers',
     company: 'IIT Guwahati', category: 'Internship', timeFrame: '2 months',
     metric: 'Full brand identity delivered',
-    thumbnail: 'POULTRY BRANDING.png',
+    thumbnail: 'Projectcard-images/POULTRY BRANDING.png',
   },
   {
     id: 'drdo-xctd',
     title: 'XCTD Probe Interface Design',
     company: 'NPOL DRDO', category: 'Internship', timeFrame: '2017',
     metric: 'Inducted design into Navy',
-    thumbnail: 'npol-ctd-probe.png',
+    thumbnail: 'Projectcard-images/npol-ctd-probe.png',
   },
 ];
 
@@ -174,7 +175,7 @@ export function AllWorksPage() {
               <span className="section-label">{companyFilter ? companyFilter : 'Portfolio'}</span>
               <h1 className={styles.pageTitle}>
                 {companyFilter ? `${companyFilter} work` : 'All work'}
-                <span className={styles.pageTitleAccent}> — {totalCount} projects</span>
+                <span className={styles.titleCount}>{totalCount} projects</span>
               </h1>
               <p className={styles.pageSubtitle}>
                 {companyFilter
@@ -199,7 +200,7 @@ export function AllWorksPage() {
                 return (
                   <motion.div
                     key={p.id}
-                    className={styles.featuredCard}
+                    className={`${styles.featuredCard} bulge`}
                     onClick={() => { saveScrollBeforeLeave(); navigate(route); }}
                     initial={{ opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -207,11 +208,10 @@ export function AllWorksPage() {
                     transition={{ duration: 0.5, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
                   >
                     <div className={styles.featuredImgWrap}>
-                      <img
+                      <ImgSkeleton
                         src={`/${p.thumbnail}`}
                         alt={p.title}
                         className={styles.featuredImg}
-                        onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
                       />
                       <div className={styles.imgOverlay} />
                       <span className={styles.badge} style={{ '--badge-color': color } as React.CSSProperties}>
@@ -254,7 +254,7 @@ export function AllWorksPage() {
                 return (
                   <motion.div
                     key={p.id}
-                    className={styles.otherCard}
+                    className={`${styles.otherCard} bulge`}
                     onClick={() => { saveScrollBeforeLeave(); navigate(`/work/${p.id}`); }}
                     style={{ cursor: 'pointer' }}
                     initial={{ opacity: 0, y: 20 }}
@@ -263,11 +263,10 @@ export function AllWorksPage() {
                     transition={{ duration: 0.45, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
                   >
                     <div className={styles.otherImgWrap}>
-                      <img
+                      <ImgSkeleton
                         src={`/${p.thumbnail}`}
                         alt={p.title}
                         className={styles.otherImg}
-                        onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
                       />
                       <div className={styles.imgOverlay} />
                       <span className={styles.badge} style={{ '--badge-color': color } as React.CSSProperties}>

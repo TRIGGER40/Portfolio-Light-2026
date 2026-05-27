@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Footer } from '../components/Footer';
 import { ProjectCarousel } from '../components/ProjectCarousel';
 import { GoBackButton } from '../components/GoBackButton';
+import { useEggOnDeepRead } from '../hooks/useEggOnDeepRead';
 import styles from './CaseStudyQuiz.module.css';
 import qStyles from './CaseStudyQC.module.css';
 
@@ -37,6 +38,8 @@ export function CaseStudyQC() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEggOnDeepRead(scrollProgress);
+
   const setRef = (id: string) => (el: HTMLElement | null) => { sectionRefs.current[id] = el; };
 
   return (
@@ -52,7 +55,7 @@ export function CaseStudyQC() {
 
           <div className={styles.heroLayout}>
             <div className={styles.heroImgCol}>
-              <img src="/QC improvement.png" alt="QC Experience" className={styles.heroImg} />
+              <img src="/Projectcard-images/QC improvement.png" alt="QC Experience" className={styles.heroImg} />
             </div>
             <div className={styles.heroContentCol}>
               <div className={styles.heroEyebrow}>
@@ -399,11 +402,11 @@ export function CaseStudyQC() {
               <span className={styles.impactLbl}>increase in QC executive efficiency</span>
             </div>
             <div className={styles.impactMetric}>
-              <span className={styles.impactVal}>50%+</span>
+              <span className={styles.impactVal}>~50%+</span>
               <span className={styles.impactLbl}>reduction in time to complete full QC cycle</span>
             </div>
             <div className={styles.impactMetric}>
-              <span className={styles.impactVal}>30→80%</span>
+              <span className={styles.impactVal}>~30→80%</span>
               <span className={styles.impactLbl}>improvement in QC accuracy (sanity score)</span>
             </div>
           </div>

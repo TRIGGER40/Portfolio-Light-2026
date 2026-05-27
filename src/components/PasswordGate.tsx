@@ -136,8 +136,9 @@ export function PasswordGate({ id, loader }: Props) {
                 />
                 <button
                   className={`${styles.submitBtn} ${unlocking ? styles.submitSuccess : (value.trim() && !checking ? styles.submitActive : '')}`}
-                  disabled
-                  aria-label="Unlocked"
+                  onClick={attempt}
+                  disabled={unlocking || checking || !value.trim()}
+                  aria-label="Submit password"
                 >
                   {unlocking
                     ? <i className="bi bi-check" />

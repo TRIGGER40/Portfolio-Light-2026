@@ -1,0 +1,505 @@
+/* ════════════════════════════════════════════
+   MARK BOARD  —  Whiteboard section + modal
+   ════════════════════════════════════════════ */
+
+/* ── Section wrapper ── */
+.section {
+  padding: clamp(32px, 4vw, 52px) 0 clamp(40px, 5vw, 64px);
+}
+
+.header {
+  margin-bottom: 40px;
+}
+
+.subtitle {
+  margin-top: 10px;
+  max-width: 480px;
+}
+
+/* Mobile-only line break inside the heading */
+.brMobile { display: none; }
+@media (max-width: 640px) {
+  .brMobile { display: inline; }
+}
+
+/* ── Whiteboard — sits inside .container, same width as page ── */
+.whiteboard {
+  position: relative;
+  width: 100%;
+  height: clamp(460px, 58vh, 640px);
+  background-color: #111111;
+  overflow: hidden;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Dim all cards when any one is hovered or tapped.
+   Uses `filter` instead of `opacity` because Framer Motion sets
+   inline `opacity: 1` on each card, which would beat a class rule. */
+.card {
+  transition: filter 0.22s ease;
+}
+
+.whiteboard:has(.card:hover) .card,
+.whiteboard:has(.cardExpanded) .card {
+  filter: opacity(0.22) blur(0.3px);
+}
+
+.whiteboard:has(.card:hover) .card:hover,
+.whiteboard:has(.cardExpanded) .cardExpanded {
+  filter: none;
+  z-index: 100 !important;
+}
+
+/* ── Empty board ── */
+.emptyBoard {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: rgba(80, 70, 110, 0.4);
+  pointer-events: none;
+}
+
+.emptyBoard span {
+  font-size: 40px;
+  opacity: 0.3;
+}
+
+.emptyBoard p {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* ── Post card ── */
+.card {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  cursor: default;
+  transition: opacity 0.2s ease;
+  z-index: 1;
+}
+
+.card:hover,
+.cardExpanded {
+  z-index: 100;
+}
+
+.cardYours {
+  z-index: 90;
+}
+
+/* Emoji — transparent background */
+.cardEmoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.18));
+}
+
+/* Pill name tag — floats below the emoji, hidden until hover/tap */
+.cardTag {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  padding: 6px 12px 7px;
+  min-width: 60px;
+  max-width: 140px;
+  text-align: center;
+  opacity: 0;
+  transform: translate(-50%, -4px) scale(0.92);
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card:hover .cardTag,
+.cardExpanded .cardTag,
+.cardYours .cardTag {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+  pointer-events: auto;
+}
+
+.cardTagName {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.92);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+  letter-spacing: 0.01em;
+  line-height: 1.3;
+}
+
+.cardTagDate {
+  font-size: 9.5px;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 3px 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  line-height: 1.4;
+}
+
+/* ── "Yours" highlight — drawn briefly after posting ── */
+.cardYours .cardTag {
+  border-color: color-mix(in srgb, var(--accent-indigo) 75%, transparent);
+  background: color-mix(in srgb, var(--accent-indigo) 26%, rgba(255,255,255,0.12));
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--accent-indigo) 22%, transparent),
+    0 8px 28px color-mix(in srgb, var(--accent-indigo) 45%, transparent);
+}
+
+.cardYours .cardTagName {
+  color: #fff;
+}
+
+.cardYoursTag {
+  font-weight: 600;
+  color: color-mix(in srgb, var(--accent-indigo) 30%, #fff);
+  letter-spacing: 0.02em;
+}
+
+/* Soft expanding ring at the moment of landing */
+.cardYoursRing {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  transform: translate(-50%, 0) scale(0.4);
+  border: 2px solid color-mix(in srgb, var(--accent-indigo) 70%, transparent);
+  pointer-events: none;
+  opacity: 0;
+  animation: yoursRing 1.2s ease-out 0.55s 2;
+}
+
+@keyframes yoursRing {
+  0%   { transform: translate(-50%, 0) scale(0.4); opacity: 0.9; border-width: 3px; }
+  60%  { opacity: 0.45; }
+  100% { transform: translate(-50%, 0) scale(2.2); opacity: 0; border-width: 1px; }
+}
+
+/* ── Preview card (in modal) ── */
+.previewCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+}
+
+.previewTag {
+  background: rgba(42, 40, 58, 0.84);
+  border-radius: 999px;
+  padding: 4px 11px 5px;
+  text-align: center;
+}
+
+.previewTagName {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+}
+
+/* ── CTA inside whiteboard, center-bottom ── */
+.boardCta {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.postedBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent-indigo);
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent-indigo) 30%, transparent);
+  background: color-mix(in srgb, var(--accent-indigo) 8%, transparent);
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .postedBadge {
+    font-size: 13px;
+    padding: 9px 16px;
+  }
+}
+
+/* ── Modal overlay ── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+/* ── Modal box ── */
+.modal {
+  background: var(--bg-surface);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 28px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90dvh;
+  overflow-y: auto;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  scrollbar-width: none;
+}
+
+.modal::-webkit-scrollbar { display: none; }
+
+/* ── Modal header ── */
+.modalHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.modalTitle {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 4px;
+  color: var(--text-primary);
+}
+
+.modalSubtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.closeBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--glass-border);
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
+}
+
+.closeBtn:hover {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+}
+
+/* ── Emoji grid ── */
+.emojiGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.emojiBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  border: 1.5px solid transparent;
+  background: var(--bg-elevated);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.15s;
+}
+
+.emojiBtn:hover {
+  background: color-mix(in srgb, var(--accent-indigo) 10%, var(--bg-elevated));
+  transform: scale(1.1);
+}
+
+.emojiBtnActive {
+  border-color: color-mix(in srgb, var(--accent-indigo) 55%, transparent);
+  background: color-mix(in srgb, var(--accent-indigo) 14%, var(--bg-elevated));
+}
+
+/* ── Preview row ── */
+.previewRow {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.previewLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+
+/* ── Name input row ── */
+.nameRow {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.nameInput {
+  flex: 1;
+  height: 46px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1.5px solid var(--glass-border);
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.nameInput::placeholder { color: var(--text-muted); }
+
+.nameInput:focus {
+  border-color: color-mix(in srgb, var(--accent-indigo) 60%, transparent);
+}
+
+/* Shake animation — used when input contains profanity */
+.shake {
+  animation: shakeInput 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  border-color: #f87171 !important;
+}
+
+@keyframes shakeInput {
+  10%, 90% { transform: translateX(-2px); }
+  20%, 80% { transform: translateX(4px); }
+  30%, 50%, 70% { transform: translateX(-8px); }
+  40%, 60% { transform: translateX(8px); }
+}
+
+.postBtn {
+  height: 46px;
+  padding: 0 22px;
+  border-radius: 12px;
+  border: none;
+  background: var(--gradient-primary);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 16px rgba(99,102,241,0.35);
+}
+
+.postBtn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(99,102,241,0.5);
+}
+
+.postBtn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ── Error ── */
+.errorMsg {
+  font-size: 13px;
+  color: #f87171;
+  margin: -10px 0 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .section {
+    padding: clamp(48px, 12vw, 72px) 0 clamp(56px, 14vw, 100px);
+  }
+
+  .header { margin-bottom: 28px; }
+
+  .whiteboard {
+    height: clamp(420px, 70vh, 560px);
+    border-radius: 16px;
+  }
+
+  /* Cards — slightly smaller emoji + tighter pill */
+  .cardEmoji img {
+    width: 44px !important;
+    height: 44px !important;
+  }
+
+  .cardTag {
+    padding: 5px 10px 6px;
+    max-width: 130px;
+  }
+
+  .cardTagName  { font-size: 10.5px; }
+  .cardTagDate  { font-size: 9px; }
+
+  /* Lift CTA a bit so cards have more breathing room */
+  .boardCta { bottom: 22px; }
+
+  /* Modal */
+  .modal { padding: 20px; border-radius: 20px; gap: 18px; }
+  .modalTitle { font-size: 18px; }
+  .modalSubtitle { font-size: 13px; }
+
+  .emojiGrid { grid-template-columns: repeat(6, 1fr); gap: 5px; }
+  .emojiBtn  { border-radius: 10px; }
+
+  .nameRow { flex-wrap: wrap; gap: 8px; }
+  .nameInput { width: 100%; height: 44px; font-size: 16px; /* prevents iOS zoom */ }
+  .postBtn { width: 100%; justify-content: center; height: 44px; }
+
+  /* Preview row centers nicely on mobile */
+  .previewRow { justify-content: center; }
+}
+
+@media (max-width: 400px) {
+  .emojiGrid { grid-template-columns: repeat(5, 1fr); }
+  .whiteboard { border-radius: 14px; }
+  .cardEmoji img {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}

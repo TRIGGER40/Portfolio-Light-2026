@@ -12,7 +12,7 @@ export function Footer() {
         </div>
         <div className={styles.right}>
           <span className={styles.built}>
-            Built with Cursor + Claude Code
+            Imagined and built using Claude Code
           </span>
         </div>
       </div>

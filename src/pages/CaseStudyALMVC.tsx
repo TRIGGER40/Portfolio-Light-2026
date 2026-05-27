@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Footer } from '../components/Footer';
 import { ProjectCarousel } from '../components/ProjectCarousel';
 import { GoBackButton } from '../components/GoBackButton';
+import { useEggOnDeepRead } from '../hooks/useEggOnDeepRead';
 import styles from './CaseStudyQuiz.module.css';
 import aStyles from './CaseStudyALMVC.module.css';
 
@@ -37,6 +38,8 @@ export function CaseStudyALMVC() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEggOnDeepRead(scrollProgress);
+
   const setRef = (id: string) => (el: HTMLElement | null) => { sectionRefs.current[id] = el; };
 
   return (
@@ -52,7 +55,7 @@ export function CaseStudyALMVC() {
 
           <div className={styles.heroLayout}>
             <div className={styles.heroImgCol}>
-              <ImgSlot src="/ALMVC/ALMVC hero image.png" label="ALMVC Virtual Classroom Overview" aspect="4/3" />
+              <ImgSlot src="/Projectcard-images/ALMVC hero image.png" label="ALMVC Virtual Classroom Overview" aspect="4/3" />
             </div>
             <div className={styles.heroContentCol}>
               <div className={styles.heroEyebrow}>

@@ -1,15 +1,24 @@
 import { useState, useEffect } from 'react';
 import { initScrollTracking, initGeoTracking } from './lib/analytics';
 import { AnalyticsDashboard } from './components/AnalyticsDashboard';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { EasterEggProvider } from './context/EasterEggContext';
+import { DiscoveryModal } from './components/easter-egg/DiscoveryModal';
+import { ProgressModal } from './components/easter-egg/ProgressModal';
+import { CompletionOverlay } from './components/easter-egg/CompletionOverlay';
+import { ManifestoModal } from './components/easter-egg/ManifestoModal';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { useScrollRestoration } from './hooks/useScrollRestoration';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Nav } from './components/Nav';
+import { ScrollFade } from './components/ScrollFade';
+import { CursorEffect } from './components/CursorEffect';
 import { Hero } from './components/Hero';
 import { Work } from './components/Work';
 import { About } from './components/About';
+import { Testimonials } from './components/Testimonials';
 import { Insights } from './components/Insights';
 import { Contact } from './components/Contact';
+import { AboutMeCard } from './components/AboutMeCard';
 import { Footer } from './components/Footer';
 import { BackgroundGlow } from './components/BackgroundGlow';
 import { AIPage } from './pages/AIPage';
@@ -22,22 +31,43 @@ import { CaseStudyPPE } from './pages/CaseStudyPPE';
 import { AllWorksPage } from './pages/AllWorksPage';
 import { MinimalCaseStudyPage } from './pages/MinimalCaseStudyPage';
 import { ArticlePage } from './pages/ArticlePage';
+import { PanoramaPage } from './pages/PanoramaPage';
+import { BoardPage } from './pages/BoardPage';
+
+function BlogRedirect() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    navigate('/', { replace: true, state: { scrollTo: 'insights' } });
+  }, [navigate]);
+  return null;
+}
 
 function HomePage() {
+  const location = useLocation();
   useScrollRestoration();
   useEffect(() => { initScrollTracking(); initGeoTracking(); }, []);
+
+  // Scroll to section if navigated here with a scrollTo state (e.g. from /blog)
+  useEffect(() => {
+    const scrollTo = (location.state as { scrollTo?: string } | null)?.scrollTo;
+    if (scrollTo) {
+      const el = document.getElementById(scrollTo);
+      if (el) {
+        setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 350);
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <>
       <BackgroundGlow />
       <main>
         <Hero />
-        <div className="divider" />
         <Work />
-        <div className="divider" />
         <About />
-        <div className="divider" />
         <Insights />
-        <div className="divider" />
+        <Testimonials />
+        <AboutMeCard />
         <Contact />
       </main>
       <Footer />
@@ -72,9 +102,16 @@ export default function App() {
   }, []);
 
   return (
-    <>
+    <EasterEggProvider>
+      <CursorEffect />
       {showAnalytics && <AnalyticsDashboard onClose={() => setShowAnalytics(false)} />}
+      {/* ── Easter Egg system — global modals ── */}
+      <DiscoveryModal />
+      <ProgressModal />
+      <CompletionOverlay />
+      <ManifestoModal />
       <Nav hidden={isAIPage} />
+      {!isAIPage && <ScrollFade />}
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={
@@ -125,6 +162,17 @@ export default function App() {
               <MinimalCaseStudyPage />
             </motion.div>
           } />
+          <Route path="/board" element={
+            <motion.div variants={homeVariants} initial="initial" animate="animate" exit="exit">
+              <BoardPage />
+            </motion.div>
+          } />
+          <Route path="/campus-pano" element={
+            <motion.div variants={homeVariants} initial="initial" animate="animate" exit="exit">
+              <PanoramaPage />
+            </motion.div>
+          } />
+          <Route path="/blog" element={<BlogRedirect />} />
           <Route path="/articles/:slug" element={
             <motion.div variants={homeVariants} initial="initial" animate="animate" exit="exit">
               <ArticlePage />
@@ -143,6 +191,6 @@ export default function App() {
           } />
         </Routes>
       </AnimatePresence>
-    </>
+    </EasterEggProvider>
   );
 }

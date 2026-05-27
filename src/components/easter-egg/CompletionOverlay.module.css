@@ -1,0 +1,251 @@
+/* ── Backdrop ── */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9500;
+  background: rgba(255, 251, 235, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ── Golden aura ── */
+.goldenAura {
+  position: absolute;
+  top: calc(50% - 90px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(245, 158, 11, 0.18) 0%,
+    rgba(217, 119, 6, 0.08) 35%,
+    transparent 65%
+  );
+  pointer-events: none;
+  animation: auraPulse 5s ease-in-out infinite;
+}
+
+@keyframes auraPulse {
+  0%, 100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
+  50%       { opacity: 1;   transform: translate(-50%, -50%) scale(1.12); }
+}
+
+/* ── Golden rays — full viewport, centered behind eggs ── */
+.goldenRays {
+  position: absolute;
+  top: calc(50% - 90px);
+  left: 50%;
+  width: 300vmax;
+  height: 300vmax;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(6px);
+  background: conic-gradient(
+    transparent          0deg  18deg,
+    rgba(245, 158, 11, 0.13) 18deg 27deg,
+    transparent         27deg  63deg,
+    rgba(245, 158, 11, 0.13) 63deg 72deg,
+    transparent         72deg 108deg,
+    rgba(245, 158, 11, 0.13) 108deg 117deg,
+    transparent        117deg 153deg,
+    rgba(245, 158, 11, 0.13) 153deg 162deg,
+    transparent        162deg 198deg,
+    rgba(245, 158, 11, 0.13) 198deg 207deg,
+    transparent        207deg 243deg,
+    rgba(245, 158, 11, 0.13) 243deg 252deg,
+    transparent        252deg 288deg,
+    rgba(245, 158, 11, 0.13) 288deg 297deg,
+    transparent        297deg 333deg,
+    rgba(245, 158, 11, 0.13) 333deg 342deg,
+    transparent        342deg 360deg
+  );
+  animation: spinGold 18s linear infinite;
+}
+
+@keyframes spinGold {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ── Particles ── */
+.particleOrigin {
+  position: absolute;
+  top: calc(50% - 90px);
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background: rgba(245, 158, 11, 0.75);
+  transform: translate(-50%, -50%);
+  animation: goldBurst 2.4s var(--delay, 0s) cubic-bezier(0, 0.6, 0.35, 1) both;
+}
+
+@keyframes goldBurst {
+  0%   { transform: translate(-50%, -50%) scale(1.3); opacity: 0.9; }
+  100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0); opacity: 0; }
+}
+
+/* ── Content ── */
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  text-align: center;
+  padding: 0 24px;
+  max-width: 520px;
+}
+
+/* ── Overline ── */
+.overline {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(120, 53, 15, 0.90);
+  margin: 0 0 30px;
+}
+
+/* ── Egg row ── */
+.eggRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  margin-bottom: 36px;
+}
+
+.eggWrap {
+  position: relative;
+}
+
+.eggGlow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.35) 0%, transparent 65%);
+  pointer-events: none;
+  animation: eggGoldGlow 3s ease-in-out infinite;
+}
+
+.eggWrap:nth-child(2) .eggGlow { animation-delay: 0.4s; }
+.eggWrap:nth-child(3) .eggGlow { animation-delay: 0.8s; }
+
+@keyframes eggGoldGlow {
+  0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
+  50%       { opacity: 1;   transform: translate(-50%, -50%) scale(1.15); }
+}
+
+.eggFloat {
+  display: block;
+  animation: eggGoldFloat 4s ease-in-out infinite;
+}
+
+.eggWrap:nth-child(2) .eggFloat { animation-delay: 0.5s; }
+.eggWrap:nth-child(3) .eggFloat { animation-delay: 1.0s; }
+
+@keyframes eggGoldFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+/* ── Headline ── */
+.headline {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #1a1200;
+  margin: 0 0 16px;
+  line-height: 1.15;
+}
+
+/* ── Sub ── */
+.sub {
+  font-size: 14px;
+  color: rgba(15, 10, 0, 0.65);
+  margin: 0 0 36px;
+  letter-spacing: 0.01em;
+}
+
+/* ── CTA ── */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 36px;
+  border-radius: 100px;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.40);
+  color: rgba(160, 90, 0, 0.90);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.cta:hover {
+  background: rgba(245, 158, 11, 0.22);
+  border-color: rgba(245, 158, 11, 0.60);
+  box-shadow: 0 0 24px rgba(245, 158, 11, 0.18);
+}
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+  .backdrop {
+    align-items: center;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    padding: 24px 20px;
+  }
+
+  .content {
+    padding: 0 4px;
+    max-width: 100%;
+    gap: 0;
+  }
+
+  /* Scale eggs down so all three fit comfortably */
+  .eggFloat { width: 80px !important; }
+  .eggGlow  { width: 72px; height: 72px; }
+  .eggRow   { gap: 8px; margin-bottom: 20px; }
+
+  .overline { margin: 0 0 14px; font-size: 9px; letter-spacing: 0.1em; }
+
+  .headline {
+    font-size: 24px;
+    line-height: 1.2;
+    margin: 0 0 10px;
+  }
+
+  .sub {
+    font-size: 13px;
+    margin: 0 0 24px;
+  }
+
+  .cta { width: 100%; justify-content: center; font-size: 14px; padding: 13px 20px; }
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .goldenAura, .goldenRays, .eggGlow, .eggFloat { animation: none; }
+}

@@ -1,26 +1,36 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useChat } from '../hooks/useChat';
-import { SUGGESTED_PROMPTS, getSmartFollowUps } from '../data/aiContext';
+import { SUGGESTED_PROMPTS, getSmartFollowUps, PROJECT_CARD_DATA } from '../data/aiContext';
 import { injectProjectLinks } from '../utils/projectLinks';
 import styles from './AIPage.module.css';
 import { GoBackButton } from '../components/GoBackButton';
+import { Loader } from '../components/Loader';
 import { ANALYTICS_SECRET, triggerAnalyticsDashboard } from '../lib/analytics';
 
-/* ── Marquee images ──────────────────────────────────── */
-const MARQUEE_IMAGES = [
-  '/Gen AI screen.png',
-  '/images/articles/ai-conductor.jpeg',
-  '/joining screen.png',
-  '/images/articles/ai-replace-designers.jpeg',
-  '/QC improvement.png',
-  '/images/articles/creative-tax.jpeg',
-  '/PPE.png',
-  '/images/articles/decoding-intuitiveness.jpeg',
-  '/quiz pod.png',
-  '/images/articles/intellectual-masturbation.jpeg',
-  '/images/case-studies/bizongo-ums.png',
-  '/images/articles/teaching-inquisitively.jpeg',
+const loadResumePdf = () => import('../lib/resumePdf');
+const RESUME_TOKEN = '[DOWNLOAD_RESUME]';
+
+/* ── Randomised entrance delays (shuffled, not grid-order) ── */
+const BENTO_DELAYS = [0.0, 1.6, 0.7, 2.2, 0.3, 1.9, 0.9, 2.5, 0.5, 1.3, 2.8, 0.1, 2.0, 0.6, 1.1];
+
+/* ── Bento background cards — all 15 project images ─────── */
+const BENTO_CARDS = [
+  '/Projectcard-images/ALMVC hero image.png',
+  '/Projectcard-images/quiz pod.png',
+  '/Projectcard-images/joining screen.png',
+  '/Projectcard-images/QC improvement.png',
+  '/Projectcard-images/PPE.png',
+  '/Projectcard-images/Connect central revamp.png',
+  '/Projectcard-images/visual revamp.png',
+  '/Projectcard-images/Mobile revamp.png',
+  '/Projectcard-images/Bizongo UMS.png',
+  '/Projectcard-images/Seamless approval workflow.png',
+  '/Projectcard-images/Digital contract creation.png',
+  '/Projectcard-images/Heuristics evaluation.png',
+  '/Projectcard-images/Maintaining design systems.webp',
+  '/Projectcard-images/npol-ctd-probe.png',
+  '/Projectcard-images/POULTRY BRANDING.png',
 ];
 
 /* ── Word-by-word typing with per-word fade+rise ─────── */
@@ -66,12 +76,70 @@ function WordTyping({
   );
 }
 
+/* ── Mini project cards shown when projects are mentioned ── */
+function MentionedProjectCards({ content, onNavigate }: { content: string; onNavigate: (r: string) => void }) {
+  const seen = new Set<string>();
+  const cards = PROJECT_CARD_DATA.filter(p => {
+    p.pattern.lastIndex = 0;
+    if (p.pattern.test(content) && !seen.has(p.route)) {
+      seen.add(p.route);
+      return true;
+    }
+    return false;
+  });
+  if (cards.length === 0) return null;
+  return (
+    <div className={styles.mentionedCards}>
+      {cards.map(p => (
+        <button key={p.route} className={styles.mentionedCard} onClick={() => onNavigate(p.route)}>
+          <div className={styles.mentionedCardImg}>
+            <img src={p.image} alt={p.title} draggable={false} />
+          </div>
+          <span className={styles.mentionedCardTitle}>{p.title}</span>
+          <span className={styles.mentionedCardArrow}>↗</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+/* ── Resume download button ──────────────────────────── */
+function ResumeDownloadBtn() {
+  const [downloading, setDownloading] = useState(false);
+  const handleClick = async () => {
+    setDownloading(true);
+    const { downloadResumePdf } = await loadResumePdf();
+    await downloadResumePdf();
+    setDownloading(false);
+  };
+  return (
+    <button className={styles.resumeDownloadBtn} onClick={handleClick} disabled={downloading}>
+      <i className="bi bi-download" style={{ fontSize: '13px' }} aria-hidden="true" />
+      {downloading ? 'Preparing…' : 'Download resume'}
+    </button>
+  );
+}
+
 /* ── Markdown message renderer ───────────────────────── */
-function MessageContent({ content }: { content: string }) {
+function MessageContent({ content, onNavigate }: { content: string; onNavigate: (r: string) => void }) {
   const lines = content.split('\n');
   return (
     <div className={styles.msgContent}>
       {lines.map((line, i) => {
+        // Resume download token — render a button
+        if (line.trim() === RESUME_TOKEN)
+          return <ResumeDownloadBtn key={i} />;
+        // Token inline within a sentence
+        if (line.includes(RESUME_TOKEN)) {
+          const [before, after] = line.split(RESUME_TOKEN);
+          return (
+            <p key={i} className={styles.msgPara}>
+              {before && <span dangerouslySetInnerHTML={{ __html: formatInline(before) }} />}
+              <ResumeDownloadBtn />
+              {after && <span dangerouslySetInnerHTML={{ __html: formatInline(after) }} />}
+            </p>
+          );
+        }
         if (line.startsWith('## '))
           return <h4 key={i} className={styles.msgH4}>{line.slice(3)}</h4>;
         if (line.startsWith('**') && line.endsWith('**'))
@@ -86,6 +154,7 @@ function MessageContent({ content }: { content: string }) {
         if (line.trim() === '') return <div key={i} className={styles.msgSpacer} />;
         return <p key={i} className={styles.msgPara} dangerouslySetInnerHTML={{ __html: formatInline(line) }} />;
       })}
+      <MentionedProjectCards content={content} onNavigate={onNavigate} />
     </div>
   );
 }
@@ -110,19 +179,11 @@ export function AIPage() {
   const latestUserMsgRef = useRef<HTMLDivElement>(null);
   const didAutoSubmit = useRef(false);
 
-  // Track when all marquee images have loaded
-  const [imagesLoaded, setImagesLoaded] = useState(false);
+  // Reveal bento cards after a short mount delay
+  const [cardsVisible, setCardsVisible] = useState(false);
   useEffect(() => {
-    let loaded = 0;
-    const total = MARQUEE_IMAGES.length;
-    MARQUEE_IMAGES.forEach(src => {
-      const img = new window.Image();
-      img.onload = img.onerror = () => {
-        loaded++;
-        if (loaded >= total) setImagesLoaded(true);
-      };
-      img.src = src;
-    });
+    const t = setTimeout(() => setCardsVisible(true), 120);
+    return () => clearTimeout(t);
   }, []);
 
 
@@ -149,13 +210,30 @@ export function AIPage() {
     }
   }, []);
 
+  // When user sends — smooth-scroll their message to the top
   useEffect(() => {
     const container = messagesContainerRef.current;
     if (!container) return;
-    if (messages.length === 1) {
-      container.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  }, [messages.length]);
+    const lastMsg = messages[messages.length - 1];
+    if (lastMsg?.role !== 'user') return;
+    requestAnimationFrame(() => {
+      const el = latestUserMsgRef.current;
+      container.scrollTo({
+        top: el ? el.offsetTop - 12 : 0,
+        behavior: 'smooth',
+      });
+    });
+  }, [messages.length]); // only fires when a new message is added
+
+  // While AI is typing — follow the output by pinning to the bottom on every update
+  useEffect(() => {
+    const container = messagesContainerRef.current;
+    if (!container) return;
+    const lastMsg = messages[messages.length - 1];
+    if (lastMsg?.role !== 'assistant') return;
+    // Direct assignment (no animation) so scroll keeps pace with the typewriter
+    container.scrollTop = container.scrollHeight;
+  }, [messages]); // fires on every content change, not just length
 
   const handleSend = (text?: string) => {
     const msg = text ?? input.trim();
@@ -244,13 +322,21 @@ export function AIPage() {
         {/* Background grid */}
         <div className={styles.landingGrid} aria-hidden />
 
-        {/* Top marquee — right to left */}
-        <div className={`${styles.marqueeWrap} ${styles.marqueeTop} ${imagesLoaded ? styles.marqueeVisible : ''}`}>
-          <div className={styles.marqueeTrack}>
-            {[...MARQUEE_IMAGES, ...MARQUEE_IMAGES].map((src, i) => (
-              <img key={i} src={src} className={styles.marqueeImg} alt="" draggable={false} />
-            ))}
-          </div>
+        {/* Bento background cards — 5 × 3 grid, all 15 project images */}
+        <div className={styles.bentoBg} aria-hidden>
+          {BENTO_CARDS.map((src, i) => (
+            <div
+              key={i}
+              className={`${styles.bentoCard} ${cardsVisible ? styles.bentoVisible : ''}`}
+              style={{
+                animationDuration: `${6 + (i % 7)}s`,
+                animationDelay:    `${-(i * 0.55).toFixed(2)}s`,
+                transitionDelay:   `${BENTO_DELAYS[i]}s`,
+              }}
+            >
+              <img src={src} alt="" draggable={false} />
+            </div>
+          ))}
         </div>
 
         {/* Ambient orbs */}
@@ -274,23 +360,25 @@ export function AIPage() {
 
           {/* Input */}
           <div className={styles.landingInputRow}>
-            <textarea
-              ref={inputRef}
-              className={styles.input}
-              value={input}
-              onChange={e => setInput(e.target.value)}
-              onKeyDown={handleKey}
-              placeholder="Ask about Midhun's work…"
-              rows={1}
-            />
-            <button
-              className={`${styles.sendBtn} ${input.trim() ? styles.sendActive : ''}`}
-              onClick={() => handleSend()}
-              disabled={!input.trim() || loading}
-              aria-label="Send"
-            >
-              <i className="bi bi-send-fill" style={{ fontSize: '14px' }} aria-hidden="true" />
-            </button>
+            <div className={styles.inputBar}>
+              <textarea
+                ref={inputRef}
+                className={styles.input}
+                value={input}
+                onChange={e => setInput(e.target.value)}
+                onKeyDown={handleKey}
+                placeholder="Ask about Midhun's work…"
+                rows={1}
+              />
+              <button
+                className={`${styles.sendBtn} ${input.trim() ? styles.sendActive : ''}`}
+                onClick={() => handleSend()}
+                disabled={!input.trim() || loading}
+                aria-label="Send"
+              >
+                <i className="bi bi-send-fill" style={{ fontSize: '14px' }} aria-hidden="true" />
+              </button>
+            </div>
           </div>
 
           {/* Suggested prompts — scrolling pill carousel */}
@@ -310,14 +398,6 @@ export function AIPage() {
           </div>
         </div>
 
-        {/* Bottom marquee — left to right */}
-        <div className={`${styles.marqueeWrap} ${styles.marqueeBottom} ${imagesLoaded ? styles.marqueeVisible : ''}`}>
-          <div className={`${styles.marqueeTrack} ${styles.marqueeReverse}`}>
-            {[...MARQUEE_IMAGES, ...MARQUEE_IMAGES].map((src, i) => (
-              <img key={i} src={src} className={styles.marqueeImg} alt="" draggable={false} />
-            ))}
-          </div>
-        </div>
 
       </div>
     );
@@ -363,7 +443,7 @@ export function AIPage() {
                   {msg.role === 'assistant' && <span className={styles.aiIcon}>✦</span>}
                   {msg.role === 'user'
                     ? <div className={styles.userBubble}><p className={styles.userText}>{msg.content}</p></div>
-                    : <div className={styles.aiBubble}><span className={styles.aiResponseLabel}>AI response</span><MessageContent content={msg.content} /></div>}
+                    : <div className={styles.aiBubble}><span className={styles.aiResponseLabel}>AI response</span><MessageContent content={msg.content} onNavigate={(r) => navigate(r)} /></div>}
                 </div>
               );
             })}
@@ -372,10 +452,8 @@ export function AIPage() {
               <div className={`${styles.message} ${styles.assistantMessage}`}>
                 <div className={styles.aiBubble}>
                   <div className={styles.generatingRow}>
+                    <Loader size={20} />
                     <span className={styles.generatingLabel}>Generating response</span>
-                    <div className={styles.typingDots}>
-                      <span /><span /><span />
-                    </div>
                   </div>
                 </div>
               </div>
@@ -403,22 +481,24 @@ export function AIPage() {
 
           {/* Input */}
           <div className={styles.inputWrap}>
-            <textarea
-              className={styles.input}
-              value={input}
-              onChange={e => setInput(e.target.value)}
-              onKeyDown={handleKey}
-              placeholder="Ask about Midhun's work…"
-              rows={1}
-            />
-            <button
-              className={`${styles.sendBtn} ${input.trim() ? styles.sendActive : ''}`}
-              onClick={() => handleSend()}
-              disabled={!input.trim() || loading}
-              aria-label="Send"
-            >
-              <i className="bi bi-send-fill" style={{ fontSize: '14px' }} aria-hidden="true" />
-            </button>
+            <div className={styles.inputBar}>
+              <textarea
+                className={styles.input}
+                value={input}
+                onChange={e => setInput(e.target.value)}
+                onKeyDown={handleKey}
+                placeholder="Ask about Midhun's work…"
+                rows={1}
+              />
+              <button
+                className={`${styles.sendBtn} ${input.trim() ? styles.sendActive : ''}`}
+                onClick={() => handleSend()}
+                disabled={!input.trim() || loading}
+                aria-label="Send"
+              >
+                <i className="bi bi-send-fill" style={{ fontSize: '14px' }} aria-hidden="true" />
+              </button>
+            </div>
           </div>
           <p className={styles.disclaimer}>AI generated responses may be inaccurate. Verify for accuracy.</p>
         </div>

@@ -10,6 +10,7 @@ const SUPABASE_ENABLED = !!(SUPABASE_URL && SUPABASE_KEY);
 const LOCAL_KEY   = 'mkp_events';
 const VISITOR_KEY = 'mkp_vid';
 const SESSION_KEY = 'mkp_sid';
+const OWNER_KEY   = 'mkp_owner'; // set once in DevTools: localStorage.setItem('mkp_owner','1')
 
 export type EventType =
   | 'hero_view'
@@ -21,7 +22,9 @@ export type EventType =
   | 'resume_click'
   | 'linkedin_click'
   | 'cta_click'
-  | 'session_start';
+  | 'session_start'
+  | 'egg_discovered'
+  | 'egg_all_found';
 
 export interface AEvent {
   id:   string;
@@ -82,6 +85,7 @@ function scheduleFlush() {
 
 /* ── Core track ──────────────────────────────────── */
 export function track(type: EventType, data: Record<string, unknown> = {}): void {
+  if (localStorage.getItem(OWNER_KEY)) return;
   try {
     const event: AEvent = {
       id:   uid(),
@@ -111,12 +115,13 @@ export async function fetchRemoteEvents(): Promise<AEvent[]> {
   if (!SUPABASE_ENABLED) return getLocalEvents();
   try {
     const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/analytics_events?select=*&order=created_at.asc&limit=20000`,
+      `${SUPABASE_URL}/rest/v1/analytics_events?select=*&order=created_at.desc&limit=20000`,
       { headers: { 'apikey': SUPABASE_KEY!, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
     );
     if (!res.ok) return getLocalEvents();
     const rows: { id: string; type: EventType; session_id: string; visitor_id: string; data: Record<string, unknown>; created_at: string }[] = await res.json();
-    return rows.map(r => ({
+    // Reverse so events are in ascending order for charts, but we always get the most recent 20k
+    return rows.reverse().map(r => ({
       id:   r.id,
       type: r.type,
       ts:   new Date(r.created_at).getTime(),
@@ -151,6 +156,7 @@ export function makeSectionTimer(section: string) {
 const GEO_SESSION_KEY = 'mkp_geo_done';
 
 export async function initGeoTracking() {
+  if (localStorage.getItem(OWNER_KEY)) return;
   // Only once per session
   if (sessionStorage.getItem(GEO_SESSION_KEY)) return;
   sessionStorage.setItem(GEO_SESSION_KEY, '1');
@@ -163,16 +169,11 @@ export async function initGeoTracking() {
       latitude?: number; longitude?: number; timezone?: string;
     };
     track('session_start', {
-      ip:           geo.ip,
       city:         geo.city,
       region:       geo.region,
       country:      geo.country_name,
       country_code: geo.country_code,
-      latitude:     geo.latitude,
-      longitude:    geo.longitude,
       timezone:     geo.timezone,
-      user_agent:   navigator.userAgent,
-      language:     navigator.language,
       referrer:     document.referrer || 'direct',
     });
   } catch { /* silently ignore — network / timeout */ }

@@ -110,8 +110,9 @@
   flex-shrink: 0;
   overflow: hidden;
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-  background: var(--bg-elevated);
   position: relative;
+  background-color: #e0e0e0;
+  animation: imgSkeleton 1.6s ease-in-out infinite;
 }
 
 /* Gradient overlay at bottom of image for smooth text blend */

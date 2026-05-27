@@ -5,6 +5,8 @@ import { Footer } from '../components/Footer';
 import { BackgroundGlow } from '../components/BackgroundGlow';
 import { GoBackButton } from '../components/GoBackButton';
 import styles from './MinimalCaseStudyPage.module.css';
+import { ImgSkeleton } from '../components/ImgSkeleton';
+import { Loader } from '../components/Loader';
 
 const CATEGORY_COLORS: Record<string, string> = {
   AI:               'var(--accent-violet)',
@@ -26,26 +28,27 @@ type Project = {
   opportunity: string;
   outcomes: string[];
   tags: string[];
-  backTo?: string; // AllWorks filter path
+  backTo?: string;
+  viewWorksLink?: string; // external link shown as a highlighted CTA card
 };
 
 const PROJECTS: Project[] = [
   {
-    id: 'gen-ai',
-    title: 'Gen AI Explorations',
+    id: 'almvc',
+    title: 'Adobe Learning Manager – Virtual Classroom',
     company: 'Adobe',
-    category: 'AI',
-    timeFrame: '1 Week',
-    metric: '40% less asset creation effort',
-    heroImage: '/Gen AI explorations.avif',
-    opportunity: 'Exploring how product explorations using Gen AI can reduce effort and cost in content creation workflows for Adobe Connect hosts.',
+    category: 'Product Design',
+    timeFrame: '6 Months',
+    metric: '5+ major feature areas redesigned',
+    heroImage: '/Gen AI screen.png',
+    opportunity: 'Reimagining live learning for the next generation of virtual classrooms — combining the depth of Adobe Connect\'s training capabilities with the simplicity modern users expect.',
     outcomes: [
-      'Reduced asset creation effort by 40% using Gen AI image and content generators.',
-      '3x faster content turnaround compared to manual asset creation.',
-      'Eliminated subscription dependency on third-party asset libraries.',
-      'Findings directly influenced the product roadmap for AI-first features.',
+      'Simplified onboarding and joining workflows reduced first-session anxiety.',
+      'Improved classroom interaction clarity through context-aware controls.',
+      'AI-assisted engagement made participation more frequent and fluid.',
+      'Recording viewer transformed from passive archive to structured learning asset.',
     ],
-    tags: ['Adobe Connect', 'Gen AI', 'Enterprise UX', 'AI Initiatives'],
+    tags: ['Adobe Learning Manager', 'Enterprise UX', 'AI'],
     backTo: '/work/all?company=Adobe',
   },
   {
@@ -55,7 +58,7 @@ const PROJECTS: Project[] = [
     category: 'UX',
     timeFrame: '16 Weeks',
     metric: '35% increase in engagement',
-    heroImage: '/Connect central revamp.png',
+    heroImage: '/Projectcard-images/Connect central revamp.png',
     opportunity: 'Adobe Connect Central is the creation and management hub for all webinars and trainings. The existing interface lacked hierarchy, discoverability, and modern usability standards.',
     outcomes: [
       '35% increase in user engagement post-launch.',
@@ -73,7 +76,7 @@ const PROJECTS: Project[] = [
     category: 'UX',
     timeFrame: 'Ongoing',
     metric: '100% of active users impacted',
-    heroImage: '/visual revamp.png',
+    heroImage: '/Projectcard-images/visual revamp.png',
     opportunity: 'Core UI revamps across Adobe Connect to modernise the visual language, improve consistency with Adobe Spectrum, and elevate the overall design quality for enterprise users.',
     outcomes: [
       '25% reduction in UI support tickets after visual revamps.',
@@ -83,6 +86,7 @@ const PROJECTS: Project[] = [
     ],
     tags: ['Adobe Connect', 'Enterprise UX', 'Design Systems', 'Adobe Spectrum'],
     backTo: '/work/all?company=Adobe',
+    viewWorksLink: 'https://www.figma.com/proto/a4yZ9Jxsyqdu0jAdka0h8m/Visual-design-projects?page-id=0%3A1&node-id=28-12185&viewport=-1868%2C-3809%2C0.32&t=hnTglz0kPoWtwOtl-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=28%3A12185',
   },
   {
     id: 'mobile-revamp',
@@ -91,7 +95,7 @@ const PROJECTS: Project[] = [
     category: 'UX',
     timeFrame: '3 Weeks',
     metric: 'Mobile usage: 11% → 23%',
-    heroImage: '/Mobile revamp.png',
+    heroImage: '/Projectcard-images/Mobile revamp.png',
     opportunity: 'The Adobe Connect mobile experience was lagging behind modern user expectations, with outdated UX patterns and broken core journeys. Critical entry points such as onboarding, login, and calendar workflows created friction, limiting adoption despite strong in-room capabilities.',
     outcomes: [
       'Increased mobile usage from 11% to 23% post-launch — more than doubling adoption.',
@@ -109,7 +113,7 @@ const PROJECTS: Project[] = [
     category: 'UX',
     timeFrame: '2 Weeks',
     metric: '50% faster user onboarding',
-    heroImage: '/Bizongo UMS.png',
+    heroImage: '/Projectcard-images/Bizongo UMS.png',
     opportunity: 'User Management System was handled entirely from the backend until 2020. Bringing all features to the front end and making it intuitive for admins without engineering dependency was the core challenge.',
     outcomes: [
       '50% faster user onboarding for new team members.',
@@ -127,7 +131,7 @@ const PROJECTS: Project[] = [
     category: 'UX',
     timeFrame: '2 Weeks',
     metric: '60% less workflow setup time',
-    heroImage: '/Seamless approval workflow.png',
+    heroImage: '/Projectcard-images/Seamless approval workflow.png',
     opportunity: "Artwork Flow's workflow setup UI had evolved organically and needed to become more intuitive as the product scaled to hundreds of teams managing complex approval chains.",
     outcomes: [
       '60% reduction in workflow setup time.',
@@ -145,7 +149,7 @@ const PROJECTS: Project[] = [
     category: 'UX',
     timeFrame: '2 Weeks',
     metric: '70% faster contract creation',
-    heroImage: '/Digital contract creation.png',
+    heroImage: '/Projectcard-images/Digital contract creation.png',
     opportunity: 'Bizongo handles hundreds of clients with distinct terms. Creating customised contracts with minimal effort while keeping everything trackable and audit-ready was critical at scale.',
     outcomes: [
       '70% faster contract creation compared to the previous process.',
@@ -163,7 +167,7 @@ const PROJECTS: Project[] = [
     category: 'UX',
     timeFrame: '2021',
     metric: '40% better heuristic scores',
-    heroImage: '/Heuristics evaluation.png',
+    heroImage: '/Projectcard-images/Heuristics evaluation.png',
     opportunity: 'Design evaluations at YUJ needed to be more systematic and repeatable. Ad-hoc heuristic reviews were inconsistent across client projects, reducing their credibility and impact.',
     outcomes: [
       '40% improvement in heuristic evaluation scores across reviewed products.',
@@ -181,7 +185,7 @@ const PROJECTS: Project[] = [
     category: 'Design Systems',
     timeFrame: '1+ yr',
     metric: '50%+ reduction in feature dev time',
-    heroImage: '/Maintaining design systems.webp',
+    heroImage: '/Projectcard-images/Maintaining design systems.webp',
     opportunity: "Bizongo's design system was derived from Ant Design but needed significant modification to fit B2B use cases, with proper documentation and component coverage across 5 product verticals.",
     outcomes: [
       '50%+ reduction in feature development time through reusable components.',
@@ -217,7 +221,7 @@ const PROJECTS: Project[] = [
     category: 'Internship',
     timeFrame: '2 months',
     metric: 'Full brand identity delivered',
-    heroImage: '/POULTRY BRANDING.png',
+    heroImage: '/Projectcard-images/POULTRY BRANDING.png',
     opportunity: 'Creating a complete branding and marketing presence for local poultry farmers to help them expand into Tier-1 cities. The challenge was building brand trust and accessibility for a traditionally unbranded market.',
     outcomes: [
       'Full brand identity delivered: logo, colour system, typography.',
@@ -235,7 +239,7 @@ const PROJECTS: Project[] = [
     category: 'Internship',
     timeFrame: '2017',
     metric: 'Inducted design into Navy',
-    heroImage: '/npol-ctd-probe.png',
+    heroImage: '/Projectcard-images/npol-ctd-probe.png',
     opportunity: 'Designing a re-usable CTD (Conductivity, Temperature, Depth) probe structure for naval applications at the Naval Physical and Oceanographic Laboratory under DRDO. The challenge was designing under strict operational and safety constraints.',
     outcomes: [
       'Design inducted into the Indian Navy in April 2018.',
@@ -252,13 +256,16 @@ export function MinimalCaseStudyPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  const project = PROJECTS.find(p => p.id === id);
+  // 'npol-ctd-probe' is an alias used in portfolioData — treat it as 'drdo-xctd'
+  const resolvedId = id === 'npol-ctd-probe' ? 'drdo-xctd' : id;
+  const project = PROJECTS.find(p => p.id === resolvedId);
 
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'instant' }); }, [id]);
 
   if (!project) {
     return (
       <div className={styles.notFound}>
+        <Loader size={32} />
         <p>Project not found.</p>
         <GoBackButton fallback="/work/all" label="Back to all work" />
       </div>
@@ -307,16 +314,47 @@ export function MinimalCaseStudyPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.55, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               >
-                <img
+                <ImgSkeleton
                   src={project.heroImage}
                   alt={project.title}
                   className={styles.heroImg}
-                  onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
                 />
               </motion.div>
             </div>
           </div>
         </section>
+
+        {/* ── View Works CTA (only when viewWorksLink is set) ── */}
+        {project.viewWorksLink && (
+          <section className={styles.viewWorksSection}>
+            <div className={styles.container}>
+              <motion.a
+                href={project.viewWorksLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.viewWorksCard}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <div className={styles.viewWorksLeft}>
+                  <span className={styles.viewWorksLabel}>Figma Prototype</span>
+                  <h3 className={styles.viewWorksTitle}>View the visual design works</h3>
+                  <p className={styles.viewWorksDesc}>
+                    Explore the full collection of visual design projects: UI revamps, component evolution, and design system work at Adobe Connect.
+                  </p>
+                </div>
+                <div className={styles.viewWorksRight}>
+                  <span className={styles.viewWorksBtn}>
+                    Open in Figma
+                    <i className="bi bi-arrow-up-right" style={{ fontSize: '14px' }} aria-hidden="true" />
+                  </span>
+                </div>
+              </motion.a>
+            </div>
+          </section>
+        )}
 
         {/* ── Outcomes ── */}
         <section className={styles.outcomesSection}>

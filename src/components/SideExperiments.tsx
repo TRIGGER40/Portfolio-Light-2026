@@ -1,140 +1,100 @@
-import { motion } from 'framer-motion';
-import pStyles from '../pages/AboutPage.module.css';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import styles from './SideExperiments.module.css';
+import { ExperimentModal, type Experiment } from './ExperimentModal';
+
+const EXPERIMENTS: Experiment[] = [
+  {
+    num: '01',
+    title: 'YouTube helping people set a routine',
+    desc: 'Using the platform\'s pull to nudge people toward structured, healthy daily routines.',
+    tag: 'Behaviour Design',
+    thumb: { type: 'video', src: '/VIDEOS/youtube-routine-web.mp4' },
+  },
+  {
+    num: '02',
+    title: 'Visualising money in digital transactions',
+    desc: 'Reintroducing the emotional weight of physical currency into digital payment flows.',
+    tag: 'Mobile UX',
+    thumb: { type: 'video', src: '/VIDEOS/rethinking-money-web.mp4' },
+    portrait: true,
+  },
+  {
+    num: '03',
+    title: 'CampusLive',
+    desc: 'A metaverse campus replicating the corridor learning that defines college life.',
+    tag: 'Spatial Design',
+    thumb: { type: 'video', src: '/VIDEOS/campus-live-web.mp4' },
+    ctaLink: '/campus-pano',
+    ctaLabel: 'Walk through the campus',
+  },
+  {
+    num: '04',
+    title: 'Safe Routes in Google Maps',
+    desc: 'Route safety badges based on lighting, incident history, and foot traffic data.',
+    tag: 'Maps UX',
+    thumb: { type: 'img', src: '/images/safe-routes-1.jpg' },
+  },
+];
 
 export function SideExperiments() {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
   return (
-    <section className={pStyles.expLabSection}>
-      <div className="container">
-        <span className="section-label">Beyond Work</span>
-        <h2 className={`text-display ${pStyles.expLabTitle}`}>
-          Things I explore<br />
-          <span className="gradient-text">out of curiosity</span>
-        </h2>
-        <p className={pStyles.expLabSub}>
-          Side experiments where design meets a personal question worth exploring.
-        </p>
+    <>
+      <section className={styles.section}>
+        <div className="container">
+          <div className={styles.header}>
+            <span className="section-label">Beyond Work</span>
+            <h2 className={`text-display ${styles.title}`}>
+              Things I explore<br />
+              <span className="gradient-text">out of curiosity</span>
+            </h2>
+            <p className={styles.sub}>Side experiments where design meets a personal question.</p>
+          </div>
 
-        <div className={pStyles.expLabStack}>
+          <div className={styles.list}>
+            {EXPERIMENTS.map((exp, i) => (
+              <button
+                key={exp.num}
+                className={styles.row}
+                onClick={() => setActiveIndex(i)}
+              >
+                <span className={styles.num}>{exp.num}</span>
 
-          {/* ── 01 YouTube Routine ── */}
-          <motion.div
-            className={pStyles.labRow}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className={pStyles.labRowVideo}>
-              <video
-                src="/VIDEOS/youtube-routine-web.mp4"
-                autoPlay muted loop playsInline preload="auto"
-                className={pStyles.labVideo}
-              />
-            </div>
-            <div className={pStyles.labRowText}>
-              <span className={pStyles.labNum}>01</span>
-              <h3 className={pStyles.labTitle}>YouTube helping people set a routine</h3>
-              <p className={pStyles.labDesc}>
-                YouTube is more than an app,it's part of daily life. Why not transition that dependency into something fruitful? An exploration into using the platform's pull to nudge people toward structured, healthy routines.
-              </p>
-            </div>
-          </motion.div>
+                <div className={styles.thumb}>
+                  {exp.thumb.type === 'video'
+                    ? <video src={exp.thumb.src} muted playsInline preload="metadata" />
+                    : <img src={exp.thumb.src} alt={exp.title} />
+                  }
+                </div>
 
-          {/* ── 02 Visualising Money ── portrait video */}
-          <motion.div
-            className={`${pStyles.labRow} ${pStyles.labRowReverse}`}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className={pStyles.labRowVideoPortrait}>
-              <video
-                src="/VIDEOS/rethinking-money-web.mp4"
-                autoPlay muted loop playsInline preload="auto"
-                className={pStyles.labVideoPortrait}
-              />
-            </div>
-            <div className={pStyles.labRowText}>
-              <span className={pStyles.labNum}>02</span>
-              <h3 className={pStyles.labTitle}>Visualising money in digital transactions</h3>
-              <p className={pStyles.labDesc}>
-                Physically handling currency makes you think twice before spending. Digital transactions are just numbers,they strip out the emotional weight of money. This explores how to reintroduce that friction into digital payment flows.
-              </p>
-            </div>
-          </motion.div>
+                <div className={styles.text}>
+                  <span className={styles.rowTitle}>{exp.title}</span>
+                  <span className={styles.rowDesc}>{exp.desc}</span>
+                </div>
 
-          {/* ── 03 CampusLive,two stacked videos */}
-          <motion.div
-            className={pStyles.labRow}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className={pStyles.labRowVideoStack}>
-              <div className={pStyles.labStackItem}>
-                <video
-                  src="/VIDEOS/campus-live-web.mp4"
-                  autoPlay muted loop playsInline preload="auto"
-                  className={pStyles.labVideo}
-                />
-              </div>
-              <div className={pStyles.labStackItem}>
-                <video
-                  src="/VIDEOS/exploration-web.mp4"
-                  autoPlay muted loop playsInline preload="auto"
-                  className={pStyles.labVideo}
-                />
-                <span className={pStyles.labVideoLabel}>SketchUp base model</span>
-              </div>
-            </div>
-            <div className={pStyles.labRowText}>
-              <span className={pStyles.labNum}>03</span>
-              <h3 className={pStyles.labTitle}>CampusLive</h3>
-              <p className={pStyles.labDesc}>
-                During COVID-19 I asked: corridor learning accounts for 50–60% of the college experience,how do we replicate that remotely? The answer was an immersive digital campus built on a metaverse layer, letting students roam, bump into peers, and learn the way they would on a real campus.
-              </p>
-            </div>
-          </motion.div>
+                <span className={styles.tag}>{exp.tag}</span>
 
-          {/* ── 04 Safe Routes in Google Maps ── */}
-          <motion.div
-            className={`${pStyles.labRow} ${pStyles.labRowReverse}`}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className={pStyles.labRowVideoStack}>
-              <div className={pStyles.labStackItem}>
-                <img
-                  src="/images/safe-routes-1.jpg"
-                  alt="Safe Routes concept screen 1"
-                  className={pStyles.labVideo}
-                  style={{ objectFit: 'cover', width: '100%', height: '100%' }}
-                />
-              </div>
-              <div className={pStyles.labStackItem}>
-                <img
-                  src="/images/safe-routes-2.jpg"
-                  alt="Safe Routes concept screen 2"
-                  className={pStyles.labVideo}
-                  style={{ objectFit: 'cover', width: '100%', height: '100%' }}
-                />
-              </div>
-            </div>
-            <div className={pStyles.labRowText}>
-              <span className={pStyles.labNum}>04</span>
-              <h3 className={pStyles.labTitle}>Safe Routes in Google Maps</h3>
-              <p className={pStyles.labDesc}>
-                Sometimes it's not the fastest, it's the safest that matters. After hearing about a recent incident in Hyderabad, I started thinking about how Google Maps could be more than just efficient. By studying factors like lighting, incident history, and foot traffic, it could assign safety badges to routes, gently cautioning users travelling at night. With the scale Google Maps operates at, this isn't a nice-to-have. It's a responsibility.
-              </p>
-            </div>
-          </motion.div>
-
+                <span className={styles.playIcon}>
+                  <i className="bi bi-play-circle" />
+                </span>
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <AnimatePresence>
+        {activeIndex !== null && (
+          <ExperimentModal
+            experiments={EXPERIMENTS}
+            activeIndex={activeIndex}
+            onClose={() => setActiveIndex(null)}
+            onSelect={setActiveIndex}
+          />
+        )}
+      </AnimatePresence>
+    </>
   );
 }

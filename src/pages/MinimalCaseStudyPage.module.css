@@ -176,6 +176,108 @@
   padding: 5px 12px;
 }
 
+/* ── View Works CTA card ─────────────────────────────── */
+.viewWorksSection {
+  padding: 0 0 48px;
+}
+
+.viewWorksCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 36px 40px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #5254d8 0%, #7c3aed 60%, #a855f7 100%);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+  box-shadow:
+    0 8px 32px rgba(82, 84, 216, 0.35),
+    0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.viewWorksCard::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(255,255,255,0.12) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.viewWorksCard:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow:
+    0 16px 48px rgba(82, 84, 216, 0.45),
+    0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.viewWorksLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.viewWorksLabel {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.viewWorksTitle {
+  font-size: clamp(18px, 2.2vw, 24px);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.viewWorksDesc {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.6;
+  max-width: 520px;
+  margin: 0;
+}
+
+.viewWorksRight {
+  flex-shrink: 0;
+}
+
+.viewWorksBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #fff;
+  color: #5254d8;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  transition: background 0.15s, box-shadow 0.15s;
+}
+
+.viewWorksCard:hover .viewWorksBtn {
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 640px) {
+  .viewWorksCard {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 28px 24px;
+  }
+  .viewWorksRight { align-self: flex-start; }
+}
+
 /* ── Bottom bar ── */
 .bottomBar {
   padding: 40px 0 60px;

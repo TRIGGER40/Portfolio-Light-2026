@@ -1,0 +1,51 @@
+/* ── Indeterminate gradient ring spinner ────────────────── */
+
+@property --loader-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.loader {
+  display: inline-block;
+  width:  var(--loader-size, 28px);
+  height: var(--loader-size, 28px);
+  border-radius: 50%;
+  position: relative;
+  flex-shrink: 0;
+
+  /* Gradient arc conic-gradient as background, then mask out the fill */
+  background: conic-gradient(
+    from var(--loader-angle),
+    #5254d8  0deg,
+    #7c3aed 80deg,
+    #a855f7 140deg,
+    rgba(168, 85, 247, 0.08) 200deg,
+    transparent 260deg,
+    transparent 360deg
+  );
+
+  /* Hollow ring via mask */
+  -webkit-mask:
+    radial-gradient(farthest-side, transparent calc(100% - 3px), #fff calc(100% - 3px));
+  mask:
+    radial-gradient(farthest-side, transparent calc(100% - 3px), #fff calc(100% - 3px));
+
+  animation: loaderSpin 0.9s linear infinite;
+}
+
+/* Soft glow behind the spinner */
+.loader::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.22) 0%, transparent 70%);
+  filter: blur(4px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes loaderSpin {
+  to { --loader-angle: 360deg; }
+}

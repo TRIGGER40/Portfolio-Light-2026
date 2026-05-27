@@ -24,7 +24,7 @@
   /* Text */
   --text-primary: #111128;
   --text-secondary: rgba(17, 17, 40, 0.62);
-  --text-muted: rgba(17, 17, 40, 0.38);
+  --text-muted: rgba(17, 17, 40, 0.60);
   --text-accent: #5254d8;
 
   /* Glow */
@@ -44,7 +44,7 @@
   --shadow-glow: 0 0 40px rgba(82, 84, 216, 0.12);
 
   /* Spacing */
-  --section-pad: clamp(80px, 10vw, 140px);
+  --section-pad: clamp(28px, 3.5vw, 48px);
   --container-max: 1320px;
   --container-pad: clamp(20px, 5vw, 80px);
 
@@ -72,6 +72,19 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  /* Always reserve room for the scrollbar so centered content doesn't shift
+     when the page changes between scrollable / non-scrollable views. */
+  scrollbar-gutter: stable;
+  /* Match the page background so mobile browser chrome (URL bar
+     showing/hiding) never reveals a white gap behind the body. */
+  background-color: var(--bg-base);
+  min-height: 100%;
+}
+
+/* Mobile devices have overlay scrollbars (no width) — drop the gutter so
+   content isn't pushed left by a phantom reservation. */
+@media (max-width: 768px), (pointer: coarse) {
+  html { scrollbar-gutter: auto; }
 }
 
 body {
@@ -80,6 +93,9 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
+  /* Always at least as tall as the dynamic viewport so mobile URL bar
+     show/hide doesn't expose the underlying html. */
+  min-height: 100dvh;
 }
 
 body::before {
@@ -104,9 +120,13 @@ body::before {
   );
 }
 
+
 #root {
   position: relative;
-  z-index: 1;
+  /* No z-index here — setting one creates a stacking context that traps
+     the nav (z:100) inside it, putting it below body::after (z:50).
+     Without z-index, the nav's position:fixed participates directly in
+     the body stacking context and correctly sits above the fade strip. */
 }
 
 img { max-width: 100%; display: block; }
@@ -228,6 +248,7 @@ ul, ol { list-style: none; }
   border-radius: var(--radius-md);
   font-size: 14px;
   font-weight: 600;
+  line-height: 1;          /* normalise across <a> vs <button> */
   transition: all var(--transition-base);
   white-space: nowrap;
 }
@@ -323,4 +344,86 @@ ul, ol { list-style: none; }
 :focus-visible {
   outline: 2px solid var(--accent-indigo);
   outline-offset: 3px;
+}
+
+/* ── Image skeleton pulse (legacy, kept for any direct use) */
+@keyframes imgSkeleton {
+  0%, 100% { background-color: #e0e0e0; }
+  50%       { background-color: #cacaca; }
+}
+
+/* ── Image skeleton overlay ──────────────────────────────
+   Rendered as a sibling <div> inside position:relative
+   overflow:hidden wrappers while the real <img> loads.
+   ─────────────────────────────────────────────────────── */
+
+.img-skeleton-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  overflow: hidden;
+  background: #ffffff;
+  pointer-events: none;
+  /* centre the spinner child */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Spinner sits above the orb layer */
+.img-skeleton-spinner {
+  position: relative;
+  z-index: 3;
+}
+
+/* Three floating glow orbs */
+.img-skeleton-overlay::before {
+  content: '';
+  position: absolute;
+  inset: -30%;
+  background:
+    radial-gradient(ellipse 52% 46% at 28% 36%, rgba(82, 84, 216, 0.32) 0%, transparent 65%),
+    radial-gradient(ellipse 44% 54% at 72% 64%, rgba(168, 85, 247, 0.26) 0%, transparent 65%),
+    radial-gradient(ellipse 38% 40% at 54% 86%, rgba(99, 102, 241, 0.20) 0%, transparent 65%);
+  filter: blur(16px);
+  animation: skOrbFloat 8s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+
+@keyframes skOrbFloat {
+  0%   { transform: translate(-8%, -6%) scale(1.00); }
+  30%  { transform: translate(10%,  4%) scale(1.08); }
+  65%  { transform: translate(-4%, 12%) scale(0.94); }
+  100% { transform: translate( 6%, -9%) scale(1.04); }
+}
+
+
+/* ── Spherical bulge on hover ────────────────────────────
+   Apply to any card / pill / button that should pop forward.
+   Uses perspective so the scale feels like a convex surface
+   lifting off the page rather than a flat 2-D zoom.
+   ─────────────────────────────────────────────────────── */
+.bulge {
+  transform-style: preserve-3d;
+  transition:
+    transform  0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.28s ease;
+  will-change: transform;
+}
+
+.bulge:hover {
+  transform: perspective(500px) translateZ(18px) scale(1.04);
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.18),
+    0 4px  16px rgba(0, 0, 0, 0.10);
+}
+
+/* Slightly gentler version for smaller elements */
+.bulge-sm:hover {
+  transform: perspective(400px) translateZ(10px) scale(1.05);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.14),
+    0 2px  8px rgba(0, 0, 0, 0.08);
 }

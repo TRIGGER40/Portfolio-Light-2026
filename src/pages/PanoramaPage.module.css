@@ -1,0 +1,97 @@
+/* ── Header ── */
+.header {
+  padding: clamp(28px, 3.5vw, 52px) 0 36px;
+  max-width: 640px;
+}
+
+.title {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.desc {
+  margin-top: 20px;
+  font-size: clamp(15px, 1.4vw, 17px);
+  line-height: 1.78;
+  color: var(--text-secondary);
+  max-width: 580px;
+}
+
+/* ── Panorama embed ── */
+.embedWrap {
+  margin: 0 clamp(16px, 4vw, 64px) 80px;
+  height: clamp(420px, 72vh, 840px);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.14),
+    0 4px 16px rgba(0, 0, 0, 0.06);
+  background: #0a0a18;
+}
+
+.iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* ── Easter Egg #3 shimmer trigger ── */
+/* Appears bottom-right of the iframe after dwell time */
+.eggShimmer {
+  position: absolute;
+  bottom: 18px;
+  right: 20px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 2;
+}
+
+.eggShimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.18) 0%, transparent 65%);
+  animation: shimmerPulse 2.4s ease-in-out infinite;
+}
+
+.eggShimmer::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  animation: shimmerCore 2.4s ease-in-out infinite;
+}
+
+@keyframes shimmerPulse {
+  0%, 100% { opacity: 0.25; transform: scale(1); }
+  50%       { opacity: 0.6;  transform: scale(1.4); }
+}
+
+@keyframes shimmerCore {
+  0%, 100% { opacity: 0.35; }
+  50%       { opacity: 0.9; }
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .embedWrap {
+    margin: 0 0 64px;
+    height: clamp(340px, 60vh, 560px);
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+}

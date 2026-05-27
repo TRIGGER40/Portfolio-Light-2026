@@ -1,6 +1,448 @@
+/* ── Easter Egg #2 hotspot — Through My Lens ── */
+/* Positioned on the mountain peak in the background photograph */
+.eggHotspot {
+  position: absolute;
+  top: 24%;
+  left: 57%;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.eggHotspot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  animation: hotspotCore 2.8s ease-in-out infinite;
+}
+
+.eggHotspot::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: hotspotRing 2.8s ease-in-out infinite;
+}
+
+@keyframes hotspotCore {
+  0%, 100% { opacity: 0.22; transform: translate(-50%, -50%) scale(1); }
+  50%       { opacity: 0.55; transform: translate(-50%, -50%) scale(1.2); }
+}
+
+@keyframes hotspotRing {
+  0%   { opacity: 0.3;  transform: translate(-50%, -50%) scale(1); }
+  50%  { opacity: 0;    transform: translate(-50%, -50%) scale(2); }
+  100% { opacity: 0.3;  transform: translate(-50%, -50%) scale(1); }
+}
+
+/* ── Full-page parallax background ──────────────────── */
+.pageRoot {
+  position: relative;
+}
+
+.pageExpanded {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.pageBgWrap {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  transition: z-index 0s;
+}
+
+.pageBgWrapExpanded {
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.pageBgParallax {
+  position: absolute;
+  inset: 0;
+}
+
+.pageBgImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  opacity: 0;
+  /* Held at scale 1 by default so the page never appears to "zoom out"
+     on entry. The scale-up only kicks in when the background is expanded. */
+  transform: scale(1);
+  filter: blur(12px);
+  transition:
+    opacity 2s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 2.8s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pageBgImgLoaded {
+  opacity: 0.2;
+  transform: scale(1);
+  filter: blur(12px);
+}
+
+.pageBgImgExpanded {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  filter: blur(0px) !important;
+  transition:
+    opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 1.8s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 1.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.pageBgImgCollapsing {
+  transition: opacity 0.4s ease, filter 0.4s ease !important;
+}
+
+/* ── Full-view overlay ───────────────────────────────── */
+.bgViewOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  animation: bgOverlayIn 0.6s ease both;
+  animation-delay: 0.45s;
+  pointer-events: none;
+}
+
+.bgViewOverlayOut {
+  animation: bgOverlayOut 0.45s cubic-bezier(0.4, 0, 1, 1) both !important;
+  pointer-events: none;
+}
+
+@keyframes bgOverlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes bgOverlayOut {
+  from { opacity: 1; transform: translateY(0px); }
+  to   { opacity: 0; transform: translateY(12px); }
+}
+
+/* Soft vignette at bottom for readability */
+.bgViewOverlay::after {
+  content: '';
+  position: absolute;
+  inset: 35% 0 0 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.52) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.bgViewBack {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.bgViewBack:hover {
+  background: rgba(255, 255, 255, 0.35);
+  border-color: rgba(255, 255, 255, 0.7);
+  color: #fff;
+}
+
+/* Bottom bar */
+.bgViewBottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding: clamp(24px, 4vh, 40px) clamp(24px, 4vw, 48px);
+  pointer-events: auto;
+}
+
+/* Left column — location title + credit */
+.bgViewLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.bgViewLocation {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+/* Credit — avatar inline with name + location */
+.bgViewCredit {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.bgViewAvatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 15%;
+  flex-shrink: 0;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.45);
+  transform: scale(1.18);
+  transform-origin: center 20%;
+}
+
+.bgViewCreditText {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.bgViewName {
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.96);
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.bgViewCaption {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.58);
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+/* ── Ambient audio player ────────────────────────────── */
+.audioPlayerWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-end;
+}
+
+.audioSubtext {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.42);
+  margin: 0;
+  letter-spacing: 0.01em;
+  text-align: center;
+  line-height: 1;
+}
+
+.audioPlayer {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 16px 9px 12px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  cursor: default;
+}
+
+.audioMuteBtn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 15px;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  transition: color 0.15s;
+  line-height: 1;
+}
+
+.audioMuteBtn:hover {
+  color: #fff;
+}
+
+.audioTrack {
+  width: 120px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 100px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.audioFill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 100px;
+  transition: width 0.25s linear;
+  pointer-events: none;
+}
+
+.audioTime {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.65);
+  font-variant-numeric: tabular-nums;
+  min-width: 28px;
+  line-height: 1;
+}
+
+/* ── Responsive: background view overlay ─────────────── */
+
+/* Tablet (≤ 768px): stack bottom bar vertically */
+@media (max-width: 768px) {
+  .bgViewBottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px 24px 32px;
+  }
+
+  .bgViewLocation {
+    font-size: clamp(24px, 6vw, 36px);
+  }
+
+  .bgViewBack {
+    align-self: flex-start;
+  }
+
+  .audioPlayerWrap {
+    align-self: stretch;
+    align-items: center;
+  }
+
+  .audioSubtext {
+    text-align: center;
+  }
+
+  .audioPlayer {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .audioTrack {
+    flex: 1;
+  }
+}
+
+/* Mobile (≤ 480px): tighten further */
+@media (max-width: 480px) {
+  .bgViewBottom {
+    padding: 16px 20px 28px;
+    gap: 16px;
+  }
+
+  .bgViewLocation {
+    font-size: 26px;
+  }
+
+  .bgViewAvatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .bgViewName {
+    font-size: 14px;
+  }
+
+  .bgViewCaption {
+    font-size: 11px;
+  }
+}
+
+/* ── View background button ──────────────────────────── */
+.viewBgBtnWrap {
+  grid-column: 2;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  animation: viewBtnIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* On mobile (single-column grid), button spans the full column */
+@media (max-width: 768px) {
+  .viewBgBtnWrap {
+    grid-column: 1;
+    margin-top: 8px;
+  }
+}
+
+@keyframes viewBtnIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.viewBgBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.viewBgBtn:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(82, 84, 216, 0.25);
+  color: var(--text-primary);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* ── Hide intro when expanded ────────────────────────── */
+.introHidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px);
+}
+
 /* ── Intro section ───────────────────────────────────── */
 .intro {
-  padding: clamp(48px, 8vw, 100px) 0 clamp(40px, 6vw, 80px);
+  padding: clamp(20px, 2.5vw, 36px) 0 clamp(24px, 3vw, 44px);
+  position: relative;
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .introInner {
@@ -8,7 +450,10 @@
   grid-template-columns: 1fr 400px;
   gap: clamp(40px, 6vw, 80px);
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
+
 
 /* ── Text side ───────────────────────────────────────── */
 .introText {
@@ -18,52 +463,250 @@
 }
 
 .introHeading {
-  font-size: clamp(32px, 4vw, 52px);
-  font-weight: 800;
-  line-height: 1.12;
-  letter-spacing: -0.03em;
-  color: var(--text-primary);
+  font-size: clamp(32px, 4.5vw, 56px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: #0a0a1e;
   margin: 0;
+}
+
+.introNameBreath {
+  background: linear-gradient(
+    135deg,
+    #5254d8 0%,
+    #7c3aed 30%,
+    #a855f7 55%,
+    #7c3aed 75%,
+    #5254d8 100%
+  );
+  background-size: 250% 250%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: nameBreath 8s ease-in-out infinite;
+}
+
+@keyframes nameBreath {
+  0%   { background-position: 0%   50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0%   50%; }
 }
 
 .introPara {
   font-size: clamp(15px, 1.4vw, 17px);
-  color: var(--text-secondary);
+  color: rgba(17, 17, 40, 0.82);
   line-height: 1.75;
   margin: 0;
   max-width: 600px;
 }
 
-/* ── Image side ──────────────────────────────────────── */
-.introImageWrap {
-  position: relative;
-  border-radius: 24px;
-  overflow: hidden;
-  aspect-ratio: 3 / 4;
-  box-shadow:
-    0 24px 64px rgba(82, 84, 216, 0.12),
-    0 4px 16px rgba(0, 0, 0, 0.08);
+/* ── Polaroid scatter — all photos fully visible ── */
+.introPolaroidCluster {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
 }
 
-.introImage {
-  width: 100%;
-  height: 100%;
+.introPolaroidRow {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 0;
+}
+
+/* Row 2 pulls up to overlap row 1 */
+.introPolaroidRow:last-child {
+  margin-top: -22px;
+}
+
+/* ── Outer wrapper — handles entry animation only ── */
+.introPolaroidWrap {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  margin-right: -18px;
+  animation: polaroidEntry 0.9s cubic-bezier(0.34, 1.15, 0.64, 1) var(--delay, 0s) both;
+}
+.introPolaroidWrap:last-child { margin-right: 0; }
+
+/* Main wrapper always sits above all siblings — never covered */
+.introPolaroidWrapMain {
+  z-index: 3 !important;
+}
+
+/* ── Inner polaroid — handles rotation + hover (no animation conflict) ── */
+.introPolaroid {
+  rotate: var(--rot, 0deg);
+  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.14));
+  transition: rotate 0.25s ease, scale 0.25s ease, filter 0.25s ease;
+  cursor: pointer;
+}
+
+.introPolaroid:hover {
+  rotate: calc(var(--rot, 0deg) - 2deg);
+  scale: 1.06;
+  filter: drop-shadow(0 10px 24px rgba(82, 84, 216, 0.18));
+}
+
+.introPolaroidInner {
+  background: #ffffff;
+  color-scheme: light;
+  padding: 7px 7px 0 7px;
+  border-radius: 3px 3px 0 0;
+}
+
+.introPolaroidImg {
+  width: 120px;
+  height: 130px;
   object-fit: cover;
   object-position: top center;
   display: block;
+  border-radius: 2px;
+}
+
+.introPolaroidStrip {
+  background: #ffffff;
+  color-scheme: light;
+  width: 134px; /* img + padding both sides */
+  height: 28px;
+  border-radius: 0 0 3px 3px;
+}
+
+/* ── Main photo — larger, prominent ── */
+.introPolaroidMain {
+  /* rotation + hover handled here; stacking handled on wrapper above */
+}
+
+.introPolaroidMain .introPolaroidImg {
+  width: 150px;
+  height: 185px;
+}
+
+.introPolaroidMain .introPolaroidStrip {
+  width: 164px;
+  height: 36px;
+}
+
+/* ── Large screens — bigger polaroids ── */
+@media (min-width: 1280px) {
+  .introPolaroidImg {
+    width: 148px;
+    height: 162px;
+  }
+
+  .introPolaroidStrip {
+    width: 162px;
+    height: 32px;
+  }
+
+  .introPolaroidMain .introPolaroidImg {
+    width: 185px;
+    height: 228px;
+  }
+
+  .introPolaroidMain .introPolaroidStrip {
+    width: 199px;
+    height: 44px;
+  }
+
+  .introPolaroidWrap {
+    margin-right: -22px;
+  }
+
+  .introPolaroidRow:last-child {
+    margin-top: -28px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .introPolaroidImg {
+    width: 170px;
+    height: 186px;
+  }
+
+  .introPolaroidStrip {
+    width: 184px;
+    height: 36px;
+  }
+
+  .introPolaroidMain .introPolaroidImg {
+    width: 210px;
+    height: 260px;
+  }
+
+  .introPolaroidMain .introPolaroidStrip {
+    width: 224px;
+    height: 50px;
+  }
+
+  .introPolaroidWrap {
+    margin-right: -26px;
+  }
+
+  .introPolaroidRow:last-child {
+    margin-top: -32px;
+  }
+}
+
+/* Entry — flies out from behind main photo, rotated + zoomed */
+@keyframes polaroidEntry {
+  from {
+    translate: var(--from-x, 0px) var(--from-y, 0px);
+    scale: 1.55;
+    rotate: var(--from-rot, 0deg);
+    opacity: 0;
+  }
+  to {
+    translate: 0px 0px;
+    scale: 1;
+    rotate: 0deg;
+    opacity: 1;
+  }
 }
 
 /* ── Mobile ──────────────────────────────────────────── */
 @media (max-width: 768px) {
   .introInner {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 28px;
+    justify-items: center;
   }
 
-  .introImageWrap {
+  .introText {
+    width: 100%;
+  }
+
+  .introPolaroidCluster {
     order: -1;
-    max-width: 280px;
-    aspect-ratio: 3 / 4;
+    align-items: center;
+  }
+
+  .introPolaroidRow {
+    justify-content: center;
+  }
+
+  .introPolaroidWrap { margin-right: -12px; }
+
+  .introPolaroidImg {
+    width: 88px;
+    height: 96px;
+  }
+
+  .introPolaroidStrip {
+    width: 102px;
+    height: 22px;
+  }
+
+  .introPolaroidMain .introPolaroidImg {
+    width: 110px;
+    height: 130px;
+  }
+
+  .introPolaroidMain .introPolaroidStrip {
+    width: 124px;
+    height: 28px;
   }
 
   .introPara {
@@ -73,12 +716,12 @@
 
 /* ── Recognition section ─────────────────────────────── */
 .recSection {
-  padding: clamp(48px, 8vw, 100px) 0;
+  padding: clamp(20px, 2.5vw, 36px) 0;
   border-top: 1px solid var(--glass-border);
 }
 
 .recTitle {
-  margin: 12px 0 48px;
+  margin: 8px 0 32px;
 }
 
 
@@ -150,7 +793,7 @@
 
 /* ── Awards carousel ─────────────────────────────────── */
 .awardsCarouselWrap {
-  margin-top: 64px;
+  margin-top: 40px;
 }
 
 .awardsSubLabel {
@@ -228,7 +871,7 @@
 
 .awardStar {
   font-size: 14px;
-  color: #f59e0b;
+  color: #b45309;
   position: absolute;
   top: 16px;
   left: 18px;
@@ -282,14 +925,169 @@
   color: rgba(255, 255, 255, 0.85);
 }
 
+/* ── Education section ───────────────────────────────── */
+.eduSection {
+  padding: clamp(20px, 2.5vw, 36px) 0;
+  border-top: 1px solid var(--glass-border);
+}
+
+.eduTitle {
+  margin: 8px 0 32px;
+}
+
+.eduGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.eduCard {
+  border-radius: var(--radius-xl);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.eduCard:hover {
+  border-color: rgba(255, 255, 255, 1);
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+  transform: translateY(-3px);
+}
+
+/* ── Image banner ── */
+.eduImageWrap {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.eduBanner {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.eduCard:hover .eduBanner {
+  transform: scale(1.04);
+}
+
+/* Gradient overlay so text is readable */
+.eduImageWrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 40%,
+    rgba(0, 0, 0, 0.38) 100%
+  );
+  pointer-events: none;
+}
+
+/* ── Logo badge ── */
+.eduLogo {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  object-fit: contain;
+  background: #fff;
+  padding: 5px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+  z-index: 1;
+}
+
+/* ── Year pill ── */
+.eduYear {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #fff;
+  background: rgba(82, 84, 216, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 999px;
+  padding: 4px 12px;
+  z-index: 1;
+}
+
+/* ── Body ── */
+.eduBody {
+  padding: 24px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.eduDegree {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--accent-indigo);
+  margin: 0;
+}
+
+.eduInstitution {
+  font-size: clamp(17px, 1.6vw, 20px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.eduLocation {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 0 0 4px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.eduDesc {
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .eduSection {
+    padding-bottom: 20px;
+  }
+  .eduGrid {
+    grid-template-columns: 1fr;
+  }
+  .eduImageWrap {
+    height: 160px;
+  }
+  .eduBody {
+    padding-bottom: 20px;
+  }
+}
+
 /* ── Experience section ──────────────────────────────── */
 .expSection {
-  padding: clamp(48px, 8vw, 100px) 0;
+  padding: clamp(20px, 2.5vw, 36px) 0;
   border-top: 1px solid var(--glass-border);
 }
 
 .expTitle {
-  margin: 12px 0 48px;
+  margin: 8px 0 32px;
 }
 
 .expLayout {
@@ -314,8 +1112,10 @@
   gap: 14px;
   padding: 14px 16px;
   border-radius: 14px;
-  border: 1px solid transparent;
-  background: transparent;
+  border: 1px solid var(--glass-border);
+  background: rgba(247, 247, 251, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   cursor: pointer;
   text-align: left;
   transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
@@ -461,26 +1261,25 @@
 }
 
 .expCtaLarge {
-  display: flex;
+  display: inline-flex;
+  align-self: flex-start;
   align-items: center;
-  justify-content: center;
   gap: 8px;
-  width: 100%;
-  padding: 14px 24px;
+  padding: 12px 24px;
   border-radius: 14px;
   font-size: 15px;
   font-weight: 600;
   color: #fff;
-  background: var(--accent-indigo);
+  background: var(--gradient-primary);
   border: none;
   cursor: pointer;
-  transition: opacity 0.15s, box-shadow 0.15s;
-  box-shadow: 0 2px 14px rgba(82, 84, 216, 0.35);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.35);
 }
 
 .expCtaLarge:hover {
-  opacity: 0.88;
-  box-shadow: 0 6px 24px rgba(82, 84, 216, 0.45);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 32px rgba(99, 102, 241, 0.5);
 }
 
 .expHighlights {
@@ -612,7 +1411,7 @@
    ════════════════════════════════════════════ */
 
 .expLabSection {
-  padding: 80px 0 100px;
+  padding: 28px 0 40px;
   border-top: 1px solid var(--glass-border);
 }
 
@@ -623,7 +1422,7 @@
   font-size: clamp(14px, 1.3vw, 16px);
   color: var(--text-secondary);
   line-height: 1.7;
-  margin: 0 0 48px;
+  margin: 0 0 32px;
   max-width: 480px;
 }
 
@@ -794,11 +1593,11 @@
 
 /* ── Personal Section ─────────────────────────────────── */
 .personalSection {
-  padding: clamp(64px, 10vw, 120px) 0;
+  padding: clamp(20px, 2.5vw, 36px) 0;
 }
 
 .personalHeader {
-  margin-bottom: clamp(40px, 5vw, 64px);
+  margin-bottom: clamp(24px, 3vw, 40px);
 }
 
 .personalTitle {
@@ -807,8 +1606,14 @@
 
 .personalGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+/* Card 1 and 4 span 2 cols — bento checkerboard */
+.personalCard:nth-child(1),
+.personalCard:nth-child(4) {
+  grid-column: span 2;
 }
 
 .personalCard {
@@ -829,13 +1634,18 @@
   box-shadow: 0 8px 32px rgba(82, 84, 216, 0.1), 0 2px 8px rgba(0,0,0,0.06);
 }
 
-/* image placeholder area */
+/* image area — wide cards get 16/9, narrow cards get 4/3 */
 .personalCardImg {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   flex-shrink: 0;
+}
+
+.personalCard:nth-child(2) .personalCardImg,
+.personalCard:nth-child(3) .personalCardImg {
+  aspect-ratio: 4 / 3;
 }
 
 .personalCardImgEl {
@@ -869,10 +1679,10 @@
 }
 
 .personalCardBody {
-  padding: 20px 22px 24px;
+  padding: 16px 18px 20px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 /* legacy, kept for safety */
@@ -881,7 +1691,7 @@
 }
 
 .personalCardLabel {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--text-primary);
   margin: 0;
@@ -889,21 +1699,47 @@
 }
 
 .personalCardText {
-  font-size: 13.5px;
-  line-height: 1.72;
+  font-size: 12.5px;
+  line-height: 1.65;
   color: var(--text-secondary);
   margin: 0;
 }
 
-@media (max-width: 560px) {
+@media (max-width: 860px) {
+  .personalGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Cards 1 and 4 span full width; 2 and 3 sit side by side */
+  .personalCard:nth-child(1),
+  .personalCard:nth-child(4) {
+    grid-column: span 2;
+  }
+
+  /* Wide cards switch to landscape image on tablet */
+  .personalCard:nth-child(1) .personalCardImg,
+  .personalCard:nth-child(4) .personalCardImg {
+    aspect-ratio: 21 / 9;
+  }
+}
+
+@media (max-width: 480px) {
   .personalGrid {
     grid-template-columns: 1fr;
+  }
+  .personalCard:nth-child(1),
+  .personalCard:nth-child(4) {
+    grid-column: span 1;
+  }
+  .personalCard:nth-child(1) .personalCardImg,
+  .personalCard:nth-child(4) .personalCardImg {
+    aspect-ratio: 16 / 9;
   }
 }
 
 /* ── Hobbies carousel ────────────────────────────────── */
 .hobbiesWrap {
-  margin-top: 56px;
+  margin-top: 36px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -991,4 +1827,14 @@
 .hobbyCard:hover .hobbyTooltip {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
+}
+
+/* Clickable hobby card */
+.hobbyCardLink {
+  cursor: pointer;
+}
+
+.hobbyCardLink:hover {
+  outline: 2px solid rgba(82, 84, 216, 0.5);
+  outline-offset: -2px;
 }

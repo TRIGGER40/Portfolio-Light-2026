@@ -2,21 +2,22 @@ import { useEffect, useRef, useState } from 'react';
 import { Footer } from '../components/Footer';
 import { ProjectCarousel } from '../components/ProjectCarousel';
 import { GoBackButton } from '../components/GoBackButton';
+import { useEggOnDeepRead } from '../hooks/useEggOnDeepRead';
 import styles from './CaseStudyQuiz.module.css';
 import jStyles from './CaseStudyJoining.module.css';
 
 /* ── Image slot ──────────────────────────────────────── */
 function ImgSlot({ src, label, aspect = '16/9' }: { src?: string; label: string; aspect?: string }) {
   if (src) {
-    return <img src={src} alt={label} className={styles.imgSlotReal} style={{ aspectRatio: aspect }} />;
+    return (
+      <div className={styles.imgSlotWrap} style={{ aspectRatio: aspect }}>
+        <img src={src} alt={label} className={styles.imgSlotReal} />
+      </div>
+    );
   }
   return (
     <div className={styles.imgSlot} style={{ aspectRatio: aspect }}>
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className={styles.imgSlotIcon}>
-        <rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" strokeWidth="1.4"/>
-        <circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" strokeWidth="1.4"/>
-        <path d="M3 16l5-5 4 4 3-3 6 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
+      <i className={"bi bi-image " + styles.imgSlotIcon} style={{ fontSize: '20px' }} aria-hidden="true" />
       <span className={styles.imgSlotLabel}>{label}</span>
     </div>
   );
@@ -25,7 +26,6 @@ function ImgSlot({ src, label, aspect = '16/9' }: { src?: string; label: string;
 export function CaseStudyJoining() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
-
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'instant' }); }, []);
 
   useEffect(() => {
@@ -36,6 +36,8 @@ export function CaseStudyJoining() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  useEggOnDeepRead(scrollProgress);
 
   const setRef = (id: string) => (el: HTMLElement | null) => { sectionRefs.current[id] = el; };
 
@@ -52,7 +54,7 @@ export function CaseStudyJoining() {
 
           <div className={styles.heroLayout}>
             <div className={styles.heroImgCol}>
-              <img src="/joining screen.png" alt="Joining Experience" className={styles.heroImg} />
+              <img src="/Projectcard-images/joining screen.png" alt="Joining Experience" className={styles.heroImg} />
             </div>
             <div className={styles.heroContentCol}>
               <div className={styles.heroEyebrow}>
@@ -165,10 +167,7 @@ export function CaseStudyJoining() {
             ].map(b => (
               <div key={b.title} className={styles.insightBead}>
                 <span className={styles.insightBeadIcon}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M9 21h6M12 3a6 6 0 0 1 6 6c0 2.5-1.5 4.5-3 6H9c-1.5-1.5-3-3.5-3-6a6 6 0 0 1 6-6z"/>
-                    <path d="M9 17v1a3 3 0 0 0 6 0v-1"/>
-                  </svg>
+                  <i className="bi bi-lightbulb" style={{ fontSize: '18px' }} aria-hidden="true" />
                 </span>
                 <div>
                   <p className={styles.insightBeadTitle}>{b.title}</p>
@@ -399,7 +398,7 @@ export function CaseStudyJoining() {
       </section>
 
       {/* ── LEARNINGS ────────────────────────────── */}
-      <section ref={setRef('next')} id="next" className={styles.endSection}>
+      <section ref={setRef('next')} id="next" className={styles.endSection} style={{ position: 'relative' }}>
         <div className={styles.container}>
           <span className={styles.tag}>Learnings</span>
           <h2 className={styles.sectionTitle}>What this taught me</h2>
@@ -416,6 +415,7 @@ export function CaseStudyJoining() {
               </div>
             ))}
           </div>
+
         </div>
       </section>
 

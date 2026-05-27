@@ -307,6 +307,94 @@
 .pillViolet { background: rgba(124,58,237,0.15); color: #a78bfa; }
 .pillBlue   { background: rgba(59,130,246,0.15); color: #60a5fa; }
 
+/* ── Board table ───────────────────────────────────── */
+.boardTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.boardTable th {
+  font-size: 10px;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-align: left;
+  padding: 0 12px 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-weight: 600;
+}
+
+.boardTable th:last-child { padding-right: 0; }
+
+.boardTable td {
+  padding: 10px 12px 10px 0;
+  font-size: 13px;
+  color: rgba(255,255,255,0.65);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  vertical-align: middle;
+}
+
+.boardTable tr:last-child td { border-bottom: none; }
+
+.boardEmojiCell {
+  width: 44px;
+}
+
+.boardName {
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+  white-space: nowrap;
+}
+
+.boardDate {
+  white-space: nowrap;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.boardTime {
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+}
+
+.boardLocation {
+  color: rgba(255,255,255,0.5);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.boardActionCell {
+  width: 40px;
+  text-align: right;
+}
+
+.boardRemoveBtn {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: transparent;
+  color: rgba(255,255,255,0.25);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  transition: all 0.15s ease;
+}
+
+.boardRemoveBtn:hover:not(:disabled) {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.35);
+  color: #f87171;
+}
+
+.boardRemoveBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 /* ── Empty state ───────────────────────────────────── */
 .empty {
   text-align: center;
@@ -364,4 +452,232 @@
 .chipLabel {
   font-size: 11px;
   color: rgba(255,255,255,0.35);
+}
+
+/* ── Large tab bar below header ────────────────────── */
+.tabBar {
+  display: flex;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(7, 7, 15, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 0 32px;
+  gap: 0;
+  position: sticky;
+  top: 57px;
+  z-index: 9;
+}
+
+.tabLarge {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 14px 24px;
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  letter-spacing: 0.01em;
+  margin-bottom: -1px;
+}
+
+.tabLarge:hover {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.tabLargeActive {
+  color: #fff;
+  border-bottom-color: #a78bfa;
+}
+
+/* ── Sessions grid ─────────────────────────────────── */
+.sessionsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 640px) {
+  .sessionsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ── Session card ──────────────────────────────────── */
+.sessionCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sessionCard:hover {
+  background: rgba(255, 255, 255, 0.055);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+/* ── Session card internals ────────────────────────── */
+.sessionMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.sessionLocation {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.sessionDate {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.35);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.sessionPills {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.sessionPill {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.sessionScrollBar {
+  height: 4px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.sessionScrollFill {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #7c3aed, #3b82f6);
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sessionProjects {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.sessionProjectChip {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(167, 139, 250, 0.12);
+  border: 1px solid rgba(167, 139, 250, 0.2);
+  color: #a78bfa;
+  font-weight: 500;
+}
+
+/* ── Session detail view ───────────────────────────── */
+.sessionDetail {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sessionDetailBack {
+  display: inline-flex;
+  align-items: center;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.45);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s ease;
+}
+
+.sessionDetailBack:hover {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.sessionDetailHeader {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+  padding: 18px 20px;
+}
+
+/* ── Event timeline ────────────────────────────────── */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.timelineRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  transition: background 0.14s ease;
+}
+
+.timelineRow:last-child {
+  border-bottom: none;
+}
+
+.timelineRow:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.timelineDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.timelineType {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  width: 130px;
+  flex-shrink: 0;
+}
+
+.timelineData {
+  flex: 1;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.35);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.timelineTime {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.25);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  flex-shrink: 0;
 }

@@ -1,0 +1,183 @@
+/* ── Backdrop ── */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 8600;
+  background: rgba(238, 240, 255, 0.84);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+/* ── Modal ── */
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(82, 84, 216, 0.12) transparent;
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(245, 158, 11, 0.14);
+  border-radius: 24px;
+  box-shadow:
+    0 24px 64px rgba(15, 15, 35, 0.10),
+    0 0 40px rgba(245, 158, 11, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+  padding: 36px 36px 40px;
+}
+
+.modal::-webkit-scrollbar { width: 4px; }
+.modal::-webkit-scrollbar-track { background: transparent; }
+.modal::-webkit-scrollbar-thumb { background: rgba(82, 84, 216, 0.12); border-radius: 999px; }
+
+/* ── Close ── */
+.closeBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(15, 15, 35, 0.04);
+  border: none;
+  color: rgba(15, 15, 35, 0.58);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+.closeBtn:hover { background: rgba(15, 15, 35, 0.08); color: #0f0f23; }
+
+/* ── Label ── */
+.label {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(120, 53, 15, 0.90);
+  margin-bottom: 12px;
+}
+
+/* ── Title ── */
+.title {
+  font-size: clamp(20px, 2.5vw, 26px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: #0f0f23;
+  margin: 0 0 10px;
+  line-height: 1.2;
+  padding-right: 40px;
+}
+
+/* ── Preamble ── */
+.preamble {
+  font-size: 13px;
+  color: rgba(15, 15, 35, 0.62);
+  margin: 0;
+  line-height: 1.65;
+}
+
+/* ── Divider ── */
+.divider {
+  height: 1px;
+  background: rgba(15, 15, 35, 0.07);
+  margin: 24px 0;
+}
+
+/* ── Principles list ── */
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.itemNum {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: rgba(120, 53, 15, 0.78);
+  flex-shrink: 0;
+  padding-top: 3px;
+}
+
+.itemText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.itemHeadline {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: rgba(15, 15, 35, 0.88);
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+}
+
+.itemBody {
+  font-size: 13px;
+  color: rgba(15, 15, 35, 0.65);
+  line-height: 1.65;
+}
+
+/* ── Signature ── */
+.signature {
+  font-size: 13px;
+  color: rgba(15, 15, 35, 0.65);
+  line-height: 1.75;
+  margin: 0 0 16px;
+}
+
+.author {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(15, 15, 35, 0.62);
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+  .backdrop { padding: 16px; align-items: center; }
+  .modal {
+    max-height: calc(100svh - 32px);
+    border-radius: 24px;
+    padding: 28px 24px 36px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  .title { font-size: 20px; margin: 0 0 8px; }
+  .preamble { font-size: 12px; }
+
+  .divider { margin: 18px 0; }
+
+  .list { gap: 16px; }
+  .item { gap: 12px; }
+  .itemHeadline { font-size: 13.5px; }
+  .itemBody { font-size: 12px; }
+
+  .signature { font-size: 12px; }
+  .author { font-size: 13px; }
+}

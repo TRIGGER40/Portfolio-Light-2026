@@ -68,12 +68,13 @@ export function useChat() {
     // Cancel any ongoing typing animation
     if (intervalRef.current) clearInterval(intervalRef.current);
 
-    // Replace previous exchange — only show the latest Q&A
-    const newMessages: Message[] = [
+    // Append new user message to the full conversation history
+    const updatedMessages: Message[] = [
+      ...messages,
       { role: 'user', content: userMessage },
     ];
 
-    setMessages(newMessages);
+    setMessages(updatedMessages);
     setInsight(null);
     setLoading(true);
     setError(null);
@@ -83,7 +84,8 @@ export function useChat() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          messages: newMessages.map((m) => ({ role: m.role, content: m.content })),
+          // Send full history so the model has context; cap at last 20 messages to stay within limits
+          messages: updatedMessages.slice(-20).map((m) => ({ role: m.role, content: m.content })),
         }),
       });
 
@@ -93,7 +95,7 @@ export function useChat() {
       const fullReply: string = data.reply ?? data.content ?? 'No response received.';
 
       // Add empty assistant bubble and stop loading spinner
-      const withPlaceholder: Message[] = [...newMessages, { role: 'assistant', content: '' }];
+      const withPlaceholder: Message[] = [...updatedMessages, { role: 'assistant', content: '' }];
       setMessages(withPlaceholder);
       setLoading(false);
 
@@ -120,8 +122,7 @@ export function useChat() {
       if (intervalRef.current) clearInterval(intervalRef.current);
       setError("I'm having trouble connecting right now. Please try again.");
       setMessages([
-        ...messages,
-        { role: 'user', content: userMessage },
+        ...updatedMessages,
         {
           role: 'assistant',
           content: "I'm having trouble connecting right now. Try asking me again, or reach out to Midhun directly at midhun2k14@gmail.com.",

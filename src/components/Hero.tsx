@@ -53,7 +53,7 @@ export function Hero() {
 
           <div className={styles.fadeUp} style={{ '--delay': '0.34s' } as React.CSSProperties}>
             <div className={styles.positionBlock}>
-              <p className={styles.position}>AI-first Product Designer</p>
+              <p className={styles.position}>Product designer</p>
               <p className={styles.valueProp}>
                 Building intelligent products at Adobe, where design craft meets AI to create
                 measurable, enterprise-grade user experiences.
@@ -64,14 +64,16 @@ export function Hero() {
           <div className={styles.fadeUp} style={{ '--delay': '0.46s' } as React.CSSProperties}>
             <div className={styles.ctas}>
               <a href="#work" className="btn btn-secondary"
-                onClick={() => track('hero_cta', { cta: 'View Work' })}>
-                View Work
+                onClick={() => track('hero_cta', { cta: 'View work' })}>
+                View work
                 <i className="bi bi-arrow-right" style={{ fontSize: '14px' }} aria-hidden="true" />
               </a>
-              <button className={`btn btn-primary ${styles.askBtn}`} onClick={() => { track('hero_cta', { cta: 'Ask AI About Me' }); navigate('/ask'); }}>
-                <span className={styles.sparkle}>✦</span>
-                Ask AI About Me
-              </button>
+              <div className={styles.askBtnWrap}>
+                <button className={`btn btn-primary ${styles.askBtn}`} onClick={() => { track('hero_cta', { cta: 'Ask AI about me' }); navigate('/ask'); }}>
+                  <span className={styles.sparkle}>✦</span>
+                  Ask AI about me
+                </button>
+              </div>
             </div>
           </div>
 

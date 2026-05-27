@@ -1,12 +1,20 @@
 import { useState, useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { saveScrollBeforeLeave } from '../hooks/useScrollRestoration';
-import { motion } from 'framer-motion';
 import { AWARDS } from '../data/portfolioData';
-import { SideExperiments } from './SideExperiments';
-import { PersonalSection } from './PersonalSection';
 import pStyles from '../pages/AboutPage.module.css';
 import { makeSectionTimer } from '../lib/analytics';
+
+const cardContainerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
+
+const cardItemVariants = {
+  hidden: { opacity: 0, y: 32, scale: 0.94 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] } },
+};
 
 
 const RECOGNITION = [
@@ -167,8 +175,15 @@ export function About() {
       {/* ── Experience ── */}
       <section className={pStyles.expSection}>
         <div className="container">
-          <span className="section-label">Experience</span>
-          <h2 className={`text-display ${pStyles.expTitle}`}>Where I've worked</h2>
+          <motion.div
+            initial={{ opacity: 0, y: 40, filter: 'blur(4px)' }}
+            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <span className="section-label">Experience</span>
+            <h2 className={`text-display ${pStyles.expTitle}`}>Where I've worked</h2>
+          </motion.div>
           <div className={pStyles.expLayout}>
             <div className={pStyles.expCards}>
               {EXPERIENCES.map(exp => (
@@ -214,7 +229,7 @@ export function About() {
               </div>
               {active.cta && (
                 <button className={pStyles.expCtaLarge} onClick={() => { saveScrollBeforeLeave(); navigate(active.cta!); }}>
-                  View Works
+                  View works
                   <i className="bi bi-arrow-right" style={{ fontSize: '15px' }} aria-hidden="true" />
                 </button>
               )}
@@ -226,23 +241,42 @@ export function About() {
       {/* ── Recognition ── */}
       <section className={pStyles.recSection}>
         <div className="container">
-          <span className="section-label">Recognition</span>
-          <h2 className={`text-display ${pStyles.recTitle}`}>
-            Across my experience,<br />
-            <span className="gradient-text">I was recognised for</span>
-          </h2>
-          <div className={pStyles.recGrid}>
+          <motion.div
+            initial={{ opacity: 0, y: 40, filter: 'blur(4px)' }}
+            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <span className="section-label">Recognition</span>
+            <h2 className={`text-display ${pStyles.recTitle}`}>
+              Across my experience,<br />
+              <span className="gradient-text">I was recognised for</span>
+            </h2>
+          </motion.div>
+          <motion.div
+            className={pStyles.recGrid}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-40px' }}
+            variants={cardContainerVariants}
+          >
             {RECOGNITION.map((item, i) => (
-              <div key={i} className={pStyles.recCard}>
+              <motion.div key={i} className={pStyles.recCard} variants={cardItemVariants}>
                 <div className={pStyles.recIconWrap}>{item.icon}</div>
                 <div className={pStyles.recCardBody}>
                   <h4 className={pStyles.recCardTitle}>{item.title}</h4>
                   <p className={pStyles.recCardDesc}>{item.desc}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          >
           <div className={pStyles.awardsCarouselWrap}>
             <p className={pStyles.awardsSubLabel}>
               Recognitions
@@ -267,11 +301,10 @@ export function About() {
               </div>
             </div>
           </div>
+          </motion.div>
         </div>
       </section>
 
-      <PersonalSection />
-      <SideExperiments />
       </div>
     </>
   );

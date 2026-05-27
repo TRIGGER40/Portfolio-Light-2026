@@ -93,6 +93,16 @@
   margin-right: 8px;
 }
 
+/* Vertical divider before egg tracker */
+.eggDivider {
+  width: 1px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.09);
+  flex-shrink: 0;
+  margin-left: 4px;
+  margin-right: 2px;
+}
+
 /* ── Search bar — transparent, no depth ───────────────── */
 .searchWrap {
   flex: 1;
@@ -257,45 +267,67 @@
   flex-shrink: 0;
 }
 
+.viewMoreBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+  text-align: left;
+  width: 100%;
+  margin-top: 2px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.viewMoreBtn:hover {
+  background: rgba(82, 84, 216, 0.06);
+  color: var(--text-secondary);
+}
+
 /* ── Mobile ──────────────────────────────────────────── */
 @media (max-width: 520px) {
   .pill {
-    height: 46px;
-    padding: 0 4px 0 14px;
+    height: 48px;
+    padding: 0 6px 0 14px;
+    gap: 0;
   }
 
   .logo {
     font-size: 14px;
-    padding-right: 10px;
+    padding-right: 0;
     gap: 6px;
+    flex: 1;
   }
 
+  /* Hide search entirely on mobile */
+  .divider,
   .searchWrap {
-    padding: 0 6px;
-    gap: 6px;
-  }
-
-  .input {
-    font-size: 13px;
-    min-width: 0;
-  }
-
-  .input::placeholder {
-    font-size: 13px;
-  }
-
-  .sparkle {
     display: none;
   }
 
-  /* Icon-only resume button on small screens */
+  /* About button — more padding, full text */
+  .aboutBtn {
+    padding: 0 16px;
+    font-size: 13.5px;
+    margin-left: 0;
+  }
+
+  /* Resume button — full label + icon */
   .resumeBtn {
-    padding: 0 11px;
-    margin-left: 4px;
-    gap: 0;
+    padding: 0 16px;
+    gap: 6px;
+    margin-left: 6px;
+    font-size: 13.5px;
   }
 
   .resumeText {
-    display: none;
+    display: inline;
   }
 }

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { SUGGESTED_PROMPTS } from '../data/aiContext';
 import styles from './Nav.module.css';
 import { ANALYTICS_SECRET, triggerAnalyticsDashboard, track } from '../lib/analytics';
+import { EasterEggTracker } from './easter-egg/EasterEggTracker';
 
 const loadResumePdf = () => import('../lib/resumePdf');
 
@@ -12,6 +13,7 @@ export function Nav({ hidden = false }: { hidden?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
   const [query, setQuery]       = useState('');
   const [focused, setFocused]   = useState(false);
+  const [expanded, setExpanded] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -40,10 +42,19 @@ export function Nav({ hidden = false }: { hidden?: boolean }) {
 
   const showDropdown = focused;
 
-  /* While typing filter prompts; otherwise show all */
+  // Reset expanded state when dropdown closes
+  useEffect(() => {
+    if (!focused) setExpanded(false);
+  }, [focused]);
+
+  const ALL_PROMPTS = SUGGESTED_PROMPTS as unknown as string[];
+
+  /* While typing: show filtered matches. Otherwise: show top 3 or all if expanded. */
   const filtered = query
-    ? SUGGESTED_PROMPTS.filter(p => p.toLowerCase().includes(query.toLowerCase())).slice(0, 5)
-    : SUGGESTED_PROMPTS;
+    ? ALL_PROMPTS.filter(p => p.toLowerCase().includes(query.toLowerCase())).slice(0, 5)
+    : expanded ? ALL_PROMPTS : ALL_PROMPTS.slice(0, 3);
+
+  const hasMore = !query && !expanded && ALL_PROMPTS.length > 3;
 
   return (
     <>
@@ -104,6 +115,10 @@ export function Nav({ hidden = false }: { hidden?: boolean }) {
               <span className={styles.sparkle}>✦</span>
             </div>
 
+            {/* Easter Egg Tracker */}
+            <EasterEggTracker />
+            <div className={styles.eggDivider} />
+
             {/* About */}
             <button
               className={styles.aboutBtn}
@@ -146,6 +161,15 @@ export function Nav({ hidden = false }: { hidden?: boolean }) {
                       {prompt}
                     </button>
                   ))}
+                  {hasMore && (
+                    <button
+                      className={styles.viewMoreBtn}
+                      onMouseDown={e => { e.preventDefault(); setExpanded(true); }}
+                    >
+                      <i className="bi bi-chevron-down" style={{ fontSize: '10px' }} aria-hidden="true" />
+                      View more
+                    </button>
+                  )}
                 </div>
               </motion.div>
             )}

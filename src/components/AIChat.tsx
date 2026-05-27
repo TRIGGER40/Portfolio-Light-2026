@@ -287,9 +287,7 @@ export const AIChat = forwardRef<AIChatHandle>((_, ref) => {
               disabled={!input.trim() || loading}
               aria-label="Send"
             >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M14 8L2 2l3 6-3 6 12-6z" fill="currentColor"/>
-              </svg>
+              <i className="bi bi-send-fill" style={{ fontSize: '14px' }} aria-hidden="true" />
             </button>
           </div>
         </motion.div>

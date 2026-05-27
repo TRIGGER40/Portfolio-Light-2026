@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import pStyles from '../pages/AboutPage.module.css';
 
 const HOBBIES = [
@@ -7,6 +8,8 @@ const HOBBIES = [
   { name: 'Community',       img: '/hobbies/community.png' },
   { name: 'Formula 1',       img: '/hobbies/f1.png' },
   { name: 'Football',        img: '/hobbies/football.png' },
+  { name: 'Hiking',          img: '/hobbies/Hiking.png' },
+  { name: 'Photography',     img: '/hobbies/Photography.png' },
   { name: 'Hockey',          img: '/hobbies/hockey.png' },
   { name: 'Interior Design', img: '/hobbies/interior-design.png' },
   { name: 'Long Drives',     img: '/hobbies/long-drives.png' },
@@ -58,12 +61,13 @@ export function HobbiesCarousel() {
     return () => el.removeEventListener('wheel', onWheel);
   }, []);
 
+  const navigate = useNavigate();
   const pause  = () => { pausedRef.current = true; };
   const resume = () => { pausedRef.current = false; prevTimeRef.current = 0; };
 
   return (
     <div className={pStyles.hobbiesWrap}>
-      <span className="section-label">Hobbies</span>
+      <span className="section-label">Interests</span>
 
       <div
         ref={viewportRef}
@@ -72,12 +76,25 @@ export function HobbiesCarousel() {
         onMouseLeave={resume}
       >
         <div className={pStyles.hobbiesTrack}>
-          {[...HOBBIES, ...HOBBIES].map((h, i) => (
-            <div key={i} className={pStyles.hobbyCard}>
-              <img src={h.img} alt={h.name} className={pStyles.hobbyImg} draggable={false} />
-              <span className={pStyles.hobbyTooltip}>{h.name}</span>
-            </div>
-          ))}
+          {[...HOBBIES, ...HOBBIES].map((h, i) => {
+            const is3D = h.name === '3D Modelling';
+            return (
+              <div
+                key={i}
+                className={`${pStyles.hobbyCard} ${is3D ? pStyles.hobbyCardLink : ''}`}
+                onClick={() => { if (is3D) navigate('/campus-pano'); }}
+                role={is3D ? 'link' : undefined}
+                tabIndex={is3D ? 0 : undefined}
+                onKeyDown={is3D ? (e) => { if (e.key === 'Enter') navigate('/campus-pano'); } : undefined}
+                aria-label={is3D ? 'View Virtual Campus 360° walkthrough' : undefined}
+              >
+                <img src={h.img} alt={h.name} className={pStyles.hobbyImg} draggable={false} />
+                <span className={pStyles.hobbyTooltip}>
+                  {is3D ? '3D Modelling  →' : h.name}
+                </span>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

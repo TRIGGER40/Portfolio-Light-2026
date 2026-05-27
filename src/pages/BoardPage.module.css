@@ -1,0 +1,336 @@
+/* ════════════════════════════════════════════
+   EMOJI BOARD PAGE
+   ════════════════════════════════════════════ */
+
+.page {
+  min-height: 100vh;
+  padding-bottom: 200px; /* space for fixed post bar */
+  background: var(--bg-base);
+  color: var(--text-primary);
+}
+
+/* ── Header ── */
+.header {
+  padding: 100px 0 40px;
+  text-align: center;
+  position: relative;
+}
+
+.title {
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  margin: 8px 0 12px;
+}
+
+.titleAccent {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: clamp(14px, 1.5vw, 17px);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0 auto 20px;
+  max-width: 340px;
+}
+
+.countPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--glass-border);
+  background: var(--bg-elevated);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.countDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-indigo);
+  box-shadow: 0 0 6px var(--accent-indigo);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+
+/* ── Board canvas ── */
+.board {
+  min-height: 50vh;
+  padding: 32px 24px 40px;
+  position: relative;
+}
+
+/* Subtle dot grid */
+.board::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--accent-indigo) 12%, transparent) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+  opacity: 0.35;
+  z-index: 0;
+}
+
+.postsGrid {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ── Post card ── */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 16px 14px;
+  width: 108px;
+  background: var(--bg-surface);
+  border: 1px solid var(--glass-border);
+  border-radius: 18px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  cursor: default;
+  transform-origin: center bottom;
+  transform: rotate(var(--rotate, 0deg)) translateY(var(--offset-y, 0px));
+  transition: box-shadow 0.2s ease;
+  position: relative;
+}
+
+.card:hover {
+  box-shadow: 0 12px 40px rgba(99, 102, 241, 0.2), 0 2px 8px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+
+.cardEmoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+}
+
+.cardName {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-align: center;
+  word-break: break-word;
+  max-width: 90px;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+}
+
+/* ── Empty state ── */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 80px 0;
+  color: var(--text-muted);
+  font-size: 15px;
+  position: relative;
+  z-index: 1;
+}
+
+.emptyIcon {
+  font-size: 40px;
+  opacity: 0.4;
+}
+
+/* ── Fixed post bar ── */
+.postBarWrap {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 0 16px 24px;
+  background: linear-gradient(to top, var(--bg-base) 60%, transparent);
+  pointer-events: none;
+}
+
+.postBar {
+  pointer-events: all;
+  max-width: 700px;
+  margin: 0 auto;
+  background: var(--bg-surface);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 14px 16px 16px;
+  box-shadow: 0 -4px 40px rgba(0, 0, 0, 0.3), 0 8px 32px rgba(99, 102, 241, 0.1);
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Emoji picker row ── */
+.pickerWrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  margin: 0 -4px;
+  padding: 0 4px;
+}
+
+.pickerWrap::-webkit-scrollbar {
+  display: none;
+}
+
+.picker {
+  display: flex;
+  gap: 4px;
+  width: max-content;
+}
+
+.pickerBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1.5px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.15s;
+  flex-shrink: 0;
+}
+
+.pickerBtn:hover {
+  background: var(--bg-elevated);
+  transform: translateY(-2px);
+}
+
+.pickerBtnActive {
+  background: color-mix(in srgb, var(--accent-indigo) 14%, var(--bg-elevated));
+  border-color: color-mix(in srgb, var(--accent-indigo) 40%, transparent);
+}
+
+/* ── Name input row ── */
+.inputRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.selectedPreview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--bg-elevated);
+  flex-shrink: 0;
+}
+
+.nameInput {
+  flex: 1;
+  height: 44px;
+  padding: 0 14px;
+  border-radius: 12px;
+  border: 1.5px solid var(--glass-border);
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.nameInput::placeholder {
+  color: var(--text-muted);
+}
+
+.nameInput:focus {
+  border-color: color-mix(in srgb, var(--accent-indigo) 60%, transparent);
+}
+
+.postBtn {
+  height: 44px;
+  padding: 0 22px;
+  border-radius: 12px;
+  border: none;
+  background: var(--gradient-primary);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity 0.2s, transform 0.15s;
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.35);
+}
+
+.postBtn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(99, 102, 241, 0.5);
+}
+
+.postBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ── Posted state ── */
+.postedState {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 4px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* ── Error message ── */
+.errorMsg {
+  font-size: 13px;
+  color: #f87171;
+  padding: 0 4px;
+  margin: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .header {
+    padding: 80px 20px 32px;
+  }
+
+  .postBar {
+    border-radius: 16px;
+    padding: 12px 12px 14px;
+  }
+
+  .card {
+    width: 92px;
+    padding: 16px 12px 12px;
+  }
+
+  .cardEmoji {
+    width: 52px;
+    height: 52px;
+  }
+}

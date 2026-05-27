@@ -131,3 +131,29 @@
 @media (max-width: 768px) {
   .approachGrid { grid-template-columns: 1fr; }
 }
+
+/* ── Easter Egg #1 trigger — The Architect's Trace ── */
+.eggTrigger {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--accent-indigo);
+  font-size: 16px;
+  opacity: 0;  /* controlled via inline style */
+  transition: opacity 0.8s ease, transform 0.2s ease, filter 0.2s ease;
+  filter: blur(0.5px);
+  border-radius: 50%;
+}
+
+.eggTrigger:hover {
+  transform: scale(1.25);
+  filter: blur(0) drop-shadow(0 0 6px rgba(82, 84, 216, 0.5));
+}
