@@ -912,7 +912,7 @@
 }
 
 .awardTile:hover .awardTileDate {
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 /* Description — hidden by default, fades in on hover */
@@ -930,7 +930,7 @@
 .awardTile:hover .awardTileDesc {
   opacity: 1;
   max-height: 160px;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.95);
 }
 
 /* ── Education section ───────────────────────────────── */
@@ -1871,11 +1871,11 @@
 }
 
 [data-theme="dark"] .awardTile:hover .awardTileDate {
-  color: rgba(26, 30, 28, 0.55);
+  color: rgba(26, 30, 28, 0.85);
 }
 
 [data-theme="dark"] .awardTile:hover .awardTileDesc {
-  color: rgba(26, 30, 28, 0.75);
+  color: rgba(26, 30, 28, 0.95);
 }
 
 /* Hero name gradient */

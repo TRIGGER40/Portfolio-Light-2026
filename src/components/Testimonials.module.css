@@ -165,9 +165,14 @@
 
   .authorCol {
     flex-direction: row;
-    width: auto;
+    width: 100%;
+    justify-content: flex-start;
     align-items: center;
     gap: 12px;
+  }
+
+  .linkedinBtn {
+    margin-left: auto;
   }
 
   .authorInfo {

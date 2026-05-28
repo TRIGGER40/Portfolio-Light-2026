@@ -408,16 +408,16 @@
   }
 
   .metric {
-    flex: 0 0 50%;
-    padding: 12px 0;
+    flex: 0 0 100%;
+    padding: 16px 0;
     border-right: none;
     border-bottom: 1px solid var(--glass-border);
   }
 
-  .metric:nth-child(n+3) { border-bottom: none; }
+  .metric:last-child { border-bottom: none; }
 
-  .metricValue { font-size: 28px; }
-  .metricLabel { font-size: 11px; }
+  .metricValue { font-size: 44px; line-height: 1; }
+  .metricLabel { font-size: 12px; margin-top: 2px; }
 
   .companyCards {
     grid-template-columns: 1fr;

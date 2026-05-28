@@ -210,7 +210,17 @@
   .label { justify-content: center; }
   .label::before { display: none; }
   .desc { max-width: 100%; }
-  .ctaRow { justify-content: center; }
+  .ctaRow {
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+  .ctaRow :global(.btn-primary),
+  .ctaRow .ctaSecondary {
+    width: 100%;
+    justify-content: center;
+  }
 
   /* Cluster sits above text on mobile */
   .polaroidCluster {
