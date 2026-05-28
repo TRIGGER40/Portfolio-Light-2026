@@ -54,7 +54,7 @@ export function PhoneStack() {
       {/* Back — IBM Connect (event joining) */}
       <div className={`${styles.phoneWrap} ${styles.back}`} ref={backRef}>
         <IPhone
-          imgSrc="/images/phone-ibm.png"
+          imgSrc="/images/phone-ibm.webp"
           imgAlt="IBM Connect – event joining"
           className={styles.phoneBack}
         />
@@ -63,7 +63,7 @@ export function PhoneStack() {
       {/* Front — Adobe Connect (larger, in front) */}
       <div className={`${styles.phoneWrap} ${styles.front}`} ref={frontRef}>
         <IPhone
-          imgSrc="/images/phone-adobe.png"
+          imgSrc="/images/phone-adobe.webp"
           imgAlt="Adobe Connect – welcome screen"
           className={styles.phoneFront}
         />

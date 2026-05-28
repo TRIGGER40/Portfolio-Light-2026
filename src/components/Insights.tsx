@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import { ImgSkeleton } from './ImgSkeleton';
 import { useNavigate } from 'react-router-dom';
 import { ARTICLES } from '../data/articles';
 import type { Article } from '../data/articles';
@@ -16,7 +17,7 @@ function FadeCard({ article }: { article: Article; index: number }) {
     >
       {/* Thumbnail */}
       <div className={styles.imgWrap}>
-        <img
+        <ImgSkeleton
           src={article.coverSrc}
           alt={article.coverAlt}
           className={styles.img}
@@ -37,9 +38,6 @@ function FadeCard({ article }: { article: Article; index: number }) {
 
         {/* Title */}
         <h3 className={styles.cardTitle}>{article.title}</h3>
-
-        {/* Excerpt */}
-        <p className={styles.excerpt}>{article.subtitle}</p>
 
         {/* Footer */}
         <div className={styles.cardFooter}>

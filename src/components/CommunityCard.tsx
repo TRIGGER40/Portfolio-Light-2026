@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import styles from './CommunityCard.module.css';
+import { ImgSkeleton } from './ImgSkeleton';
 
 export function CommunityCard() {
   return (
@@ -43,8 +44,8 @@ export function CommunityCard() {
           {/* ── Right: image ── */}
           <div className={styles.imgCol}>
             <div className={styles.imgFrame}>
-              <img
-                src="/Appreciaition cards/Appreciation-cards.png"
+              <ImgSkeleton
+                src="/Appreciaition cards/Appreciation-cards.webp"
                 alt="Peer-to-peer appreciation cards platform"
                 className={styles.img}
                 loading="lazy"

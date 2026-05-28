@@ -57,7 +57,7 @@
 .approachCard:hover { background: var(--bg-elevated); }
 .approachNum {
   font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--accent-indigo);
+   color: var(--accent-indigo);
   font-family: var(--font-mono);
 }
 .approachTitle {
@@ -81,8 +81,8 @@
 }
 .beforeAfterLabel {
   display: inline-flex; align-items: center; gap: 6px;
-  font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
-  text-transform: uppercase; border-radius: 999px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.02em;
+   border-radius: 999px;
   padding: 4px 12px; align-self: flex-start;
 }
 .beforeAfterLabel[data-type="before"] {
@@ -114,8 +114,8 @@
 .validationCard:hover { transform: translateY(-3px); border-color: rgba(82,84,216,0.25); }
 .validationCardBody { padding: 20px 20px 24px; display: flex; flex-direction: column; gap: 8px; }
 .validationMethod {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--accent-indigo);
+  font-size: 10px; font-weight: 700; letter-spacing: 0.02em;
+   color: var(--accent-indigo);
 }
 .validationText {
   font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 0;
@@ -155,5 +155,5 @@
 
 .eggTrigger:hover {
   transform: scale(1.25);
-  filter: blur(0) drop-shadow(0 0 6px rgba(82, 84, 216, 0.5));
+  filter: blur(0) drop-shadow(0 0 6px rgba(35, 64, 52, 0.30));
 }

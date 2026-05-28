@@ -85,7 +85,7 @@ export function CaseStudyQuiz() {
           <div className={styles.heroLayout}>
             {/* Left: image */}
             <div className={styles.heroImgCol}>
-              <img src="/Projectcard-images/quiz pod.png" alt="Quiz Pod" className={styles.heroImg} />
+              <img src="/Projectcard-images/quiz pod.webp" alt="Quiz Pod" className={styles.heroImg} />
             </div>
 
             {/* Right: content */}
@@ -93,17 +93,17 @@ export function CaseStudyQuiz() {
               <div className={styles.heroEyebrow}>
                 <span className={styles.heroCategoryBadge}>Feature Design</span>
                 <span className={styles.heroDot}>·</span>
-                <span className={styles.heroMeta}>Adobe Connect</span>
+                <span className={styles.heroMeta}>Adobe</span>
                 <span className={styles.heroDot}>·</span>
                 <span className={styles.heroMeta}>3 Weeks</span>
               </div>
 
-              <h1 className={styles.heroTitle}>Quick quizzing in Adobe Connect</h1>
+              <h1 className={styles.heroTitle}>Real-time quiz delivery inside a live session</h1>
               <p className={styles.heroSubtitle}>Turning passive virtual sessions into real-time, measurable learning experiences.</p>
 
               <div className={styles.heroMetaBar}>
                 {[
-                  { k: 'Role',     v: 'UX Designer' },
+                  { k: 'Role',     v: 'Lead Product Designer' },
                   { k: 'Goal',     v: 'Real-time engagement' },
                   { k: 'Platform', v: 'Adobe Connect' },
                   { k: 'Impact',   v: '50% boost in host efficiency' },
@@ -150,7 +150,7 @@ export function CaseStudyQuiz() {
 
           <div className={styles.problemImgWrap}>
             <ImgSlot
-              src="/Quiz pod project/Adobe Connect Before quiz.png"
+              src="/Quiz pod project/Adobe Connect Before quiz.webp"
               label="Before state: Adobe Connect session — host panel with no quiz option"
               aspect="21/9"
             />
@@ -201,28 +201,28 @@ export function CaseStudyQuiz() {
               body: 'Live quizzes instead of delayed assessments, so trainers get signal while it still matters.',
               accent: 'Immediate signal · No context lost',
               imgLabel: 'Live quiz launch — session toolbar with quiz button active',
-              img: '/Quiz pod project/Live quiz.png',
+              img: '/Quiz pod project/Live quiz.webp',
             },
             {
               n: '02', title: 'Multiple question formats',
               body: 'MCQs, multi-answer, short answers. Match format to content type without switching tools.',
               accent: 'MCQ · Multi-select · Short answer',
               imgLabel: 'Question type picker UI with format options',
-              img: '/Quiz pod project/Multiple question options.png',
+              img: '/Quiz pod project/Multiple question options.webp',
             },
             {
               n: '03', title: 'Instant feedback & scoring',
               body: 'Hosts track responses and completion live. Participants see their score right after submitting.',
               accent: 'Live tracking · Completion rate',
               imgLabel: 'Host panel: live response bar chart and completion %',
-              img: '/Quiz pod project/Instant feedback.png',
+              img: '/Quiz pod project/Instant feedback.webp',
             },
             {
               n: '04', title: 'Gamified experience',
               body: 'Leaderboards and timed responses shift the mental model from assessment to game. Attention spikes.',
               accent: 'Leaderboard · Timed responses',
               imgLabel: 'Leaderboard screen with ranked participant scores',
-              img: '/Quiz pod project/Gamification.png',
+              img: '/Quiz pod project/Gamification.webp',
             },
           ].map(d => (
             <div key={d.n} className={styles.decisionCard}>
@@ -252,21 +252,21 @@ export function CaseStudyQuiz() {
               color: 'var(--accent-indigo)',
               desc: 'Hosts set up a quiz before or during a live session. Choose format, add questions, set a timer. Under a minute.',
               attrs: ['Multiple formats', 'Timer control', 'Reusable templates'],
-              img: '/Quiz pod project/Quiz Create.png',
+              img: '/Quiz pod project/Quiz Create.webp',
             },
             {
               n: '02', step: 'Engage',
               color: 'var(--accent-violet)',
               desc: 'Participants receive the quiz in-session. Clear UI, progress indicator, and instant acknowledgement on submit.',
               attrs: ['Mobile-friendly', 'Progress indicator', 'Instant confirm'],
-              img: '/Quiz pod project/Quiz Engage.png',
+              img: '/Quiz pod project/Quiz Engage.webp',
             },
             {
               n: '03', step: 'Evaluate',
               color: 'var(--accent-blue)',
               desc: 'Hosts see live responses, scores, and completion as they come in. Leaderboard visible to all participants.',
               attrs: ['Live tracking', 'Leaderboard', 'Export insights'],
-              img: '/Quiz pod project/Quiz Evaluate.png',
+              img: '/Quiz pod project/Quiz Evaluate.webp',
             },
           ].map((s, i) => (
             <div key={s.n} className={`${styles.solutionStep} ${i % 2 === 1 ? styles.solutionStepFlip : ''}`}>
@@ -322,7 +322,7 @@ export function CaseStudyQuiz() {
 
           <div className={styles.impactImgWrap}>
             <ImgSlot
-              src="/Quiz pod project/Final picture.png"
+              src="/Quiz pod project/Final picture.webp"
               label="Session overview: leaderboard with ranked participant scores visible to all attendees"
               aspect="16/7"
             />

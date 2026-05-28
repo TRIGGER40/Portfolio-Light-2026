@@ -14,7 +14,7 @@
 }
 .label {
   font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--accent-indigo);
+   color: var(--accent-indigo);
   font-family: var(--font-mono);
 }
 .title {
@@ -67,7 +67,7 @@
 }
 .card:hover {
   transform: translateY(-4px);
-  border-color: rgba(82, 84, 216, 0.25);
+  border-color: rgba(35, 64, 52, 0.16);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
 }
 
@@ -90,8 +90,8 @@
 }
 .badge {
   position: absolute; top: 12px; left: 12px;
-  font-size: 10px; font-weight: 500; letter-spacing: 0.06em;
-  text-transform: uppercase; border-radius: 999px;
+  font-size: 10px; font-weight: 500; letter-spacing: 0.01em;
+   border-radius: 999px;
   padding: 4px 10px;
   background: rgba(0, 0, 0, 0.55);
   color: rgba(255, 255, 255, 0.92);
@@ -105,8 +105,8 @@
   display: flex; flex-direction: column; gap: 6px;
 }
 .company {
-  font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
-  text-transform: uppercase; color: var(--text-tertiary);
+  font-size: 11px; font-weight: 600; letter-spacing: 0.01em;
+   color: var(--text-tertiary);
 }
 .cardTitle {
   font-size: 15px; font-weight: 700; color: var(--text-primary);

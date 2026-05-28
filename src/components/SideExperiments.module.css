@@ -76,6 +76,7 @@
 
 /* ── Thumbnail ── */
 .thumb {
+  position: relative;
   width: 152px;
   height: 86px;
   border-radius: 8px;
@@ -118,11 +119,35 @@
   font-weight: 500;
   padding: 3px 10px;
   border-radius: 999px;
-  background: rgba(82, 84, 216, 0.08);
+  background: rgba(35, 64, 52, 0.06);
   color: var(--text-accent);
-  border: 1px solid rgba(82, 84, 216, 0.15);
+  border: 1px solid rgba(35, 64, 52, 0.1);
   white-space: nowrap;
   flex-shrink: 0;
+}
+
+/* ── Dark mode ── */
+[data-theme="dark"] .sub {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .list {
+  background: var(--bg-surface);
+  border-color: var(--glass-border);
+}
+
+[data-theme="dark"] .row {
+  border-bottom-color: var(--glass-border);
+}
+
+[data-theme="dark"] .row:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+[data-theme="dark"] .tag {
+  background: rgba(107, 191, 154, 0.08);
+  color: #6BBF9A;
+  border-color: rgba(107, 191, 154, 0.18);
 }
 
 /* ── Responsive ── */

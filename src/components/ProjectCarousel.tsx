@@ -2,6 +2,7 @@ import { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CASE_STUDIES, getProjectRoute } from '../data/portfolioData';
 import styles from './ProjectCarousel.module.css';
+import { ImgSkeleton } from './ImgSkeleton';
 
 const CATEGORY_COLORS: Record<string, string> = {
   'AI':            'var(--accent-violet)',
@@ -90,11 +91,10 @@ export function ProjectCarousel({ currentId }: Props) {
                 style={{ cursor: 'pointer' }}
               >
                 <div className={styles.imgWrap}>
-                  <img
+                  <ImgSkeleton
                     src={`/${p.thumbnail}`}
                     alt={p.title}
                     className={styles.img}
-                    onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
                   />
                   <div className={styles.imgOverlay} />
                   <span

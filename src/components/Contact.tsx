@@ -32,13 +32,13 @@ export function Contact() {
           <span className="section-label">Get in Touch</span>
 
           <h2 className={`text-display ${styles.title}`}>
-            Let's build something
+            Let's connect
             <br />
-            <span className="gradient-text">meaningful together</span>
+            <span className="gradient-text">about what comes next</span>
           </h2>
 
           <p className={styles.desc}>
-            Open to senior design roles, AI-first product teams, and interesting collaborations.
+            Open to senior product design roles, design leadership, and AI-first product teams.
             I respond within 48 hours.
           </p>
 

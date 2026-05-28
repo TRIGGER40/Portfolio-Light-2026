@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion';
 import pStyles from '../pages/AboutPage.module.css';
 import { HobbiesCarousel } from './HobbiesCarousel';
+import { ImgSkeleton } from './ImgSkeleton';
 
 const PERSONAL = [
   {
-    img: '/personal/vibe-coding.png',
+    img: '/personal/vibe-coding.webp',
     imgPosition: 'center center',
     gradient: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%)',
     icon: <i className="bi bi-code-slash" style={{ fontSize: '22px' }} aria-hidden="true" />,
@@ -12,7 +13,7 @@ const PERSONAL = [
     text: 'I spend a lot of time turning ideas into quick, tangible experiences. It helps me think through interactions faster, collaborate better with engineers, and push ideas beyond static screens. Some explorations turn into real features. Some become UX experiments that stay with me, evolve, and come back sharper.',
   },
   {
-    img: '/personal/community.jpg',
+    img: '/personal/community.webp',
     imgPosition: 'center center',
     gradient: 'linear-gradient(135deg, #0d1b2a 0%, #1b2838 40%, #2d4a6e 100%)',
     icon: <i className="bi bi-megaphone" style={{ fontSize: '22px' }} aria-hidden="true" />,
@@ -20,7 +21,7 @@ const PERSONAL = [
     text: "I enjoy sharing perspectives on design, AI, and product thinking beyond just the work I ship. Whether writing, speaking, or contributing to conversations in the community, I believe articulating your thinking is as important as doing the work itself.",
   },
   {
-    img: '/personal/balance.jpg',
+    img: '/personal/balance.webp',
     imgPosition: 'center top',
     gradient: 'linear-gradient(135deg, #0a1628 0%, #122040 40%, #1e3a5f 100%)',
     icon: <i className="bi bi-heart" style={{ fontSize: '22px' }} aria-hidden="true" />,
@@ -28,7 +29,7 @@ const PERSONAL = [
     text: 'I actively mentor aspiring designers, contribute to open design discussions, and build tools that help others grow. Giving back keeps me grounded and reminds me how far thoughtful guidance can go early in someone\'s career.',
   },
   {
-    img: '/More about me/weekend.jpg',
+    img: '/More about me/weekend.webp',
     imgPosition: 'center center',
     gradient: 'linear-gradient(135deg, #12102a 0%, #1c1a3e 40%, #2e2b5a 100%)',
     icon: <i className="bi bi-calendar" style={{ fontSize: '22px' }} aria-hidden="true" />,
@@ -64,12 +65,11 @@ export function PersonalSection() {
                 className={pStyles.personalCardImg}
                 style={{ background: item.gradient }}
               >
-                <img
+                <ImgSkeleton
                   src={item.img}
                   alt={item.label}
                   className={pStyles.personalCardImgEl}
                   style={{ objectPosition: item.imgPosition }}
-                  onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
                 />
                 <div className={pStyles.personalCardImgIcon}>
                   {item.icon}

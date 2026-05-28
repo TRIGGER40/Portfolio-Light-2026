@@ -1,0 +1,43 @@
+.btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 200;
+
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-md);
+
+  color: var(--text-secondary);
+  font-size: 17px;
+  cursor: pointer;
+
+  transition:
+    background var(--transition-base),
+    border-color var(--transition-base),
+    color var(--transition-base),
+    transform 0.2s var(--ease-out),
+    box-shadow var(--transition-base);
+}
+
+.btn:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+  color: var(--text-primary);
+  transform: scale(1.1);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn:active {
+  transform: scale(0.96);
+}

@@ -19,6 +19,39 @@
   margin-bottom: 32px;
 }
 
+.headerMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.headerLogo {
+  height: 18px;
+  width: auto;
+  max-width: 80px;
+  object-fit: contain;
+  object-position: left center;
+  display: block;
+  opacity: 0.7;
+}
+
+.headerCompany {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-accent);
+}
+
+[data-theme="dark"] .headerCompany {
+  color: #6BBF9A;
+}
+
+[data-theme="dark"] .headerLogo {
+  opacity: 0.9;
+  filter: brightness(1.8);
+}
+
 .pageTitle {
   display: flex;
   align-items: center;
@@ -35,12 +68,12 @@
   align-items: center;
   padding: 4px 14px;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--accent-indigo) 10%, var(--bg-elevated));
-  border: 1px solid color-mix(in srgb, var(--accent-indigo) 20%, transparent);
+  background: color-mix(in srgb, var(--accent-indigo) 14%, var(--bg-elevated));
+  border: 1px solid color-mix(in srgb, var(--accent-indigo) 35%, transparent);
   font-size: 15px;
   font-weight: 600;
   letter-spacing: -0.01em;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   flex-shrink: 0;
 }
 .pageSubtitle {
@@ -68,8 +101,8 @@
 .sectionLabel {
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  
   color: var(--text-muted);
 }
 .sectionCount {
@@ -103,7 +136,7 @@
 }
 .featuredCard:hover {
   transform: translateY(-4px);
-  border-color: rgba(82,84,216,0.3);
+  border-color: rgba(35, 64, 52, 0.20);
   box-shadow: 0 16px 48px rgba(0,0,0,0.25);
 }
 
@@ -133,7 +166,7 @@
 .badge {
   position: absolute; top: 12px; left: 12px;
   font-size: 10px; font-weight: 700;
-  letter-spacing: 0.08em; text-transform: uppercase;
+  letter-spacing: 0.02em; 
   padding: 4px 10px; border-radius: 999px;
   background: color-mix(in srgb, var(--badge-color) 22%, rgba(10,10,20,0.65));
   color: #fff;
@@ -154,9 +187,22 @@
 .featuredMeta {
   display: flex; align-items: center; gap: 6px;
 }
+.companyLogo {
+  height: 14px;
+  width: auto;
+  max-width: 56px;
+  object-fit: contain;
+  object-position: left center;
+  display: block;
+  opacity: 0.65;
+}
+[data-theme="dark"] .companyLogo {
+  opacity: 0.85;
+  filter: brightness(1.8);
+}
 .company {
   font-size: 11px; font-weight: 600;
-  text-transform: uppercase; letter-spacing: 0.08em;
+   letter-spacing: 0.02em;
   color: var(--text-muted);
 }
 .dot { color: var(--text-muted); font-size: 12px; }
@@ -188,10 +234,10 @@
 .metricPill {
   font-size: 11px; font-weight: 600;
   color: var(--accent-indigo);
-  background: rgba(82,84,216,0.1);
+  background: rgba(35, 64, 52, 0.07);
   border-radius: 999px;
   padding: 4px 10px;
-  border: 1px solid rgba(82,84,216,0.18);
+  border: 1px solid rgba(35, 64, 52, 0.12);
 }
 .cta {
   display: inline-flex; align-items: center; gap: 5px;
@@ -219,7 +265,7 @@
 }
 .otherCard:hover {
   transform: translateY(-3px);
-  border-color: rgba(82,84,216,0.25);
+  border-color: rgba(35, 64, 52, 0.15);
 }
 
 .otherImgWrap {

@@ -57,7 +57,7 @@
 .approachCard:hover { background: var(--bg-elevated); }
 .approachNum {
   font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--accent-indigo);
+   color: var(--accent-indigo);
   font-family: var(--font-mono);
 }
 .approachTitle {
@@ -91,8 +91,8 @@
   min-width: 100px;
 }
 .calcBlock.calcResult {
-  background: linear-gradient(135deg, rgba(82,84,216,0.08), rgba(124,58,237,0.08));
-  border-color: rgba(82,84,216,0.3);
+  background: linear-gradient(135deg, rgba(35, 64, 52, 0.06), rgba(184, 106, 75, 0.06));
+  border-color: rgba(35, 64, 52, 0.18);
 }
 .calcVal {
   font-size: clamp(28px, 3.5vw, 44px); font-weight: 900;
@@ -122,11 +122,11 @@
   border-radius: 16px; background: var(--bg-base);
   transition: border-color 0.2s, transform 0.2s;
 }
-.analysisFinding:hover { border-color: rgba(82,84,216,0.25); transform: translateY(-2px); }
+.analysisFinding:hover { border-color: rgba(35, 64, 52, 0.15); transform: translateY(-2px); }
 .findingIcon {
   font-size: 20px; line-height: 1; flex-shrink: 0;
   width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
-  border-radius: 8px; background: rgba(82,84,216,0.08); color: var(--accent-indigo);
+  border-radius: 8px; background: rgba(35, 64, 52, 0.06); color: var(--accent-indigo);
   font-weight: 700;
 }
 .findingTitle {
@@ -170,7 +170,7 @@
 }
 .tierNum {
   font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
-  text-transform: uppercase; font-family: var(--font-mono);
+   font-family: var(--font-mono);
   opacity: 0.8;
 }
 .tierName {
@@ -209,11 +209,11 @@
   overflow: hidden; background: var(--bg-surface);
   transition: transform 0.2s, border-color 0.2s;
 }
-.validationCard:hover { transform: translateY(-3px); border-color: rgba(82,84,216,0.25); }
+.validationCard:hover { transform: translateY(-3px); border-color: rgba(35, 64, 52, 0.15); }
 .validationCardBody { padding: 20px 20px 24px; display: flex; flex-direction: column; gap: 8px; }
 .validationMethod {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--accent-indigo);
+  font-size: 10px; font-weight: 700; letter-spacing: 0.02em;
+   color: var(--accent-indigo);
 }
 .validationText {
   font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 0;
@@ -235,10 +235,10 @@
   display: flex; flex-direction: column; gap: 12px;
   transition: border-color 0.2s, transform 0.2s;
 }
-.executionCard:hover { border-color: rgba(82,84,216,0.2); transform: translateY(-2px); }
+.executionCard:hover { border-color: rgba(35, 64, 52, 0.12); transform: translateY(-2px); }
 .executionIcon {
   width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
-  border-radius: 10px; background: rgba(82,84,216,0.07);
+  border-radius: 10px; background: rgba(35, 64, 52, 0.05);
   color: var(--accent-indigo); flex-shrink: 0;
 }
 .executionTitle {

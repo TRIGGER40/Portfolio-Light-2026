@@ -432,12 +432,12 @@
   align-items: center;
   gap: 6px;
   transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
-  box-shadow: 0 4px 16px rgba(99,102,241,0.35);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
 
 .postBtn:hover:not(:disabled) {
   transform: translateY(-1px);
-  box-shadow: 0 6px 24px rgba(99,102,241,0.5);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.16);
 }
 
 .postBtn:disabled { opacity: 0.4; cursor: not-allowed; }
@@ -502,4 +502,14 @@
     width: 40px !important;
     height: 40px !important;
   }
+}
+
+/* ── Dark mode ── */
+[data-theme="dark"] .postBtn {
+  background: linear-gradient(135deg, #4D9E80 0%, #6BBF9A 60%, #B79B6C 100%);
+  box-shadow: 0 4px 16px rgba(107, 191, 154, 0.25);
+}
+
+[data-theme="dark"] .postBtn:hover:not(:disabled) {
+  box-shadow: 0 6px 24px rgba(107, 191, 154, 0.35);
 }

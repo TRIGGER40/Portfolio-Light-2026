@@ -8,6 +8,7 @@ import { saveScrollBeforeLeave } from '../hooks/useScrollRestoration';
 import { Footer } from '../components/Footer';
 import { BackgroundGlow } from '../components/BackgroundGlow';
 import styles from './ArticlePage.module.css';
+import { ImgSkeleton } from '../components/ImgSkeleton';
 
 /* ── Article nav card (prev / next) ────────────────── */
 function NavCard({ article, direction }: { article: Article; direction: 'prev' | 'next' }) {
@@ -71,7 +72,7 @@ export function ArticlePage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
-          <img
+          <ImgSkeleton
             src={article.coverSrc}
             alt={article.coverAlt}
             className={styles.cover}
@@ -97,7 +98,7 @@ export function ArticlePage() {
           <div className={styles.divider} />
 
           <div className={styles.byline}>
-            <img src="/About me midhun.png" alt="Midhun Krishnakumar" className={styles.authorAvatar} />
+            <img src="/About me midhun.webp" alt="Midhun Krishnakumar" className={styles.authorAvatar} />
             <div className={styles.authorInfo}>
               <span className={styles.authorName}>{article.author}</span>
               <span className={styles.authorRole}>{article.roleLine}</span>

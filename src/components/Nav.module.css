@@ -41,24 +41,22 @@
   height: 52px;
   padding: 0 6px 0 18px;
   border-radius: 999px;
-  background: rgba(250, 250, 253, 0.88);
+  background: var(--glass-bg);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--glass-border);
   box-shadow:
-    0 2px 16px rgba(0, 0, 0, 0.08),
-    0 1px 3px rgba(0, 0, 0, 0.05),
-    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    0 2px 16px rgba(0, 0, 0, 0.06),
+    0 1px 3px rgba(0, 0, 0, 0.04);
   transition: box-shadow 0.2s ease, border-color 0.2s ease;
   width: 100%;
 }
 
 .pillFocused {
-  border-color: rgba(82, 84, 216, 0.22);
+  border-color: rgba(35, 64, 52, 0.22);
   box-shadow:
-    0 4px 28px rgba(82, 84, 216, 0.12),
-    0 2px 8px rgba(0, 0, 0, 0.07),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    0 4px 28px rgba(35, 64, 52, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 /* ── Logo ─────────────────────────────────────────────── */
@@ -143,9 +141,9 @@
 }
 
 .sparkle {
-  font-size: 11px;
-  color: var(--accent-indigo);
-  opacity: 0.5;
+  font-size: 15px;
+  color: #234034;
+  opacity: 0.45;
   flex-shrink: 0;
   animation: sparklePulse 2.5s ease-in-out infinite;
 }
@@ -189,38 +187,35 @@
   border-radius: 999px;
   font-size: 13px;
   font-weight: 600;
-  color: #fff;
-  background: var(--accent-indigo);
+  color: #F5F0E8;
+  background: #234034;
   border: none;
   white-space: nowrap;
   flex-shrink: 0;
   text-decoration: none;
-  transition: opacity 0.18s, box-shadow 0.18s;
-  box-shadow: 0 2px 10px rgba(82, 84, 216, 0.35);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.14);
   margin-left: 6px;
 }
 
 .resumeBtn:hover {
-  opacity: 0.9;
-  box-shadow: 0 4px 18px rgba(82, 84, 216, 0.45);
+  background: #2D5245;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.18);
 }
 
 /* ── Dropdown ─────────────────────────────────────────── */
 .dropdown {
   pointer-events: all;
   margin-top: 8px;
-  /* Align with the search area — offset by logo + divider width */
-  background: rgba(252, 252, 255, 0.97);
+  background: var(--glass-bg-hover);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(0, 0, 0, 0.07);
+  border: 1px solid var(--glass-border);
   border-radius: 18px;
   padding: 10px 6px 8px;
   box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.1),
-    0 2px 8px rgba(0, 0, 0, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  /* Full width, same as pill */
+    0 8px 32px rgba(0, 0, 0, 0.07),
+    0 2px 8px rgba(0, 0, 0, 0.04);
   width: 100%;
 }
 
@@ -256,7 +251,7 @@
 }
 
 .chip:hover {
-  background: rgba(82, 84, 216, 0.07);
+  background: rgba(35, 64, 52, 0.06);
   color: var(--text-primary);
 }
 
@@ -287,8 +282,50 @@
 }
 
 .viewMoreBtn:hover {
-  background: rgba(82, 84, 216, 0.06);
+  background: rgba(35, 64, 52, 0.05);
   color: var(--text-secondary);
+}
+
+/* ── Dark mode ───────────────────────────────────────── */
+[data-theme="dark"] .logoImg {
+  filter: brightness(0) invert(1);
+}
+
+[data-theme="dark"] .divider,
+[data-theme="dark"] .eggDivider {
+  background: rgba(255, 255, 255, 0.09);
+}
+
+[data-theme="dark"] .sparkle {
+  color: var(--accent-indigo);
+  opacity: 0.55;
+}
+
+[data-theme="dark"] .aboutBtn:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="dark"] .resumeBtn {
+  background: #6BBF9A;
+  color: #1A1E1C;
+  box-shadow: 0 2px 10px rgba(107, 191, 154, 0.25);
+}
+
+[data-theme="dark"] .resumeBtn:hover {
+  background: #7DCBA8;
+  box-shadow: 0 4px 18px rgba(107, 191, 154, 0.35);
+}
+
+[data-theme="dark"] .chip:hover {
+  background: rgba(107, 191, 154, 0.08);
+}
+
+[data-theme="dark"] .viewMoreBtn {
+  border-top-color: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .viewMoreBtn:hover {
+  background: rgba(107, 191, 154, 0.06);
 }
 
 /* ── Mobile ──────────────────────────────────────────── */

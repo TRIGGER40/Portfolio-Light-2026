@@ -21,7 +21,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: thin;
-  scrollbar-color: rgba(82, 84, 216, 0.12) transparent;
+  scrollbar-color: rgba(35, 64, 52, 0.08) transparent;
   background: rgba(255, 255, 255, 0.98);
   border: 1px solid rgba(245, 158, 11, 0.14);
   border-radius: 24px;
@@ -34,7 +34,7 @@
 
 .modal::-webkit-scrollbar { width: 4px; }
 .modal::-webkit-scrollbar-track { background: transparent; }
-.modal::-webkit-scrollbar-thumb { background: rgba(82, 84, 216, 0.12); border-radius: 999px; }
+.modal::-webkit-scrollbar-thumb { background: rgba(35, 64, 52, 0.08); border-radius: 999px; }
 
 /* ── Close ── */
 .closeBtn {
@@ -154,6 +154,56 @@
   color: rgba(15, 15, 35, 0.62);
   margin: 0;
   letter-spacing: 0.01em;
+}
+
+/* ── Dark mode ── */
+[data-theme="dark"] .backdrop {
+  background: rgba(22, 20, 16, 0.93);
+}
+
+[data-theme="dark"] .modal {
+  background: var(--bg-surface);
+  border-color: rgba(245, 158, 11, 0.12);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.50), 0 4px 16px rgba(0, 0, 0, 0.30);
+}
+
+[data-theme="dark"] .closeBtn {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .closeBtn:hover {
+  background: rgba(255, 255, 255, 0.10);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .title {
+  color: var(--text-primary);
+  padding-right: 40px;
+}
+
+[data-theme="dark"] .preamble {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .divider {
+  background: var(--glass-border);
+}
+
+[data-theme="dark"] .itemHeadline {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .itemBody {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .signature {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .author {
+  color: var(--text-secondary);
 }
 
 /* ── Mobile ── */

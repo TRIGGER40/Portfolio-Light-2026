@@ -52,7 +52,7 @@ export function ScrollFade() {
           ...base,
           height: '120px',
           background:
-            'linear-gradient(to bottom, var(--bg-base) 0%, rgba(247,247,251,0.7) 55%, transparent 100%)',
+            'linear-gradient(to bottom, var(--bg-base) 0%, var(--bg-fade-mid) 55%, transparent 100%)',
         }}
       />
     </>

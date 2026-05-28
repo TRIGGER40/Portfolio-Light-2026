@@ -151,7 +151,7 @@ export function AboutPage() {
         <div className={`${styles.pageBgWrap} ${bgExpanded ? styles.pageBgWrapExpanded : ''}`} aria-hidden={!bgExpanded}>
           <div className={styles.pageBgParallax}>
             <img
-              src="/About me/Background.png"
+              src="/About me/Background.webp"
               alt="View of Kanchendzonga from Tsomgo Lake viewpoint"
               className={`${styles.pageBgImg} ${bgLoaded ? styles.pageBgImgLoaded : ''} ${bgExpanded ? styles.pageBgImgExpanded : ''} ${bgCollapsing ? styles.pageBgImgCollapsing : ''}`}
               onLoad={() => setBgLoaded(true)}
@@ -190,7 +190,7 @@ export function AboutPage() {
                 </button>
                 <p className={styles.bgViewLocation}>Kanchendzonga</p>
                 <div className={styles.bgViewCredit}>
-                  <img src="/About me midhun.png" alt="Midhun Krishnakumar" className={styles.bgViewAvatar} draggable={false} />
+                  <img src="/About me midhun.webp" alt="Midhun Krishnakumar" className={styles.bgViewAvatar} draggable={false} />
                   <div className={styles.bgViewCreditText}>
                     <p className={styles.bgViewName}>Midhun Krishnakumar</p>
                     <p className={styles.bgViewCaption}>Clicked from Tsomgo Lake view point, Sikkim, India</p>
@@ -216,16 +216,19 @@ export function AboutPage() {
                 <span className={styles.introNameBreath}>Midhun<br />Krishnakumar.</span>
               </h1>
               <p className={styles.introPara}>
-                I'm an AI-first Product Designer at Adobe, building intelligent product experiences
-                that simplify complexity at scale. My work focuses on high-impact, high-ambiguity
-                problems where design decisions directly influence product direction, adoption, and
-                long-term retention.
+                I'm deeply curious about how people think, behave, and adapt to the systems around
+                them. That curiosity has shaped almost everything I do, from the way I observe
+                everyday experiences to the way I approach creativity, technology, and problem solving.
               </p>
               <p className={styles.introPara}>
-                I operate at the intersection of product, systems, and engineering, translating
-                fuzzy problem spaces into clear, scalable solutions. From shaping first-mile
-                experiences to driving AI-led workflows, I design not just interfaces, but how
-                products behave, guide, and evolve.
+                Outside of work, I'm drawn to earthy spaces, mountain landscapes, thoughtful
+                interiors, photography, long walks, and anything that blends aesthetics with
+                intention. I enjoy building things slowly, refining details obsessively, and
+                exploring ideas far beyond the boundaries of design.
+              </p>
+              <p className={styles.introPara}>
+                I believe the best experiences come from empathy, clarity, and an openness to
+                constantly evolve.
               </p>
             </div>
 
@@ -240,7 +243,7 @@ export function AboutPage() {
                   style={{ '--from-x': '120px', '--from-y': '0px', '--from-rot': '-40deg', '--delay': '0.25s' } as React.CSSProperties}>
                   <div className={styles.introPolaroid} style={{ '--rot': '-7deg' } as React.CSSProperties}>
                     <div className={styles.introPolaroidInner}>
-                      <img src="/About me/about-photo.png" alt="Midhun" className={styles.introPolaroidImg} draggable={false} />
+                      <img src="/About me/about-photo.webp" alt="Midhun" className={styles.introPolaroidImg} draggable={false} />
                     </div>
                     <div className={styles.introPolaroidStrip} />
                   </div>
@@ -251,7 +254,7 @@ export function AboutPage() {
                   style={{ '--from-x': '0px', '--from-y': '0px', '--from-rot': '0deg', '--delay': '0.05s' } as React.CSSProperties}>
                   <div className={`${styles.introPolaroid} ${styles.introPolaroidMain}`} style={{ '--rot': '1deg' } as React.CSSProperties}>
                     <div className={styles.introPolaroidInner}>
-                      <img src="/About me midhun.png" alt="Midhun Krishnakumar" className={styles.introPolaroidImg} draggable={false} />
+                      <img src="/About me midhun.webp" alt="Midhun Krishnakumar" className={styles.introPolaroidImg} draggable={false} />
                     </div>
                     <div className={styles.introPolaroidStrip} />
                   </div>
@@ -262,7 +265,7 @@ export function AboutPage() {
                   style={{ '--from-x': '-120px', '--from-y': '0px', '--from-rot': '40deg', '--delay': '0.35s' } as React.CSSProperties}>
                   <div className={styles.introPolaroid} style={{ '--rot': '6deg' } as React.CSSProperties}>
                     <div className={styles.introPolaroidInner}>
-                      <img src="/About me/Formula 1.png" alt="Midhun at Formula 1" className={styles.introPolaroidImg} draggable={false} />
+                      <img src="/About me/Formula 1.webp" alt="Midhun at Formula 1" className={styles.introPolaroidImg} draggable={false} />
                     </div>
                     <div className={styles.introPolaroidStrip} />
                   </div>
@@ -278,7 +281,7 @@ export function AboutPage() {
                   style={{ '--from-x': '90px', '--from-y': '-100px', '--from-rot': '-35deg', '--delay': '0.45s' } as React.CSSProperties}>
                   <div className={styles.introPolaroid} style={{ '--rot': '-4deg' } as React.CSSProperties}>
                     <div className={styles.introPolaroidInner}>
-                      <img src="/About me/kayaking.png" alt="Midhun kayaking" className={styles.introPolaroidImg} draggable={false} />
+                      <img src="/About me/kayaking.webp" alt="Midhun kayaking" className={styles.introPolaroidImg} draggable={false} />
                     </div>
                     <div className={styles.introPolaroidStrip} />
                   </div>
@@ -289,7 +292,7 @@ export function AboutPage() {
                   style={{ '--from-x': '-90px', '--from-y': '-100px', '--from-rot': '35deg', '--delay': '0.55s' } as React.CSSProperties}>
                   <div className={styles.introPolaroid} style={{ '--rot': '5deg' } as React.CSSProperties}>
                     <div className={styles.introPolaroidInner}>
-                      <img src="/About me/IMG_2127.JPG" alt="Midhun" className={styles.introPolaroidImg} draggable={false} />
+                      <img src="/About me/IMG_2127.webp" alt="Midhun" className={styles.introPolaroidImg} draggable={false} />
                     </div>
                     <div className={styles.introPolaroidStrip} />
                   </div>
@@ -331,13 +334,13 @@ export function AboutPage() {
               <div className={styles.eduCard}>
                 <div className={styles.eduImageWrap}>
                   <img
-                    src="/Education/College.png"
+                    src="/Education/College.webp"
                     alt="National Institute of Design, Andhra Pradesh"
                     className={styles.eduBanner}
                     draggable={false}
                   />
                   <img
-                    src="/Education/College logo.png"
+                    src="/Education/College logo.webp"
                     alt="NID logo"
                     className={styles.eduLogo}
                     draggable={false}
@@ -363,13 +366,13 @@ export function AboutPage() {
               <div className={styles.eduCard}>
                 <div className={styles.eduImageWrap}>
                   <img
-                    src="/Education/School.jpg"
+                    src="/Education/School.webp"
                     alt="Sainik School Kazhakootam"
                     className={styles.eduBanner}
                     draggable={false}
                   />
                   <img
-                    src="/Education/school logo.jpeg"
+                    src="/Education/school logo.webp"
                     alt="Sainik School logo"
                     className={styles.eduLogo}
                     draggable={false}

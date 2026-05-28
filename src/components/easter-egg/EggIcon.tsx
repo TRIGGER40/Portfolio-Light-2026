@@ -7,12 +7,12 @@ interface EggIconProps {
 
 /* Public-folder paths (space in folder name is fine via URL) */
 const EGG_PNGS = [
-  '/Easter%20eggs/Egg1.png',
-  '/Easter%20eggs/Egg2.png',
-  '/Easter%20eggs/Egg3.png',
+  '/Easter%20eggs/Egg1.webp',
+  '/Easter%20eggs/Egg2.webp',
+  '/Easter%20eggs/Egg3.webp',
 ];
 
-const GRAD_DISCOVERED = { from: '#7c3aed', to: '#5254d8' };
+const GRAD_DISCOVERED = { from: '#234034', to: '#2D5245' };
 const GRAD_COMPLETE   = { from: '#f59e0b', to: '#d97706' };
 
 export function EggIcon({ size = 24, state = 'undiscovered', className, eggIndex }: EggIconProps) {
@@ -60,9 +60,9 @@ export function EggIcon({ size = 24, state = 'undiscovered', className, eggIndex
       >
         <path
           d="M16 2C9 2 2 12 2 22C2 33 8.5 38 16 38C23.5 38 30 33 30 22C30 12 23 2 16 2Z"
-          stroke="rgba(82,84,216,0.45)"
+          stroke="rgba(35,64,52,0.35)"
           strokeWidth="1.5"
-          fill="rgba(82,84,216,0.04)"
+          fill="rgba(35,64,52,0.05)"
         />
       </svg>
     );

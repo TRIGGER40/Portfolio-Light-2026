@@ -15,7 +15,7 @@ const PARTICLES = Array.from({ length: 16 }, (_, i) => {
     x: Math.cos(angle) * dist,
     y: Math.sin(angle) * dist,
     size: 2.5 + (i % 4) * 0.7,
-    color: ['#7c3aed', '#5254d8', '#a855f7', '#818cf8'][i % 4],
+    color: ['#234034', '#B86A4B', '#2D5245', '#B79B6C'][i % 4],
     delay: 0.52 + i * 0.022,
   };
 });

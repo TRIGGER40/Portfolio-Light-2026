@@ -3,19 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import pStyles from '../pages/AboutPage.module.css';
 
 const HOBBIES = [
-  { name: '3D Modelling',    img: '/hobbies/3d-modelling.png' },
-  { name: 'Blogging',        img: '/hobbies/blogging.png' },
-  { name: 'Community',       img: '/hobbies/community.png' },
-  { name: 'Formula 1',       img: '/hobbies/f1.png' },
-  { name: 'Football',        img: '/hobbies/football.png' },
-  { name: 'Hiking',          img: '/hobbies/Hiking.png' },
-  { name: 'Photography',     img: '/hobbies/Photography.png' },
-  { name: 'Hockey',          img: '/hobbies/hockey.png' },
-  { name: 'Interior Design', img: '/hobbies/interior-design.png' },
-  { name: 'Long Drives',     img: '/hobbies/long-drives.png' },
-  { name: 'Singing',         img: '/hobbies/singing.png' },
-  { name: 'Travelling',      img: '/hobbies/travelling.png' },
-  { name: 'Vibe Coding',     img: '/hobbies/vibe-coding.png' },
+  { name: '3D Modelling',    img: '/hobbies/3d-modelling.webp' },
+  { name: 'Blogging',        img: '/hobbies/blogging.webp' },
+  { name: 'Community',       img: '/hobbies/community.webp' },
+  { name: 'Formula 1',       img: '/hobbies/f1.webp' },
+  { name: 'Football',        img: '/hobbies/football.webp' },
+  { name: 'Hiking',          img: '/hobbies/Hiking.webp' },
+  { name: 'Photography',     img: '/hobbies/Photography.webp' },
+  { name: 'Hockey',          img: '/hobbies/hockey.webp' },
+  { name: 'Interior Design', img: '/hobbies/interior-design.webp' },
+  { name: 'Long Drives',     img: '/hobbies/long-drives.webp' },
+  { name: 'Singing',         img: '/hobbies/singing.webp' },
+  { name: 'Travelling',      img: '/hobbies/travelling.webp' },
+  { name: 'Vibe Coding',     img: '/hobbies/vibe-coding.webp' },
 ];
 
 const HOBBY_SPEED = 70; // px per second

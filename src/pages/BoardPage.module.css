@@ -117,7 +117,7 @@
 }
 
 .card:hover {
-  box-shadow: 0 12px 40px rgba(99, 102, 241, 0.2), 0 2px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.2);
   z-index: 10;
 }
 
@@ -178,7 +178,7 @@
   border: 1px solid var(--glass-border);
   border-radius: 20px;
   padding: 14px 16px 16px;
-  box-shadow: 0 -4px 40px rgba(0, 0, 0, 0.3), 0 8px 32px rgba(99, 102, 241, 0.1);
+  box-shadow: 0 -4px 40px rgba(0, 0, 0, 0.3), 0 8px 32px rgba(0,0,0,0.05);
   backdrop-filter: blur(20px);
   display: flex;
   flex-direction: column;
@@ -281,12 +281,12 @@
   cursor: pointer;
   flex-shrink: 0;
   transition: opacity 0.2s, transform 0.15s;
-  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.35);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
 }
 
 .postBtn:hover:not(:disabled) {
   transform: translateY(-1px);
-  box-shadow: 0 6px 24px rgba(99, 102, 241, 0.5);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.11);
 }
 
 .postBtn:disabled {

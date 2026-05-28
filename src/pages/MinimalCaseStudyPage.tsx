@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Footer } from '../components/Footer';
 import { BackgroundGlow } from '../components/BackgroundGlow';
@@ -7,258 +7,33 @@ import { GoBackButton } from '../components/GoBackButton';
 import styles from './MinimalCaseStudyPage.module.css';
 import { ImgSkeleton } from '../components/ImgSkeleton';
 import { Loader } from '../components/Loader';
+import { CASE_STUDIES } from '../data/portfolioData';
 
 const CATEGORY_COLORS: Record<string, string> = {
-  AI:               'var(--accent-violet)',
-  Feature:          'var(--accent-blue)',
-  UX:               'var(--accent-indigo)',
-  'Design Systems': 'var(--accent-cyan)',
-  Mentorship:       'var(--accent-indigo)',
-  Internship:       'var(--accent-blue)',
+  AI:                  'var(--accent-violet)',
+  '0→1 Product':       'var(--accent-violet)',
+  Feature:             'var(--accent-blue)',
+  'Feature Design':    'var(--accent-blue)',
+  UX:                  'var(--accent-indigo)',
+  'UX Redesign':       'var(--accent-indigo)',
+  'Workflow Redesign': 'var(--accent-indigo)',
+  'B2B Platform':      'var(--accent-indigo)',
+  'Design Systems':    'var(--accent-cyan)',
+  Mentorship:          'var(--accent-indigo)',
+  Internship:          'var(--accent-blue)',
 };
 
-type Project = {
-  id: string;
-  title: string;
-  company: string;
-  category: string;
-  timeFrame: string;
-  metric: string;
-  heroImage: string;
-  opportunity: string;
-  outcomes: string[];
-  tags: string[];
-  backTo?: string;
-  viewWorksLink?: string; // external link shown as a highlighted CTA card
-};
-
-const PROJECTS: Project[] = [
-  {
-    id: 'almvc',
-    title: 'Adobe Learning Manager – Virtual Classroom',
-    company: 'Adobe',
-    category: 'Product Design',
-    timeFrame: '6 Months',
-    metric: '5+ major feature areas redesigned',
-    heroImage: '/Gen AI screen.png',
-    opportunity: 'Reimagining live learning for the next generation of virtual classrooms — combining the depth of Adobe Connect\'s training capabilities with the simplicity modern users expect.',
-    outcomes: [
-      'Simplified onboarding and joining workflows reduced first-session anxiety.',
-      'Improved classroom interaction clarity through context-aware controls.',
-      'AI-assisted engagement made participation more frequent and fluid.',
-      'Recording viewer transformed from passive archive to structured learning asset.',
-    ],
-    tags: ['Adobe Learning Manager', 'Enterprise UX', 'AI'],
-    backTo: '/work/all?company=Adobe',
-  },
-  {
-    id: 'connect-homepage',
-    title: 'Revamping Adobe Connect Homepage',
-    company: 'Adobe',
-    category: 'UX',
-    timeFrame: '16 Weeks',
-    metric: '35% increase in engagement',
-    heroImage: '/Projectcard-images/Connect central revamp.png',
-    opportunity: 'Adobe Connect Central is the creation and management hub for all webinars and trainings. The existing interface lacked hierarchy, discoverability, and modern usability standards.',
-    outcomes: [
-      '35% increase in user engagement post-launch.',
-      '28% faster navigation to key actions.',
-      'Customisable widget interface tailored to user workflows.',
-      'Sleeker, modernised look with improved content hierarchy.',
-    ],
-    tags: ['Adobe Connect', 'Enterprise UX', 'Design Systems'],
-    backTo: '/work/all?company=Adobe',
-  },
-  {
-    id: 'adobe-visual-design',
-    title: 'Visual Design Works at Adobe',
-    company: 'Adobe',
-    category: 'UX',
-    timeFrame: 'Ongoing',
-    metric: '100% of active users impacted',
-    heroImage: '/Projectcard-images/visual revamp.png',
-    opportunity: 'Core UI revamps across Adobe Connect to modernise the visual language, improve consistency with Adobe Spectrum, and elevate the overall design quality for enterprise users.',
-    outcomes: [
-      '25% reduction in UI support tickets after visual revamps.',
-      '100% of active Connect users impacted through shipped UI updates.',
-      'Stronger alignment with Adobe Spectrum design system.',
-      'Established a visual foundation for future AI-powered features.',
-    ],
-    tags: ['Adobe Connect', 'Enterprise UX', 'Design Systems', 'Adobe Spectrum'],
-    backTo: '/work/all?company=Adobe',
-    viewWorksLink: 'https://www.figma.com/proto/a4yZ9Jxsyqdu0jAdka0h8m/Visual-design-projects?page-id=0%3A1&node-id=28-12185&viewport=-1868%2C-3809%2C0.32&t=hnTglz0kPoWtwOtl-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=28%3A12185',
-  },
-  {
-    id: 'mobile-revamp',
-    title: 'Adobe Connect Mobile App Revamp',
-    company: 'Adobe',
-    category: 'UX',
-    timeFrame: '3 Weeks',
-    metric: 'Mobile usage: 11% → 23%',
-    heroImage: '/Projectcard-images/Mobile revamp.png',
-    opportunity: 'The Adobe Connect mobile experience was lagging behind modern user expectations, with outdated UX patterns and broken core journeys. Critical entry points such as onboarding, login, and calendar workflows created friction, limiting adoption despite strong in-room capabilities.',
-    outcomes: [
-      'Increased mobile usage from 11% to 23% post-launch — more than doubling adoption.',
-      'Improved first-time user experience and session join success rates.',
-      'Streamlined key user journeys: session discovery, joining, and calendar workflows.',
-      'Established a scalable foundation for future mobile enhancements.',
-    ],
-    tags: ['Adobe Connect', 'Mobile UX', 'Enterprise UX'],
-    backTo: '/work/all?company=Adobe',
-  },
-  {
-    id: 'bizongo-ums',
-    title: 'Managing Users Effectively',
-    company: 'Bizongo',
-    category: 'UX',
-    timeFrame: '2 Weeks',
-    metric: '50% faster user onboarding',
-    heroImage: '/Projectcard-images/Bizongo UMS.png',
-    opportunity: 'User Management System was handled entirely from the backend until 2020. Bringing all features to the front end and making it intuitive for admins without engineering dependency was the core challenge.',
-    outcomes: [
-      '50% faster user onboarding for new team members.',
-      '30% reduction in operational errors across user management tasks.',
-      'Zero engineering dependency for user admin operations.',
-      'Intuitive UI enabled non-technical admins to onboard without formal training.',
-    ],
-    tags: ['Enterprise UX', 'Bizongo DCMS', 'Design Systems'],
-    backTo: '/work/all?company=Bizongo',
-  },
-  {
-    id: 'bizongo-artwork-flow',
-    title: 'Seamless Approval Workflow Creation',
-    company: 'Bizongo',
-    category: 'UX',
-    timeFrame: '2 Weeks',
-    metric: '60% less workflow setup time',
-    heroImage: '/Projectcard-images/Seamless approval workflow.png',
-    opportunity: "Artwork Flow's workflow setup UI had evolved organically and needed to become more intuitive as the product scaled to hundreds of teams managing complex approval chains.",
-    outcomes: [
-      '60% reduction in workflow setup time.',
-      'Drag and drop adoption across 200+ teams.',
-      'Visibility of stage settings upfront reduced back-and-forth.',
-      'Better scalability as teams grew and approval chains became more complex.',
-    ],
-    tags: ['Enterprise UX', 'Bizongo DCMS', 'Design Systems'],
-    backTo: '/work/all?company=Bizongo',
-  },
-  {
-    id: 'bizongo-contracts',
-    title: 'Modular Contract / T&C Creation',
-    company: 'Bizongo',
-    category: 'UX',
-    timeFrame: '2 Weeks',
-    metric: '70% faster contract creation',
-    heroImage: '/Projectcard-images/Digital contract creation.png',
-    opportunity: 'Bizongo handles hundreds of clients with distinct terms. Creating customised contracts with minimal effort while keeping everything trackable and audit-ready was critical at scale.',
-    outcomes: [
-      '70% faster contract creation compared to the previous process.',
-      '100+ active client contracts managed in one place.',
-      'Sign-off feature enabled fully digital contract closure.',
-      'Modular clause builder allowed reuse across contract types.',
-    ],
-    tags: ['Enterprise UX', 'Bizongo DCMS', 'Design Systems'],
-    backTo: '/work/all?company=Bizongo',
-  },
-  {
-    id: 'yuj-heuristics',
-    title: 'Heuristics Evaluation Improvement',
-    company: 'YUJ Designs',
-    category: 'UX',
-    timeFrame: '2021',
-    metric: '40% better heuristic scores',
-    heroImage: '/Projectcard-images/Heuristics evaluation.png',
-    opportunity: 'Design evaluations at YUJ needed to be more systematic and repeatable. Ad-hoc heuristic reviews were inconsistent across client projects, reducing their credibility and impact.',
-    outcomes: [
-      '40% improvement in heuristic evaluation scores across reviewed products.',
-      '30% faster task completion for end users after implementing recommendations.',
-      'Structured evaluation framework reused across multiple client engagements.',
-      'Findings were directly translated into actionable redesign priorities.',
-    ],
-    tags: ['Enterprise UX', 'UX Research', 'Heuristic Evaluation'],
-    backTo: '/work/all',
-  },
-  {
-    id: 'bizongo-design-system',
-    title: 'Managing and Updating Design System',
-    company: 'Bizongo',
-    category: 'Design Systems',
-    timeFrame: '1+ yr',
-    metric: '50%+ reduction in feature dev time',
-    heroImage: '/Projectcard-images/Maintaining design systems.webp',
-    opportunity: "Bizongo's design system was derived from Ant Design but needed significant modification to fit B2B use cases, with proper documentation and component coverage across 5 product verticals.",
-    outcomes: [
-      '50%+ reduction in feature development time through reusable components.',
-      '60% faster designer onboarding with comprehensive documentation.',
-      'Unified visual language across 5 product verticals.',
-      'Forecasted and incorporated latest design trends into the system.',
-    ],
-    tags: ['Design Systems', 'Ant Design', 'Enterprise UX', 'Documentation'],
-    backTo: '/work/all?company=Bizongo',
-  },
-  {
-    id: 'nid-ui-ux-course',
-    title: 'UI/UX Course & Workshops',
-    company: 'NID Andhra Pradesh',
-    category: 'Mentorship',
-    timeFrame: 'Ongoing',
-    metric: '30+ students mentored',
-    heroImage: '/images/case-studies/nid-ui-ux-course.png',
-    opportunity: 'Guiding third-year design students at NID Andhra Pradesh in UI/UX methodologies through coursework, workshops, and hands-on project work to bridge the gap between theory and practice.',
-    outcomes: [
-      '30+ students mentored through structured coursework and workshops.',
-      '7+ end-to-end UX projects shipped by students under mentorship.',
-      '3 structured design workshops conducted on UX research and prototyping.',
-      'Students equipped with practical skills directly applicable to industry roles.',
-    ],
-    tags: ['Mentorship', 'UI/UX Education', 'NID', 'Leadership'],
-    backTo: '/work/all',
-  },
-  {
-    id: 'iit-branding',
-    title: 'Branding for Local Poultry Farmers',
-    company: 'IIT Guwahati',
-    category: 'Internship',
-    timeFrame: '2 months',
-    metric: 'Full brand identity delivered',
-    heroImage: '/Projectcard-images/POULTRY BRANDING.png',
-    opportunity: 'Creating a complete branding and marketing presence for local poultry farmers to help them expand into Tier-1 cities. The challenge was building brand trust and accessibility for a traditionally unbranded market.',
-    outcomes: [
-      'Full brand identity delivered: logo, colour system, typography.',
-      'E-commerce site and retail packaging designed end-to-end.',
-      'Marketing guidelines prepared for entry into 3 Tier-1 cities.',
-      'Positioned local produce as premium with a modern brand narrative.',
-    ],
-    tags: ['Brand Strategy', 'E-Commerce', 'Marketing', 'Packaging'],
-    backTo: '/work/all',
-  },
-  {
-    id: 'drdo-xctd',
-    title: 'XCTD Probe Interface Design',
-    company: 'NPOL DRDO',
-    category: 'Internship',
-    timeFrame: '2017',
-    metric: 'Inducted design into Navy',
-    heroImage: '/Projectcard-images/npol-ctd-probe.png',
-    opportunity: 'Designing a re-usable CTD (Conductivity, Temperature, Depth) probe structure for naval applications at the Naval Physical and Oceanographic Laboratory under DRDO. The challenge was designing under strict operational and safety constraints.',
-    outcomes: [
-      'Design inducted into the Indian Navy in April 2018.',
-      'Structural validation passed on first review.',
-      'Re-usable probe structure reduced per-deployment cost significantly.',
-      'Early exposure to designing under defence-grade constraints shaped a systems-first design approach.',
-    ],
-    tags: ['Product Design', 'CAD', 'Defence', 'Human Factors'],
-    backTo: '/work/all',
-  },
-];
+/** Strip sprint prefix from timeFrame, e.g. "4 Sprints; 8 Weeks" → "8 Weeks" */
+function displayTimeFrame(tf: string): string {
+  return tf.includes(';') ? tf.split(';')[1].trim() : tf;
+}
 
 export function MinimalCaseStudyPage() {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
 
-  // 'npol-ctd-probe' is an alias used in portfolioData — treat it as 'drdo-xctd'
-  const resolvedId = id === 'npol-ctd-probe' ? 'drdo-xctd' : id;
-  const project = PROJECTS.find(p => p.id === resolvedId);
+  // Route /work/drdo-xctd maps to portfolioData entry 'npol-ctd-probe'
+  const portfolioId = (id === 'drdo-xctd' || id === 'npol-ctd-probe') ? 'npol-ctd-probe' : id;
+  const project = CASE_STUDIES.find(cs => cs.id === portfolioId);
 
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'instant' }); }, [id]);
 
@@ -273,6 +48,8 @@ export function MinimalCaseStudyPage() {
   }
 
   const color = CATEGORY_COLORS[project.category] || 'var(--accent-indigo)';
+  const heroImage = project.heroImage ?? (project.thumbnail ? `/${project.thumbnail}` : '');
+  const backTo = project.backTo ?? '/work/all';
 
   return (
     <>
@@ -282,7 +59,7 @@ export function MinimalCaseStudyPage() {
         {/* ── Hero: two-column ── */}
         <section className={styles.heroSection}>
           <div className={styles.container}>
-            <GoBackButton className={styles.backBtn} fallback="/work/all" />
+            <GoBackButton className={styles.backBtn} fallback={backTo} />
 
             <div className={styles.heroLayout}>
               {/* Left: text */}
@@ -298,7 +75,7 @@ export function MinimalCaseStudyPage() {
                   </span>
                   <span className={styles.company}>{project.company}</span>
                   <span className={styles.dot}>·</span>
-                  <span className={styles.timeFrame}>{project.timeFrame}</span>
+                  <span className={styles.timeFrame}>{displayTimeFrame(project.timeFrame)}</span>
                 </div>
 
                 <h1 className={styles.heroTitle}>{project.title}</h1>
@@ -315,7 +92,7 @@ export function MinimalCaseStudyPage() {
                 transition={{ duration: 0.55, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               >
                 <ImgSkeleton
-                  src={project.heroImage}
+                  src={heroImage}
                   alt={project.title}
                   className={styles.heroImg}
                 />
@@ -392,7 +169,7 @@ export function MinimalCaseStudyPage() {
         {/* ── Bottom bar ── */}
         <section className={styles.bottomBar}>
           <div className={styles.container}>
-            <GoBackButton className={styles.backBtnBottom} fallback="/work/all" />
+            <GoBackButton className={styles.backBtnBottom} fallback={backTo} />
           </div>
         </section>
 

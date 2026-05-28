@@ -1,10 +1,8 @@
 import { useState } from 'react';
-import { Loader } from './Loader';
 
 /**
  * Drop-in replacement for <img> inside any position:relative overflow:hidden wrapper.
- * Renders a white skeleton with 3 floating glow orbs + spinning edge highlight + a
- * centred gradient spinner while loading. Fades the real image in once loaded.
+ * Shows a grey shimmer swipe while loading, fades the real image in once ready.
  */
 export function ImgSkeleton({
   onLoad,
@@ -20,19 +18,14 @@ export function ImgSkeleton({
   };
 
   const handleError: React.ReactEventHandler<HTMLImageElement> = (e) => {
-    setLoaded(true); // remove skeleton even on error
+    setLoaded(true);
     onError?.(e);
   };
 
   return (
     <>
       {!loaded && (
-        <div className="img-skeleton-overlay" aria-hidden>
-          <Loader
-            size={24}
-            className="img-skeleton-spinner"
-          />
-        </div>
+        <div className="img-skeleton-overlay" aria-hidden />
       )}
       <img
         {...props}

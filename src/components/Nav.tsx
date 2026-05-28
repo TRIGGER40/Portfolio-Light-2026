@@ -87,7 +87,7 @@ export function Nav({ hidden = false }: { hidden?: boolean }) {
               className={styles.logo}
               onClick={e => { e.preventDefault(); navigate('/'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
             >
-              <img src="/Logo.png" alt="MK" className={styles.logoImg} />
+              <img src="/Logo.webp" alt="MK" className={styles.logoImg} />
             </a>
 
             {/* Divider */}
@@ -95,9 +95,7 @@ export function Nav({ hidden = false }: { hidden?: boolean }) {
 
             {/* Search */}
             <div className={styles.searchWrap} onClick={() => inputRef.current?.focus()}>
-              <span className={styles.searchIcon}>
-                <i className="bi bi-search" style={{ fontSize: '14px' }} aria-hidden="true" />
-              </span>
+              <span className={styles.sparkle} aria-hidden="true">✦</span>
 
               <input
                 ref={inputRef}
@@ -106,13 +104,11 @@ export function Nav({ hidden = false }: { hidden?: boolean }) {
                 onChange={e => setQuery(e.target.value)}
                 onFocus={() => setFocused(true)}
                 onKeyDown={handleKey}
-                placeholder="Ask anything about Midhun…"
+                placeholder="Ask AI about Midhun's work…"
                 autoComplete="off"
                 spellCheck={false}
                 aria-label="Ask AI about Midhun"
               />
-
-              <span className={styles.sparkle}>✦</span>
             </div>
 
             {/* Easter Egg Tracker */}

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { saveScrollBeforeLeave } from '../hooks/useScrollRestoration';
@@ -19,34 +19,34 @@ const cardItemVariants = {
 
 const RECOGNITION = [
   {
-    title: 'AI-First Product Thinking',
-    desc: 'Designing experiences where AI is not a feature, but part of the core interaction model.',
-    icon: <i className="bi bi-cpu" style={{ fontSize: '20px' }} aria-hidden="true" />,
-  },
-  {
-    title: 'Complex Problem Simplification',
-    desc: 'Breaking down high-ambiguity problems into clear, intuitive user experiences.',
-    icon: <i className="bi bi-sun" style={{ fontSize: '20px' }} aria-hidden="true" />,
-  },
-  {
-    title: 'Systems & Scalable Design',
-    desc: 'Creating design solutions that scale across flows, features, and products, not just screens.',
-    icon: <i className="bi bi-grid" style={{ fontSize: '20px' }} aria-hidden="true" />,
-  },
-  {
-    title: 'End-to-End Product Ownership',
-    desc: 'Driving work from problem definition to shipped experience with strong product alignment.',
+    title: 'Owning ambiguous problems',
+    desc: 'I take unclear, high-stakes briefs from discovery to shipped product, defining scope, making tradeoffs visible, and holding design accountability across the full arc.',
     icon: <i className="bi bi-arrow-right-circle" style={{ fontSize: '20px' }} aria-hidden="true" />,
   },
   {
-    title: 'Frontend-Aware Design Execution',
-    desc: 'Designing with deep understanding of implementation, enabling faster and higher-quality builds.',
-    icon: <i className="bi bi-code-slash" style={{ fontSize: '20px' }} aria-hidden="true" />,
+    title: 'Systems over single screens',
+    desc: 'I design at the level of workflows, patterns, and principles. Solutions that hold up across the product, not just the screen being reviewed.',
+    icon: <i className="bi bi-grid" style={{ fontSize: '20px' }} aria-hidden="true" />,
   },
   {
-    title: 'Cross-Functional Collaboration',
-    desc: 'Working closely with product, engineering, and stakeholders to align and ship effectively.',
+    title: 'AI embedded where it matters',
+    desc: 'Hands-on Gen AI work at Adobe: intelligent content generation, smart defaults, and host automation tools. AI as a workflow accelerant, not a feature checkmark.',
+    icon: <i className="bi bi-cpu" style={{ fontSize: '20px' }} aria-hidden="true" />,
+  },
+  {
+    title: 'Cross-functional alignment',
+    desc: 'I work directly with PMs, engineering, and leadership to align on decisions, surface tradeoffs early, and ship with shared ownership.',
     icon: <i className="bi bi-people" style={{ fontSize: '20px' }} aria-hidden="true" />,
+  },
+  {
+    title: 'Enterprise complexity, simplified',
+    desc: 'Six years designing for enterprise-scale products: collaboration platforms, supply chain systems, and AI workflows. Comfortable with constraints, edge cases, and high-stakes user contexts.',
+    icon: <i className="bi bi-layers" style={{ fontSize: '20px' }} aria-hidden="true" />,
+  },
+  {
+    title: 'Measurable over decorative',
+    desc: 'I orient work around adoption, reduced friction, and efficiency gains. I track what shifted after shipping and use it to inform the next decision.',
+    icon: <i className="bi bi-graph-up" style={{ fontSize: '20px' }} aria-hidden="true" />,
   },
 ];
 
@@ -87,7 +87,7 @@ const EXPERIENCES = [
   {
     id: 'bizongo',
     company: 'Bizongo',
-    logo: '/Bizongo.png',
+    logo: '/Bizongo.webp',
     role: 'Product Designer',
     period: '2019 – 2021',
     type: 'Full-time',
@@ -120,7 +120,7 @@ const EXPERIENCES = [
   {
     id: 'drdo',
     company: 'NPOL DRDO',
-    logo: '/DRDO.jpeg',
+    logo: '/DRDO.webp',
     role: 'Design Intern',
     period: '2017',
     type: 'Internship',
@@ -137,8 +137,6 @@ const EXPERIENCES = [
 
 export function About() {
   const navigate = useNavigate();
-  const [activeId, setActiveId] = useState(EXPERIENCES[0].id);
-  const active = EXPERIENCES.find(e => e.id === activeId)!;
 
   // Awards carousel
   const awardsRowRef = useRef<HTMLDivElement>(null);
@@ -172,72 +170,6 @@ export function About() {
   return (
     <>
       <div ref={aboutRef} style={{ display: 'contents' }}>
-      {/* ── Experience ── */}
-      <section className={pStyles.expSection}>
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 40, filter: 'blur(4px)' }}
-            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <span className="section-label">Experience</span>
-            <h2 className={`text-display ${pStyles.expTitle}`}>Where I've worked</h2>
-          </motion.div>
-          <div className={pStyles.expLayout}>
-            <div className={pStyles.expCards}>
-              {EXPERIENCES.map(exp => (
-                <button
-                  key={exp.id}
-                  className={`${pStyles.expCard} ${activeId === exp.id ? pStyles.expCardActive : ''}`}
-                  onClick={() => setActiveId(exp.id)}
-                >
-                  <img src={exp.logo} alt={exp.company} className={pStyles.expLogo} />
-                  <div className={pStyles.expCardText}>
-                    <span className={pStyles.expCompany}>{exp.company}</span>
-                    <span className={pStyles.expRole}>{exp.role}</span>
-                    <span className={pStyles.expPeriod}>{exp.period}</span>
-                  </div>
-                  <span className={`${pStyles.expType} ${exp.type === 'Internship' ? pStyles.expTypeIntern : ''}`}>
-                    {exp.type}
-                  </span>
-                </button>
-              ))}
-            </div>
-
-            <div className={pStyles.expDetail} key={activeId}>
-              <div className={pStyles.expDetailHeader}>
-                <img src={active.logo} alt={active.company} className={pStyles.expDetailLogo} />
-                <div className={pStyles.expDetailMeta}>
-                  <p className={pStyles.expDetailCompany}>{active.company}</p>
-                  <h3 className={pStyles.expDetailRole}>{active.role}</h3>
-                  <p className={pStyles.expDetailPeriod}>{active.period}</p>
-                </div>
-              </div>
-              <ul className={pStyles.expHighlights}>
-                {active.highlights.map((h, i) => (
-                  <li key={i} className={pStyles.expHighlight}>
-                    <span className={pStyles.expBullet}>↳</span>
-                    <span>{h}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className={pStyles.expTags}>
-                {active.tags.map(t => (
-                  <span key={t} className={pStyles.expTag}>{t}</span>
-                ))}
-              </div>
-              {active.cta && (
-                <button className={pStyles.expCtaLarge} onClick={() => { saveScrollBeforeLeave(); navigate(active.cta!); }}>
-                  View works
-                  <i className="bi bi-arrow-right" style={{ fontSize: '15px' }} aria-hidden="true" />
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ── Recognition ── */}
       <section className={pStyles.recSection}>
         <div className="container">
@@ -247,10 +179,11 @@ export function About() {
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="section-label">Recognition</span>
+            <span className="section-label">Approach</span>
             <h2 className={`text-display ${pStyles.recTitle}`}>
-              Across my experience,<br />
-              <span className="gradient-text">I was recognised for</span>
+              What I bring
+              <br />
+              <span className="gradient-text">to every product problem</span>
             </h2>
           </motion.div>
           <motion.div
@@ -271,36 +204,50 @@ export function About() {
             ))}
           </motion.div>
 
+        </div>
+      </section>
+
+      {/* ── Recognitions ── */}
+      <section className={pStyles.awardsSection}>
+        <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 32, filter: 'blur(4px)' }}
+            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <span className="section-label">Recognition</span>
+            <h2 className={`text-display ${pStyles.recTitle}`}>
+              Awards &amp; honours
+            </h2>
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
-          <div className={pStyles.awardsCarouselWrap}>
-            <p className={pStyles.awardsSubLabel}>
-              Recognitions
-              <span className={pStyles.awardsCount}>{AWARDS.length}</span>
-            </p>
-            <div
-              ref={awardsRowRef}
-              className={pStyles.awardsRow}
-              onMouseEnter={stopAwardsScroll}
-              onMouseLeave={startAwardsScroll}
-            >
-              <div className={pStyles.awardsTrack}>
-                {[...AWARDS, ...AWARDS].map((a, i) => (
-                  <div key={i} className={pStyles.awardTile}>
-                    <span className={pStyles.awardStar}>★</span>
-                    <p className={pStyles.awardTileTitle}>{a.title}</p>
-                    <p className={pStyles.awardTileDate}>{a.issuer}</p>
-                    <p className={pStyles.awardTileDate}>{a.date}</p>
-                    <p className={pStyles.awardTileDesc}>{a.description}</p>
-                  </div>
-                ))}
+            <div className={pStyles.awardsCarouselWrap}>
+              <div
+                ref={awardsRowRef}
+                className={pStyles.awardsRow}
+                onMouseEnter={stopAwardsScroll}
+                onMouseLeave={startAwardsScroll}
+              >
+                <div className={pStyles.awardsTrack}>
+                  {[...AWARDS, ...AWARDS].map((a, i) => (
+                    <div key={i} className={pStyles.awardTile}>
+                      <span className={pStyles.awardStar}>★</span>
+                      <p className={pStyles.awardTileTitle}>{a.title}</p>
+                      <p className={pStyles.awardTileDate}>{a.issuer}</p>
+                      <p className={pStyles.awardTileDate}>{a.date}</p>
+                      <p className={pStyles.awardTileDesc}>{a.description}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
           </motion.div>
         </div>
       </section>

@@ -24,7 +24,8 @@ export type EventType =
   | 'cta_click'
   | 'session_start'
   | 'egg_discovered'
-  | 'egg_all_found';
+  | 'egg_all_found'
+  | 'hero_company_card';
 
 export interface AEvent {
   id:   string;

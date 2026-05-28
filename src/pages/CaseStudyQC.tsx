@@ -55,24 +55,24 @@ export function CaseStudyQC() {
 
           <div className={styles.heroLayout}>
             <div className={styles.heroImgCol}>
-              <img src="/Projectcard-images/QC improvement.png" alt="QC Experience" className={styles.heroImg} />
+              <img src="/Projectcard-images/QC improvement.webp" alt="QC Experience" className={styles.heroImg} />
             </div>
             <div className={styles.heroContentCol}>
               <div className={styles.heroEyebrow}>
                 <span className={styles.heroCategoryBadge}>Workflow Redesign</span>
                 <span className={styles.heroDot}>·</span>
-                <span className={styles.heroMeta}>Bizongo DCMS</span>
+                <span className={styles.heroMeta}>Bizongo</span>
                 <span className={styles.heroDot}>·</span>
-                <span className={styles.heroMeta}>8 Weeks</span>
+                <span className={styles.heroMeta}>4 Weeks</span>
               </div>
-              <h1 className={styles.heroTitle}>Quality check made easy!</h1>
+              <h1 className={styles.heroTitle}>80% faster warehouse quality checks</h1>
               <p className={styles.heroSubtitle}>Redesigning the inward quality check process inside Bizongo's DCMS to eliminate compounding inefficiencies at high-volume warehouse operations.</p>
               <div className={styles.heroMetaBar}>
                 {[
-                  { k: 'Role',     v: 'UX Designer 2' },
+                  { k: 'Role',     v: 'UX Designer' },
                   { k: 'Scope',    v: 'QC module within DCMS' },
                   { k: 'Platform', v: 'Bizongo DCMS' },
-                  { k: 'Impact',   v: '~70% efficiency gain' },
+                  { k: 'Impact',   v: '80% faster QC' },
                 ].map(({ k, v }) => (
                   <div key={k} className={styles.heroMetaItem}>
                     <span className={styles.asideKey}>{k}</span>
@@ -146,7 +146,7 @@ export function CaseStudyQC() {
 
           <div className={styles.problemImgWrap}>
             <ImgSlot
-              src="/QC Changes/QC Before screen.png"
+              src="/QC Changes/QC Before screen.webp"
               label="Before: flat QC checklist with no grouping, excessive taps per criterion"
               aspect="21/9"
             />
@@ -345,7 +345,7 @@ export function CaseStudyQC() {
               color: 'var(--accent-indigo)',
               desc: 'Reorganised all QC criteria into the four inspection-mode groups. Executives move through the interface in the same sequence as the physical inspection, eliminating mental overhead.',
               attrs: ['Grouped by inspection mode', 'Matches physical workflow', 'Clear progress within groups'],
-              img: '/QC Changes/Structured QC Flow.png',
+              img: '/QC Changes/Structured QC Flow.webp',
               imgLabel: 'QC criteria grouped by inspection mode, Far Observation through Metric',
             },
             {
@@ -353,7 +353,7 @@ export function CaseStudyQC() {
               color: 'var(--accent-violet)',
               desc: 'Simplified each criterion interaction from 12 clicks to a direct pass/fail toggle. Non-critical sub-steps were collapsed into progressive disclosure to reduce default complexity.',
               attrs: ['Pass/fail toggle', 'Progressive disclosure', 'Fewer required taps'],
-              img: '/QC Changes/Reduced Interaction Load.png',
+              img: '/QC Changes/Reduced Interaction Load.webp',
               imgLabel: 'Before vs after: 12-click criterion flow vs. single toggle interaction',
             },
             {
@@ -361,7 +361,7 @@ export function CaseStudyQC() {
               color: 'var(--accent-blue)',
               desc: 'Designed for on-the-move use. Large tap targets, a persistent progress bar, and a sticky summary panel mean executives never lose context even while handling goods.',
               attrs: ['Large tap targets', 'Sticky summary panel', 'Persistent progress indicator'],
-              img: '/QC Changes/Mobile and Tablet First.png',
+              img: '/QC Changes/Mobile and Tablet First.webp',
               imgLabel: 'QC screen on tablet with sticky summary and large touch targets',
             },
             {
@@ -369,7 +369,7 @@ export function CaseStudyQC() {
               color: 'var(--accent-cyan)',
               desc: 'Failed items are flagged inline with a mandatory note prompt. This captures discrepancy data at the point of discovery rather than during a separate review phase.',
               attrs: ['Inline flag and note', 'Captured at source', 'Direct audit trail'],
-              img: '/QC Changes/Inline Discrepancy Flagging.png',
+              img: '/QC Changes/Inline Discrepancy Flagging.webp',
               imgLabel: 'Failed criterion with inline flag prompt and mandatory reason field',
             },
           ].map((s, i) => (
@@ -434,21 +434,21 @@ export function CaseStudyQC() {
           <p className={styles.sectionSub}>Improvements were validated through live warehouse observation and measurable operational metrics, not usability testing alone.</p>
           <div className={qStyles.validationGrid}>
             <div className={qStyles.validationCard}>
-              <ImgSlot src="/QC Changes/On ground observation.jpeg" label="On-floor observation of QC executives completing checks in the redesigned flow" aspect="4/3" />
+              <ImgSlot src="/QC Changes/On ground observation.webp" label="On-floor observation of QC executives completing checks in the redesigned flow" aspect="4/3" />
               <div className={qStyles.validationCardBody}>
                 <span className={qStyles.validationMethod}>On-floor observation</span>
                 <p className={qStyles.validationText}>Watched QC executives complete full inward checks using the redesigned flow. Completion time dropped significantly and executives reported feeling less mentally loaded.</p>
               </div>
             </div>
             <div className={qStyles.validationCard}>
-              <ImgSlot src="/QC Changes/Operational metrics.jpeg" label="Operational metrics comparing QC cycle times before and after redesign" aspect="4/3" />
+              <ImgSlot src="/QC Changes/Operational metrics.webp" label="Operational metrics comparing QC cycle times before and after redesign" aspect="4/3" />
               <div className={qStyles.validationCardBody}>
                 <span className={qStyles.validationMethod}>Operational metrics</span>
                 <p className={qStyles.validationText}>QC cycle times measured against the baseline before the redesign. The 50%+ reduction held consistently across different product categories and volume conditions.</p>
               </div>
             </div>
             <div className={qStyles.validationCard}>
-              <ImgSlot src="/QC Changes/QC Sanity scores.jpeg" label="Sanity score trend showing QC accuracy improvement from 30% to 80%" aspect="4/3" />
+              <ImgSlot src="/QC Changes/QC Sanity scores.webp" label="Sanity score trend showing QC accuracy improvement from 30% to 80%" aspect="4/3" />
               <div className={qStyles.validationCardBody}>
                 <span className={qStyles.validationMethod}>QC sanity scores</span>
                 <p className={qStyles.validationText}>Accuracy tracking showed the sanity score rising from around 30% to 80% as structured grouping reduced missed or incorrectly recorded checks.</p>

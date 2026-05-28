@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, Suspense, lazy } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './PasswordGate.module.css';
+import { ImgSkeleton } from './ImgSkeleton';
 
 const HASH = '3a7bd3e2360a3d29eea436fcfb7e44c735d117c42d1c1835420b6b9942dd4f1b';
 const SESSION_KEY = 'mkp_g_';
@@ -96,8 +97,8 @@ export function PasswordGate({ id, loader }: Props) {
 
           {/* Hero image */}
           <div className={styles.imgWrap}>
-            <img
-              src="/ALMVC/ALMVC hero image.png"
+            <ImgSkeleton
+              src="/ALMVC/ALMVC hero image.webp"
               alt=""
               className={styles.heroImg}
               draggable={false}
@@ -115,7 +116,7 @@ export function PasswordGate({ id, loader }: Props) {
             </div>
 
             <p className={styles.eyebrow}>Case Study</p>
-            <h1 className={styles.title}>Virtual classrooms reimagined.</h1>
+            <h1 className={styles.title}>Building Adobe's native virtual classroom.</h1>
             <p className={styles.teaser}>
               This project is releasing soon. Currently under wraps.
             </p>

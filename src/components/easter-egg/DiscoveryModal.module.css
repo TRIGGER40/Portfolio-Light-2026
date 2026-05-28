@@ -21,7 +21,7 @@
   width: 520px;
   height: 520px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(82, 84, 216, 0.10) 0%, rgba(124, 58, 237, 0.04) 40%, transparent 70%);
+  background: radial-gradient(circle, rgba(35, 64, 52, 0.07) 0%, rgba(35, 64, 52, 0.03) 40%, transparent 70%);
   pointer-events: none;
   animation: glowPulse 4s ease-in-out infinite;
 }
@@ -43,21 +43,21 @@
   filter: blur(6px);
   background: conic-gradient(
     transparent       0deg  18deg,
-    rgba(82, 84, 216, 0.12) 18deg 27deg,
+    rgba(35, 64, 52, 0.08) 18deg 27deg,
     transparent      27deg  63deg,
-    rgba(82, 84, 216, 0.12) 63deg 72deg,
+    rgba(35, 64, 52, 0.08) 63deg 72deg,
     transparent      72deg 108deg,
-    rgba(82, 84, 216, 0.12) 108deg 117deg,
+    rgba(35, 64, 52, 0.08) 108deg 117deg,
     transparent     117deg 153deg,
-    rgba(82, 84, 216, 0.12) 153deg 162deg,
+    rgba(35, 64, 52, 0.08) 153deg 162deg,
     transparent     162deg 198deg,
-    rgba(82, 84, 216, 0.12) 198deg 207deg,
+    rgba(35, 64, 52, 0.08) 198deg 207deg,
     transparent     207deg 243deg,
-    rgba(82, 84, 216, 0.12) 243deg 252deg,
+    rgba(35, 64, 52, 0.08) 243deg 252deg,
     transparent     252deg 288deg,
-    rgba(82, 84, 216, 0.12) 288deg 297deg,
+    rgba(35, 64, 52, 0.08) 288deg 297deg,
     transparent     297deg 333deg,
-    rgba(82, 84, 216, 0.12) 333deg 342deg,
+    rgba(35, 64, 52, 0.08) 333deg 342deg,
     transparent     342deg 360deg
   );
   animation: spinRays 14s linear infinite;
@@ -118,7 +118,7 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(82, 84, 216, 0.90);
+  color: rgba(35, 64, 52, 0.58);
   margin: 0 0 28px;
 }
 
@@ -136,7 +136,7 @@
   width: 160px;
   height: 160px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(82, 84, 216, 0.22) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(35, 64, 52, 0.14) 0%, transparent 65%);
   pointer-events: none;
   animation: eggGlowPulse 2.8s ease-in-out infinite;
 }
@@ -204,9 +204,9 @@
   gap: 8px;
   padding: 12px 32px;
   border-radius: 100px;
-  background: rgba(82, 84, 216, 0.10);
-  border: 1px solid rgba(82, 84, 216, 0.30);
-  color: rgba(82, 84, 216, 0.90);
+  background: rgba(35, 64, 52, 0.07);
+  border: 1px solid rgba(35, 64, 52, 0.25);
+  color: rgba(35, 64, 52, 0.58);
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -216,9 +216,9 @@
 }
 
 .cta:hover:not(:disabled) {
-  background: rgba(82, 84, 216, 0.18);
-  border-color: rgba(82, 84, 216, 0.5);
-  box-shadow: 0 0 24px rgba(82, 84, 216, 0.15);
+  background: rgba(35, 64, 52, 0.12);
+  border-color: rgba(35, 64, 52, 0.30);
+  box-shadow: 0 0 24px rgba(0,0,0,0.06);
 }
 
 .cta:disabled {
@@ -286,4 +286,41 @@
   .lightRays,
   .eggGlow,
   .eggFloat { animation: none; }
+}
+
+/* ── Dark mode ── */
+[data-theme="dark"] .backdrop {
+  background: rgba(22, 20, 16, 0.95);
+}
+
+[data-theme="dark"] .overline {
+  color: rgba(107, 191, 154, 0.70);
+}
+
+[data-theme="dark"] .title {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .lore {
+  color: rgba(240, 235, 227, 0.58);
+}
+
+[data-theme="dark"] .progressLabel {
+  color: rgba(240, 235, 227, 0.52);
+}
+
+[data-theme="dark"] .cta {
+  background: rgba(107, 191, 154, 0.10);
+  border-color: rgba(107, 191, 154, 0.28);
+  color: rgba(107, 191, 154, 0.82);
+}
+
+[data-theme="dark"] .cta:hover:not(:disabled) {
+  background: rgba(107, 191, 154, 0.17);
+  border-color: rgba(107, 191, 154, 0.45);
+  box-shadow: 0 0 24px rgba(107, 191, 154, 0.10);
+}
+
+[data-theme="dark"] .hint {
+  color: rgba(240, 235, 227, 0.40);
 }

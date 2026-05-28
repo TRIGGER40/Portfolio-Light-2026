@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import styles from './HeroTiles.module.css';
+import { ImgSkeleton } from './ImgSkeleton';
 
 /**
  * 3 floating image tiles in a perspective stack.
@@ -57,7 +58,7 @@ export function HeroTiles() {
             style={{ '--gradient': tile.gradient } as React.CSSProperties}
           >
             {tile.src ? (
-              <img src={tile.src} alt={tile.label} className={styles.img} />
+              <ImgSkeleton src={tile.src} alt={tile.label} className={styles.img} />
             ) : (
               <div className={styles.placeholder} />
             )}

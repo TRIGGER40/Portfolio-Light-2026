@@ -55,17 +55,17 @@ export function CaseStudyPPE() {
 
           <div className={styles.heroLayout}>
             <div className={styles.heroImgCol}>
-              <img src="/Projectcard-images/PPE.png" alt="ShieldWise PPE Platform" className={styles.heroImg} />
+              <img src="/Projectcard-images/PPE.webp" alt="ShieldWise PPE Platform" className={styles.heroImg} />
             </div>
             <div className={styles.heroContentCol}>
               <div className={styles.heroEyebrow}>
                 <span className={styles.heroCategoryBadge}>B2B Platform</span>
                 <span className={styles.heroDot}>·</span>
-                <span className={styles.heroMeta}>ShieldWise by Bizongo</span>
+                <span className={styles.heroMeta}>Bizongo</span>
                 <span className={styles.heroDot}>·</span>
                 <span className={styles.heroMeta}>4 Weeks</span>
               </div>
-              <h1 className={styles.heroTitle}>Making PPE kits more accessible</h1>
+              <h1 className={styles.heroTitle}>$2M in PPE sales. Shipped in 4 weeks.</h1>
               <p className={styles.heroSubtitle}>When COVID-19 created an unprecedented surge in PPE demand, Bizongo mobilised its supplier network to respond. We built the platform that made that response possible, handling bulk orders pan-India and globally at scale.</p>
               <div className={styles.heroMetaBar}>
                 {[
@@ -146,7 +146,7 @@ export function CaseStudyPPE() {
 
           <div className={styles.problemImgWrap}>
             <ImgSlot
-              src="/PPE/PROBLEM SECTION PICTURE.png"
+              src="/PPE/PROBLEM SECTION PICTURE.webp"
               label="Before: no unified platform, orders routed manually through sales teams with no self-serve option"
               aspect="21/9"
             />
@@ -274,7 +274,7 @@ export function CaseStudyPPE() {
                 color: 'var(--accent-indigo)',
                 steps: ['Land on homepage', 'View featured PPE categories', 'Filter by product type or quantity', 'View product detail with spec sheet'],
                 outcome: 'User identifies the right product with full context before committing.',
-                img: '/PPE/BROWSE AND DISCOVER.png',
+                img: '/PPE/BROWSE AND DISCOVER.webp',
                 imgLabel: 'Browse flow: homepage to product detail with filtering and spec view',
               },
               {
@@ -283,7 +283,7 @@ export function CaseStudyPPE() {
                 color: 'var(--accent-violet)',
                 steps: ['Set quantity and pack size', 'Add delivery locations', 'Configure split delivery timelines', 'Review order summary'],
                 outcome: 'User builds a complete bulk order without calling a sales rep.',
-                img: '/PPE/ORDER AND CHANGE.png',
+                img: '/PPE/ORDER AND CHANGE.webp',
                 imgLabel: 'Order configuration flow: quantity, delivery split, and order summary',
               },
               {
@@ -292,7 +292,7 @@ export function CaseStudyPPE() {
                 color: 'var(--accent-blue)',
                 steps: ['Select payment model', 'Enter advance payment details', 'Confirm order with partner allocation', 'Receive confirmation and tracking'],
                 outcome: 'User completes a complex B2B transaction in minutes, not days.',
-                img: '/PPE/CHECKOUT AND PAY.png',
+                img: '/PPE/CHECKOUT AND PAY.webp',
                 imgLabel: 'Checkout flow: payment model selection, confirmation, and order tracking',
               },
             ].map(f => (
@@ -334,7 +334,7 @@ export function CaseStudyPPE() {
               color: 'var(--accent-indigo)',
                 desc: 'Bizongo\'s PPE range surfaced as a clean card catalogue, filterable by product type, quantity tier, and availability. Buyers could evaluate options and access spec sheets without leaving the listing.',
               attrs: ['B2C-style card grid', 'Inline spec sheets', 'Quantity-tier pricing'],
-              img: '/PPE/Product Catalouge.png',
+              img: '/PPE/Product Catalouge.webp',
               imgLabel: 'PPE product catalogue with category filters, card grid, and inline spec access',
             },
             {
@@ -342,7 +342,7 @@ export function CaseStudyPPE() {
               color: 'var(--accent-violet)',
               desc: 'Stepped order configuration for setting quantities, adding multiple delivery addresses, and splitting fulfillment by availability. Designed to replace back-and-forth emails.',
               attrs: ['Multi-location delivery', 'Split fulfillment config', 'Live order summary'],
-              img: '/PPE/Bulk order creation.png',
+              img: '/PPE/Bulk order creation.webp',
               imgLabel: 'Bulk order builder: quantity selector, delivery address list, fulfilment split view',
             },
             {
@@ -350,7 +350,7 @@ export function CaseStudyPPE() {
               color: 'var(--accent-blue)',
                 desc: 'Payment model selection surfaced clearly at checkout. Bizongo\'s fulfilment partner allocation was shown transparently, so buyers always knew which supplier was fulfilling which part of their order.',
               attrs: ['Flexible payment models', 'Partner allocation view', 'Order confirmation flow'],
-              img: '/PPE/Checkout and payments.png',
+              img: '/PPE/Checkout and payments.webp',
               imgLabel: 'Checkout screen: payment model toggle, partner allocation summary, confirmation',
             },
             {
@@ -358,7 +358,7 @@ export function CaseStudyPPE() {
               color: 'var(--accent-cyan)',
               desc: 'A dedicated section for COVID-related procurement guidance, product comparisons, and regulatory information. Helped buyers make informed decisions quickly.',
               attrs: ['Knowledge section', 'Product comparison', 'Regulatory guidance'],
-              img: '/PPE/COVIDE RESOURSE HUB.png',
+              img: '/PPE/COVIDE RESOURSE HUB.webp',
               imgLabel: 'COVID resources hub: product guidance, comparison table, and regulatory FAQ',
             },
           ].map((s, i) => (

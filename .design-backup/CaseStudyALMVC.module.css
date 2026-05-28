@@ -1,0 +1,478 @@
+/* ════════════════════════════════════════════
+   ALMVC — page-specific overrides
+   Shared layout uses CaseStudyQuiz.module.css
+   ════════════════════════════════════════════ */
+
+/* ── Context ─────────────────────────────── */
+.contextSection {
+  padding: clamp(48px, 6vw, 80px) 0;
+  border-bottom: 1px solid var(--glass-border);
+  background: var(--bg-surface);
+}
+.contextInner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 64px; align-items: center;
+}
+.contextText { display: flex; flex-direction: column; align-items: flex-start; }
+.contextBody {
+  font-size: clamp(14px, 1.3vw, 16px); color: var(--text-secondary);
+  line-height: 1.7; margin: 0;
+}
+.contextStats {
+  display: flex; flex-direction: column; gap: 1px;
+  border: 1px solid var(--glass-border); border-radius: 20px; overflow: hidden;
+}
+.contextStat {
+  padding: 24px 28px; background: var(--bg-base);
+  display: flex; flex-direction: column; gap: 4px;
+  border-bottom: 1px solid var(--glass-border);
+}
+.contextStat:last-child { border-bottom: none; }
+.contextStatVal {
+  font-size: clamp(32px, 4vw, 52px); font-weight: 900;
+  letter-spacing: -0.04em; line-height: 1;
+  background: linear-gradient(135deg, var(--accent-indigo), var(--accent-violet));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.contextStatLbl {
+  font-size: 13px; color: var(--text-secondary); font-weight: 500;
+}
+
+/* ── Approach ────────────────────────────── */
+.approachSection {
+  padding: clamp(48px, 6vw, 80px) 0;
+  border-bottom: 1px solid var(--glass-border);
+}
+.approachGrid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1px; background: var(--glass-border);
+  border: 1px solid var(--glass-border); border-radius: 20px;
+  overflow: hidden;
+}
+.approachGrid5 {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 1px; background: var(--glass-border);
+  border: 1px solid var(--glass-border); border-radius: 20px;
+  overflow: hidden;
+}
+.approachCard {
+  background: var(--bg-surface); padding: 28px 24px;
+  display: flex; flex-direction: column; gap: 10px;
+  transition: background 0.2s;
+}
+.approachCard:hover { background: var(--bg-elevated); }
+.approachNum {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent-indigo);
+  font-family: var(--font-mono);
+}
+.approachTitle {
+  font-size: 16px; font-weight: 700; color: var(--text-primary); margin: 0; line-height: 1.3;
+}
+.approachDesc {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 0;
+}
+
+/* ── Ease of use ─────────────────────────── */
+.easeSection {
+  padding: clamp(48px, 6vw, 80px) 0;
+  border-bottom: 1px solid var(--glass-border);
+}
+.beforeAfterGrid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.beforeAfterCard {
+  display: flex; flex-direction: column; gap: 12px;
+}
+.beforeAfterLabel {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; border-radius: 999px;
+  padding: 4px 12px; align-self: flex-start;
+}
+.beforeAfterLabel[data-type="before"] {
+  background: rgba(239,68,68,0.08);
+  color: rgba(239,68,68,0.8);
+  border: 1px solid rgba(239,68,68,0.2);
+}
+.beforeAfterLabel[data-type="after"] {
+  background: rgba(34,197,94,0.08);
+  color: rgba(22,163,74,0.9);
+  border: 1px solid rgba(34,197,94,0.25);
+}
+
+/* ── Validation ──────────────────────────── */
+.validationSection {
+  padding: clamp(48px, 6vw, 80px) 0;
+  border-top: 1px solid var(--glass-border);
+}
+.validationGrid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.validationCard {
+  display: flex; flex-direction: column;
+  border: 1px solid var(--glass-border); border-radius: 20px;
+  overflow: hidden; background: var(--bg-surface);
+  transition: transform 0.2s, border-color 0.2s;
+}
+.validationCard:hover { transform: translateY(-3px); border-color: rgba(82,84,216,0.25); }
+.validationCardBody { padding: 20px 20px 24px; display: flex; flex-direction: column; gap: 8px; }
+.validationMethod {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--accent-indigo);
+}
+.validationText {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 0;
+}
+
+/* ── Design Craft ────────────────────────── */
+.craftSection {
+  padding: clamp(48px, 6vw, 80px) 0;
+  background: var(--bg-base);
+  border-top: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--glass-border);
+}
+.craftGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+.craftCard {
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--bg-surface);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.craftCard:hover {
+  transform: translateY(-3px);
+  border-color: rgba(82, 84, 216, 0.25);
+}
+.craftCardImg { flex-shrink: 0; }
+.craftCardBody {
+  padding: 20px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.craftLabel {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-indigo);
+}
+.craftTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.3;
+}
+.craftDesc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ── Audio Cues (within Design Craft) ───── */
+.audioCuesWrap {
+  margin-top: 56px;
+}
+.audioCuesDivider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+}
+.audioCuesDivider::before,
+.audioCuesDivider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--glass-border);
+}
+.audioCuesTitle {
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 12px;
+  line-height: 1.3;
+}
+
+/* ── Audio Cues ──────────────────────────── */
+.audioSection {
+  padding: clamp(48px, 6vw, 80px) 0;
+  background: var(--bg-base);
+  border-top: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--glass-border);
+}
+.audioHeader {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 56px; align-items: start;
+  margin-bottom: 40px;
+}
+.audioHeaderText { display: flex; flex-direction: column; }
+.audioIntro {
+  font-size: clamp(14px, 1.3vw, 16px); color: var(--text-secondary);
+  line-height: 1.7; margin: 0;
+}
+.audioPills {
+  display: flex; flex-direction: column;
+  gap: 1px; border: 1px solid var(--glass-border);
+  border-radius: 20px; overflow: hidden;
+}
+.audioPill {
+  display: flex; align-items: center; gap: 14px;
+  padding: 18px 22px; background: var(--bg-surface);
+  border-bottom: 1px solid var(--glass-border);
+  transition: background 0.2s;
+}
+.audioPill:last-child { border-bottom: none; }
+.audioPill:hover { background: var(--bg-elevated); }
+.audioPillIcon { font-size: 20px; flex-shrink: 0; }
+.audioPillLabel {
+  font-size: 14px; font-weight: 700; color: var(--text-primary); margin: 0 0 2px;
+}
+.audioPillSub {
+  font-size: 12px; color: var(--text-secondary); margin: 0;
+}
+
+/* Video player */
+.videoWrap {
+  position: relative; border-radius: 20px; overflow: hidden;
+  border: 1px solid var(--glass-border);
+  background: #000;
+}
+.videoPlayer {
+  width: 100%; display: block;
+  max-height: 540px; object-fit: contain;
+  background: #000;
+}
+.videoPlaceholder {
+  display: none;
+  aspect-ratio: 16/9; width: 100%;
+  background: rgba(82, 84, 216, 0.03);
+  align-items: center; justify-content: center;
+}
+.videoPlaceholderInner {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 12px; text-align: center;
+}
+.videoPlaceholderIcon { color: rgba(82, 84, 216, 0.4); }
+.videoPlaceholderTitle {
+  font-size: 16px; font-weight: 700; color: var(--text-primary); margin: 0;
+}
+.videoPlaceholderSub {
+  font-size: 13px; color: var(--text-muted); margin: 0;
+}
+.videoPlaceholderSub code {
+  font-family: var(--font-mono); font-size: 12px;
+  background: rgba(82, 84, 216, 0.08); padding: 2px 6px;
+  border-radius: 4px; color: var(--accent-indigo);
+}
+
+/* ── Mobile ──────────────────────────────── */
+.mobileSection {
+  padding: clamp(48px, 6vw, 80px) 0;
+  border-bottom: 1px solid var(--glass-border);
+}
+.mobileInner {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 64px;
+  align-items: center;
+}
+.mobileText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.mobileBody {
+  font-size: clamp(14px, 1.3vw, 16px);
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin: 0 0 28px;
+}
+.mobilePoints {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.mobilePoint {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.mobilePointIcon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(82, 84, 216, 0.08);
+  color: var(--accent-indigo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+.mobilePointText {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.mobileImg {
+  border-radius: 20px;
+  overflow: hidden;
+}
+.mobileImgEl {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 20px;
+}
+
+/* ── Constraints ─────────────────────────── */
+.constraintsSection {
+  padding: clamp(48px, 6vw, 80px) 0;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.constraintsList {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+}
+
+.constraintBlock {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 48px;
+  padding: 36px 0;
+  border-top: 1px solid var(--glass-border);
+  align-items: start;
+}
+
+.constraintLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: sticky;
+  top: 96px;
+}
+
+.constraintNum {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-indigo);
+  font-family: var(--font-mono);
+}
+
+.constraintTitle {
+  font-size: clamp(16px, 1.6vw, 20px);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.constraintRight {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.constraintBody {
+  font-size: clamp(14px, 1.3vw, 15px);
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin: 0;
+}
+
+.constraintList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.constraintListItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.constraintListItem::before {
+  content: '';
+  flex-shrink: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent-indigo);
+  margin-top: 8px;
+  opacity: 0.6;
+}
+
+.constraintTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-top: 4px;
+}
+
+.constraintTag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  background: rgba(82, 84, 216, 0.06);
+  border: 1px solid rgba(82, 84, 216, 0.14);
+  border-radius: 999px;
+  padding: 4px 10px;
+}
+
+/* ── Responsive ──────────────────────────── */
+@media (max-width: 1024px) {
+  .contextInner { grid-template-columns: 1fr; gap: 36px; }
+  .approachGrid  { grid-template-columns: repeat(2, 1fr); }
+  .approachGrid5 { grid-template-columns: repeat(3, 1fr); }
+  .validationGrid { grid-template-columns: 1fr; }
+  .beforeAfterGrid { grid-template-columns: 1fr; }
+  .audioHeader { grid-template-columns: 1fr; gap: 32px; }
+  .craftGrid { grid-template-columns: 1fr; }
+  .mobileInner { grid-template-columns: 1fr; gap: 36px; }
+  .mobileImg { max-width: 480px; }
+  .constraintBlock { grid-template-columns: 180px 1fr; gap: 32px; }
+}
+@media (max-width: 768px) {
+  .approachGrid { grid-template-columns: 1fr; }
+  .approachGrid5 { grid-template-columns: repeat(2, 1fr); }
+  .constraintBlock { grid-template-columns: 1fr; gap: 20px; }
+  .constraintLeft { position: static; }
+}
+@media (max-width: 480px) {
+  .approachGrid5 { grid-template-columns: 1fr; }
+}

@@ -1,20 +1,47 @@
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PhoneStack } from './PhoneStack';
 import styles from './Hero.module.css';
+import { PhoneStack } from './PhoneStack';
 import { track } from '../lib/analytics';
 
 const METRICS = [
-  { value: '6+', label: 'Years of exp.' },
-  { value: '10M', label: 'Users impacted' },
-  { value: '20+', label: 'Products crafted' },
+  { value: '6+',   label: 'years shipping enterprise products' },
+  { value: '10M+', label: 'users across shipped products' },
+  { value: '20+',  label: 'features owned, start to finish' },
 ];
+
+const COMPANIES = [
+  {
+    id: 'adobe',
+    logo: '/Adobe.webp',
+    company: 'Adobe',
+    role: 'Product Designer',
+    period: '2022 – Present',
+    link: '/work/all?company=Adobe',
+  },
+  {
+    id: 'yuj',
+    logo: '/YUJ.svg',
+    company: 'YUJ Designs',
+    role: 'UX Designer',
+    period: '2021 – 2022',
+    link: '/work/all',
+  },
+  {
+    id: 'bizongo',
+    logo: '/Bizongo.webp',
+    company: 'Bizongo',
+    role: 'Product Designer',
+    period: '2019 – 2021',
+    link: '/work/all?company=Bizongo',
+  },
+];
+
 
 export function Hero() {
   const navigate = useNavigate();
   const heroRef = useRef<HTMLElement>(null);
 
-  // Fire hero_view once when it enters the viewport
   useEffect(() => {
     const el = heroRef.current;
     if (!el) return;
@@ -30,54 +57,46 @@ export function Hero() {
       <div className={styles.bg}>
         <div className={`${styles.orb} ${styles.orb1}`} />
         <div className={`${styles.orb} ${styles.orb2}`} />
-        <div className={styles.grid} />
       </div>
 
       <div className={`container ${styles.content}`}>
-        {/* Left column — staggered CSS fade-up */}
-        <div className={styles.left}>
+
+        {/* Left column */}
+        <div className={styles.leftCol}>
+
+          {/* Name + title */}
           <div className={styles.fadeUp} style={{ '--delay': '0.1s' } as React.CSSProperties}>
-            <div className={styles.rolePill}>
-              <span className={styles.roleDot} />
-              Available for senior roles
+            <div className={styles.heroName}>
+              <h1 className={styles.name}>Midhun<br />Krishnakumar</h1>
             </div>
           </div>
 
+          {/* Description */}
           <div className={styles.fadeUp} style={{ '--delay': '0.22s' } as React.CSSProperties}>
-            <h1 className={`text-hero ${styles.heading}`}>
-              Midhun
-              <br />
-              <span className="gradient-text">Krishnakumar</span>
-            </h1>
+            <p className={styles.valueProp}>
+              Lead Product Designer, Adobe Connect. 6+ years of shipping complex
+              systems, AI-powered collaboration tools, and 0-1 products with
+              impactful experiences globally.
+            </p>
           </div>
 
+          {/* CTAs */}
           <div className={styles.fadeUp} style={{ '--delay': '0.34s' } as React.CSSProperties}>
-            <div className={styles.positionBlock}>
-              <p className={styles.position}>Product designer</p>
-              <p className={styles.valueProp}>
-                Building intelligent products at Adobe, where design craft meets AI to create
-                measurable, enterprise-grade user experiences.
-              </p>
-            </div>
-          </div>
-
-          <div className={styles.fadeUp} style={{ '--delay': '0.46s' } as React.CSSProperties}>
             <div className={styles.ctas}>
-              <a href="#work" className="btn btn-secondary"
-                onClick={() => track('hero_cta', { cta: 'View work' })}>
-                View work
-                <i className="bi bi-arrow-right" style={{ fontSize: '14px' }} aria-hidden="true" />
+              <a href="#work" className="btn btn-primary"
+                onClick={() => track('hero_cta', { cta: 'View selected work' })}>
+                View selected work
+                <i className={`bi bi-chevron-down ${styles.bounceChevron}`} style={{ fontSize: '14px' }} aria-hidden="true" />
               </a>
-              <div className={styles.askBtnWrap}>
-                <button className={`btn btn-primary ${styles.askBtn}`} onClick={() => { track('hero_cta', { cta: 'Ask AI about me' }); navigate('/ask'); }}>
-                  <span className={styles.sparkle}>✦</span>
-                  Ask AI about me
-                </button>
-              </div>
+              <button className="btn btn-secondary" onClick={() => { track('hero_cta', { cta: 'Ask AI about me' }); navigate('/ask'); }}>
+                <span className={styles.btnSparkle} style={{ fontSize: '11px' }}>✦</span>
+                Ask AI about Midhun
+              </button>
             </div>
           </div>
 
-          <div className={styles.fadeUp} style={{ '--delay': '0.58s' } as React.CSSProperties}>
+          {/* Metrics */}
+          <div className={styles.fadeUp} style={{ '--delay': '0.46s' } as React.CSSProperties}>
             <div className={styles.metrics}>
               {METRICS.map((m) => (
                 <div key={m.label} className={styles.metric}>
@@ -87,20 +106,38 @@ export function Hero() {
               ))}
             </div>
           </div>
+
+          {/* Company cards */}
+          <div className={styles.fadeUp} style={{ '--delay': '0.58s' } as React.CSSProperties}>
+            <div className={styles.companyCards}>
+              {COMPANIES.map((c) => (
+                <button
+                  key={c.id}
+                  className={styles.companyCard}
+                  onClick={() => { track('hero_company_card', { company: c.id }); navigate(c.link); }}
+                >
+                  <img src={c.logo} alt={c.company} className={styles.companyLogo} />
+                  <div className={styles.companyMeta}>
+                    <span className={styles.companyName}>{c.company}</span>
+                    <span className={styles.companyRole}>{c.role}</span>
+                    <span className={styles.companyPeriod}>{c.period}</span>
+                  </div>
+                  <i className={`bi bi-arrow-right ${styles.companyArrow}`} aria-hidden="true" />
+                </button>
+              ))}
+            </div>
+          </div>
+
         </div>
 
-        {/* Right column — phones */}
+        {/* Right column — phone stack */}
         <div
-          className={`${styles.right} ${styles.fadeRight}`}
-          style={{ '--delay': '0.4s' } as React.CSSProperties}
+          className={`${styles.rightCol} ${styles.fadeUp}`}
+          style={{ '--delay': '0.3s' } as React.CSSProperties}
         >
           <PhoneStack />
         </div>
-      </div>
 
-      {/* Scroll indicator */}
-      <div className={styles.scrollHint}>
-        <div className={styles.scrollDot} />
       </div>
     </section>
   );

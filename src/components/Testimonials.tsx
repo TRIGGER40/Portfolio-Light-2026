@@ -7,7 +7,7 @@ const TESTIMONIALS = [
     role: 'Product & Design Head',
     company: 'Bizongo',
     quote: 'Midhun has an innate capability of going beyond product specifications and thinking like an end user. His speed, eye for user pain points, detail orientedness, lateral thinking and creativity has impressed me the most. He has the correct motivation to see through unobvious user pain points, and that makes him a champion and advocate for any user he is designing solutions for.',
-    photo: '/images/testimonials/abbas.png',
+    photo: '/images/testimonials/abbas.webp',
     linkedin: 'https://www.linkedin.com/in/midhunkrishnakumar/',
   },
   {
@@ -15,7 +15,7 @@ const TESTIMONIALS = [
     role: 'Associate Director, Experience Design',
     company: 'Bizongo',
     quote: 'He quickly became a star performer of the team, with appreciation flowing in from all quarters including the design team, his dev and product colleagues, and senior leadership. He showed exemplary drive, proactivity, critical thinking and an insatiable thirst to learn and grow. He will certainly be an invaluable asset to any team.',
-    photo: '/images/testimonials/varun.png',
+    photo: '/images/testimonials/varun.webp',
     linkedin: 'https://www.linkedin.com/in/midhunkrishnakumar/',
   },
   {
@@ -23,7 +23,7 @@ const TESTIMONIALS = [
     role: 'Leading Impactful Experiences',
     company: 'ZS',
     quote: 'I have worked with Midhun directly for a good amount of time and I must say he is a great thinker and critical problem solver. He is always on his toes to provide best/alternate solution for each problem. I admire his approach towards problems and deep analytical skills. I wish him very best for the future!',
-    photo: '/images/testimonials/roshni.png',
+    photo: '/images/testimonials/roshni.webp',
     linkedin: 'https://www.linkedin.com/in/midhunkrishnakumar/',
   },
 ];

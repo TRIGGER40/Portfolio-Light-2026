@@ -75,9 +75,9 @@
   font-weight: 500;
   padding: 3px 10px;
   border-radius: 999px;
-  background: rgba(82, 84, 216, 0.2);
+  background: rgba(35, 64, 52, 0.12);
   color: #a5b4fc;
-  border: 1px solid rgba(82, 84, 216, 0.3);
+  border: 1px solid rgba(35, 64, 52, 0.2);
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -137,7 +137,7 @@
   z-index: 2;
 }
 .mediaWrap:hover .navArrow { opacity: 1; }
-.navArrow:hover { background: rgba(82, 84, 216, 0.6); }
+.navArrow:hover { background: rgba(35, 64, 52, 0.38); }
 .navPrev { left: 12px; }
 .navNext { right: 12px; }
 
@@ -167,8 +167,8 @@
   gap: 7px;
   padding: 8px 16px;
   border-radius: 100px;
-  background: rgba(82, 84, 216, 0.18);
-  border: 1px solid rgba(82, 84, 216, 0.35);
+  background: rgba(35, 64, 52, 0.1);
+  border: 1px solid rgba(35, 64, 52, 0.22);
   color: #a5b4fc;
   font-size: 12px;
   font-weight: 600;
@@ -178,8 +178,8 @@
 }
 
 .ctaBtn:hover {
-  background: rgba(82, 84, 216, 0.32);
-  border-color: rgba(82, 84, 216, 0.6);
+  background: rgba(35, 64, 52, 0.2);
+  border-color: rgba(35, 64, 52, 0.38);
   color: #c7d2fe;
 }
 
@@ -208,8 +208,8 @@
 .tab:hover { background: rgba(255, 255, 255, 0.04); }
 
 .tabActive {
-  background: rgba(82, 84, 216, 0.12);
-  border-bottom: 2px solid #5254d8;
+  background: rgba(35, 64, 52, 0.08);
+  border-bottom: 2px solid #234034;
 }
 
 .tabThumb {

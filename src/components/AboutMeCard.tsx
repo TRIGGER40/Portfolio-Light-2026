@@ -3,9 +3,9 @@ import { motion } from 'framer-motion';
 import styles from './AboutMeCard.module.css';
 
 const POLAROIDS = [
-  { src: '/About me/about-photo.png', alt: 'Midhun',                  isMain: false, rotate: -8, x: -72, spreadX: -92, spreadY: -62, spreadR: -18 },
-  { src: '/About me midhun.png',      alt: 'Midhun Krishnakumar',     isMain: true,  rotate:  1, x:   0, spreadX:   0, spreadY: -88, spreadR:   0 },
-  { src: '/About me/Formula 1.png',   alt: 'Midhun at Formula 1',     isMain: false, rotate:  7, x:  72, spreadX:  92, spreadY: -62, spreadR:  16 },
+  { src: '/About me/about-photo.webp', alt: 'Midhun',                  isMain: false, rotate: -8, x: -72, spreadX: -92, spreadY: -62, spreadR: -18 },
+  { src: '/About me midhun.webp',      alt: 'Midhun Krishnakumar',     isMain: true,  rotate:  1, x:   0, spreadX:   0, spreadY: -88, spreadR:   0 },
+  { src: '/About me/Formula 1.webp',   alt: 'Midhun at Formula 1',     isMain: false, rotate:  7, x:  72, spreadX:  92, spreadY: -62, spreadR:  16 },
 ];
 
 export function AboutMeCard() {

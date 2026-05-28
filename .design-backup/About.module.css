@@ -1,0 +1,250 @@
+.header {
+  margin-bottom: 56px;
+}
+
+.title { margin-bottom: 0; }
+
+/* Two column */
+.twoCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .twoCol { grid-template-columns: 1fr; gap: 48px; }
+}
+
+/* Left col */
+.leftCol { display: flex; flex-direction: column; gap: 40px; }
+
+/* Narrative */
+.narrative { display: flex; flex-direction: column; gap: 16px; }
+
+.lead {
+  font-size: clamp(16px, 1.5vw, 18px);
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.7;
+}
+
+.body {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+
+/* Timeline */
+.timeline { display: flex; flex-direction: column; gap: 0; }
+
+.timelineItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  position: relative;
+  padding-bottom: 24px;
+}
+
+.timelineItem:last-child { padding-bottom: 0; }
+
+.timelineItem:not(:last-child) .timelineDot::after {
+  content: '';
+  position: absolute;
+  top: 28px;
+  left: 5px;
+  width: 1px;
+  height: calc(100% - 12px);
+  background: var(--glass-border);
+}
+
+.timelineDot {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  flex-shrink: 0;
+  margin-top: 4px;
+  box-shadow: 0 0 8px rgba(99, 102, 241, 0.4);
+}
+
+.timelineContent { flex: 1; }
+
+.timelineRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.timelineStage {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.timelinePeriod {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  flex-shrink: 0;
+}
+
+.timelineFocus {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* Mentorship */
+.mentorRow {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mentorCard {
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mentorRole {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-accent);
+}
+
+.mentorOrg {
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.mentorPeriod {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Right col */
+.rightCol { display: flex; flex-direction: column; gap: 36px; }
+
+/* Strengths */
+.strengthsBlock {}
+
+.strengths {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.strengthCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 18px;
+}
+
+.strengthIcon {
+  font-size: 18px;
+  color: var(--accent-indigo);
+  flex-shrink: 0;
+  margin-top: 2px;
+  line-height: 1;
+}
+
+.strengthTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.strengthDesc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+/* Awards */
+.awardsBlock {}
+
+.awards {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.awardItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--glass-border);
+  transition: background var(--transition-fast);
+}
+
+.awardItem:last-child { border-bottom: none; }
+
+.awardItem:hover { background: var(--glass-bg); }
+
+.awardIcon {
+  font-size: 13px;
+  color: #f59e0b;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.awardInfo {}
+
+.awardTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.awardMeta {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.moreAwards {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 10px;
+  padding-left: 4px;
+}
+
+/* Tools */
+.toolsBlock {}
+
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tool {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.tool:hover {
+  border-color: var(--glass-border-hover);
+  color: var(--text-primary);
+}

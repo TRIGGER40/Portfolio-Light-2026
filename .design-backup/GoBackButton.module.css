@@ -1,0 +1,43 @@
+/* ── Go Back Button ─────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px 7px 10px;
+  background: var(--bg-surface);
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition:
+    color 0.18s,
+    border-color 0.18s,
+    background 0.18s,
+    transform 0.18s,
+    box-shadow 0.18s;
+  white-space: nowrap;
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.btn:hover {
+  color: var(--text-primary);
+  border-color: var(--accent-indigo);
+  background: var(--bg-elevated);
+  box-shadow: 0 2px 10px rgba(82, 84, 216, 0.12);
+}
+
+.btn:hover .arrow {
+  transform: translateX(-3px);
+}
+
+.arrow {
+  display: flex;
+  align-items: center;
+  color: var(--text-accent);
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}

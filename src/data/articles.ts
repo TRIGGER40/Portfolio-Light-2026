@@ -58,7 +58,7 @@ const articleDesignerAiConductor: Omit<Article, "searchBlob"> = {
   author: "Midhun Krishnakumar",
   roleLine: "Design @ Adobe",
   published: "December 16, 2024",
-  coverSrc: "/images/articles/ai-conductor.jpeg",
+  coverSrc: "/images/articles/ai-conductor.webp",
   coverAlt: "Designer to AI Conductor",
   tags: ["AI", "Design", "Creativity", "Adobe"],
   blocks: [
@@ -126,7 +126,7 @@ const articleCreativeTax: Omit<Article, "searchBlob"> = {
   author: "Midhun Krishnakumar",
   roleLine: "Design @ Adobe",
   published: "May 25, 2025",
-  coverSrc: "/images/articles/creative-tax.jpeg",
+  coverSrc: "/images/articles/creative-tax.webp",
   coverAlt: "Creative Tax in design workflows",
   tags: ["Wellbeing", "Design Leadership", "Process", "Adobe"],
   blocks: [
@@ -223,7 +223,7 @@ const articleAiSmartDesigners: Omit<Article, "searchBlob"> = {
   author: "Midhun Krishnakumar",
   roleLine: "Design @ Adobe",
   published: "March 22, 2026",
-  coverSrc: "/images/articles/ai-replace-designers.jpeg",
+  coverSrc: "/images/articles/ai-replace-designers.webp",
   coverAlt: "AI will replace designers, just not the smart ones",
   tags: ["AI", "UX", "Career", "Future of Design"],
   blocks: [
@@ -319,7 +319,7 @@ const articleTeachingInquisitively: Omit<Article, "searchBlob"> = {
   author: "Midhun Krishnakumar",
   roleLine: "Design @ Adobe",
   published: "October 3, 2020",
-  coverSrc: "/images/articles/teaching-inquisitively.jpeg",
+  coverSrc: "/images/articles/teaching-inquisitively.webp",
   coverAlt: "The art of teaching inquisitively",
   tags: ["Education", "Mentorship", "Design Thinking", "Learning"],
   blocks: [
@@ -400,7 +400,7 @@ const articleDecodingIntuitiveness: Omit<Article, "searchBlob"> = {
   author: "Midhun Krishnakumar",
   roleLine: "Design @ Adobe",
   published: "October 3, 2020",
-  coverSrc: "/images/articles/decoding-intuitiveness.jpeg",
+  coverSrc: "/images/articles/decoding-intuitiveness.webp",
   coverAlt: "Decoding Intuitiveness",
   tags: ["UX Research", "Psychology", "Human Behaviour", "Design"],
   blocks: [
@@ -480,7 +480,7 @@ const articleAvoidingIntellectualMasturbation: Omit<Article, "searchBlob"> = {
   author: "Midhun Krishnakumar",
   roleLine: "Design @ Adobe",
   published: "October 3, 2020",
-  coverSrc: "/images/articles/intellectual-masturbation.jpeg",
+  coverSrc: "/images/articles/intellectual-masturbation.webp",
   coverAlt: "Avoiding Intellectual Masturbation",
   tags: ["Mindset", "Productivity", "Design Education", "Personal Growth"],
   blocks: [

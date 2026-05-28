@@ -1,0 +1,37 @@
+.footer {
+  border-top: 1px solid var(--glass-border);
+  padding: 32px 0;
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.copy {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.right {}
+
+.built {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}

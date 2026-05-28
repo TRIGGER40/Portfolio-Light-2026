@@ -6,6 +6,7 @@ import { injectProjectLinks } from '../utils/projectLinks';
 import styles from './AIPage.module.css';
 import { GoBackButton } from '../components/GoBackButton';
 import { Loader } from '../components/Loader';
+import { ImgSkeleton } from '../components/ImgSkeleton';
 import { ANALYTICS_SECRET, triggerAnalyticsDashboard } from '../lib/analytics';
 
 const loadResumePdf = () => import('../lib/resumePdf');
@@ -16,21 +17,21 @@ const BENTO_DELAYS = [0.0, 1.6, 0.7, 2.2, 0.3, 1.9, 0.9, 2.5, 0.5, 1.3, 2.8, 0.1
 
 /* ── Bento background cards — all 15 project images ─────── */
 const BENTO_CARDS = [
-  '/Projectcard-images/ALMVC hero image.png',
-  '/Projectcard-images/quiz pod.png',
-  '/Projectcard-images/joining screen.png',
-  '/Projectcard-images/QC improvement.png',
-  '/Projectcard-images/PPE.png',
-  '/Projectcard-images/Connect central revamp.png',
-  '/Projectcard-images/visual revamp.png',
-  '/Projectcard-images/Mobile revamp.png',
-  '/Projectcard-images/Bizongo UMS.png',
-  '/Projectcard-images/Seamless approval workflow.png',
-  '/Projectcard-images/Digital contract creation.png',
-  '/Projectcard-images/Heuristics evaluation.png',
+  '/Projectcard-images/ALMVC hero image.webp',
+  '/Projectcard-images/quiz pod.webp',
+  '/Projectcard-images/joining screen.webp',
+  '/Projectcard-images/QC improvement.webp',
+  '/Projectcard-images/PPE.webp',
+  '/Projectcard-images/Connect central revamp.webp',
+  '/Projectcard-images/visual revamp.webp',
+  '/Projectcard-images/Mobile revamp.webp',
+  '/Projectcard-images/Bizongo UMS.webp',
+  '/Projectcard-images/Seamless approval workflow.webp',
+  '/Projectcard-images/Digital contract creation.webp',
+  '/Projectcard-images/Heuristics evaluation.webp',
   '/Projectcard-images/Maintaining design systems.webp',
-  '/Projectcard-images/npol-ctd-probe.png',
-  '/Projectcard-images/POULTRY BRANDING.png',
+  '/Projectcard-images/npol-ctd-probe.webp',
+  '/Projectcard-images/POULTRY BRANDING.webp',
 ];
 
 /* ── Word-by-word typing with per-word fade+rise ─────── */
@@ -93,7 +94,7 @@ function MentionedProjectCards({ content, onNavigate }: { content: string; onNav
       {cards.map(p => (
         <button key={p.route} className={styles.mentionedCard} onClick={() => onNavigate(p.route)}>
           <div className={styles.mentionedCardImg}>
-            <img src={p.image} alt={p.title} draggable={false} />
+            <ImgSkeleton src={p.image} alt={p.title} draggable={false} />
           </div>
           <span className={styles.mentionedCardTitle}>{p.title}</span>
           <span className={styles.mentionedCardArrow}>↗</span>
@@ -418,7 +419,9 @@ export function AIPage() {
           <div className={styles.chatHeader}>
             <span className={styles.chatHeaderLabel}>AI Assistant</span>
             <h2 className={styles.chatHeaderTitle}>
-              Ask anything about <span className={styles.titleGradient}>Midhun's work</span>
+              Ask anything about
+              <br />
+              <span className={styles.titleGradient}>Midhun's work</span>
             </h2>
             <p className={styles.chatHeaderSubtitle}>Have a free conversation about Midhun and his works with the AI.</p>
           </div>

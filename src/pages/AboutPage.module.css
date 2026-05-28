@@ -426,7 +426,7 @@
 
 .viewBgBtn:hover {
   background: rgba(255, 255, 255, 0.95);
-  border-color: rgba(82, 84, 216, 0.25);
+  border-color: rgba(35, 64, 52, 0.16);
   color: var(--text-primary);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
@@ -463,22 +463,23 @@
 }
 
 .introHeading {
-  font-size: clamp(32px, 4.5vw, 56px);
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 400;
   line-height: 1.1;
-  letter-spacing: -0.025em;
-  color: #0a0a1e;
+  letter-spacing: 0.03em;
+  color: var(--text-primary);
   margin: 0;
 }
 
 .introNameBreath {
   background: linear-gradient(
     135deg,
-    #5254d8 0%,
-    #7c3aed 30%,
-    #a855f7 55%,
-    #7c3aed 75%,
-    #5254d8 100%
+    #234034 0%,
+    #2D5245 30%,
+    #4D7A68 55%,
+    #2D5245 75%,
+    #234034 100%
   );
   background-size: 250% 250%;
   -webkit-background-clip: text;
@@ -495,7 +496,7 @@
 
 .introPara {
   font-size: clamp(15px, 1.4vw, 17px);
-  color: rgba(17, 17, 40, 0.82);
+  color: var(--text-primary);
   line-height: 1.75;
   margin: 0;
   max-width: 600px;
@@ -547,7 +548,7 @@
 .introPolaroid:hover {
   rotate: calc(var(--rot, 0deg) - 2deg);
   scale: 1.06;
-  filter: drop-shadow(0 10px 24px rgba(82, 84, 216, 0.18));
+  filter: drop-shadow(0 10px 24px rgba(35, 64, 52, 0.12));
 }
 
 .introPolaroidInner {
@@ -722,6 +723,7 @@
 
 .recTitle {
   margin: 8px 0 32px;
+  color: var(--text-primary);
 }
 
 
@@ -743,8 +745,8 @@
 }
 
 .recCard:hover {
-  border-color: rgba(82, 84, 216, 0.22);
-  box-shadow: 0 4px 24px rgba(82, 84, 216, 0.08);
+  border-color: rgba(35, 64, 52, 0.14);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.05);
   transform: translateY(-2px);
 }
 
@@ -752,8 +754,8 @@
   width: 44px;
   height: 44px;
   border-radius: 12px;
-  background: linear-gradient(135deg, rgba(82, 84, 216, 0.12) 0%, rgba(124, 58, 237, 0.08) 100%);
-  border: 1px solid rgba(82, 84, 216, 0.15);
+  background: linear-gradient(135deg, rgba(35, 64, 52, 0.08) 0%, rgba(35, 64, 52, 0.05) 100%);
+  border: 1px solid rgba(35, 64, 52, 0.10);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -791,16 +793,22 @@
   .recGrid { grid-template-columns: 1fr; }
 }
 
+/* ── Awards section ───────────────────────────────────── */
+.awardsSection {
+  padding: var(--section-pad) 0;
+  border-top: 1px solid var(--glass-border);
+}
+
 /* ── Awards carousel ─────────────────────────────────── */
 .awardsCarouselWrap {
-  margin-top: 40px;
+  margin-top: 32px;
 }
 
 .awardsSubLabel {
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  
   color: var(--text-muted);
   margin: 0 0 24px;
   display: flex;
@@ -813,7 +821,7 @@
   font-weight: 600;
   letter-spacing: 0;
   text-transform: none;
-  background: rgba(82, 84, 216, 0.1);
+  background: rgba(35, 64, 52, 0.07);
   color: var(--accent-indigo);
   border-radius: 999px;
   padding: 2px 8px;
@@ -863,15 +871,15 @@
   border-left: 1px solid var(--glass-border);
 }
 
-/* Filled primary on hover */
+/* Filled primary on hover — light mode: dark green + white */
 .awardTile:hover {
-  background: var(--accent-indigo);
-  border-color: var(--accent-indigo);
+  background: #234034;
+  border-color: #234034;
 }
 
 .awardStar {
   font-size: 14px;
-  color: #b45309;
+  color: #4D9E80;
   position: absolute;
   top: 16px;
   left: 18px;
@@ -904,7 +912,7 @@
 }
 
 .awardTile:hover .awardTileDate {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.55);
 }
 
 /* Description — hidden by default, fades in on hover */
@@ -922,7 +930,7 @@
 .awardTile:hover .awardTileDesc {
   opacity: 1;
   max-height: 160px;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.75);
 }
 
 /* ── Education section ───────────────────────────────── */
@@ -1013,9 +1021,9 @@
   right: 14px;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.01em;
   color: #fff;
-  background: rgba(82, 84, 216, 0.82);
+  background: rgba(35, 64, 52, 0.52);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-radius: 999px;
@@ -1035,7 +1043,7 @@
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.09em;
-  text-transform: uppercase;
+  
   color: var(--accent-indigo);
   margin: 0;
 }
@@ -1129,13 +1137,13 @@
 
 .expCardActive {
   background: var(--bg-surface);
-  border-color: rgba(82, 84, 216, 0.25);
-  box-shadow: 0 2px 16px rgba(82, 84, 216, 0.08);
+  border-color: rgba(35, 64, 52, 0.16);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.05);
 }
 
 .expCardActive:hover {
   background: rgba(245, 245, 250, 1);
-  border-color: rgba(82, 84, 216, 0.35);
+  border-color: rgba(35, 64, 52, 0.22);
 }
 
 .expLogo {
@@ -1185,17 +1193,17 @@
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.05em;
-  text-transform: uppercase;
+  
   padding: 3px 8px;
   border-radius: 999px;
-  background: rgba(82, 84, 216, 0.1);
+  background: rgba(35, 64, 52, 0.07);
   color: var(--accent-indigo);
   flex-shrink: 0;
 }
 
 .expTypeIntern {
-  background: rgba(124, 58, 237, 0.1);
-  color: #7c3aed;
+  background: rgba(35, 64, 52, 0.07);
+  color: #2D5245;
 }
 
 /* ── Detail panel (right) ────────────────────────────── */
@@ -1274,12 +1282,12 @@
   border: none;
   cursor: pointer;
   transition: transform var(--transition-base), box-shadow var(--transition-base);
-  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.35);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.09);
 }
 
 .expCtaLarge:hover {
   transform: translateY(-1px);
-  box-shadow: 0 8px 32px rgba(99, 102, 241, 0.5);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
 }
 
 .expHighlights {
@@ -1445,7 +1453,7 @@
   min-height: 320px;
 }
 .labRow:hover {
-  border-color: rgba(82, 84, 216, 0.22);
+  border-color: rgba(35, 64, 52, 0.14);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
 }
 
@@ -1523,7 +1531,7 @@
   position: absolute;
   bottom: 10px; left: 12px;
   font-size: 10px; font-weight: 600;
-  letter-spacing: 0.08em; text-transform: uppercase;
+  letter-spacing: 0.02em; 
   color: rgba(255,255,255,0.6);
   background: rgba(0,0,0,0.45);
   backdrop-filter: blur(6px);
@@ -1541,7 +1549,7 @@
 }
 .labNum {
   font-size: 11px; font-weight: 800;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.02em;
   color: var(--text-muted);
   opacity: 0.4;
 }
@@ -1625,13 +1633,13 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 4px 24px rgba(82, 84, 216, 0.06), 0 1px 4px rgba(0,0,0,0.04);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.04);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .personalCard:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 32px rgba(82, 84, 216, 0.1), 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.05), 0 2px 8px rgba(0,0,0,0.06);
 }
 
 /* image area — wide cards get 16/9, narrow cards get 4/3 */
@@ -1835,6 +1843,98 @@
 }
 
 .hobbyCardLink:hover {
-  outline: 2px solid rgba(82, 84, 216, 0.5);
+  outline: 2px solid rgba(35, 64, 52, 0.30);
   outline-offset: -2px;
+}
+
+/* ── Dark mode overrides ─────────────────────────────── */
+[data-theme="dark"] .viewBgBtn {
+  background: var(--glass-bg);
+}
+[data-theme="dark"] .viewBgBtn:hover {
+  background: var(--glass-bg-hover);
+}
+[data-theme="dark"] .awardTile {
+  background: var(--glass-bg);
+}
+[data-theme="dark"] .awardTile:hover {
+  background: #6BBF9A;
+  border-color: #6BBF9A;
+}
+
+[data-theme="dark"] .awardTile:hover .awardStar {
+  color: #1A1E1C;
+}
+
+[data-theme="dark"] .awardTile:hover .awardTileTitle {
+  color: #1A1E1C;
+}
+
+[data-theme="dark"] .awardTile:hover .awardTileDate {
+  color: rgba(26, 30, 28, 0.55);
+}
+
+[data-theme="dark"] .awardTile:hover .awardTileDesc {
+  color: rgba(26, 30, 28, 0.75);
+}
+
+/* Hero name gradient */
+[data-theme="dark"] .introNameBreath {
+  background: linear-gradient(
+    135deg,
+    #6BBF9A 0%,
+    #7DCBA8 30%,
+    #C8B080 55%,
+    #7DCBA8 75%,
+    #6BBF9A 100%
+  );
+  background-size: 250% 250%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Education cards */
+[data-theme="dark"] .eduCard {
+  background: var(--bg-surface);
+  border-color: var(--glass-border);
+}
+[data-theme="dark"] .eduCard:hover {
+  border-color: rgba(107, 191, 154, 0.20);
+  box-shadow: var(--shadow-lg);
+}
+[data-theme="dark"] .eduLogo {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+/* Experience sidebar cards */
+[data-theme="dark"] .expCard {
+  background: var(--bg-surface);
+  border-color: var(--glass-border);
+}
+[data-theme="dark"] .expCard:hover:not(.expCardActive) {
+  background: var(--bg-elevated);
+}
+[data-theme="dark"] .expCardActive {
+  background: var(--bg-elevated);
+  border-color: rgba(107, 191, 154, 0.22);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.20);
+}
+[data-theme="dark"] .expCardActive:hover {
+  background: var(--glass-bg-hover);
+  border-color: rgba(107, 191, 154, 0.30);
+}
+[data-theme="dark"] .expLogo {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Personal bento cards */
+[data-theme="dark"] .personalCard {
+  background: var(--bg-surface);
+  border-color: var(--glass-border);
+}
+[data-theme="dark"] .personalCard:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.30);
 }

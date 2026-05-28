@@ -46,7 +46,7 @@
 .badge {
   display: inline-block;
   font-size: 10px; font-weight: 700;
-  letter-spacing: 0.08em; text-transform: uppercase;
+  letter-spacing: 0.02em; 
   padding: 4px 10px; border-radius: 999px;
   background: color-mix(in srgb, var(--badge-color) 15%, transparent);
   color: var(--badge-color);
@@ -54,7 +54,7 @@
 }
 .company {
   font-size: 12px; font-weight: 600;
-  text-transform: uppercase; letter-spacing: 0.08em;
+   letter-spacing: 0.02em;
   color: var(--text-muted);
 }
 .dot { color: var(--text-muted); font-size: 13px; }
@@ -83,8 +83,8 @@
   display: inline-block;
   font-size: 12px; font-weight: 700;
   color: var(--accent-indigo);
-  background: rgba(82,84,216,0.1);
-  border: 1px solid rgba(82,84,216,0.2);
+  background: rgba(35, 64, 52, 0.07);
+  border: 1px solid rgba(35, 64, 52, 0.13);
   border-radius: 999px;
   padding: 6px 14px;
   align-self: flex-start;
@@ -129,7 +129,7 @@
 .sectionLabel {
   display: block;
   font-size: 11px; font-weight: 700;
-  letter-spacing: 0.1em; text-transform: uppercase;
+  letter-spacing: 0.02em; 
   color: var(--text-muted);
   margin-bottom: 8px;
 }
@@ -168,7 +168,7 @@
 .tag {
   display: inline-block;
   font-size: 11px; font-weight: 600;
-  letter-spacing: 0.06em; text-transform: uppercase;
+  letter-spacing: 0.01em; 
   color: var(--text-muted);
   background: rgba(255,255,255,0.04);
   border: 1px solid var(--glass-border);
@@ -188,13 +188,13 @@
   gap: 32px;
   padding: 36px 40px;
   border-radius: 20px;
-  background: linear-gradient(135deg, #5254d8 0%, #7c3aed 60%, #a855f7 100%);
+  background: linear-gradient(135deg, #234034 0%, #2D5245 60%, #4D7A68 100%);
   text-decoration: none;
   position: relative;
   overflow: hidden;
   transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
   box-shadow:
-    0 8px 32px rgba(82, 84, 216, 0.35),
+    0 8px 32px rgba(35, 64, 52, 0.22),
     0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
@@ -209,7 +209,7 @@
 .viewWorksCard:hover {
   transform: translateY(-3px) scale(1.01);
   box-shadow:
-    0 16px 48px rgba(82, 84, 216, 0.45),
+    0 16px 48px rgba(35, 64, 52, 0.28),
     0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
@@ -223,8 +223,8 @@
 .viewWorksLabel {
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  
   color: rgba(255, 255, 255, 0.65);
 }
 
@@ -255,7 +255,7 @@
   gap: 8px;
   padding: 12px 24px;
   background: #fff;
-  color: #5254d8;
+  color: #234034;
   border-radius: 999px;
   font-size: 14px;
   font-weight: 700;

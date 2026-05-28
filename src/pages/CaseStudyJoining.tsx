@@ -54,21 +54,21 @@ export function CaseStudyJoining() {
 
           <div className={styles.heroLayout}>
             <div className={styles.heroImgCol}>
-              <img src="/Projectcard-images/joining screen.png" alt="Joining Experience" className={styles.heroImg} />
+              <img src="/Projectcard-images/joining screen.webp" alt="Joining Experience" className={styles.heroImg} />
             </div>
             <div className={styles.heroContentCol}>
               <div className={styles.heroEyebrow}>
                 <span className={styles.heroCategoryBadge}>UX Redesign</span>
                 <span className={styles.heroDot}>·</span>
-                <span className={styles.heroMeta}>Adobe Connect</span>
+                <span className={styles.heroMeta}>Adobe</span>
                 <span className={styles.heroDot}>·</span>
-                <span className={styles.heroMeta}>6 Weeks</span>
+                <span className={styles.heroMeta}>8 Weeks</span>
               </div>
-              <h1 className={styles.heroTitle}>Enhancing the joining experience</h1>
+              <h1 className={styles.heroTitle}>Cutting session entry friction by 50%</h1>
               <p className={styles.heroSubtitle}>Redesigning the end-to-end joining flow to reduce friction at the most critical moment , used by nearly every user.</p>
               <div className={styles.heroMetaBar}>
                 {[
-                  { k: 'Role',     v: 'Lead UX Designer' },
+                  { k: 'Role',     v: 'Lead Product Designer' },
                   { k: 'Scope',    v: 'Login, setup, entry, exit' },
                   { k: 'Platform', v: 'Adobe Connect' },
                   { k: 'Impact',   v: '~50% faster on device setup' },
@@ -140,7 +140,7 @@ export function CaseStudyJoining() {
 
           <div className={styles.problemImgWrap}>
             <ImgSlot
-              src="/Enhancing joining experience/Cluttered layout Problem sec tion new.png"
+              src="/Enhancing joining experience/Cluttered layout Problem sec tion new.webp"
               label="Before: joining flow with cluttered layout and poor hierarchy"
               aspect="21/9"
             />
@@ -213,28 +213,28 @@ export function CaseStudyJoining() {
                 n: '01', title: 'Single modal view for all settings',
                 body: 'Consolidated all pre-join settings into one modal so the user never loses their place. We do not change the area where the user focuses throughout the setup flow.',
                 accent: 'Focus preserved · No context switching',
-                img: '/Enhancing joining experience/Single modal view.png',
+                img: '/Enhancing joining experience/Single modal view.webp',
                 imgLabel: 'Single modal view, all settings in one place without shifting the users focus',
               },
               {
                 n: '02', title: 'Usability first, branding second',
                 body: 'A deliberate reversal of a previous product decision. We shifted focus from branding compliance to making the experience usable, ensuring the layout works for every user regardless of host customisation.',
                 accent: 'Usability over compliance · Consistent layout',
-                img: '/Enhancing joining experience/Usability first.png',
+                img: '/Enhancing joining experience/Usability first.webp',
                 imgLabel: 'Branding zone contained, usability layout anchored across all host themes',
               },
               {
                 n: '03', title: 'Regroup settings by decision tier',
                 body: 'Reorganised the preference screen into two clear groups: audio and video. Previous device settings pre-fill to reduce effort for returning users.',
                 accent: 'Faster scanning · Memory recall',
-                img: '/Enhancing joining experience/Re group.png',
+                img: '/Enhancing joining experience/Re group.webp',
                 imgLabel: 'Device setup, old scattered layout vs. grouped decision-first layout',
               },
               {
                 n: '04', title: 'Bring system feedback upfront',
                 body: 'Moved joining-status indicators from a hidden corner to an inline, contextual position so users always know what is happening during room entry.',
                 accent: 'Visibility · Reduced anxiety',
-                img: '/Enhancing joining experience/Room entry.png',
+                img: '/Enhancing joining experience/Room entry.webp',
                 imgLabel: 'Room entry feedback, inline status bar with clear state labels',
               },
             ].map(d => (
@@ -265,7 +265,7 @@ export function CaseStudyJoining() {
               color: 'var(--accent-indigo)',
               desc: 'Anchored login panel with consistent positioning. Branding lives in a designated zone that never displaces the action. Clear hierarchy guides users to authenticate immediately.',
               attrs: ['Fixed anchor zone', 'Brand-safe layout', 'Single primary action'],
-              img: '/Enhancing joining experience/Login page.png',
+              img: '/Enhancing joining experience/Login page.webp',
               imgLabel: 'Redesigned login screen, fixed panel with brand zone and clear CTA',
             },
             {
@@ -273,7 +273,7 @@ export function CaseStudyJoining() {
               color: 'var(--accent-violet)',
               desc: 'Grouped audio and video preferences separately. Previous settings auto-fill for returning users. One clear confirmation button instead of scattered controls.',
               attrs: ['Grouped by type', 'Pre-filled settings', 'Reduced cognitive load'],
-              img: '/Enhancing joining experience/Device setup.png',
+              img: '/Enhancing joining experience/Device setup.webp',
               imgLabel: 'Device preference screen, grouped audio/video with pre-fill state',
             },
             {
@@ -281,7 +281,7 @@ export function CaseStudyJoining() {
               color: 'var(--accent-blue)',
               desc: 'Inline feedback during the joining handshake. Users see exactly what is happening, connecting, checking permissions, entering, with no ambiguity.',
               attrs: ['Inline status', 'Progressive feedback', 'Clear state labels'],
-              img: '/Enhancing joining experience/Room entry.png',
+              img: '/Enhancing joining experience/Room entry.webp',
               imgLabel: 'Room entry, inline joining status with step-by-step feedback',
             },
             {
@@ -289,7 +289,7 @@ export function CaseStudyJoining() {
               color: 'var(--accent-indigo)',
               desc: 'Consistent exit flow with a lightweight feedback prompt. Designed to be optional and fast, never blocking the user from leaving.',
               attrs: ['Non-blocking', 'Optional feedback', 'Session summary'],
-              img: '/Enhancing joining experience/Exit and feedback.png',
+              img: '/Enhancing joining experience/Exit and feedback.webp',
               imgLabel: 'Exit flow, leave confirmation with optional session feedback prompt',
             },
           ].map((s, i) => (
@@ -319,11 +319,11 @@ export function CaseStudyJoining() {
           <div className={jStyles.beforeAfterGrid}>
             <div className={jStyles.beforeAfterCard}>
               <span className={jStyles.beforeAfterLabel} data-type="before">Before</span>
-              <ImgSlot src="/Enhancing joining experience/old screen.png" label="Before: original joining flow with fragmented screens and poor hierarchy" aspect="4/3" />
+              <ImgSlot src="/Enhancing joining experience/old screen.webp" label="Before: original joining flow with fragmented screens and poor hierarchy" aspect="4/3" />
             </div>
             <div className={jStyles.beforeAfterCard}>
               <span className={jStyles.beforeAfterLabel} data-type="after">After</span>
-              <ImgSlot src="/Enhancing joining experience/New screen.png" label="After: redesigned joining flow with anchored login and grouped device setup" aspect="4/3" />
+              <ImgSlot src="/Enhancing joining experience/New screen.webp" label="After: redesigned joining flow with anchored login and grouped device setup" aspect="4/3" />
             </div>
           </div>
         </div>
@@ -373,21 +373,21 @@ export function CaseStudyJoining() {
           <p className={styles.sectionSub}>Research methods that revealed where friction lived and proved improvements worked.</p>
           <div className={jStyles.validationGrid}>
             <div className={jStyles.validationCard}>
-              <ImgSlot src="/Enhancing joining experience/Eye tracking.png" label="Eye-tracking overlay on original device setup screen showing scattered gaze paths" aspect="4/3" />
+              <ImgSlot src="/Enhancing joining experience/Eye tracking.webp" label="Eye-tracking overlay on original device setup screen showing scattered gaze paths" aspect="4/3" />
               <div className={jStyles.validationCardBody}>
                 <span className={jStyles.validationMethod}>Eye-tracking</span>
                 <p className={jStyles.validationText}>Gaze paths on the original device screen were scattered across the full viewport. After redesign, fixations concentrated on the two decision zones within 2 seconds.</p>
               </div>
             </div>
             <div className={jStyles.validationCard}>
-              <ImgSlot src="/Enhancing joining experience/Clcik heatmap.png" label="Click heatmap showing action concentration improvement on login panel" aspect="4/3" />
+              <ImgSlot src="/Enhancing joining experience/Clcik heatmap.webp" label="Click heatmap showing action concentration improvement on login panel" aspect="4/3" />
               <div className={jStyles.validationCardBody}>
                 <span className={jStyles.validationMethod}>Click heatmaps</span>
                 <p className={jStyles.validationText}>Click distribution on the login screen shifted from dispersed to tightly clustered around the primary CTA after anchoring the panel to a fixed zone.</p>
               </div>
             </div>
             <div className={jStyles.validationCard}>
-              <ImgSlot src="/Enhancing joining experience/Session recording.png" label="Session recording showing reduced hesitation in the redesigned flow" aspect="4/3" />
+              <ImgSlot src="/Enhancing joining experience/Session recording.webp" label="Session recording showing reduced hesitation in the redesigned flow" aspect="4/3" />
               <div className={jStyles.validationCardBody}>
                 <span className={jStyles.validationMethod}>Session recordings</span>
                 <p className={jStyles.validationText}>Recordings of the device setup screen showed users pausing and scrolling on the old design. Post-redesign sessions showed direct interactions with minimal hesitation.</p>

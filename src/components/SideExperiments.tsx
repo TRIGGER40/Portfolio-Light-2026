@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './SideExperiments.module.css';
 import { ExperimentModal, type Experiment } from './ExperimentModal';
+import { ImgSkeleton } from './ImgSkeleton';
 
 const EXPERIMENTS: Experiment[] = [
   {
@@ -33,7 +34,7 @@ const EXPERIMENTS: Experiment[] = [
     title: 'Safe Routes in Google Maps',
     desc: 'Route safety badges based on lighting, incident history, and foot traffic data.',
     tag: 'Maps UX',
-    thumb: { type: 'img', src: '/images/safe-routes-1.jpg' },
+    thumb: { type: 'img', src: '/images/safe-routes-1.webp' },
   },
 ];
 
@@ -65,7 +66,7 @@ export function SideExperiments() {
                 <div className={styles.thumb}>
                   {exp.thumb.type === 'video'
                     ? <video src={exp.thumb.src} muted playsInline preload="metadata" />
-                    : <img src={exp.thumb.src} alt={exp.title} />
+                    : <ImgSkeleton src={exp.thumb.src} alt={exp.title} />
                   }
                 </div>
 

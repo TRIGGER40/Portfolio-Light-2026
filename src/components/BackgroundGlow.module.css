@@ -13,7 +13,7 @@
   width: 700px;
   height: 700px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(82, 84, 216, 0.1) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(35, 64, 52, 0.055) 0%, transparent 65%);
   animation: drift1 18s ease-in-out infinite alternate;
 }
 
@@ -24,7 +24,7 @@
   width: 600px;
   height: 600px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.08) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(184, 106, 75, 0.04) 0%, transparent 65%);
   animation: drift2 22s ease-in-out infinite alternate;
 }
 
@@ -35,7 +35,7 @@
   width: 400px;
   height: 400px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(37, 99, 235, 0.06) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(183, 155, 108, 0.04) 0%, transparent 65%);
   animation: drift3 26s ease-in-out infinite alternate;
 }
 

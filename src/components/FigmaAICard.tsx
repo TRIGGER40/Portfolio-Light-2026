@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import styles from './FigmaAICard.module.css';
+import { ImgSkeleton } from './ImgSkeleton';
 
 export function FigmaAICard() {
   return (
@@ -15,8 +16,8 @@ export function FigmaAICard() {
           {/* ── Right: image ── */}
           <div className={styles.imgCol}>
             <div className={styles.imgFrame}>
-              <img
-                src="/Record player/recordplayer.png"
+              <ImgSkeleton
+                src="/Record player/recordplayer.webp"
                 alt="Retro cassette player built with Claude and Figma MCP"
                 className={styles.img}
                 loading="lazy"

@@ -249,3 +249,16 @@
 @media (prefers-reduced-motion: reduce) {
   .goldenAura, .goldenRays, .eggGlow, .eggFloat { animation: none; }
 }
+
+/* ── Dark mode ── */
+[data-theme="dark"] .backdrop {
+  background: rgba(28, 18, 4, 0.95);
+}
+
+[data-theme="dark"] .headline {
+  color: #f59e0b;
+}
+
+[data-theme="dark"] .sub {
+  color: rgba(245, 200, 80, 0.68);
+}

@@ -26,7 +26,7 @@
 }
 
 .trackerActive:hover {
-  background: rgba(82, 84, 216, 0.08);
+  background: rgba(35, 64, 52, 0.06);
 }
 
 /* All complete */
@@ -88,7 +88,7 @@
 }
 
 .trackerActive .count {
-  color: rgba(82, 84, 216, 0.8);
+  color: rgba(35, 64, 52, 0.50);
 }
 
 .trackerComplete .count {
@@ -98,4 +98,17 @@
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   .trackerComplete::after { animation: none; }
+}
+
+/* ── Dark mode ── */
+[data-theme="dark"] .trackerActive .count {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+[data-theme="dark"] .trackerComplete .count {
+  color: rgba(245, 158, 11, 0.8);
+}
+
+[data-theme="dark"] .trackerActive:hover {
+  background: rgba(255, 255, 255, 0.05);
 }

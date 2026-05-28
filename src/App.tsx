@@ -8,10 +8,13 @@ import { CompletionOverlay } from './components/easter-egg/CompletionOverlay';
 import { ManifestoModal } from './components/easter-egg/ManifestoModal';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { useScrollRestoration } from './hooks/useScrollRestoration';
+import { ARTICLES } from './data/articles';
+import { CASE_STUDIES } from './data/portfolioData';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Nav } from './components/Nav';
 import { ScrollFade } from './components/ScrollFade';
 import { CursorEffect } from './components/CursorEffect';
+import { ThemeSwitcher } from './components/ThemeSwitcher';
 import { Hero } from './components/Hero';
 import { Work } from './components/Work';
 import { About } from './components/About';
@@ -33,6 +36,55 @@ import { MinimalCaseStudyPage } from './pages/MinimalCaseStudyPage';
 import { ArticlePage } from './pages/ArticlePage';
 import { PanoramaPage } from './pages/PanoramaPage';
 import { BoardPage } from './pages/BoardPage';
+
+// ── Per-route page meta ────────────────────────────────────────────────────
+const STATIC_META: Record<string, { title: string; description: string }> = {
+  '/': {
+    title: 'Midhun Krishnakumar | Product Designer',
+    description: 'AI-first Product Designer with 7+ years building enterprise and AI-native products at Adobe, Bizongo, and more.',
+  },
+  '/about': {
+    title: 'About | Midhun Krishnakumar',
+    description: 'Background, design philosophy, and experience of Midhun Krishnakumar, AI-first Product Designer at Adobe.',
+  },
+  '/work/all': {
+    title: 'All Projects | Midhun Krishnakumar',
+    description: 'Product design and UX case studies by Midhun Krishnakumar, spanning Adobe, Bizongo, DRDO, and more.',
+  },
+  '/work/almvc': {
+    title: "Building Adobe's Native Virtual Classroom | Midhun Krishnakumar",
+    description: '0 to 1 design of Adobe Learning Manager virtual classroom: session lifecycle, breakout rooms, AI-assisted engagement, and recording viewer.',
+  },
+  '/work/quiz': {
+    title: 'Real-time Quiz Delivery in Live Sessions | Midhun Krishnakumar',
+    description: 'Case study: designing real-time quiz delivery inside Adobe Connect live sessions for active learning at scale.',
+  },
+  '/work/joining': {
+    title: 'Enhancing the Event Joining Experience | Midhun Krishnakumar',
+    description: 'Case study: reducing friction in the pre-session joining flow for Adobe Connect virtual events.',
+  },
+  '/work/qc': {
+    title: 'Quality Control for Flexible Packaging | Midhun Krishnakumar',
+    description: 'Case study: designing a mobile QC workflow for Bizongo flexible packaging supply chain operations.',
+  },
+  '/work/ppe': {
+    title: 'AI-powered PPE Compliance Detection | Midhun Krishnakumar',
+    description: 'Case study: designing UX for an AI system that detects PPE compliance on factory floors in real time.',
+  },
+  '/ask': {
+    title: 'Ask Midhun | AI Portfolio Assistant',
+    description: 'An AI assistant trained on Midhun Krishnakumar portfolio and design thinking. Ask anything about his work, process, or experience.',
+  },
+};
+
+function setPageMeta(title: string, description: string) {
+  document.title = title;
+  document.querySelector('meta[name="description"]')?.setAttribute('content', description);
+  document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
+  document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
+  document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', title);
+  document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', description);
+}
 
 function BlogRedirect() {
   const navigate = useNavigate();
@@ -101,9 +153,48 @@ export default function App() {
     return () => window.removeEventListener('show-analytics', handler);
   }, []);
 
+  // Dynamic page title + meta description per route
+  useEffect(() => {
+    const path = location.pathname;
+
+    if (STATIC_META[path]) {
+      const { title, description } = STATIC_META[path];
+      setPageMeta(title, description);
+      return;
+    }
+
+    // /articles/:slug
+    if (path.startsWith('/articles/')) {
+      const slug = path.replace('/articles/', '');
+      const article = ARTICLES.find(a => a.slug === slug);
+      if (article) {
+        setPageMeta(
+          `${article.title} | Midhun Krishnakumar`,
+          article.subtitle,
+        );
+      }
+      return;
+    }
+
+    // /work/:id  (MinimalCaseStudyPage)
+    if (path.startsWith('/work/')) {
+      const id = path.replace('/work/', '');
+      const project = CASE_STUDIES.find(cs => cs.id === id);
+      if (project) {
+        const desc = project.cardDesc ?? project.opportunity.slice(0, 160);
+        setPageMeta(
+          `${project.title} | Midhun Krishnakumar`,
+          desc,
+        );
+      }
+      return;
+    }
+  }, [location.pathname]);
+
   return (
     <EasterEggProvider>
       <CursorEffect />
+      <ThemeSwitcher />
       {showAnalytics && <AnalyticsDashboard onClose={() => setShowAnalytics(false)} />}
       {/* ── Easter Egg system — global modals ── */}
       <DiscoveryModal />

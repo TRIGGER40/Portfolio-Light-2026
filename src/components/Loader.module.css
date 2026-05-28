@@ -17,9 +17,9 @@
   /* Gradient arc conic-gradient as background, then mask out the fill */
   background: conic-gradient(
     from var(--loader-angle),
-    #5254d8  0deg,
-    #7c3aed 80deg,
-    #a855f7 140deg,
+    #234034  0deg,
+    #2D5245 80deg,
+    #4D7A68 140deg,
     rgba(168, 85, 247, 0.08) 200deg,
     transparent 260deg,
     transparent 360deg
@@ -40,7 +40,7 @@
   position: absolute;
   inset: -4px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.22) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(35, 64, 52, 0.12) 0%, transparent 70%);
   filter: blur(4px);
   pointer-events: none;
   z-index: -1;

@@ -4,21 +4,21 @@ import styles from './SeeWorksCard.module.css';
 
 const POLAROIDS = [
   {
-    src: '/Projectcard-images/ALMVC hero image.png',
+    src: '/Projectcard-images/ALMVC hero image.webp',
     alt: 'Adobe Connect',
     isMain: false,
     rotate: -7, x: -68,
     spreadX: -88, spreadY: -60, spreadR: -16,
   },
   {
-    src: '/Projectcard-images/quiz pod.png',
+    src: '/Projectcard-images/quiz pod.webp',
     alt: 'Quiz Pod',
     isMain: true,
     rotate: 1, x: 0,
     spreadX: 0, spreadY: -80, spreadR: 0,
   },
   {
-    src: '/Projectcard-images/joining screen.png',
+    src: '/Projectcard-images/joining screen.webp',
     alt: 'Joining Experience',
     isMain: false,
     rotate: 7, x: 68,
@@ -55,7 +55,7 @@ export function SeeWorksCard() {
             </p>
             <div className={styles.ctaRow}>
               <button
-                className="btn btn-secondary"
+                className="btn btn-primary"
                 onClick={e => { e.stopPropagation(); navigate('/', { state: { scrollTo: 'work' } }); }}
               >
                 View works
@@ -65,7 +65,7 @@ export function SeeWorksCard() {
                 onClick={e => { e.stopPropagation(); navigate('/ask'); }}
               >
                 <span className={styles.sparkle}>✦</span>
-                Ask AI about me
+                Ask AI about Midhun
               </button>
             </div>
           </div>

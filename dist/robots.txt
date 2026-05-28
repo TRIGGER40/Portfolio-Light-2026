@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://midhunkrishnakumar.info/sitemap.xml
