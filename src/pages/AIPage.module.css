@@ -1160,10 +1160,36 @@
   color: #1A1E1C;
 }
 
-/* Hide the "Have a free conversation..." subtitle on narrow screens */
+/* On narrow screens, strip the chat header down to just the "AI Assistant"
+   label. The big title + subtitle eat too much vertical space on phones. */
 @media (max-width: 640px) {
   .subtitle,
-  .chatHeaderSubtitle {
+  .chatHeaderSubtitle,
+  .chatHeaderTitle {
     display: none;
+  }
+
+  .chatHeader {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+  }
+
+  /* Promote the label — primary text, bigger, takes the role of the title */
+  .chatHeaderLabel {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .chatHeaderLabel::before {
+    content: '✦';
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--accent-indigo);
+    line-height: 1;
   }
 }

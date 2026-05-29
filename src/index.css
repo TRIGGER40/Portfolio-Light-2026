@@ -477,9 +477,13 @@ ul, ol { list-style: none; }
 }
 
 /* ── Image skeleton pulse (legacy, kept for any direct use) */
+:root {
+  --img-skeleton-base: #E0E0E0;
+  --img-skeleton-tint: #CACACA;
+}
 @keyframes imgSkeleton {
-  0%, 100% { background-color: #e0e0e0; }
-  50%       { background-color: #cacaca; }
+  0%, 100% { background-color: var(--img-skeleton-base); }
+  50%       { background-color: var(--img-skeleton-tint); }
 }
 
 /* ── Image skeleton overlay ──────────────────────────────
@@ -516,6 +520,27 @@ ul, ol { list-style: none; }
 @keyframes skSwipe {
   0%   { transform: translateX(-100%); }
   100% { transform: translateX(100%);  }
+}
+
+/* Dark mode: dark surface skeleton with a muted highlight sweep */
+[data-theme="dark"] .img-skeleton-overlay {
+  background: #2A2720;
+}
+[data-theme="dark"] .img-skeleton-overlay::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 15%,
+    rgba(255, 255, 255, 0.06) 50%,
+    transparent 85%,
+    transparent 100%
+  );
+}
+
+/* Legacy keyframe used by a few non-overlay placeholders */
+[data-theme="dark"] {
+  --img-skeleton-base: #2A2720;
+  --img-skeleton-tint: #353029;
 }
 
 
