@@ -606,7 +606,13 @@
   max-height: 120px;
   overflow-y: auto;
 }
-.input::placeholder { color: var(--text-muted); }
+.input::placeholder { color: var(--text-muted); font-size: inherit; }
+
+/* iOS Safari auto-zooms any input/textarea with font-size < 16px on focus.
+   Bump to 16px on touch viewports so it never triggers. */
+@media (max-width: 768px) {
+  .input { font-size: 16px; }
+}
 
 .sendBtn {
   flex-shrink: 0;
