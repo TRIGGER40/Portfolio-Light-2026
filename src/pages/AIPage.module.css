@@ -1000,14 +1000,23 @@
   content: ' ';
 }
 
-/* Gradient shimmer on keyword — sage breathing glow */
+/* Gradient shimmer on keyword — forest breathing glow (light mode) */
 .insightKeyword {
-  background: linear-gradient(90deg, #4D9E80 0%, #6BBF9A 50%, #4D9E80 100%);
+  background: linear-gradient(90deg, #234034 0%, #4D7A68 50%, #234034 100%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: keywordBreathe 4s ease-in-out infinite;
+}
+
+/* Dark mode: sage equivalents */
+[data-theme="dark"] .insightKeyword {
+  background: linear-gradient(90deg, #4D9E80 0%, #6BBF9A 50%, #4D9E80 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* Palindromic gradient + bounce keyframes = perfectly seamless loop with no seam */
