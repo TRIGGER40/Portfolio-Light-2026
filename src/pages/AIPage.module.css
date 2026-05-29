@@ -1087,6 +1087,8 @@
   .msgContent { font-size: 16px; line-height: 1.75; }
   .msgH4 { font-size: 15px; }
   .userText { font-size: 16px; line-height: 1.6; }
+  .generatingText { font-size: 16px; }
+  .generatingLabel { font-size: 16px; }
   .input { font-size: 16px; }
 }
 
