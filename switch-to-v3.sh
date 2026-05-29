@@ -5,7 +5,7 @@
 
 set -e
 
-V3_URL="https://midhun-portfolio-light-2026-5zzocm91g-midhun2k14-4167s-projects.vercel.app"
+V3_URL="https://midhun-portfolio-light-2026-hoqab3f0r-midhun2k14-4167s-projects.vercel.app"
 
 echo "Switching production to V3: $V3_URL"
 vercel promote "$V3_URL"

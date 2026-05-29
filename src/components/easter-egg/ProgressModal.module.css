@@ -3,7 +3,7 @@
   position: fixed;
   inset: 0;
   z-index: 8500;
-  background: rgba(238, 240, 255, 0.82);
+  background: rgba(245, 240, 232, 0.82);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   display: flex;
@@ -24,8 +24,8 @@
   border: 1px solid rgba(35, 64, 52, 0.07);
   border-radius: 24px;
   box-shadow:
-    0 24px 64px rgba(15, 15, 35, 0.10),
-    0 4px 16px rgba(15, 15, 35, 0.06),
+    0 24px 64px rgba(35, 64, 52, 0.10),
+    0 4px 16px rgba(35, 64, 52, 0.06),
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
   display: flex;
   flex-direction: column;
@@ -47,14 +47,14 @@
 .headerTitle {
   font-size: 20px;
   font-weight: 700;
-  color: #0f0f23;
+  color: #234034;
   margin: 0 0 6px;
   letter-spacing: -0.02em;
 }
 
 .headerSub {
   font-size: 13px;
-  color: rgba(15, 15, 35, 0.62);
+  color: rgba(35, 64, 52, 0.62);
   margin: 0;
   line-height: 1.6;
 }
@@ -64,9 +64,9 @@
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: rgba(15, 15, 35, 0.04);
+  background: rgba(35, 64, 52, 0.04);
   border: none;
-  color: rgba(15, 15, 35, 0.4);
+  color: rgba(35, 64, 52, 0.4);
   font-size: 14px;
   display: flex;
   align-items: center;
@@ -74,7 +74,7 @@
   cursor: pointer;
   transition: background 0.15s, color 0.15s;
 }
-.closeBtn:hover { background: rgba(15, 15, 35, 0.08); color: #0f0f23; }
+.closeBtn:hover { background: rgba(35, 64, 52, 0.08); color: #234034; }
 
 /* ── Teaser (0 found) ── */
 .teaser {
@@ -128,7 +128,7 @@
 
 .teaserHint {
   font-size: 13px;
-  color: rgba(15, 15, 35, 0.58);
+  color: rgba(35, 64, 52, 0.58);
   margin: 0;
   position: relative;
   z-index: 1;
@@ -169,7 +169,7 @@
 
 .progressLabel {
   font-size: 12px;
-  color: rgba(15, 15, 35, 0.60);
+  color: rgba(35, 64, 52, 0.60);
   font-weight: 500;
   letter-spacing: 0.03em;
 }
@@ -231,7 +231,7 @@
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.1em;
-  color: rgba(15, 15, 35, 0.50);
+  color: rgba(35, 64, 52, 0.50);
 }
 
 .cardTitleRow {
@@ -244,7 +244,7 @@
 .cardTitle {
   font-size: 15px;
   font-weight: 700;
-  color: rgba(15, 15, 35, 0.90);
+  color: rgba(35, 64, 52, 0.90);
   margin: 0;
   letter-spacing: -0.01em;
 }
@@ -252,7 +252,7 @@
 .cardTitleBlur {
   filter: blur(5px);
   user-select: none;
-  color: rgba(15, 15, 35, 0.40);
+  color: rgba(35, 64, 52, 0.40);
 }
 
 .cardBadge {
@@ -262,8 +262,8 @@
   letter-spacing: 0.04em;
   padding: 3px 10px;
   border-radius: 999px;
-  border: 1px solid rgba(15, 15, 35, 0.14);
-  color: rgba(15, 15, 35, 0.55);
+  border: 1px solid rgba(35, 64, 52, 0.14);
+  color: rgba(35, 64, 52, 0.55);
   background: rgba(255, 255, 255, 0.60);
   white-space: nowrap;
 }
@@ -277,20 +277,20 @@
 .cardLore {
   font-size: 12.5px;
   line-height: 1.7;
-  color: rgba(15, 15, 35, 0.65);
+  color: rgba(35, 64, 52, 0.65);
   margin: 0;
 }
 
 .cardClue {
   font-size: 12.5px;
   line-height: 1.65;
-  color: rgba(15, 15, 35, 0.62);
+  color: rgba(35, 64, 52, 0.62);
   margin: 0;
 }
 
 .clueLabel {
   font-weight: 600;
-  color: rgba(15, 15, 35, 0.55);
+  color: rgba(35, 64, 52, 0.55);
   letter-spacing: 0.04em;
   text-transform: uppercase;
   font-size: 10px;
@@ -312,8 +312,8 @@
 }
 
 .manifestoCardLocked {
-  background: rgba(15, 15, 35, 0.03);
-  border: 1.5px dashed rgba(15, 15, 35, 0.14);
+  background: rgba(35, 64, 52, 0.03);
+  border: 1.5px dashed rgba(35, 64, 52, 0.14);
   opacity: 0.72;
 }
 
@@ -334,8 +334,8 @@
 }
 
 .manifestoCardLocked .manifestoIconWrap {
-  background: rgba(15, 15, 35, 0.06);
-  color: rgba(15, 15, 35, 0.35);
+  background: rgba(35, 64, 52, 0.06);
+  color: rgba(35, 64, 52, 0.35);
 }
 
 .manifestoCardActive .manifestoIconWrap {
@@ -356,7 +356,7 @@
 }
 
 .manifestoCardLocked .manifestoTitle {
-  color: rgba(15, 15, 35, 0.38);
+  color: rgba(35, 64, 52, 0.38);
 }
 
 .manifestoCardActive .manifestoTitle {
@@ -370,7 +370,7 @@
 }
 
 .manifestoCardLocked .manifestoSub {
-  color: rgba(15, 15, 35, 0.32);
+  color: rgba(35, 64, 52, 0.32);
 }
 
 .manifestoCardActive .manifestoSub {
@@ -380,8 +380,8 @@
 .manifestoLockBadge {
   font-size: 11px;
   font-weight: 600;
-  color: rgba(15, 15, 35, 0.28);
-  background: rgba(15, 15, 35, 0.06);
+  color: rgba(35, 64, 52, 0.28);
+  background: rgba(35, 64, 52, 0.06);
   padding: 3px 8px;
   border-radius: 100px;
   flex-shrink: 0;
@@ -831,6 +831,14 @@
 }
 
 [data-theme="dark"] .cardGolden .cardLore {
+  color: rgba(245, 220, 150, 0.95);
+}
+
+[data-theme="dark"] .cardGolden .cardClue {
+  color: rgba(245, 220, 150, 0.95);
+}
+
+[data-theme="dark"] .cardGolden .clueLabel {
   color: rgba(245, 200, 80, 0.75);
 }
 
@@ -838,4 +846,24 @@
   color: #f59e0b;
   background: rgba(245, 158, 11, 0.12);
   border-color: rgba(245, 158, 11, 0.28);
+}
+
+/* Personal Design Manifesto (all-found state) — dark mode contrast */
+[data-theme="dark"] .manifestoCardActive {
+  background: rgba(45, 35, 8, 0.85);
+  border-color: rgba(245, 158, 11, 0.30);
+}
+
+[data-theme="dark"] .manifestoCardActive .manifestoIconWrap {
+  background: rgba(245, 158, 11, 0.16);
+  border-color: rgba(245, 158, 11, 0.32);
+  color: #f59e0b;
+}
+
+[data-theme="dark"] .manifestoCardActive .manifestoTitle {
+  color: #FFD477;
+}
+
+[data-theme="dark"] .manifestoCardActive .manifestoSub {
+  color: rgba(245, 220, 150, 0.80);
 }
