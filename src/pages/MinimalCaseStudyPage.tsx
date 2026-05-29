@@ -31,9 +31,7 @@ function displayTimeFrame(tf: string): string {
 export function MinimalCaseStudyPage() {
   const { id } = useParams<{ id: string }>();
 
-  // Route /work/drdo-xctd maps to portfolioData entry 'npol-ctd-probe'
-  const portfolioId = (id === 'drdo-xctd' || id === 'npol-ctd-probe') ? 'npol-ctd-probe' : id;
-  const project = CASE_STUDIES.find(cs => cs.id === portfolioId);
+  const project = CASE_STUDIES.find(cs => cs.id === id);
 
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'instant' }); }, [id]);
 

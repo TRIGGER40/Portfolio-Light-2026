@@ -30,8 +30,6 @@ const BENTO_CARDS = [
   '/Projectcard-images/Digital contract creation.webp',
   '/Projectcard-images/Heuristics evaluation.webp',
   '/Projectcard-images/Maintaining design systems.webp',
-  '/Projectcard-images/npol-ctd-probe.webp',
-  '/Projectcard-images/POULTRY BRANDING.webp',
 ];
 
 /* ── Word-by-word typing with per-word fade+rise ─────── */

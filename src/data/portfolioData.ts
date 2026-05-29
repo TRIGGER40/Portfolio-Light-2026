@@ -437,50 +437,6 @@ export const CASE_STUDIES: CaseStudy[] = [
     heroImage: "/images/case-studies/nid-ui-ux-course.webp",
     backTo: "/work/all",
   },
-  {
-    id: "iit-branding",
-    title: "Branding for Local Poultry Farmers",
-    company: "IIT Guwahati",
-    category: "Internship",
-    opportunity: "Creating a complete branding and marketing presence for local poultry farmers to help them expand into Tier-1 cities. The challenge was building brand trust and accessibility for a traditionally unbranded market.",
-    actions: ["Created branding for local poultry farmers", "Designed E-Com website and shop", "Marketing guidelines to expand into Tier-1 cities"],
-    outcomes: [
-      "Full brand identity delivered: logo, colour system, typography.",
-      "E-commerce site and retail packaging designed end-to-end.",
-      "Marketing guidelines prepared for entry into 3 Tier-1 cities.",
-      "Positioned local produce as premium with a modern brand narrative.",
-    ],
-    metrics: ["Full brand identity delivered", "E-commerce site + retail packaging designed", "Market-ready for 3 Tier-1 cities"],
-    timeFrame: "2 months",
-    tags: ["Brand Strategy", "E-Commerce", "Marketing"],
-    link: "https://www.midhunkrishnakumar.info/iit",
-    thumbnail: "Projectcard-images/POULTRY BRANDING.webp",
-    metric: "Full brand identity delivered",
-    heroImage: "/Projectcard-images/POULTRY BRANDING.webp",
-    backTo: "/work/all",
-  },
-  {
-    id: "npol-ctd-probe",
-    title: "XCTD Probe Interface Design",
-    company: "NPOL DRDO",
-    category: "Internship",
-    opportunity: "Designing a re-usable CTD (Conductivity, Temperature, Depth) probe structure for naval applications at the Naval Physical and Oceanographic Laboratory under DRDO. The challenge was designing under strict operational and safety constraints.",
-    actions: ["Designed re-usable CTD probe structure", "Worked on CAD and Structural design softwares", "Design inducted into Indian Navy"],
-    outcomes: [
-      "Design inducted into the Indian Navy in April 2018.",
-      "Structural validation passed on first review.",
-      "Re-usable probe structure reduced per-deployment cost significantly.",
-      "Early exposure to designing under defence-grade constraints shaped a systems-first design approach.",
-    ],
-    metrics: ["Design inducted into Indian Navy", "Structural validation passed on first review"],
-    timeFrame: "2 months",
-    tags: ["Product Design", "CAD", "Defence"],
-    link: "https://www.midhunkrishnakumar.info/npol",
-    thumbnail: "Projectcard-images/npol-ctd-probe.webp",
-    metric: "Inducted design into Navy",
-    heroImage: "/Projectcard-images/npol-ctd-probe.webp",
-    backTo: "/work/all",
-  },
 ];
 
 // Projects with dedicated case study pages that don't follow /work/:id
@@ -490,7 +446,6 @@ const DEDICATED_ROUTES: Record<string, string> = {
   'event-joining': '/work/joining',
   'bizongo-qc':    '/work/qc',
   'bizongo-ecom':  '/work/ppe',
-  'npol-ctd-probe':'/work/drdo-xctd',
 };
 
 // Single source of truth — falls back to /work/:id for all other projects

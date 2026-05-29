@@ -110,7 +110,7 @@ The homepage now positions Midhun as a senior product designer who works "from d
 If a question is vague, pick the most interesting interpretation and run with it rather than asking for clarification. Keep responses tight — 3–5 sentences for simple questions, structured bullets for complex ones. End with something that invites a follow-up if the topic is rich.
 
 ## Referencing projects
-When mentioning a specific project, use its exact canonical name so the UI can auto-link it. Canonical names: ALMVC, Virtual Classroom, Quiz Pod, Joining Experience, QC Improvement, PPE Portal, Homepage Revamp, Adobe Visual Design, Artwork Flow, Bizongo Contracts, Bizongo Design System, User Management System, IIT Branding, NID UX Course, Heuristics Evaluation, CTD Probe, Poultry Branding, CampusLive. Note: "Gen AI Explorations" is NOT a canonical project name — do not use it as a project reference.
+When mentioning a specific project, use its exact canonical name so the UI can auto-link it. Canonical names: ALMVC, Virtual Classroom, Quiz Pod, Joining Experience, QC Improvement, PPE Portal, Homepage Revamp, Adobe Visual Design, Artwork Flow, Bizongo Contracts, Bizongo Design System, User Management System, NID UX Course, Heuristics Evaluation, CampusLive. Note: "Gen AI Explorations" is NOT a canonical project name — do not use it as a project reference.
 
 ## Resume / CV requests
 When someone asks for the resume, CV, or to download Midhun's resume/portfolio PDF, include the exact token [DOWNLOAD_RESUME] on its own line in your response. Example response: "Sure — here's Midhun's resume, one click to download:\n[DOWNLOAD_RESUME]". Always include it when the user asks.
@@ -203,8 +203,6 @@ export const PROJECT_CARD_DATA: { pattern: RegExp; route: string; title: string;
   { pattern: /\bBizongo Design System\b/gi,        route: '/work/bizongo-design-system',title: 'Design System',         image: '/Projectcard-images/Maintaining design systems.webp' },
   { pattern: /\bUser Management System\b/gi,       route: '/work/bizongo-ums',          title: 'User Management',       image: '/Projectcard-images/Bizongo UMS.webp' },
   { pattern: /\bHeuristics Evaluation\b/gi,        route: '/work/yuj-heuristics',       title: 'Heuristics Eval',       image: '/Projectcard-images/Heuristics evaluation.webp' },
-  { pattern: /\bCTD Probe\b/gi,                    route: '/work/drdo-xctd',            title: 'CTD Probe',             image: '/Projectcard-images/npol-ctd-probe.webp' },
-  { pattern: /\bPoultry Branding\b/gi,             route: '/work/poultry-branding',     title: 'Poultry Branding',      image: '/Projectcard-images/POULTRY BRANDING.webp' },
   { pattern: /\bMobile Revamp\b/gi,                route: '/work/mobile-revamp',        title: 'Mobile Revamp',         image: '/Projectcard-images/Mobile revamp.webp' },
 ];
 
@@ -222,10 +220,7 @@ export const PROJECT_LINKS: { pattern: RegExp; route: string }[] = [
   { pattern: /\bBizongo Contracts\b/gi,          route: '/work/bizongo-contracts' },
   { pattern: /\bBizongo Design System\b/gi,      route: '/work/bizongo-design-system' },
   { pattern: /\bUser Management System\b/gi,     route: '/work/bizongo-ums' },
-  { pattern: /\bIIT Branding\b/gi,               route: '/work/iit-branding' },
   { pattern: /\bNID UX Course\b/gi,              route: '/work/nid-ui-ux-course' },
   { pattern: /\bHeuristics Evaluation\b/gi,      route: '/work/yuj-heuristics' },
-  { pattern: /\bCTD Probe\b/gi,                  route: '/work/drdo-xctd' },
-  { pattern: /\bPoultry Branding\b/gi,           route: '/work/poultry-branding' },
   { pattern: /\bCampusLive\b/gi,                 route: '/work/campus-live' },
 ];
