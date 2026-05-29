@@ -33,6 +33,127 @@ const BENTO_CARDS = [
 ];
 
 /* ── Word-by-word typing with per-word fade+rise ─────── */
+/* Common stop-words excluded from the fallback keyword pick */
+const STOP_WORDS = new Set([
+  'the','a','an','and','or','but','for','to','of','in','on','at','by','with','from','as','is','are','was','were','be','been','being','it','its',
+  'this','that','these','those','i','he','she','they','we','you','his','her','their','our','your','him','them','me','us','my','mine','have','has','had',
+  'do','does','did','will','would','should','could','can','may','might','must','shall','about','into','over','under','than','then','so','if','not','no','too','very',
+  'just','also','only','more','most','less','much','many','some','any','all','both','each','every','few','other','same','such','here','there','what','which','who','whom','when','where','why','how',
+]);
+
+/* Recruiter-signal vocabulary, ordered by priority (highest first).
+   Matched by checking if a cleaned word contains any of these stems —
+   so "shipped" matches "ship", "redesigned" matches "design", etc.
+   Stems with shorter forms (e.g. "ship") will absorb tenses ("shipped",
+   "shipping") via the substring/inclusion logic in pickKeywordIndex. */
+const POWER_WORDS: string[] = [
+  // ─── Tier 1: action + impact verbs (most recruiter-resonant) ───
+  'shipped','shipping','launched','launching','delivered','delivering',
+  'redesigned','redesigning','rebuilt','rebuilding','rearchitected',
+  'transformed','transforming','revamped','revamping','reimagined','reimagining',
+  'scaled','scaling','accelerated','accelerating',
+  'reduced','reducing','increased','increasing','improved','improving','optimized','optimizing',
+  'drove','driving','owned','owning','executed','executing',
+  'created','creating','built','building','designed','designing','crafted','crafting',
+  'pioneered','pioneering','established','establishing','introduced','introducing',
+  'streamlined','streamlining','simplified','simplifying','consolidated','unified',
+  'shipped','validated','tested','prototyped','researched',
+
+  // ─── Tier 2: senior leadership signals ───
+  'led','leading','spearheaded','spearheading','championed','championing',
+  'mentored','mentoring','coached','coaching','onboarded','onboarding','trained','training',
+  'hired','hiring','recruited','interviewing',
+  'managed','managing','directed','directing','orchestrated','orchestrating',
+  'partnered','partnering','collaborated','collaborating',
+  'aligned','aligning','influenced','influencing','convinced','negotiated',
+  'evangelized','advocated','presented','pitched',
+
+  // ─── Tier 3: AI / intelligence / automation ───
+  'AI','GenAI','generative','intelligence','intelligent','smart',
+  'automation','automated','agentic','agents','copilot','LLM','model','models',
+  'machine','learning','prompt','prompts','prompting','embedding','embeddings',
+  'neural','semantic','contextual','adaptive','predictive','personalization',
+
+  // ─── Tier 4: domain expertise — product / enterprise / design ───
+  'enterprise','SaaS','B2B','B2C','platform','platforms','product','products',
+  'collaboration','communication','meeting','meetings','virtual','classroom','classrooms',
+  'systems','system','workflow','workflows','workflows','pipeline','pipelines',
+  'patterns','primitives','foundations','frameworks','architecture','architectures',
+  'design','designed','designer','designs','UX','UI','interaction','interface','interfaces',
+  'research','research-driven','user-centered','human-centered','data-informed','data-driven',
+  'usability','accessibility','inclusive','inclusivity','responsive','adaptive',
+  'mobile','mobile-first','desktop','web','native',
+  'component','components','library','tokens','specs','specifications','guidelines',
+
+  // ─── Tier 5: cross-functional / process ───
+  'cross-functional','end-to-end','full-stack','full-cycle','zero-to-one','0-to-1','0-1',
+  'discovery','definition','ideation','exploration','iteration','iterative',
+  'roadmap','strategy','vision','principles','playbook',
+  'workshops','workshopped','synthesis','synthesized',
+
+  // ─── Tier 6: scale + business impact ───
+  'million','millions','billion','billions','thousand','thousands','users','customers','seats',
+  'global','globally','enterprise-scale','at-scale',
+  'growth','impact','outcomes','adoption','retention','engagement','conversion','activation',
+  'efficiency','productivity','revenue','sales','ROI','metrics','KPIs',
+  'measurable','quantifiable','tangible','demonstrable',
+
+  // ─── Tier 7: quality + craft signals ───
+  'craft','crafted','quality','polish','polished','rigor','rigorous','excellence',
+  'sophisticated','elegant','thoughtful','intentional','deliberate','meaningful',
+
+  // ─── Tier 8: complexity + problem-solving ───
+  'complexity','ambiguity','ambiguous','unclear','tradeoffs','constraints','edge-cases',
+  'critical','high-stakes','mission-critical','strategic','foundational',
+
+  // ─── Tier 9: brands / domains specific to Midhun's work ───
+  'Adobe','Connect','Bizongo','YUJ',
+  'ALMVC','Learning','Manager','supply-chain','packaging','contracts','PPE',
+];
+
+function clean(s: string) {
+  return s.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+}
+
+/* Pick the index of the most apt word for a recruiter to see.
+   1. Exact API keyword match.
+   2. Substring keyword match (handles plurals / tense variants).
+   3. First recruiter-signal POWER_WORD found in the summary (ordered by priority).
+   4. Longest non-stopword fallback. */
+function pickKeywordIndex(words: string[], keyword: string): number {
+  const target = clean(keyword);
+  if (target) {
+    const exact = words.findIndex(w => clean(w) === target);
+    if (exact !== -1) return exact;
+    if (target.length >= 4) {
+      const partial = words.findIndex(w => {
+        const c = clean(w);
+        return c.length >= 4 && (c.includes(target) || target.includes(c));
+      });
+      if (partial !== -1) return partial;
+    }
+  }
+  // 3. Recruiter-signal lookup — for each priority power word, find the first
+  //    summary word containing that stem. Lock in on the first hit.
+  for (const power of POWER_WORDS) {
+    const stem = clean(power);
+    if (!stem) continue;
+    const idx = words.findIndex(w => {
+      const c = clean(w);
+      return c.length >= 3 && (c === stem || c.includes(stem) || stem.includes(c));
+    });
+    if (idx !== -1) return idx;
+  }
+  // 4. Fallback: longest non-stopword
+  let best = -1, bestLen = 0;
+  for (let i = 0; i < words.length; i++) {
+    const c = clean(words[i]);
+    if (c.length < 4 || STOP_WORDS.has(c)) continue;
+    if (c.length > bestLen) { best = i; bestLen = c.length; }
+  }
+  return best;
+}
+
 function WordTyping({
   text,
   keyword,
@@ -44,6 +165,7 @@ function WordTyping({
 }) {
   const [visibleCount, setVisibleCount] = useState(0);
   const words = text ? text.split(' ') : [];
+  const keywordIdx = pickKeywordIndex(words, keyword);
 
   useEffect(() => {
     if (!text) { setVisibleCount(0); return; }
@@ -60,8 +182,7 @@ function WordTyping({
   return (
     <>
       {words.map((word, i) => {
-        const clean = (s: string) => s.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
-        const isKeyword = !!keyword && clean(word) === clean(keyword);
+        const isKeyword = i === keywordIdx;
         return (
           <span
             key={i}
