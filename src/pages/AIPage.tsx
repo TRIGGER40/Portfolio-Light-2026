@@ -13,7 +13,7 @@ const loadResumePdf = () => import('../lib/resumePdf');
 const RESUME_TOKEN = '[DOWNLOAD_RESUME]';
 
 /* ── Randomised entrance delays (shuffled, not grid-order) ── */
-const BENTO_DELAYS = [0.0, 1.6, 0.7, 2.2, 0.3, 1.9, 0.9, 2.5, 0.5, 1.3, 2.8, 0.1, 2.0, 0.6, 1.1];
+const BENTO_DELAYS = [0.0, 1.6, 0.7, 2.2, 0.3, 1.9, 0.9, 2.5, 0.5, 1.3, 2.8, 0.1, 2.0];
 
 /* ── Bento background cards — all 15 project images ─────── */
 const BENTO_CARDS = [
