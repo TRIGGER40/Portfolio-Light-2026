@@ -1169,9 +1169,31 @@
     display: none;
   }
 
+  /* Mobile chat header bar: [< icon]  AI Assistant (centered)  [theme switcher] */
+  .inner { position: relative; padding-top: 24px; }
+
+  .backBtn {
+    position: absolute;
+    top: 24px;
+    left: 20px;
+    width: 35px;
+    height: 35px;
+    padding: 0 !important;
+    font-size: 0 !important;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+  }
+  .backBtn > * { font-size: 15px; }
+
   .chatHeader {
+    text-align: center;
+    align-items: center;
     margin-bottom: 12px;
     padding-bottom: 12px;
+    /* Push label down so it sits on the same horizontal line as the
+       theme switcher / back button (top: 24px, height: 35px). */
+    padding-top: 8px;
   }
 
   /* Promote the label — primary text, bigger, takes the role of the title */
@@ -1183,6 +1205,8 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    margin: 0 auto;
+    align-self: center;
   }
 
   .chatHeaderLabel::before {
