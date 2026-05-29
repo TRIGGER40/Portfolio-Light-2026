@@ -1082,6 +1082,12 @@
   .orb1 { width: 220px; height: 220px; }
   .orb2 { width: 180px; height: 180px; }
   .orb3 { width: 140px; height: 140px; }
+
+  /* Larger chat text on mobile */
+  .msgContent { font-size: 16px; line-height: 1.75; }
+  .msgH4 { font-size: 15px; }
+  .userText { font-size: 16px; line-height: 1.6; }
+  .input { font-size: 16px; }
 }
 
 /* ════════════════════════════════════════════
@@ -1180,11 +1186,13 @@
     height: 35px;
     padding: 0 !important;
     font-size: 0 !important;
-    justify-content: center;
-    align-items: center;
+    gap: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
     z-index: 5;
   }
-  .backBtn > * { font-size: 15px; }
+  .backBtn > * { font-size: 15px !important; }
 
   .chatHeader {
     text-align: center;
