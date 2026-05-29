@@ -41,3 +41,15 @@
 .btn:active {
   transform: scale(0.96);
 }
+
+/* On /ask page in mobile view, pin to top right aligned with Back-to-portfolio button */
+@media (max-width: 640px) {
+  .askTopRight {
+    top: 24px;
+    right: 20px;
+    bottom: auto;
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+  }
+}

@@ -19,34 +19,24 @@ const cardItemVariants = {
 
 const RECOGNITION = [
   {
-    title: 'Owning ambiguous problems',
-    desc: 'I take unclear, high-stakes briefs from discovery to shipped product, defining scope, making tradeoffs visible, and holding design accountability across the full arc.',
-    icon: <i className="bi bi-arrow-right-circle" style={{ fontSize: '20px' }} aria-hidden="true" />,
+    title: 'Simplify enterprise complexity',
+    desc: 'Sophisticated software made obvious to use. Six years inside the edge cases, constraints, and high-stakes flows.',
+    icon: <i className="bi bi-layers" style={{ fontSize: '22px' }} aria-hidden="true" />,
   },
   {
-    title: 'Systems over single screens',
-    desc: 'I design at the level of workflows, patterns, and principles. Solutions that hold up across the product, not just the screen being reviewed.',
-    icon: <i className="bi bi-grid" style={{ fontSize: '20px' }} aria-hidden="true" />,
+    title: 'Think systems at scale',
+    desc: 'Patterns that scale. Decisions that hold up across the whole product, not just the screen in review.',
+    icon: <i className="bi bi-diagram-3" style={{ fontSize: '22px' }} aria-hidden="true" />,
   },
   {
-    title: 'AI embedded where it matters',
-    desc: 'Hands-on Gen AI work at Adobe: intelligent content generation, smart defaults, and host automation tools. AI as a workflow accelerant, not a feature checkmark.',
-    icon: <i className="bi bi-cpu" style={{ fontSize: '20px' }} aria-hidden="true" />,
+    title: 'Thoughtful AI integration',
+    desc: 'Intelligence woven into the workflow, not bolted on top. Less effort for users, more impact per decision.',
+    icon: <i className="bi bi-stars" style={{ fontSize: '22px' }} aria-hidden="true" />,
   },
   {
-    title: 'Cross-functional alignment',
-    desc: 'I work directly with PMs, engineering, and leadership to align on decisions, surface tradeoffs early, and ship with shared ownership.',
-    icon: <i className="bi bi-people" style={{ fontSize: '20px' }} aria-hidden="true" />,
-  },
-  {
-    title: 'Enterprise complexity, simplified',
-    desc: 'Six years designing for enterprise-scale products: collaboration platforms, supply chain systems, and AI workflows. Comfortable with constraints, edge cases, and high-stakes user contexts.',
-    icon: <i className="bi bi-layers" style={{ fontSize: '20px' }} aria-hidden="true" />,
-  },
-  {
-    title: 'Measurable over decorative',
-    desc: 'I orient work around adoption, reduced friction, and efficiency gains. I track what shifted after shipping and use it to inform the next decision.',
-    icon: <i className="bi bi-graph-up" style={{ fontSize: '20px' }} aria-hidden="true" />,
+    title: 'Ship ambiguity into outcomes',
+    desc: 'Unclear brief in. Shipped product out. Scope, tradeoffs, and decisions owned end-to-end.',
+    icon: <i className="bi bi-compass" style={{ fontSize: '22px' }} aria-hidden="true" />,
   },
 ];
 
@@ -181,9 +171,7 @@ export function About() {
           >
             <span className="section-label">Approach</span>
             <h2 className={`text-display ${pStyles.recTitle}`}>
-              What I bring
-              <br />
-              <span className="gradient-text">to every product problem</span>
+              What I <span className="gradient-text">bring</span>
             </h2>
           </motion.div>
           <motion.div

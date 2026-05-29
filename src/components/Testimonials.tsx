@@ -41,9 +41,7 @@ export function Testimonials() {
         >
           <span className="section-label">Testimonials</span>
           <h2 className={`text-display ${styles.title}`}>
-            What colleagues
-            <br />
-            <span className="gradient-text">say about working with me</span>
+            What colleagues <span className="gradient-text">say</span>
           </h2>
         </motion.div>
 

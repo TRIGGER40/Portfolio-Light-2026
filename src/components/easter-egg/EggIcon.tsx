@@ -57,12 +57,15 @@ export function EggIcon({ size = 24, state = 'undiscovered', className, eggIndex
         fill="none"
         className={className}
         aria-hidden="true"
+        style={{ color: 'currentColor' }}
       >
         <path
           d="M16 2C9 2 2 12 2 22C2 33 8.5 38 16 38C23.5 38 30 33 30 22C30 12 23 2 16 2Z"
-          stroke="rgba(35,64,52,0.35)"
+          stroke="currentColor"
+          strokeOpacity="0.45"
           strokeWidth="1.5"
-          fill="rgba(35,64,52,0.05)"
+          fill="currentColor"
+          fillOpacity="0.08"
         />
       </svg>
     );
