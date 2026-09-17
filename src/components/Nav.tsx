@@ -1,15 +1,23 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { SUGGESTED_PROMPTS } from '../data/aiContext';
 import styles from './Nav.module.css';
 import { ANALYTICS_SECRET, triggerAnalyticsDashboard, track } from '../lib/analytics';
-import { EasterEggTracker } from './easter-egg/EasterEggTracker';
 
 const loadResumePdf = () => import('../lib/resumePdf');
 
 export function Nav({ hidden = false }: { hidden?: boolean }) {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const scrollToWork = () => {
+    if (location.pathname === '/') {
+      document.getElementById('work')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      navigate('/', { state: { scrollTo: 'work' } });
+    }
+  };
   const [scrolled, setScrolled] = useState(false);
   const [query, setQuery]       = useState('');
   const [focused, setFocused]   = useState(false);
@@ -111,9 +119,13 @@ export function Nav({ hidden = false }: { hidden?: boolean }) {
               />
             </div>
 
-            {/* Easter Egg Tracker */}
-            <EasterEggTracker />
-            <div className={styles.eggDivider} />
+            {/* Work */}
+            <button
+              className={styles.aboutBtn}
+              onClick={scrollToWork}
+            >
+              Work
+            </button>
 
             {/* About */}
             <button

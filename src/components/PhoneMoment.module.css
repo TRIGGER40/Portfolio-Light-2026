@@ -1,0 +1,247 @@
+.section {
+  padding: 0 0 var(--section-pad);
+}
+
+/* ── Outer card ── */
+.card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  background-color: var(--glass-bg);
+  background-image: url('/images/experiments/lazy-map-light.webp');
+  background-size: cover;
+  background-position: center;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: 40px 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="dark"] .card {
+  background-image: url('/images/experiments/lazy-map-dark.webp');
+}
+
+/* Scrim — fades the illustration out under the text column so copy stays
+   legible, while letting it show through clearly behind the video. */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, var(--glass-bg) 55%, var(--glass-bg) 100%);
+  pointer-events: none;
+}
+
+/* ── Text column ── */
+.textCol {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--accent-indigo);
+}
+
+.label::before {
+  content: '';
+  width: 16px;
+  height: 1px;
+  background: var(--accent-indigo);
+}
+
+.title {
+  font-size: clamp(22px, 2.4vw, 30px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.22;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.titleAccent {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.body {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.features {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+
+.featureDot {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  margin-top: 7px;
+  border-radius: 50%;
+  background: var(--accent-indigo);
+}
+
+.featureLabel {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.featureDesc {
+  color: var(--text-secondary);
+}
+
+/* ── Media column ── */
+.imgCol {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phone {
+  position: relative;
+  height: clamp(280px, 32vw, 380px);
+  width: auto;
+  aspect-ratio: 1182 / 2560;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow:
+    0 26px 54px rgba(0, 0, 0, 0.24),
+    0 8px 20px rgba(0, 0, 0, 0.16);
+}
+
+.screen {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: #000;
+}
+
+/* Soft contact shadow beneath the video, reading as elevation off the page */
+.shadow {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  translate: -50% 0;
+  width: 140px;
+  height: 24px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.24) 0%, transparent 70%);
+  z-index: -1;
+}
+
+[data-theme="dark"] .shadow {
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.45) 0%, transparent 70%);
+}
+
+.shadowHidden {
+  opacity: 0;
+}
+
+/* ── Lightbox — the same phone element zooms to the centre of the
+   viewport via a layout animation; everything else fades and blurs
+   behind it. Doubled-up selector so this reliably outranks .phone. ── */
+.phone.phoneActive {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: auto;
+  height: min(88vh, 780px);
+  z-index: 210;
+  cursor: default;
+  box-shadow:
+    0 50px 100px rgba(0, 0, 0, 0.45),
+    0 16px 40px rgba(0, 0, 0, 0.3);
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 8, 6, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 200;
+}
+
+[data-theme="dark"] .backdrop {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.closeBtn {
+  position: fixed;
+  top: 28px;
+  right: 28px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 220;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .card {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 40px 32px;
+  }
+
+  .imgCol {
+    order: -1;
+    padding: 12px 0 20px;
+  }
+
+  .phone {
+    height: clamp(260px, 62vw, 360px);
+  }
+
+  .card::before {
+    background: linear-gradient(180deg, transparent 0%, var(--glass-bg) 60%, var(--glass-bg) 100%);
+  }
+}
+
+@media (max-width: 640px) {
+  .card {
+    padding: 28px 20px;
+    border-radius: var(--radius-lg);
+  }
+}

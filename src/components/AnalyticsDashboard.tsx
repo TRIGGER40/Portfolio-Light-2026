@@ -3,6 +3,8 @@ import { fetchRemoteEvents, clearLocalAnalytics, isRemoteEnabled } from '../lib/
 import type { AEvent } from '../lib/analytics';
 import { fetchPosts, deletePost } from '../lib/emojiBoard';
 import type { EmojiPost } from '../lib/emojiBoard';
+import { fetchBookings, deleteBooking } from '../lib/bookings';
+import type { Booking } from '../lib/bookings';
 import styles from './AnalyticsDashboard.module.css';
 import { Loader } from './Loader';
 
@@ -390,15 +392,114 @@ function BoardTable({
   );
 }
 
+/* ── Bookings table ───────────────────────────────── */
+const SLOT_LABELS: Record<string, string> = {
+  '18:00': '6:00 PM – 7:00 PM',
+  '19:30': '7:30 PM – 8:30 PM',
+};
+
+function BookingsTable({
+  bookings,
+  onRemove,
+}: {
+  bookings: Booking[];
+  onRemove: (id: string) => void;
+}) {
+  const [removing, setRemoving] = useState<Set<string>>(new Set());
+
+  async function handleRemove(id: string) {
+    if (!confirm('Delete this booking? This also frees up the slot, cancels the calendar invite, and refunds the payment.')) return;
+    setRemoving(prev => new Set([...prev, id]));
+    const result = await deleteBooking(id);
+    if (result.ok) {
+      onRemove(id);
+      const failures = [
+        result.calendarDeleted === false && 'the calendar event could not be deleted automatically',
+        result.refunded === false && 'the payment could not be refunded automatically',
+      ].filter(Boolean);
+      if (failures.length > 0) {
+        alert(`Booking removed, but ${failures.join(' and ')}. Please handle this manually.`);
+      }
+    } else {
+      alert('Could not delete booking. Try refreshing and trying again.');
+    }
+    setRemoving(prev => { const n = new Set(prev); n.delete(id); return n; });
+  }
+
+  if (bookings.length === 0) {
+    return (
+      <div className={styles.empty}>
+        <i className="bi bi-calendar-check" />
+        <div className={styles.emptyTitle}>No bookings yet</div>
+        <div className={styles.emptyText}>Confirmed mentorship bookings will appear here.</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className={styles.sectionCard}>
+      <table className={styles.boardTable}>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Reason</th>
+            <th>Meet link</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {bookings.map(b => {
+            const dateFormatted = new Date(`${b.date}T00:00:00`).toLocaleDateString('en-IN', {
+              weekday: 'short', day: 'numeric', month: 'short', year: 'numeric',
+            });
+            return (
+              <tr key={b.id}>
+                <td className={styles.boardDate}>{dateFormatted}</td>
+                <td className={styles.boardName}>{SLOT_LABELS[b.slot] ?? b.slot}</td>
+                <td className={styles.boardName}>{b.name}</td>
+                <td className={styles.boardLocation}>{b.email}</td>
+                <td className={styles.bookingReasonCell} title={b.reason}>{b.reason}</td>
+                <td className={styles.boardLocation}>
+                  {b.meet_link
+                    ? <a href={b.meet_link} target="_blank" rel="noreferrer">Meet</a>
+                    : <span style={{ color: 'rgba(255,255,255,0.2)' }}>—</span>}
+                </td>
+                <td className={styles.boardActionCell}>
+                  <button
+                    className={styles.boardRemoveBtn}
+                    onClick={() => handleRemove(b.id)}
+                    disabled={removing.has(b.id)}
+                    title="Delete booking"
+                    aria-label="Delete booking"
+                  >
+                    {removing.has(b.id)
+                      ? <Loader size={12} />
+                      : <i className="bi bi-trash3" />}
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 /* ── Main dashboard ───────────────────────────────── */
 export function AnalyticsDashboard({ onClose }: { onClose: () => void }) {
   const [events, setEvents]     = useState<AEvent[]>([]);
   const [loading, setLoading]   = useState(true);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
-  const [activeTab, setActiveTab] = useState<'overview' | 'sessions' | 'board'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'sessions' | 'board' | 'bookings'>('overview');
   const [selectedSession, setSelectedSession] = useState<SessionSummary | null>(null);
   const [boardPosts, setBoardPosts] = useState<EmojiPost[]>([]);
   const [boardLoading, setBoardLoading] = useState(false);
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [bookingsLoading, setBookingsLoading] = useState(false);
   const remote = isRemoteEnabled();
 
   const loadEvents = useCallback(async () => {
@@ -427,6 +528,18 @@ export function AnalyticsDashboard({ onClose }: { onClose: () => void }) {
   useEffect(() => {
     if (activeTab === 'board') loadBoardPosts();
   }, [activeTab, loadBoardPosts]);
+
+  // Load bookings when Bookings tab is opened
+  const loadBookings = useCallback(async () => {
+    setBookingsLoading(true);
+    const data = await fetchBookings();
+    setBookings(data);
+    setBookingsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    if (activeTab === 'bookings') loadBookings();
+  }, [activeTab, loadBookings]);
 
   const { m, sessionList } = useMemo(() => {
     const sessions = new Set(events.map(e => e.sid));
@@ -656,6 +769,12 @@ export function AnalyticsDashboard({ onClose }: { onClose: () => void }) {
         >
           Board
         </button>
+        <button
+          className={`${styles.tabLarge} ${activeTab === 'bookings' ? styles.tabLargeActive : ''}`}
+          onClick={() => setActiveTab('bookings')}
+        >
+          Bookings
+        </button>
       </div>
 
       <div className={styles.content}>
@@ -707,6 +826,36 @@ export function AnalyticsDashboard({ onClose }: { onClose: () => void }) {
                 <BoardTable
                   posts={boardPosts}
                   onRemove={id => setBoardPosts(prev => prev.filter(p => p.id !== id))}
+                />
+              )}
+            </div>
+          </div>
+        ) : activeTab === 'bookings' ? (
+          <div>
+            <div className={styles.section}>
+              <div className={styles.sectionHead}>
+                <i className="bi bi-calendar-check" style={{ color: '#6BBF9A' }} />
+                Bookings
+                <span style={{ marginLeft: 'auto', fontSize: 11, color: 'rgba(255,255,255,0.25)', fontWeight: 400, textTransform: 'none', letterSpacing: 0 }}>
+                  {bookings.length} {bookings.length === 1 ? 'booking' : 'bookings'}
+                </span>
+                <button
+                  className={styles.clearBtn}
+                  onClick={loadBookings}
+                  disabled={bookingsLoading}
+                  style={{ marginLeft: 8, opacity: bookingsLoading ? 0.5 : 1 }}
+                >
+                  {bookingsLoading ? 'Loading…' : '↻ Refresh'}
+                </button>
+              </div>
+              {bookingsLoading && bookings.length === 0 ? (
+                <div style={{ padding: '40px 0', textAlign: 'center' }}>
+                  <Loader size={28} />
+                </div>
+              ) : (
+                <BookingsTable
+                  bookings={bookings}
+                  onRemove={id => setBookings(prev => prev.filter(b => b.id !== id))}
                 />
               )}
             </div>

@@ -364,6 +364,15 @@
   white-space: nowrap;
 }
 
+.bookingReasonCell {
+  color: rgba(255,255,255,0.5);
+  font-size: 12px;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .boardActionCell {
   width: 40px;
   text-align: right;

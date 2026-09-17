@@ -164,6 +164,18 @@ body::before {
   );
 }
 
+/* Per-page dimming hook — pages toggle this class on <body> to mute the
+   grid pattern (static base grid + GridBreath's animated pulses) without
+   affecting any other page. */
+body.subtle-grid::before {
+  opacity: 0.35;
+}
+
+body.subtle-grid {
+  --grid-breathe-peak: 0.3;
+  --grid-breathe-peak-strong: 0.5;
+}
+
 
 #root {
   position: relative;
@@ -451,6 +463,32 @@ ul, ol { list-style: none; }
   }
 }
 
+/* ── Floating controls cluster (egg tracker + theme toggle) ── */
+.floating-controls {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.3s ease;
+}
+
+@media (max-width: 640px) {
+  .floating-controls--ask {
+    bottom: auto;
+    top: 24px;
+    right: 20px;
+  }
+}
+
+body.bg-view-active .floating-controls {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
 /* ── Divider ──────────────────────────────────────────── */
 .divider {
   height: 1px;
@@ -570,4 +608,11 @@ ul, ol { list-style: none; }
   box-shadow:
     0 8px 24px rgba(0, 0, 0, 0.14),
     0 2px  8px rgba(0, 0, 0, 0.08);
+}
+
+/* Razorpay checkout backdrop — the widget injects this itself (outside the
+   React tree), so it can only be styled globally, not via a CSS module. */
+.razorpay-backdrop {
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
 }

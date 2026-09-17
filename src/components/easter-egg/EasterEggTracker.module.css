@@ -19,6 +19,30 @@
   flex-shrink: 0;
 }
 
+/* Floating variant — glass pill next to the theme switcher */
+.floating {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-md);
+  height: 44px;
+  opacity: 1;
+  padding: 0 14px;
+  transition:
+    background var(--transition-base),
+    border-color var(--transition-base),
+    transform 0.2s var(--ease-out),
+    box-shadow var(--transition-base);
+}
+
+.floating:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-lg);
+}
+
 /* Active (≥1 found) */
 .trackerActive {
   opacity: 1;

@@ -6,7 +6,7 @@ import { track } from '../lib/analytics';
 
 const METRICS = [
   { value: '6+',   label: 'years shipping enterprise products' },
-  { value: '10M+', label: 'users across shipped products' },
+  { value: '10M+', label: 'users delighted across products' },
   { value: '20+',  label: 'features owned, start to finish' },
 ];
 

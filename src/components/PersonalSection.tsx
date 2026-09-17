@@ -1,9 +1,22 @@
+import type { ReactNode } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import pStyles from '../pages/AboutPage.module.css';
 import { HobbiesCarousel } from './HobbiesCarousel';
 import { ImgSkeleton } from './ImgSkeleton';
+import { saveScrollBeforeLeave } from '../hooks/useScrollRestoration';
 
-const PERSONAL = [
+interface PersonalItem {
+  img: string;
+  imgPosition: string;
+  gradient: string;
+  icon: ReactNode;
+  label: string;
+  text: string;
+  cta?: { label: string; to: string };
+}
+
+const PERSONAL: PersonalItem[] = [
   {
     img: '/personal/vibe-coding.webp',
     imgPosition: 'center center',
@@ -27,6 +40,7 @@ const PERSONAL = [
     icon: <i className="bi bi-heart" style={{ fontSize: '22px' }} aria-hidden="true" />,
     label: 'Giving back',
     text: 'I actively mentor aspiring designers, contribute to open design discussions, and build tools that help others grow. Giving back keeps me grounded and reminds me how far thoughtful guidance can go early in someone\'s career.',
+    cta: { label: 'Book a session with Midhun', to: '/book-a-session' },
   },
   {
     img: '/More about me/weekend.webp',
@@ -39,6 +53,12 @@ const PERSONAL = [
 ];
 
 export function PersonalSection() {
+  const navigate = useNavigate();
+
+  function goToBooking(to: string) {
+    saveScrollBeforeLeave();
+    navigate(to);
+  }
 
   return (
     <section className={pStyles.personalSection}>
@@ -78,6 +98,14 @@ export function PersonalSection() {
               <div className={pStyles.personalCardBody}>
                 <h4 className={pStyles.personalCardLabel}>{item.label}</h4>
                 <p className={pStyles.personalCardText}>{item.text}</p>
+                {item.cta && (
+                  <button
+                    className={pStyles.personalCardCta}
+                    onClick={() => goToBooking(item.cta!.to)}
+                  >
+                    {item.cta.label}
+                  </button>
+                )}
               </div>
             </motion.div>
           ))}

@@ -15,6 +15,7 @@ import { Nav } from './components/Nav';
 import { ScrollFade } from './components/ScrollFade';
 import { CursorEffect } from './components/CursorEffect';
 import { ThemeSwitcher } from './components/ThemeSwitcher';
+import { EasterEggTracker } from './components/easter-egg/EasterEggTracker';
 import { Hero } from './components/Hero';
 import { Work } from './components/Work';
 import { About } from './components/About';
@@ -24,11 +25,12 @@ import { Contact } from './components/Contact';
 import { AboutMeCard } from './components/AboutMeCard';
 import { Footer } from './components/Footer';
 import { BackgroundGlow } from './components/BackgroundGlow';
+import { GridBreath } from './components/GridBreath';
 import { AIPage } from './pages/AIPage';
 import { AboutPage } from './pages/AboutPage';
 import { CaseStudyQuiz } from './pages/CaseStudyQuiz';
 import { CaseStudyJoining } from './pages/CaseStudyJoining';
-import { PasswordGate } from './components/PasswordGate';
+import { CaseStudyALMVC } from './pages/CaseStudyALMVC';
 import { CaseStudyQC } from './pages/CaseStudyQC';
 import { CaseStudyPPE } from './pages/CaseStudyPPE';
 import { AllWorksPage } from './pages/AllWorksPage';
@@ -36,6 +38,7 @@ import { MinimalCaseStudyPage } from './pages/MinimalCaseStudyPage';
 import { ArticlePage } from './pages/ArticlePage';
 import { PanoramaPage } from './pages/PanoramaPage';
 import { BoardPage } from './pages/BoardPage';
+import { MentorPage } from './pages/MentorPage';
 
 // ── Per-route page meta ────────────────────────────────────────────────────
 const STATIC_META: Record<string, { title: string; description: string }> = {
@@ -74,6 +77,14 @@ const STATIC_META: Record<string, { title: string; description: string }> = {
   '/ask': {
     title: 'Ask Midhun | AI Portfolio Assistant',
     description: 'An AI assistant trained on Midhun Krishnakumar portfolio and design thinking. Ask anything about his work, process, or experience.',
+  },
+  '/book-a-session': {
+    title: 'Book a 1:1 Session with Midhun Krishnakumar | Mentorship & Portfolio Review',
+    description: 'Book a focused 60-minute mentorship session with Midhun Krishnakumar, Lead Product Designer at Adobe. Portfolio review, career guidance, and interview prep over Google Meet.',
+  },
+  '/mentor': {
+    title: 'Book a 1:1 Session with Midhun Krishnakumar | Mentorship & Portfolio Review',
+    description: 'Book a focused 60-minute mentorship session with Midhun Krishnakumar, Lead Product Designer at Adobe. Portfolio review, career guidance, and interview prep over Google Meet.',
   },
 };
 
@@ -193,8 +204,14 @@ export default function App() {
 
   return (
     <EasterEggProvider>
+      <GridBreath />
       <CursorEffect />
-      <ThemeSwitcher />
+      {/* Fixed bottom-right cluster: egg counter + theme toggle.
+          On /ask mobile: moves to top-right and hides egg counter. */}
+      <div className={`floating-controls${isAIPage ? ' floating-controls--ask' : ''}`}>
+        {!isAIPage && <EasterEggTracker floating />}
+        <ThemeSwitcher />
+      </div>
       {showAnalytics && <AnalyticsDashboard onClose={() => setShowAnalytics(false)} />}
       {/* ── Easter Egg system — global modals ── */}
       <DiscoveryModal />
@@ -227,10 +244,7 @@ export default function App() {
           } />
           <Route path="/work/almvc" element={
             <motion.div variants={homeVariants} initial="initial" animate="animate" exit="exit">
-              <PasswordGate
-                id="almvc"
-                loader={() => import('./pages/CaseStudyALMVC').then(m => ({ default: m.CaseStudyALMVC }))}
-              />
+              <CaseStudyALMVC />
             </motion.div>
           } />
           <Route path="/work/qc" element={
@@ -261,6 +275,16 @@ export default function App() {
           <Route path="/campus-pano" element={
             <motion.div variants={homeVariants} initial="initial" animate="animate" exit="exit">
               <PanoramaPage />
+            </motion.div>
+          } />
+          <Route path="/mentor" element={
+            <motion.div variants={homeVariants} initial="initial" animate="animate" exit="exit">
+              <MentorPage />
+            </motion.div>
+          } />
+          <Route path="/book-a-session" element={
+            <motion.div variants={homeVariants} initial="initial" animate="animate" exit="exit">
+              <MentorPage />
             </motion.div>
           } />
           <Route path="/blog" element={<BlogRedirect />} />

@@ -9,6 +9,7 @@ export type Experiment = {
   desc: string;
   tag: string;
   thumb: { type: 'video' | 'img'; src: string };
+  cardImg: { light: string; dark: string };
   portrait?: boolean;
   ctaLink?: string;
   ctaLabel?: string;

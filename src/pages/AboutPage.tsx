@@ -7,7 +7,9 @@ import { SideExperiments } from '../components/SideExperiments';
 import { PersonalSection } from '../components/PersonalSection';
 import { CommunityCard } from '../components/CommunityCard';
 import { FigmaAICard } from '../components/FigmaAICard';
+import { PhoneMoment } from '../components/PhoneMoment';
 import { SeeWorksCard } from '../components/SeeWorksCard';
+import { BookSessionCard } from '../components/BookSessionCard';
 import { MarkBoard } from '../components/MarkBoard';
 import { useEasterEgg } from '../context/EasterEggContext';
 import styles from './AboutPage.module.css';
@@ -132,20 +134,23 @@ export function AboutPage() {
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
       document.body.style.overflow = 'hidden';
       document.body.style.paddingRight = `${scrollbarWidth}px`;
+      document.body.classList.add('bg-view-active');
     } else {
       document.body.style.overflow = '';
       document.body.style.paddingRight = '';
+      document.body.classList.remove('bg-view-active');
     }
     return () => {
       document.body.style.overflow = '';
       document.body.style.paddingRight = '';
+      document.body.classList.remove('bg-view-active');
     };
   }, [bgExpanded]);
 
   return (
     <>
       {!bgExpanded && <BackgroundGlow />}
-      <main style={{ paddingTop: '80px' }} className={`${styles.pageRoot} ${bgExpanded ? styles.pageExpanded : ''}`}>
+      <main style={{ paddingTop: '68px' }} className={`${styles.pageRoot} ${bgExpanded ? styles.pageExpanded : ''}`}>
 
         {/* ── Full-page parallax background ── */}
         <div className={`${styles.pageBgWrap} ${bgExpanded ? styles.pageBgWrapExpanded : ''}`} aria-hidden={!bgExpanded}>
@@ -207,6 +212,9 @@ export function AboutPage() {
 
         {/* ── Intro hero ── */}
         <section className={`${styles.intro} ${bgExpanded ? styles.introHidden : ''}`}>
+          <div className="container">
+            <span className="section-label">About</span>
+          </div>
           <div className={`container ${styles.introInner}`}>
 
             <div className={styles.introText}>
@@ -319,6 +327,8 @@ export function AboutPage() {
           </div>
         </section>
 
+        {!bgExpanded && <BookSessionCard />}
+
         {/* ── Education ── */}
         <section className={styles.eduSection}>
           <div className="container">
@@ -401,6 +411,7 @@ export function AboutPage() {
         {!bgExpanded && <CommunityCard />}
         {!bgExpanded && <FigmaAICard />}
         {!bgExpanded && <SideExperiments />}
+        {!bgExpanded && <PhoneMoment />}
         {!bgExpanded && <SeeWorksCard />}
         {!bgExpanded && <MarkBoard />}
         {!bgExpanded && <Footer />}

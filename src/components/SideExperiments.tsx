@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './SideExperiments.module.css';
 import { ExperimentModal, type Experiment } from './ExperimentModal';
-import { ImgSkeleton } from './ImgSkeleton';
 
 const EXPERIMENTS: Experiment[] = [
   {
@@ -11,6 +10,10 @@ const EXPERIMENTS: Experiment[] = [
     desc: 'Using the platform\'s pull to nudge people toward structured, healthy daily routines.',
     tag: 'Behaviour Design',
     thumb: { type: 'video', src: '/VIDEOS/youtube-routine-web.mp4' },
+    cardImg: {
+      light: '/images/experiments/youtube-routine-light.webp',
+      dark: '/images/experiments/youtube-routine-dark.webp',
+    },
   },
   {
     num: '02',
@@ -18,6 +21,10 @@ const EXPERIMENTS: Experiment[] = [
     desc: 'Reintroducing the emotional weight of physical currency into digital payment flows.',
     tag: 'Mobile UX',
     thumb: { type: 'video', src: '/VIDEOS/rethinking-money-web.mp4' },
+    cardImg: {
+      light: '/images/experiments/money-light.webp',
+      dark: '/images/experiments/money-dark.webp',
+    },
     portrait: true,
   },
   {
@@ -26,6 +33,10 @@ const EXPERIMENTS: Experiment[] = [
     desc: 'A metaverse campus replicating the corridor learning that defines college life.',
     tag: 'Spatial Design',
     thumb: { type: 'video', src: '/VIDEOS/campus-live-web.mp4' },
+    cardImg: {
+      light: '/images/experiments/campus-live-light.webp',
+      dark: '/images/experiments/campus-live-dark.webp',
+    },
     ctaLink: '/campus-pano',
     ctaLabel: 'Walk through the campus',
   },
@@ -35,11 +46,39 @@ const EXPERIMENTS: Experiment[] = [
     desc: 'Route safety badges based on lighting, incident history, and foot traffic data.',
     tag: 'Maps UX',
     thumb: { type: 'img', src: '/images/safe-routes-1.webp' },
+    cardImg: {
+      light: '/images/experiments/safe-routes-light.webp',
+      dark: '/images/experiments/safe-routes-dark.webp',
+    },
   },
 ];
 
+const COUNT = EXPERIMENTS.length;
+const AUTOPLAY_MS = 3200;
+
 export function SideExperiments() {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [autoIndex, setAutoIndex] = useState(0);
+  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
+  const [modalIndex, setModalIndex] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  const activeIndex = hoverIndex ?? autoIndex;
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 640px)');
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile || hoverIndex !== null || modalIndex !== null) return;
+    const id = setInterval(() => {
+      setAutoIndex(i => (i + 1) % COUNT);
+    }, AUTOPLAY_MS);
+    return () => clearInterval(id);
+  }, [isMobile, hoverIndex, modalIndex]);
 
   return (
     <>
@@ -53,46 +92,114 @@ export function SideExperiments() {
             </h2>
             <p className={styles.sub}>Side experiments where design meets a personal question.</p>
           </div>
+        </div>
 
-          <div className={styles.list}>
-            {EXPERIMENTS.map((exp, i) => (
-              <button
-                key={exp.num}
-                className={styles.row}
-                onClick={() => setActiveIndex(i)}
-              >
-                <span className={styles.num}>{exp.num}</span>
+        <div className="container">
+          {isMobile ? (
+            <div className={styles.mobileList}>
+              {EXPERIMENTS.map((exp, i) => (
+                <button
+                  key={exp.num}
+                  className={styles.mobileCard}
+                  onClick={() => setModalIndex(i)}
+                  aria-label={`Open ${exp.title}`}
+                >
+                  <div className={styles.mobileThumb}>
+                    <img
+                      className={`${styles.panelImg} ${styles.panelImgLight}`}
+                      src={exp.cardImg.light}
+                      alt={exp.title}
+                      loading="lazy"
+                    />
+                    <img
+                      className={`${styles.panelImg} ${styles.panelImgDark}`}
+                      src={exp.cardImg.dark}
+                      alt=""
+                      aria-hidden="true"
+                      loading="lazy"
+                    />
+                    <span className={styles.mobileNum}>{exp.num}</span>
+                  </div>
+                  <div className={styles.mobileText}>
+                    <span className={styles.mobileTitle}>{exp.title}</span>
+                    <span className={styles.mobileDesc}>{exp.desc}</span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          ) : (
+            <motion.div
+              className={styles.row}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {EXPERIMENTS.map((exp, i) => {
+                const isActive = i === activeIndex;
 
-                <div className={styles.thumb}>
-                  {exp.thumb.type === 'video'
-                    ? <video src={exp.thumb.src} muted playsInline preload="metadata" />
-                    : <ImgSkeleton src={exp.thumb.src} alt={exp.title} />
-                  }
-                </div>
+                return (
+                  <motion.button
+                    key={exp.num}
+                    className={styles.panel}
+                    onClick={() => setModalIndex(i)}
+                    onMouseEnter={() => setHoverIndex(i)}
+                    onMouseLeave={() => setHoverIndex(null)}
+                    onFocus={() => setHoverIndex(i)}
+                    onBlur={() => setHoverIndex(null)}
+                    aria-label={`Open ${exp.title}`}
+                    animate={{ scale: isActive ? 1.24 : 1 }}
+                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    style={{ zIndex: isActive ? 5 : 1 }}
+                  >
+                    <img
+                      className={`${styles.panelImg} ${styles.panelImgLight}`}
+                      src={exp.cardImg.light}
+                      alt={exp.title}
+                      loading="lazy"
+                    />
+                    <img
+                      className={`${styles.panelImg} ${styles.panelImgDark}`}
+                      src={exp.cardImg.dark}
+                      alt=""
+                      aria-hidden="true"
+                      loading="lazy"
+                    />
 
-                <div className={styles.text}>
-                  <span className={styles.rowTitle}>{exp.title}</span>
-                  <span className={styles.rowDesc}>{exp.desc}</span>
-                </div>
+                    <span className={styles.panelNum}>{exp.num}</span>
 
-                <span className={styles.tag}>{exp.tag}</span>
-
-                <span className={styles.playIcon}>
-                  <i className="bi bi-play-circle" />
-                </span>
-              </button>
-            ))}
-          </div>
+                    <AnimatePresence>
+                      {isActive && (
+                        <motion.div
+                          className={styles.panelOverlay}
+                          initial={{ y: 12, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          exit={{ y: 12, opacity: 0 }}
+                          transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                        >
+                          <span className={styles.panelScrim} aria-hidden="true" />
+                          <div className={styles.panelText}>
+                            <span className={styles.panelTitle}>{exp.title}</span>
+                            <span className={styles.panelDesc}>{exp.desc}</span>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.button>
+                );
+              })}
+            </motion.div>
+          )}
         </div>
       </section>
 
       <AnimatePresence>
-        {activeIndex !== null && (
+        {modalIndex !== null && (
           <ExperimentModal
             experiments={EXPERIMENTS}
-            activeIndex={activeIndex}
-            onClose={() => setActiveIndex(null)}
-            onSelect={setActiveIndex}
+            activeIndex={modalIndex}
+            onClose={() => setModalIndex(null)}
+            onSelect={setModalIndex}
           />
         )}
       </AnimatePresence>

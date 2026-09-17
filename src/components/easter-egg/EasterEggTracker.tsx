@@ -4,7 +4,7 @@ import { useEasterEgg } from '../../context/EasterEggContext';
 import { EggIcon } from './EggIcon';
 import styles from './EasterEggTracker.module.css';
 
-export function EasterEggTracker() {
+export function EasterEggTracker({ floating = false }: { floating?: boolean }) {
   const { discoveredCount, isComplete, openProgress } = useEasterEgg();
   const prevCount = useRef(discoveredCount);
 
@@ -26,6 +26,7 @@ export function EasterEggTracker() {
     <button
       className={`
         ${styles.tracker}
+        ${floating             ? styles.floating        : ''}
         ${discoveredCount > 0  ? styles.trackerActive   : ''}
         ${isComplete           ? styles.trackerComplete : ''}
       `}

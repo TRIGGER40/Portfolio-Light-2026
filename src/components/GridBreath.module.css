@@ -1,0 +1,58 @@
+.root {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Shared grid pattern — same cell size as body::before */
+.layer {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0;
+  will-change: opacity;
+}
+
+/* ── Layer A — upper-left origin, dominant ── */
+.layerA {
+  mask-image: radial-gradient(ellipse 65% 65% at 22% 28%, black 0%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 65% 65% at 22% 28%, black 0%, transparent 100%);
+  animation: gridBreatheStrong 7.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  animation-delay: 0s;
+}
+
+/* ── Layer B — lower-right origin ── */
+.layerB {
+  mask-image: radial-gradient(ellipse 60% 50% at 78% 74%, black 0%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 60% 50% at 78% 74%, black 0%, transparent 100%);
+  animation: gridBreathe 9.8s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  animation-delay: -4.1s;
+}
+
+/* ── Layer C — upper-right, subtle third pulse ── */
+.layerC {
+  mask-image: radial-gradient(ellipse 45% 45% at 80% 18%, black 0%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 45% 45% at 80% 18%, black 0%, transparent 100%);
+  animation: gridBreathe 12.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  animation-delay: -7.6s;
+}
+
+/* Default keyframe — subtle pulse for layers B and C */
+@keyframes gridBreathe {
+  0%   { opacity: 0;    }
+  30%  { opacity: var(--grid-breathe-peak, 0.85); }
+  55%  { opacity: var(--grid-breathe-peak, 0.85); }
+  100% { opacity: 0;    }
+}
+
+/* Strong keyframe — dominant pulse for layer A */
+@keyframes gridBreatheStrong {
+  0%   { opacity: 0;   }
+  35%  { opacity: var(--grid-breathe-peak-strong, 4); }
+  55%  { opacity: var(--grid-breathe-peak-strong, 4); }
+  100% { opacity: 0;   }
+}
