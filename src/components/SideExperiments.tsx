@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import styles from './SideExperiments.module.css';
 import { ExperimentModal, type Experiment } from './ExperimentModal';
 import { PhoneMoment } from './PhoneMoment';
+import { ProximityMoment } from './ProximityMoment';
 
 const EXPERIMENTS: Experiment[] = [
   {
@@ -95,8 +96,12 @@ export function SideExperiments() {
           </div>
         </div>
 
-        <div className={`container ${styles.phoneMomentWrap}`}>
+        <div className={`container ${styles.momentGap}`}>
           <PhoneMoment />
+        </div>
+
+        <div className={`container ${styles.phoneMomentWrap}`}>
+          <ProximityMoment />
         </div>
 
         <div className="container">
