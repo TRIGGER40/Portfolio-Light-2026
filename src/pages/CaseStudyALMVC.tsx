@@ -91,20 +91,23 @@ export function CaseStudyALMVC() {
           <div className={aStyles.contextInner}>
             <div className={aStyles.contextText}>
               <span className={styles.tag}>Context</span>
-              <h2 className={styles.sectionTitle}>Enterprise learning ran on tools designed for something else.</h2>
-              <p className={aStyles.contextBody}>General-purpose meeting platforms were being used as classroom proxies. The core workflows of enterprise training (structured roles, paced delivery, multi-stage engagement, reviewable recordings) are fundamentally incompatible with how meeting tools are designed to behave. Adobe Learning Manager had deep LMS infrastructure but no native live session layer. Every workaround created ownership gaps no single team could fix.</p>
+              <h2 className={styles.sectionTitle}>Adobe Learning Manager needed to complete their training ecosystem.</h2>
+              <p className={aStyles.contextBody}>Adobe Learning Manager relied on external tools to run virtual classroom courses. ALM used general-purpose meeting tools like MS Teams, Zoom, and WebEx, which are built for easy communication, not enterprise virtual training. The Adobe Connect team was brought in to create a native virtual training tool for ALM.</p>
             </div>
-            <div className={aStyles.contextStats}>
-              {[
-                { val: '6 mo',  lbl: 'End-to-end delivery timeline' },
-                { val: '3',     lbl: 'Primary user groups designed for' },
-                { val: '5+',    lbl: 'Major feature areas shipped' },
-              ].map(s => (
-                <div key={s.val} className={aStyles.contextStat}>
-                  <span className={aStyles.contextStatVal}>{s.val}</span>
-                  <span className={aStyles.contextStatLbl}>{s.lbl}</span>
-                </div>
-              ))}
+            <div className={aStyles.contextLogos}>
+              <div className={aStyles.contextLogoCard}>
+                <span className={aStyles.contextLogoIcon}>
+                  <img src="/ALMVC/ALM logo.png" alt="Adobe Learning Manager" className={aStyles.contextLogoImg} />
+                </span>
+                <span className={aStyles.contextLogoName}>Adobe Learning<br />Manager</span>
+              </div>
+              <span className={aStyles.contextLogoX}>×</span>
+              <div className={aStyles.contextLogoCard}>
+                <span className={aStyles.contextLogoIcon}>
+                  <img src="/ALMVC/Adobe_Connect_icon_(2020).svg (1).webp" alt="Adobe Connect" className={aStyles.contextLogoImg} />
+                </span>
+                <span className={aStyles.contextLogoName}>Adobe<br />Connect</span>
+              </div>
             </div>
           </div>
         </div>
@@ -121,53 +124,66 @@ export function CaseStudyALMVC() {
             </h2>
           </div>
 
-          <div className={styles.problemGrid}>
-            <div className={styles.problemGap}>
-              <span className={styles.gapNum}>01</span>
-              <h3 className={styles.gapTitle}>The session lifecycle was fragmented across tools</h3>
-              <p className={styles.gapDesc}>Joining, participation, breakouts, and recording access were spread across disconnected systems. Each handoff created an ownership gap no single team could close incrementally.</p>
-            </div>
-            <div className={styles.problemGap}>
-              <span className={styles.gapNum}>02</span>
-              <h3 className={styles.gapTitle}>Meeting tools could not meet training requirements</h3>
-              <p className={styles.gapDesc}>Training requires structured roles, paced delivery, engagement tooling, and session continuity into recordings. Meeting platforms optimize for ad-hoc conversation. The gap wasn't features. It was interaction architecture.</p>
-            </div>
-            <div className={styles.problemGap}>
-              <span className={styles.gapNum}>03</span>
-              <h3 className={styles.gapTitle}>Learner experience had no first-party ownership</h3>
-              <p className={styles.gapDesc}>Without a product Adobe owned end-to-end, quality improvements were bound by third-party roadmaps. Every fix required coordinating across systems that weren't built for the same use case.</p>
+          <p className={aStyles.obviousQ}>
+            The obvious question: <strong>&ldquo;Why can&rsquo;t we just reuse Adobe Connect?&rdquo;</strong>
+          </p>
+
+          <div className={aStyles.gapBlock}>
+            <span className={aStyles.gapEyebrow}>Why ALM Live Hub?</span>
+            <h3 className={aStyles.gapHeading}>Bridging the learning gap</h3>
+            <p className={aStyles.gapSub}>No tool had it all that an instructor wanted.</p>
+
+            <div className={aStyles.gapGrid}>
+              <div className={aStyles.gapCard}>
+                <div className={aStyles.gapIcons}>
+                  <span className={aStyles.gapIcon}>
+                    <img src="/ALMVC/zoom-logo-in-blue-colors-meetings-app-logotype-illustration-free-png 1.png" alt="Zoom" className={aStyles.gapIconImg} />
+                  </span>
+                  <span className={aStyles.gapIcon}>
+                    <img src="/ALMVC/Microsoft_Office_Teams_(2025–present).svg 1.png" alt="Microsoft Teams" className={aStyles.gapIconImg} />
+                  </span>
+                  <span className={aStyles.gapIcon}>
+                    <img src="/ALMVC/logo_meet_2026_color_2x_web_96dp 1.png" alt="Google Meet" className={aStyles.gapIconImg} />
+                  </span>
+                </div>
+                <h4 className={aStyles.gapCardTitle}>Light, easy, built for meetings</h4>
+                <p className={aStyles.gapCardDesc}>Zoom, Teams, Google Meet: familiar and easy to join, but screen-share and conversation tools only. No tooling for teaching, breakouts, assessments, Q&amp;A management, or extensive learner performance reporting.</p>
+              </div>
+
+              <div className={`${aStyles.gapCard} ${aStyles.gapCardCenter}`}>
+                <span className={aStyles.gapCenterBadge}>ALM Live Hub</span>
+                <h4 className={aStyles.gapCardTitle}>Training-first, AI-powered virtual classroom</h4>
+                <p className={aStyles.gapCardDesc}>Familiar enough to join like a meeting, but built training-first from the ground up, with AI-powered capabilities to help instructors and learners wherever it's needed.</p>
+              </div>
+
+              <div className={aStyles.gapCard}>
+                <div className={aStyles.gapIcons}>
+                  <span className={aStyles.gapIcon}>
+                    <img src="/ALMVC/Adobe_Connect_icon_(2020).svg (1).webp" alt="Adobe Connect" className={aStyles.gapIconImg} />
+                  </span>
+                </div>
+                <h4 className={aStyles.gapCardTitle}>Heavy, complex legacy</h4>
+                <p className={aStyles.gapCardDesc}>Adobe Connect is extremely powerful for training, but a steep learning curve and dated, click-heavy menus hold it back. <em>&ldquo;Adobe Connect is like a product from the 2000's,&rdquo; said one instructor.</em></p>
+              </div>
             </div>
           </div>
 
-          <div className={styles.problemResult}>
-            <span className={styles.resultLabel}>Opportunity</span>
-            <p className={styles.resultText}>Build a native classroom that owns the full session lifecycle inside ALM, purpose-built for structured learning, replacing disconnected integrations with a single coherent product.</p>
-          </div>
         </div>
       </section>
 
-      {/* ── INSIGHT ──────────────────────────────── */}
-      <section ref={setRef('insight')} id="insight" className={styles.insightSection}>
+      {/* ── OPPORTUNITY ──────────────────────────── */}
+      <section ref={setRef('opportunity')} id="opportunity" className={aStyles.opportunitySection}>
         <div className={styles.container}>
-          <blockquote className={styles.insightQuote}>
-            The gap was not features. It was architecture. Learning workflows require session <span className={styles.insightEm}>ownership</span>, not session access.
-          </blockquote>
-          <div className={styles.insightBeads}>
-            {[
-              { title: 'Training demands role-based orchestration', desc: 'Instructors, hosts, and learners operate differently within the same session. That difference has to be resolved through interaction architecture, not just UI variation.' },
-              { title: 'Session continuity is a product requirement', desc: 'Joining, participation, breakouts, and recording access are stages of one workflow. Designing them as isolated units creates fragmentation at every seam.' },
-              { title: 'AI reduces friction, it does not perform', desc: 'The highest-value AI integration is the kind users barely notice. Ambient assistance inside an existing workflow outperforms AI surfaced as a separate feature.' },
-            ].map(b => (
-              <div key={b.title} className={styles.insightBead}>
-                <span className={styles.insightBeadIcon}>
-                  <i className="bi bi-lightbulb" style={{ fontSize: '18px' }} aria-hidden="true" />
-                </span>
-                <div>
-                  <p className={styles.insightBeadTitle}>{b.title}</p>
-                  <p className={styles.insightBeadDesc}>{b.desc}</p>
-                </div>
-              </div>
-            ))}
+          <div className={aStyles.opportunityInner}>
+            <div className={aStyles.opportunityImgCol}>
+              <img src="/ALMVC/opportunity-picture.webp" alt="Cross-functional team discussing the ALM Live Hub opportunity" className={aStyles.opportunityImg} />
+            </div>
+            <div className={aStyles.opportunityTextCol}>
+              <span className={aStyles.opportunityLabel}>Opportunity</span>
+              <blockquote className={aStyles.opportunityText}>
+                &ldquo;Build a native classroom that owns the full session lifecycle inside ALM, purpose-built for structured learning, replacing disconnected integrations with a single coherent product.&rdquo;
+              </blockquote>
+            </div>
           </div>
         </div>
       </section>
@@ -176,15 +192,14 @@ export function CaseStudyALMVC() {
       <section ref={setRef('approach')} id="approach" className={aStyles.approachSection}>
         <div className={styles.container}>
           <span className={styles.tag}>Approach</span>
-          <h2 className={styles.sectionTitle}>Five product principles that guided scope and decision-making</h2>
-          <p className={styles.sectionSub}>These five principles defined how tradeoffs were made and what got cut when timelines compressed.</p>
-          <div className={aStyles.approachGrid5}>
+          <h2 className={styles.sectionTitle}>Understanding our users to shape our core design principles</h2>
+          <p className={styles.sectionSub}>Talking to instructors and studying what competing products already offered surfaced four consistent expectations that shaped every design decision that followed.</p>
+          <div className={aStyles.approachGrid}>
             {[
-              { n: '01', title: 'Workflow continuity over feature completeness',   desc: 'Every stage from joining to recording needed to form a coherent arc. Shipping disconnected features would replicate the fragmentation we were replacing.' },
-              { n: '02', title: 'Role-aware controls over universal surfaces',     desc: 'Instructor, host, and learner workflows have different operational demands. The system surfaces the right controls at the right moment, not everything to everyone.' },
-              { n: '03', title: 'Predictability over optimization in live contexts', desc: 'Users in high-pressure live environments cannot recover from interaction surprises. Consistent behavior matters more than optimal behavior when sessions are running.' },
-              { n: '04', title: 'Simplify at the surface, preserve at the system', desc: 'Usability improvements were made at the interaction layer without constraining the configurability enterprise deployments depend on.' },
-              { n: '05', title: 'AI earns attention by not demanding it',          desc: 'AI stays ambient and optional. It reduces steps without introducing a new learning surface or a new trust requirement.' },
+              { n: '01', title: 'Familiarity reduces onboarding effort', desc: 'Instructors need complete control of the space, with enough familiarity in the tool that onboarding effort stays low.' },
+              { n: '02', title: 'Feature parity, training-oriented', desc: 'Users expect the full breadth of features already available across meeting and classroom products, just re-oriented toward training instead of general communication.' },
+              { n: '03', title: 'AI-native workflow integration', desc: 'A product built in 2026 needs deep, considered AI integration woven into the workflow, one that makes training orchestration and classroom management genuinely simpler.' },
+              { n: '04', title: 'Clean and simple by default', desc: 'Beneath all the capability, the experience still needs to feel clean and simple to use.' },
             ].map(a => (
               <div key={a.n} className={aStyles.approachCard}>
                 <span className={aStyles.approachNum}>{a.n}</span>
@@ -310,31 +325,31 @@ export function CaseStudyALMVC() {
                 label: 'Session readiness',
                 title: 'Validated entry, not open entry',
                 desc: 'Sequenced to mirror operational readiness: device validation, context review, role confirmation. Each stage is skippable except where failure would directly disrupt the session.',
-                img: '/ALMVC/Joining screen.webp',
+                icon: 'bi-shield-check',
               },
               {
                 label: 'Control architecture',
                 title: 'Permission-gated host controls',
                 desc: 'Host-only controls are removed from the learner view, not grayed out. State-dependent controls appear when active and disappear when not. Visible surface area stays minimal regardless of session complexity.',
-                img: '/ALMVC/Classroom layout.webp',
+                icon: 'bi-sliders',
               },
               {
                 label: 'AI integration',
                 title: 'Poll generation inside session state',
                 desc: 'Opens as a mid-session overlay. The instructor reviews, edits, and launches a poll without leaving the classroom. One action to invoke, one to launch, exits clean.',
-                img: '/ALMVC/Engagements.webp',
+                icon: 'bi-stars',
               },
               {
                 label: 'Spatial orchestration',
                 title: 'Breakout awareness without intervention',
                 desc: 'A read-only operational layer. Instructors see participant count, activity signals, and elapsed time per room. Joining is explicit, not automatic. Passive awareness is the default.',
-                img: '/ALMVC/Breakouts.webp',
+                icon: 'bi-grid-3x3-gap',
               },
             ].map((c, i) => (
               <div key={i} className={aStyles.craftCard}>
-                <div className={aStyles.craftCardImg}>
-                  <ImgSlot src={c.img} label={c.title} aspect="16/9" />
-                </div>
+                <span className={aStyles.craftIcon}>
+                  <i className={`bi ${c.icon}`} aria-hidden="true" />
+                </span>
                 <div className={aStyles.craftCardBody}>
                   <span className={aStyles.craftLabel}>{c.label}</span>
                   <h4 className={aStyles.craftTitle}>{c.title}</h4>
@@ -401,7 +416,7 @@ export function CaseStudyALMVC() {
           <div className={aStyles.mobileInner}>
             <div className={aStyles.mobileText}>
               <span className={styles.tag}>Mobile</span>
-              <h2 className={styles.sectionTitle}>Mobile scope defined by role, not screen size</h2>
+              <h2 className={styles.sectionTitle}>A mobile experience designed for learners</h2>
               <p className={aStyles.mobileBody}>
                 Replicating instructor controls on mobile would have compromised both usability and delivery timelines. The instructor surface manages session state, participants, and breakouts simultaneously. That interaction density doesn't compress cleanly to touch without a separate design effort.
               </p>
@@ -448,10 +463,7 @@ export function CaseStudyALMVC() {
                   The project involved stakeholders distributed across teams and geographies, making continuous alignment difficult within a fast-moving delivery timeline.
                 </p>
                 <p className={aStyles.constraintBody}>
-                  To reduce feedback bottlenecks, I introduced an asynchronous review and update process using structured design walkthroughs and targeted feedback requests over email. This allowed stakeholders to review progress within their own time zones while helping surface concerns earlier in the process.
-                </p>
-                <p className={aStyles.constraintBody}>
-                  Instead of waiting for large synchronous review cycles, discussions were broken into smaller incremental feedback loops that helped shape the product continuously without slowing execution.
+                  To reduce feedback bottlenecks, I introduced an asynchronous review process using structured design walkthroughs and targeted feedback requests over email, breaking discussions into smaller incremental loops that shaped the product continuously without slowing execution.
                 </p>
                 <div className={aStyles.constraintTags}>
                   {['Cross-functional alignment', 'Async collaboration', 'Stakeholder management', 'Design communication'].map(t => (
@@ -469,10 +481,7 @@ export function CaseStudyALMVC() {
               </div>
               <div className={aStyles.constraintRight}>
                 <p className={aStyles.constraintBody}>
-                  The entire classroom experience had to run natively inside the browser while supporting live collaboration, breakout systems, engagement workflows, and real-time interactions.
-                </p>
-                <p className={aStyles.constraintBody}>
-                  This introduced significant technical and performance constraints that directly shaped interaction decisions and feature scope.
+                  The entire classroom experience had to run natively inside the browser while supporting live collaboration, breakout systems, engagement workflows, and real-time interactions, introducing real technical and performance constraints on interaction decisions and feature scope.
                 </p>
                 <p className={aStyles.constraintBody}>Every feature needed to balance:</p>
                 <ul className={aStyles.constraintList}>
@@ -501,10 +510,7 @@ export function CaseStudyALMVC() {
               </div>
               <div className={aStyles.constraintRight}>
                 <p className={aStyles.constraintBody}>
-                  One of the biggest product tensions was balancing a clean, modern classroom experience with the flexibility required for enterprise white-label customization.
-                </p>
-                <p className={aStyles.constraintBody}>
-                  The platform needed to feel contemporary and intuitive while still aligning with Adobe Learning Manager's broader visual ecosystem and enterprise customization requirements.
+                  One of the biggest product tensions was balancing a clean, modern classroom experience with the flexibility enterprise white-label customization requires, while staying aligned with Adobe Learning Manager's broader visual ecosystem.
                 </p>
                 <p className={aStyles.constraintBody}>This meant designing interaction systems and layouts that:</p>
                 <ul className={aStyles.constraintList}>
@@ -532,15 +538,11 @@ export function CaseStudyALMVC() {
               </div>
               <div className={aStyles.constraintRight}>
                 <p className={aStyles.constraintBody}>
-                  Designing desktop and mobile experiences simultaneously introduced significant complexity, especially for a live classroom product with dense interaction requirements.
+                  Designing desktop and mobile simultaneously introduced real complexity for a live classroom product with dense interaction requirements. Early explorations showed that replicating the full instructor experience on mobile would compromise usability, responsiveness, and delivery timelines.
                 </p>
                 <p className={aStyles.constraintBody}>
-                  Early explorations showed that replicating the complete instructor experience on mobile would compromise usability, responsiveness, and delivery timelines.
+                  Instead of forcing feature parity prematurely, the initial mobile experience was intentionally scoped around learner workflows while prioritizing the more operationally complex instructor experience for desktop. This allowed the team to:
                 </p>
-                <p className={aStyles.constraintBody}>
-                  Instead of forcing feature parity prematurely, the initial mobile experience was intentionally scoped around learner workflows while prioritizing the more operationally complex instructor experience for desktop.
-                </p>
-                <p className={aStyles.constraintBody}>This allowed the team to:</p>
                 <ul className={aStyles.constraintList}>
                   <li className={aStyles.constraintListItem}>ship a stable V1 within timeline constraints</li>
                   <li className={aStyles.constraintListItem}>validate real mobile usage patterns</li>
