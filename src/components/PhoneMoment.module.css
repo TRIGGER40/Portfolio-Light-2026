@@ -1,7 +1,3 @@
-.section {
-  padding: 0 0 var(--section-pad);
-}
-
 /* ── Outer card ── */
 .card {
   display: grid;

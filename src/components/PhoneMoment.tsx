@@ -38,65 +38,63 @@ export function PhoneMoment() {
   }, [isOpen]);
 
   return (
-    <section className={styles.section}>
-      <div className="container">
-        <motion.div
-          className={styles.card}
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div className={styles.imgCol}>
-            {!isOpen && (
-              <motion.div
-                layoutId={VIDEO_LAYOUT_ID}
-                className={styles.phone}
-                whileHover={{ y: -6 }}
-                transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                onClick={() => setIsOpen(true)}
-                aria-label="Open video"
-              >
-                <video
-                  className={styles.screen}
-                  src="/VIDEOS/phone-moment-web.mp4"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                />
-              </motion.div>
-            )}
-            <div className={`${styles.shadow} ${isOpen ? styles.shadowHidden : ''}`} aria-hidden="true" />
-          </div>
+    <>
+      <motion.div
+        className={styles.card}
+        initial={{ opacity: 0, y: 28 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <div className={styles.imgCol}>
+          {!isOpen && (
+            <motion.div
+              layoutId={VIDEO_LAYOUT_ID}
+              className={styles.phone}
+              whileHover={{ y: -6 }}
+              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              onClick={() => setIsOpen(true)}
+              aria-label="Open video"
+            >
+              <video
+                className={styles.screen}
+                src="/VIDEOS/phone-moment-web.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+              />
+            </motion.div>
+          )}
+          <div className={`${styles.shadow} ${isOpen ? styles.shadowHidden : ''}`} aria-hidden="true" />
+        </div>
 
-          <div className={styles.textCol}>
-            <span className={styles.label}>Something that came to mind</span>
+        <div className={styles.textCol}>
+          <span className={styles.label}>Something that came to mind</span>
 
-            <h3 className={styles.title}>
-              I was too lazy to plan a trip.
-              <br />
-              <span className={styles.titleAccent}>So I started thinking.</span>
-            </h3>
+          <h3 className={styles.title}>
+            I was too lazy to plan a trip.
+            <br />
+            <span className={styles.titleAccent}>So I started thinking.</span>
+          </h3>
 
-            <p className={styles.body}>
-              What if Google Maps could plan the entire trip for me?
-            </p>
+          <p className={styles.body}>
+            What if Google Maps could plan the entire trip for me?
+          </p>
 
-            <ul className={styles.features}>
-              {FEATURES.map((f) => (
-                <li key={f.label} className={styles.feature}>
-                  <span className={styles.featureDot} aria-hidden="true" />
-                  <span>
-                    <span className={styles.featureLabel}>{f.label}.</span>{' '}
-                    <span className={styles.featureDesc}>{f.desc}</span>
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </motion.div>
-      </div>
+          <ul className={styles.features}>
+            {FEATURES.map((f) => (
+              <li key={f.label} className={styles.feature}>
+                <span className={styles.featureDot} aria-hidden="true" />
+                <span>
+                  <span className={styles.featureLabel}>{f.label}.</span>{' '}
+                  <span className={styles.featureDesc}>{f.desc}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </motion.div>
 
       <AnimatePresence>
         {isOpen && (
@@ -146,6 +144,6 @@ export function PhoneMoment() {
           </motion.button>
         )}
       </AnimatePresence>
-    </section>
+    </>
   );
 }

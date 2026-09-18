@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './SideExperiments.module.css';
 import { ExperimentModal, type Experiment } from './ExperimentModal';
+import { PhoneMoment } from './PhoneMoment';
 
 const EXPERIMENTS: Experiment[] = [
   {
@@ -92,6 +93,10 @@ export function SideExperiments() {
             </h2>
             <p className={styles.sub}>Side experiments where design meets a personal question.</p>
           </div>
+        </div>
+
+        <div className={`container ${styles.phoneMomentWrap}`}>
+          <PhoneMoment />
         </div>
 
         <div className="container">

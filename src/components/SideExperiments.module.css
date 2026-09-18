@@ -26,6 +26,10 @@
   color: var(--text-secondary);
 }
 
+.phoneMomentWrap {
+  margin-bottom: clamp(64px, 8vw, 96px);
+}
+
 /* ── Side-by-side panels — equal width, fixed aspect ratio. The active
    one zooms in place via transform and is free to overlap its
    neighbours; it never reflows the row. ── */

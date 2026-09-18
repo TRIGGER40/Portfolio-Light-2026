@@ -7,7 +7,6 @@ import { SideExperiments } from '../components/SideExperiments';
 import { PersonalSection } from '../components/PersonalSection';
 import { CommunityCard } from '../components/CommunityCard';
 import { FigmaAICard } from '../components/FigmaAICard';
-import { PhoneMoment } from '../components/PhoneMoment';
 import { SeeWorksCard } from '../components/SeeWorksCard';
 import { BookSessionCard } from '../components/BookSessionCard';
 import { MarkBoard } from '../components/MarkBoard';
@@ -411,7 +410,6 @@ export function AboutPage() {
         {!bgExpanded && <CommunityCard />}
         {!bgExpanded && <FigmaAICard />}
         {!bgExpanded && <SideExperiments />}
-        {!bgExpanded && <PhoneMoment />}
         {!bgExpanded && <SeeWorksCard />}
         {!bgExpanded && <MarkBoard />}
         {!bgExpanded && <Footer />}
