@@ -531,18 +531,16 @@ export function AIPage() {
       <div className={`${styles.left} ${styles.leftChatActive}`}>
         <div className={styles.inner}>
 
-          {/* Back */}
-          <GoBackButton className={styles.backBtn} fallback="/" label="Back to portfolio" />
+          {/* Back + scaled-down page header, on one row */}
+          <div className={styles.headerBar}>
+            <GoBackButton className={styles.backBtn} fallback="/" label="Back to portfolio" />
 
-          {/* Scaled-down page header */}
-          <div className={styles.chatHeader}>
-            <span className={styles.chatHeaderLabel}>AI Assistant</span>
-            <h2 className={styles.chatHeaderTitle}>
-              Ask anything about
-              <br />
-              <span className={styles.titleGradient}>Midhun's work</span>
-            </h2>
-            <p className={styles.chatHeaderSubtitle}>Have a free conversation about Midhun and his works with the AI.</p>
+            <div className={styles.chatHeader}>
+              <h2 className={styles.chatHeaderTitle}>
+                Ask AI about <span className={styles.titleGradient}>Midhun's work</span>
+              </h2>
+              <span className={styles.chatHeaderMobileLabel}>AI Assistant</span>
+            </div>
           </div>
 
           {/* Messages */}

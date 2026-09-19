@@ -291,7 +291,7 @@
   max-width: 860px;
   width: 100%;
   margin: 0 auto;
-  padding: 40px clamp(24px, 4vw, 64px) 0;
+  padding: 56px clamp(24px, 4vw, 64px) 0;
   transition: max-width 1.5s cubic-bezier(0.4, 0, 0.2, 1),
               margin    1.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -302,46 +302,69 @@
 }
 
 /* ── Scaled-down header in chat view ─────────────────── */
-.chatHeader {
+.headerBar {
+  position: relative;
   flex-shrink: 0;
   display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.chatHeader {
+  position: fixed;
+  top: 25px;
+  left: 0;
+  width: 100vw;
+  height: 96px;
+  display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   gap: 4px;
-  margin-bottom: 24px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--glass-border);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.chatHeader > * {
+  pointer-events: auto;
 }
 
 .chatHeaderLabel {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.02em;
-  
+
   color: var(--accent-indigo);
 }
 
 .chatHeaderTitle {
   font-family: var(--font-display);
-  font-size: clamp(28px, 3.5vw, 40px);
+  font-size: clamp(24px, 2.6vw, 30px);
   font-weight: 400;
-  line-height: 1.1;
+  line-height: 1.2;
   letter-spacing: 0.02em;
   color: var(--text-primary);
   margin: 0;
 }
 
+.chatHeaderMobileLabel {
+  display: none;
+}
+
 .chatHeaderSubtitle {
-  font-size: 15px;
+  font-size: 13px;
   color: var(--text-muted);
-  line-height: 1.6;
+  line-height: 1.5;
   margin: 0;
 }
 
 /* Back button */
 .backBtn {
-  margin-bottom: 32px;
   flex-shrink: 0;
   align-self: flex-start;
+  position: relative;
+  z-index: 1;
 }
 
 /* Header */
@@ -1168,22 +1191,19 @@
   color: #1A1E1C;
 }
 
-/* On narrow screens, strip the chat header down to just the "AI Assistant"
-   label. The big title + subtitle eat too much vertical space on phones. */
+/* On narrow screens, the subtitle is hidden to save vertical space, but the
+   title stays inline with the back button as a small centered header. */
 @media (max-width: 640px) {
   .subtitle,
-  .chatHeaderSubtitle,
-  .chatHeaderTitle {
+  .chatHeaderSubtitle {
     display: none;
   }
 
-  /* Mobile chat header bar: [< icon]  AI Assistant (centered)  [theme switcher] */
-  .inner { position: relative; padding-top: 24px; }
+  .chatHeader {
+    top: -6px;
+  }
 
   .backBtn {
-    position: absolute;
-    top: 24px;
-    left: 20px;
     width: 35px;
     height: 35px;
     padding: 0 !important;
@@ -1192,36 +1212,32 @@
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-    z-index: 5;
   }
   .backBtn > * { font-size: 15px !important; }
 
-  .chatHeader {
-    text-align: center;
-    align-items: center;
-    margin-bottom: 12px;
+  .headerBar {
+    margin-bottom: 16px;
     padding-bottom: 12px;
-    /* Push label down so it sits on the same horizontal line as the
-       theme switcher / back button (top: 24px, height: 35px). */
-    padding-top: 8px;
+    border-bottom: 1px solid var(--glass-border);
   }
 
-  /* Promote the label — primary text, bigger, takes the role of the title */
-  .chatHeaderLabel {
-    font-size: 18px;
+  .chatHeaderTitle {
+    display: none;
+  }
+
+  .chatHeaderMobileLabel {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 14px;
     font-weight: 700;
     letter-spacing: -0.01em;
     color: var(--text-primary);
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin: 0 auto;
-    align-self: center;
   }
 
-  .chatHeaderLabel::before {
+  .chatHeaderMobileLabel::before {
     content: '✦';
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 400;
     color: var(--accent-indigo);
     line-height: 1;
