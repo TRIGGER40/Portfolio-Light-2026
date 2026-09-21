@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './PhoneMoment.module.css';
+import { track } from '../lib/analytics';
 
 const FEATURES = [
   { label: 'Start anywhere', desc: 'Plan from your current location.' },
@@ -53,7 +54,7 @@ export function PhoneMoment() {
               className={styles.phone}
               whileHover={{ y: -6 }}
               transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              onClick={() => setIsOpen(true)}
+              onClick={() => { track('cta_click', { label: 'phone_moment_open' }); setIsOpen(true); }}
               aria-label="Open video"
             >
               <video

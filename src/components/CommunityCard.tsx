@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import styles from './CommunityCard.module.css';
 import { ImgSkeleton } from './ImgSkeleton';
+import { track } from '../lib/analytics';
 
 export function CommunityCard() {
   return (
@@ -35,6 +36,7 @@ export function CommunityCard() {
               target="_blank"
               rel="noopener noreferrer"
               className={styles.cta}
+              onClick={() => track('cta_click', { label: 'community_appreciation_cards' })}
             >
               Appreciate your colleague
               <i className="bi bi-arrow-up-right" style={{ fontSize: '13px' }} aria-hidden="true" />

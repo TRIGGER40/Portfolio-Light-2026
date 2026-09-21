@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import styles from './SeeWorksCard.module.css';
+import { track } from '../lib/analytics';
 
 const POLAROIDS = [
   {
@@ -38,7 +39,7 @@ export function SeeWorksCard() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          onClick={() => navigate('/', { state: { scrollTo: 'work' } })}
+          onClick={() => { track('cta_click', { label: 'see_works_card' }); navigate('/', { state: { scrollTo: 'work' } }); }}
           role="button"
           tabIndex={0}
           onKeyDown={e => e.key === 'Enter' && navigate('/', { state: { scrollTo: 'work' } })}
@@ -56,13 +57,13 @@ export function SeeWorksCard() {
             <div className={styles.ctaRow}>
               <button
                 className="btn btn-primary"
-                onClick={e => { e.stopPropagation(); navigate('/', { state: { scrollTo: 'work' } }); }}
+                onClick={e => { e.stopPropagation(); track('cta_click', { label: 'see_works_view_works' }); navigate('/', { state: { scrollTo: 'work' } }); }}
               >
                 View works
               </button>
               <button
                 className={styles.ctaSecondary}
-                onClick={e => { e.stopPropagation(); navigate('/ask'); }}
+                onClick={e => { e.stopPropagation(); track('cta_click', { label: 'see_works_ask_ai' }); navigate('/ask'); }}
               >
                 <span className={styles.sparkle}>✦</span>
                 Ask AI about Midhun

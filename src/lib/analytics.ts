@@ -16,6 +16,7 @@ export type EventType =
   | 'hero_view'
   | 'hero_cta'
   | 'scroll_depth'
+  | 'page_scroll_depth'
   | 'section_view'
   | 'project_click'
   | 'project_hover'
@@ -211,6 +212,27 @@ export function initScrollTracking() {
     });
   };
   window.addEventListener('scroll', onScroll, { passive: true });
+}
+
+/* ── Per-page scroll depth (for SPA pages tracked in isolation) ── */
+export function initPageScrollTracking(page: string): () => void {
+  if (typeof window === 'undefined') return () => {};
+  const hit = new Set<string>();
+  const onScroll = () => {
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    if (!total) return;
+    const pct = (window.scrollY / total) * 100;
+    if (window.scrollY > window.innerHeight && !hit.has('fold')) {
+      hit.add('fold'); track('page_scroll_depth', { page, milestone: 'fold' });
+    }
+    ([25, 50, 75, 90] as const).forEach(n => {
+      if (pct >= n && !hit.has(`${n}`)) {
+        hit.add(`${n}`); track('page_scroll_depth', { page, milestone: `${n}pct` });
+      }
+    });
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  return () => window.removeEventListener('scroll', onScroll);
 }
 
 /* ── Session end ─────────────────────────────────── */

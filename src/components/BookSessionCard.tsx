@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { saveScrollBeforeLeave } from '../hooks/useScrollRestoration';
+import { track } from '../lib/analytics';
 import styles from './BookSessionCard.module.css';
 
 const PHOTOS = [
@@ -21,7 +22,8 @@ const PHOTOS = [
 export function BookSessionCard() {
   const navigate = useNavigate();
 
-  function goToBooking() {
+  function goToBooking(label: string) {
+    track('cta_click', { label });
     saveScrollBeforeLeave();
     navigate('/book-a-session');
   }
@@ -35,10 +37,10 @@ export function BookSessionCard() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          onClick={goToBooking}
+          onClick={() => goToBooking('book_session_card')}
           role="button"
           tabIndex={0}
-          onKeyDown={e => e.key === 'Enter' && goToBooking()}
+          onKeyDown={e => e.key === 'Enter' && goToBooking('book_session_card')}
           aria-label="Book a session with Midhun"
           style={{ cursor: 'pointer' }}
         >
@@ -54,7 +56,7 @@ export function BookSessionCard() {
             <div className={styles.ctaRow}>
               <button
                 className={styles.ctaBtn}
-                onClick={e => { e.stopPropagation(); goToBooking(); }}
+                onClick={e => { e.stopPropagation(); goToBooking('book_session_card_button'); }}
               >
                 Book a session with Midhun
                 <i className="bi bi-arrow-right" style={{ fontSize: '13px' }} aria-hidden="true" />

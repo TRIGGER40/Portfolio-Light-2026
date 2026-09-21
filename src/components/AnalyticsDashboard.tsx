@@ -62,7 +62,8 @@ function eventColor(type: string): string {
     case 'session_start':   return '#10b981';
     case 'hero_view':
     case 'hero_cta':        return '#f59e0b';
-    case 'scroll_depth':    return '#3b82f6';
+    case 'scroll_depth':
+    case 'page_scroll_depth': return '#3b82f6';
     case 'section_view':    return '#8b5cf6';
     case 'project_click':
     case 'project_hover':   return '#a78bfa';
@@ -83,6 +84,8 @@ function eventDataSummary(e: AEvent): string {
       return (e.data.title as string) || (e.data.id as string) || '';
     case 'scroll_depth':
       return (e.data.milestone as string) || '';
+    case 'page_scroll_depth':
+      return `${(e.data.page as string) || ''} · ${(e.data.milestone as string) || ''}`;
     case 'section_view': {
       const section = (e.data.section as string) || '';
       const dur = e.data.duration ? ` · ${fmtSecs(e.data.duration as number)}` : '';

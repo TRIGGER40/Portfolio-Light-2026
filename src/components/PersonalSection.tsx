@@ -5,6 +5,7 @@ import pStyles from '../pages/AboutPage.module.css';
 import { HobbiesCarousel } from './HobbiesCarousel';
 import { ImgSkeleton } from './ImgSkeleton';
 import { saveScrollBeforeLeave } from '../hooks/useScrollRestoration';
+import { track } from '../lib/analytics';
 
 interface PersonalItem {
   img: string;
@@ -55,7 +56,8 @@ const PERSONAL: PersonalItem[] = [
 export function PersonalSection() {
   const navigate = useNavigate();
 
-  function goToBooking(to: string) {
+  function goToBooking(to: string, label: string) {
+    track('cta_click', { label });
     saveScrollBeforeLeave();
     navigate(to);
   }
@@ -101,7 +103,7 @@ export function PersonalSection() {
                 {item.cta && (
                   <button
                     className={pStyles.personalCardCta}
-                    onClick={() => goToBooking(item.cta!.to)}
+                    onClick={() => goToBooking(item.cta!.to, `personal_${item.label.toLowerCase().replace(/\s+/g, '_')}`)}
                   >
                     {item.cta.label}
                   </button>

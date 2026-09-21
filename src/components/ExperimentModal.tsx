@@ -2,6 +2,7 @@ import { useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './ExperimentModal.module.css';
+import { track } from '../lib/analytics';
 
 export type Experiment = {
   num: string;
@@ -113,10 +114,10 @@ export function ExperimentModal({ experiments, activeIndex, onClose, onSelect }:
             </AnimatePresence>
 
             {/* Side nav arrows */}
-            <button className={`${styles.navArrow} ${styles.navPrev}`} onClick={prev} aria-label="Previous">
+            <button className={`${styles.navArrow} ${styles.navPrev}`} onClick={() => { track('cta_click', { label: 'experiment_modal_nav_prev' }); prev(); }} aria-label="Previous">
               <i className="bi bi-chevron-left" />
             </button>
-            <button className={`${styles.navArrow} ${styles.navNext}`} onClick={next} aria-label="Next">
+            <button className={`${styles.navArrow} ${styles.navNext}`} onClick={() => { track('cta_click', { label: 'experiment_modal_nav_next' }); next(); }} aria-label="Next">
               <i className="bi bi-chevron-right" />
             </button>
           </div>
@@ -125,7 +126,11 @@ export function ExperimentModal({ experiments, activeIndex, onClose, onSelect }:
           <div className={styles.descRow}>
             <p className={styles.desc}>{exp.desc}</p>
             {exp.ctaLink && (
-              <Link to={exp.ctaLink} className={styles.ctaBtn}>
+              <Link
+                to={exp.ctaLink}
+                className={styles.ctaBtn}
+                onClick={() => track('cta_click', { label: 'experiment_modal_cta', title: exp.title })}
+              >
                 <i className="bi bi-box-arrow-in-right" aria-hidden="true" />
                 {exp.ctaLabel ?? 'Explore'}
               </Link>
@@ -138,7 +143,7 @@ export function ExperimentModal({ experiments, activeIndex, onClose, onSelect }:
               <button
                 key={e.num}
                 className={`${styles.tab} ${i === activeIndex ? styles.tabActive : ''}`}
-                onClick={() => onSelect(i)}
+                onClick={() => { track('cta_click', { label: 'experiment_modal_tab', title: e.title }); onSelect(i); }}
               >
                 <div className={styles.tabThumb}>
                   {e.thumb.type === 'video'

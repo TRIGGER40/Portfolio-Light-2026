@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useScrollRestoration } from '../hooks/useScrollRestoration';
 import { useLocation } from 'react-router-dom';
+import { track, initPageScrollTracking } from '../lib/analytics';
 import { BackgroundGlow } from '../components/BackgroundGlow';
 import { Footer } from '../components/Footer';
 import { SideExperiments } from '../components/SideExperiments';
@@ -25,6 +26,7 @@ function AudioPlayerUI({
   const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = audioRef.current;
     if (!el) return;
+    track('cta_click', { label: 'about_audio_seek' });
     const rect = e.currentTarget.getBoundingClientRect();
     el.currentTime = ((e.clientX - rect.left) / rect.width) * el.duration;
   };
@@ -36,7 +38,7 @@ function AudioPlayerUI({
       <div className={styles.audioPlayer}>
         <button
           className={styles.audioMuteBtn}
-          onClick={() => setMuted(m => !m)}
+          onClick={() => setMuted(m => { track('cta_click', { label: m ? 'about_audio_unmute' : 'about_audio_mute' }); return !m; })}
           aria-label={muted ? 'Unmute' : 'Mute'}
         >
           <i className={`bi ${muted ? 'bi-volume-mute-fill' : 'bi-volume-up-fill'}`} />
@@ -109,6 +111,7 @@ export function AboutPage() {
   }, [bgExpanded]);
 
   const handleBackToContent = () => {
+    track('cta_click', { label: 'about_background_close' });
     setBgCollapsing(true);
     setBgExpanded(false);
     setTimeout(() => setBgCollapsing(false), 520);
@@ -126,6 +129,9 @@ export function AboutPage() {
   }, []);
 
   useScrollRestoration();
+
+  // Page-scoped scroll depth — isolated from the homepage's global tracker
+  useEffect(() => initPageScrollTracking('about'), []);
 
   // Lock / unlock scroll — compensate for scrollbar width to prevent layout shift
   useEffect(() => {
@@ -314,7 +320,7 @@ export function AboutPage() {
               <div className={styles.viewBgBtnWrap}>
                 <button
                   className={styles.viewBgBtn}
-                  onClick={() => setBgExpanded(true)}
+                  onClick={() => { track('cta_click', { label: 'about_view_background' }); setBgExpanded(true); }}
                   aria-label="View background image"
                 >
                   <MountainIcon />

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './ProximityMoment.module.css';
+import { track } from '../lib/analytics';
 
 const FEATURES = [
   { label: 'Proximity-triggered interruption', desc: "From your live location, Google Maps can tell how far someone is from you and create a custom proximity alert, so you're prepared without needing to stay glued to the screen." },
@@ -68,7 +69,7 @@ export function ProximityMoment() {
               className={styles.phone}
               whileHover={{ y: -6 }}
               transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              onClick={() => setIsOpen(true)}
+              onClick={() => { track('cta_click', { label: 'proximity_moment_open' }); setIsOpen(true); }}
               aria-label="Open video"
             >
               <video

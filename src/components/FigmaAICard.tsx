@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import styles from './FigmaAICard.module.css';
 import { ImgSkeleton } from './ImgSkeleton';
+import { track } from '../lib/analytics';
 
 export function FigmaAICard() {
   return (
@@ -49,6 +50,7 @@ export function FigmaAICard() {
               target="_blank"
               rel="noopener noreferrer"
               className={styles.cta}
+              onClick={() => track('cta_click', { label: 'figma_ai_experiment' })}
             >
               See the experiment
               <i className="bi bi-arrow-up-right" style={{ fontSize: '13px' }} aria-hidden="true" />

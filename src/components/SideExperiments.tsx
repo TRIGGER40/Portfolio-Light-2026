@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './SideExperiments.module.css';
 import { ExperimentModal, type Experiment } from './ExperimentModal';
 import { PhoneMoment } from './PhoneMoment';
 import { ProximityMoment } from './ProximityMoment';
+import { track } from '../lib/analytics';
 
 const EXPERIMENTS: Experiment[] = [
   {
@@ -63,6 +64,7 @@ export function SideExperiments() {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   const [modalIndex, setModalIndex] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const hoverStart = useRef<Record<number, number>>({});
 
   const activeIndex = hoverIndex ?? autoIndex;
 
@@ -111,7 +113,7 @@ export function SideExperiments() {
                 <button
                   key={exp.num}
                   className={styles.mobileCard}
-                  onClick={() => setModalIndex(i)}
+                  onClick={() => { track('project_click', { id: exp.num, title: exp.title }); setModalIndex(i); }}
                   aria-label={`Open ${exp.title}`}
                 >
                   <div className={styles.mobileThumb}>
@@ -152,9 +154,17 @@ export function SideExperiments() {
                   <motion.button
                     key={exp.num}
                     className={styles.panel}
-                    onClick={() => setModalIndex(i)}
-                    onMouseEnter={() => setHoverIndex(i)}
-                    onMouseLeave={() => setHoverIndex(null)}
+                    onClick={() => { track('project_click', { id: exp.num, title: exp.title }); setModalIndex(i); }}
+                    onMouseEnter={() => { hoverStart.current[i] = Date.now(); setHoverIndex(i); }}
+                    onMouseLeave={() => {
+                      const start = hoverStart.current[i];
+                      if (start) {
+                        const duration = Date.now() - start;
+                        delete hoverStart.current[i];
+                        if (duration > 300) track('project_hover', { id: exp.num, title: exp.title, duration });
+                      }
+                      setHoverIndex(null);
+                    }}
                     onFocus={() => setHoverIndex(i)}
                     onBlur={() => setHoverIndex(null)}
                     aria-label={`Open ${exp.title}`}
