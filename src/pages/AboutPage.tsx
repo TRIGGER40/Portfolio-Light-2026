@@ -26,7 +26,7 @@ function AudioPlayerUI({
   const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = audioRef.current;
     if (!el) return;
-    track('cta_click', { label: 'about_audio_seek' });
+    track('cta_click', { label: 'Seek background audio' });
     const rect = e.currentTarget.getBoundingClientRect();
     el.currentTime = ((e.clientX - rect.left) / rect.width) * el.duration;
   };
@@ -38,7 +38,7 @@ function AudioPlayerUI({
       <div className={styles.audioPlayer}>
         <button
           className={styles.audioMuteBtn}
-          onClick={() => setMuted(m => { track('cta_click', { label: m ? 'about_audio_unmute' : 'about_audio_mute' }); return !m; })}
+          onClick={() => setMuted(m => { track('cta_click', { label: m ? 'Unmute background audio' : 'Mute background audio' }); return !m; })}
           aria-label={muted ? 'Unmute' : 'Mute'}
         >
           <i className={`bi ${muted ? 'bi-volume-mute-fill' : 'bi-volume-up-fill'}`} />
@@ -111,7 +111,7 @@ export function AboutPage() {
   }, [bgExpanded]);
 
   const handleBackToContent = () => {
-    track('cta_click', { label: 'about_background_close' });
+    track('cta_click', { label: 'Close background view' });
     setBgCollapsing(true);
     setBgExpanded(false);
     setTimeout(() => setBgCollapsing(false), 520);
@@ -320,7 +320,7 @@ export function AboutPage() {
               <div className={styles.viewBgBtnWrap}>
                 <button
                   className={styles.viewBgBtn}
-                  onClick={() => { track('cta_click', { label: 'about_view_background' }); setBgExpanded(true); }}
+                  onClick={() => { track('cta_click', { label: 'View background image' }); setBgExpanded(true); }}
                   aria-label="View background image"
                 >
                   <MountainIcon />

@@ -3,6 +3,7 @@ import { Footer } from '../components/Footer';
 import { ProjectCarousel } from '../components/ProjectCarousel';
 import { GoBackButton } from '../components/GoBackButton';
 import { useEggOnDeepRead } from '../hooks/useEggOnDeepRead';
+import { initPageScrollTracking } from '../lib/analytics';
 import styles from './CaseStudyQuiz.module.css';
 
 /* Swap src to a real path once the image is ready.
@@ -52,6 +53,8 @@ export function CaseStudyQuiz() {
   }, []);
 
   useEggOnDeepRead(scrollProgress);
+
+  useEffect(() => initPageScrollTracking('project'), []);
 
   useEffect(() => {
     const observers: IntersectionObserver[] = [];

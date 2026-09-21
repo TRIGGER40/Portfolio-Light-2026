@@ -103,7 +103,7 @@ export function PersonalSection() {
                 {item.cta && (
                   <button
                     className={pStyles.personalCardCta}
-                    onClick={() => goToBooking(item.cta!.to, `personal_${item.label.toLowerCase().replace(/\s+/g, '_')}`)}
+                    onClick={() => goToBooking(item.cta!.to, `Book a session: ${item.label}`)}
                   >
                     {item.cta.label}
                   </button>

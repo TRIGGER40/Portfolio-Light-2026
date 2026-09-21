@@ -355,7 +355,7 @@ export function MentorPage() {
               const [confirmRes] = await Promise.all([confirmPromise, minDelay]);
               if (!confirmRes.ok) throw new Error('Booking confirmation failed');
               const data = await confirmRes.json() as { meetLink?: string };
-              track('cta_click', { label: 'mentor_book' });
+              track('cta_click', { label: 'Book a mentoring session' });
               const stored: StoredConfirmation = {
                 name, email, date: toISODate(selectedDate), slot: selectedSlot, meetLink: data.meetLink,
               };

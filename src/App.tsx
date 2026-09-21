@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { initScrollTracking, initGeoTracking, initSessionEndTracking } from './lib/analytics';
+import { initScrollTracking, initGeoTracking, initSessionEndTracking, initPageScrollTracking } from './lib/analytics';
 import { AnalyticsDashboard } from './components/AnalyticsDashboard';
 import { EasterEggProvider } from './context/EasterEggContext';
 import { DiscoveryModal } from './components/easter-egg/DiscoveryModal';
@@ -109,6 +109,7 @@ function HomePage() {
   const location = useLocation();
   useScrollRestoration();
   useEffect(() => { initScrollTracking(); initGeoTracking(); initSessionEndTracking(); }, []);
+  useEffect(() => initPageScrollTracking('work'), []);
 
   // Scroll to section if navigated here with a scrollTo state (e.g. from /blog)
   useEffect(() => {

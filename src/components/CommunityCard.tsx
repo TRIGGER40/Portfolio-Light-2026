@@ -36,7 +36,7 @@ export function CommunityCard() {
               target="_blank"
               rel="noopener noreferrer"
               className={styles.cta}
-              onClick={() => track('cta_click', { label: 'community_appreciation_cards' })}
+              onClick={() => track('cta_click', { label: 'Appreciate your colleague' })}
             >
               Appreciate your colleague
               <i className="bi bi-arrow-up-right" style={{ fontSize: '13px' }} aria-hidden="true" />

@@ -69,7 +69,7 @@ export function ProximityMoment() {
               className={styles.phone}
               whileHover={{ y: -6 }}
               transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              onClick={() => { track('cta_click', { label: 'proximity_moment_open' }); setIsOpen(true); }}
+              onClick={() => { track('cta_click', { label: 'Open Proximity video' }); setIsOpen(true); }}
               aria-label="Open video"
             >
               <video

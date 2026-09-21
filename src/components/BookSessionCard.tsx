@@ -37,10 +37,10 @@ export function BookSessionCard() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          onClick={() => goToBooking('book_session_card')}
+          onClick={() => goToBooking('Book a session card')}
           role="button"
           tabIndex={0}
-          onKeyDown={e => e.key === 'Enter' && goToBooking('book_session_card')}
+          onKeyDown={e => e.key === 'Enter' && goToBooking('Book a session card')}
           aria-label="Book a session with Midhun"
           style={{ cursor: 'pointer' }}
         >
@@ -56,7 +56,7 @@ export function BookSessionCard() {
             <div className={styles.ctaRow}>
               <button
                 className={styles.ctaBtn}
-                onClick={e => { e.stopPropagation(); goToBooking('book_session_card_button'); }}
+                onClick={e => { e.stopPropagation(); goToBooking('Book a session button'); }}
               >
                 Book a session with Midhun
                 <i className="bi bi-arrow-right" style={{ fontSize: '13px' }} aria-hidden="true" />

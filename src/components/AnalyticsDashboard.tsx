@@ -54,7 +54,22 @@ function fmtDateTime(ts: number): string {
 }
 
 function formatEventType(type: string): string {
-  return type.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+  const spaced = type.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+  return spaced.replace(/\bCta\b/g, 'CTA').replace(/\bLinkedin\b/g, 'LinkedIn');
+}
+
+const PAGE_SCROLL_LABELS: Record<string, string> = {
+  work: 'Work page scroll',
+  about: 'About page scroll',
+  project: 'Project page scroll',
+};
+
+function eventTypeLabel(e: AEvent): string {
+  if (e.type === 'page_scroll_depth') {
+    const page = e.data.page as string | undefined;
+    return (page && PAGE_SCROLL_LABELS[page]) || formatEventType(e.type);
+  }
+  return formatEventType(e.type);
 }
 
 function eventColor(type: string): string {
@@ -85,7 +100,7 @@ function eventDataSummary(e: AEvent): string {
     case 'scroll_depth':
       return (e.data.milestone as string) || '';
     case 'page_scroll_depth':
-      return `${(e.data.page as string) || ''} · ${(e.data.milestone as string) || ''}`;
+      return (e.data.milestone as string) || '';
     case 'section_view': {
       const section = (e.data.section as string) || '';
       const dur = e.data.duration ? ` · ${fmtSecs(e.data.duration as number)}` : '';
@@ -106,8 +121,9 @@ function eventDataSummary(e: AEvent): string {
     case 'session_end': {
       const lastType = e.data.last_type as string | undefined;
       if (!lastType) return '';
-      const summary = eventDataSummary({ ...e, type: lastType as AEvent['type'], data: (e.data.last_data as Record<string, unknown>) || {} });
-      return `left after ${formatEventType(lastType)}${summary ? ` · ${summary}` : ''}`;
+      const lastEvt = { ...e, type: lastType as AEvent['type'], data: (e.data.last_data as Record<string, unknown>) || {} };
+      const summary = eventDataSummary(lastEvt);
+      return `left after ${eventTypeLabel(lastEvt)}${summary ? ` · ${summary}` : ''}`;
     }
     default:
       return '';
@@ -210,7 +226,7 @@ function SessionDetail({
           )}
           <span className={styles.sessionPill}>Scroll {session.scrollDepth}%</span>
           <span className={styles.sessionPill} style={{ borderColor: eventColor(session.lastEvent.type) }}>
-            Last: {formatEventType(session.lastEvent.type)}
+            Last: {eventTypeLabel(session.lastEvent)}
             {eventDataSummary(session.lastEvent) ? ` · ${eventDataSummary(session.lastEvent)}` : ''}
           </span>
         </div>
@@ -223,7 +239,7 @@ function SessionDetail({
               className={styles.timelineDot}
               style={{ background: eventColor(e.type) }}
             />
-            <div className={styles.timelineType}>{formatEventType(e.type)}</div>
+            <div className={styles.timelineType}>{eventTypeLabel(e)}</div>
             <div className={styles.timelineData}>{eventDataSummary(e)}</div>
             <div className={styles.timelineTime}>
               {fmtRelTime(e.ts - session.startTs)}
@@ -286,7 +302,7 @@ function SessionsList({
                 Scroll depth · {session.scrollDepth}%
               </div>
               <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', marginTop: 6 }}>
-                Last: {formatEventType(session.lastEvent.type)}
+                Last: {eventTypeLabel(session.lastEvent)}
                 {eventDataSummary(session.lastEvent) ? ` · ${eventDataSummary(session.lastEvent)}` : ''}
               </div>
 

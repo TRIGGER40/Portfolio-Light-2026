@@ -3,6 +3,7 @@ import { Footer } from '../components/Footer';
 import { ProjectCarousel } from '../components/ProjectCarousel';
 import { GoBackButton } from '../components/GoBackButton';
 import { useEggOnDeepRead } from '../hooks/useEggOnDeepRead';
+import { initPageScrollTracking } from '../lib/analytics';
 import styles from './CaseStudyQuiz.module.css';
 import jStyles from './CaseStudyJoining.module.css';
 
@@ -38,6 +39,8 @@ export function CaseStudyJoining() {
   }, []);
 
   useEggOnDeepRead(scrollProgress);
+
+  useEffect(() => initPageScrollTracking('project'), []);
 
   const setRef = (id: string) => (el: HTMLElement | null) => { sectionRefs.current[id] = el; };
 

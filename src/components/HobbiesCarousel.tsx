@@ -83,7 +83,7 @@ export function HobbiesCarousel() {
               <div
                 key={i}
                 className={`${pStyles.hobbyCard} ${is3D ? pStyles.hobbyCardLink : ''}`}
-                onClick={() => { if (is3D) { track('cta_click', { label: 'hobbies_3d_modelling' }); navigate('/campus-pano'); } }}
+                onClick={() => { if (is3D) { track('cta_click', { label: '3D Modelling hobby card' }); navigate('/campus-pano'); } }}
                 role={is3D ? 'link' : undefined}
                 tabIndex={is3D ? 0 : undefined}
                 onKeyDown={is3D ? (e) => { if (e.key === 'Enter') navigate('/campus-pano'); } : undefined}

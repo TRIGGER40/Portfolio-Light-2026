@@ -54,7 +54,7 @@ export function PhoneMoment() {
               className={styles.phone}
               whileHover={{ y: -6 }}
               transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              onClick={() => { track('cta_click', { label: 'phone_moment_open' }); setIsOpen(true); }}
+              onClick={() => { track('cta_click', { label: 'Open Lazy Maps video' }); setIsOpen(true); }}
               aria-label="Open video"
             >
               <video

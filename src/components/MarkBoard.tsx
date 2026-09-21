@@ -269,7 +269,7 @@ function PostModal({ onClose, onPosted }: {
     }
 
     markPosted(deviceId.current);
-    track('cta_click', { label: 'markboard_post', emoji: selectedEmoji.emoji });
+    track('cta_click', { label: 'Post to community board', emoji: selectedEmoji.emoji });
     onPosted({
       id: `opt-${Date.now()}`,
       name: trimmed,
@@ -466,7 +466,7 @@ export function MarkBoard() {
   const dotCanvasRef = useRef<DotCanvasHandle>(null);
 
   // Tapping any card toggles it as the active one; tapping the board background clears it.
-  const handleCardTap   = (id: string) => { track('cta_click', { label: 'markboard_card_tap' }); setTappedId(prev => (prev === id ? null : id)); };
+  const handleCardTap   = (id: string) => { track('cta_click', { label: 'Community board post tap' }); setTappedId(prev => (prev === id ? null : id)); };
   const handleBoardClick = () => setTappedId(null);
 
   const load = useCallback(async () => {
@@ -562,7 +562,7 @@ export function MarkBoard() {
           ) : (
             <button
               className={`btn btn-primary ${styles.ctaBtn}`}
-              onClick={() => { track('cta_click', { label: 'markboard_open' }); setModalOpen(true); }}
+              onClick={() => { track('cta_click', { label: 'Leave your mark button' }); setModalOpen(true); }}
             >
               Leave your mark
               <i className="bi bi-plus-lg" style={{ fontSize: 14 }} />

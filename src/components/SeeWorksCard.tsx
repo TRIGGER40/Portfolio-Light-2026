@@ -39,7 +39,7 @@ export function SeeWorksCard() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          onClick={() => { track('cta_click', { label: 'see_works_card' }); navigate('/', { state: { scrollTo: 'work' } }); }}
+          onClick={() => { track('cta_click', { label: 'See Works card' }); navigate('/', { state: { scrollTo: 'work' } }); }}
           role="button"
           tabIndex={0}
           onKeyDown={e => e.key === 'Enter' && navigate('/', { state: { scrollTo: 'work' } })}
@@ -57,13 +57,13 @@ export function SeeWorksCard() {
             <div className={styles.ctaRow}>
               <button
                 className="btn btn-primary"
-                onClick={e => { e.stopPropagation(); track('cta_click', { label: 'see_works_view_works' }); navigate('/', { state: { scrollTo: 'work' } }); }}
+                onClick={e => { e.stopPropagation(); track('cta_click', { label: 'View works button' }); navigate('/', { state: { scrollTo: 'work' } }); }}
               >
                 View works
               </button>
               <button
                 className={styles.ctaSecondary}
-                onClick={e => { e.stopPropagation(); track('cta_click', { label: 'see_works_ask_ai' }); navigate('/ask'); }}
+                onClick={e => { e.stopPropagation(); track('cta_click', { label: 'Ask AI about Midhun button' }); navigate('/ask'); }}
               >
                 <span className={styles.sparkle}>✦</span>
                 Ask AI about Midhun

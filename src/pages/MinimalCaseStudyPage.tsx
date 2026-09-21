@@ -8,6 +8,7 @@ import styles from './MinimalCaseStudyPage.module.css';
 import { ImgSkeleton } from '../components/ImgSkeleton';
 import { Loader } from '../components/Loader';
 import { CASE_STUDIES } from '../data/portfolioData';
+import { initPageScrollTracking } from '../lib/analytics';
 
 const CATEGORY_COLORS: Record<string, string> = {
   AI:                  'var(--accent-violet)',
@@ -34,6 +35,7 @@ export function MinimalCaseStudyPage() {
   const project = CASE_STUDIES.find(cs => cs.id === id);
 
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'instant' }); }, [id]);
+  useEffect(() => initPageScrollTracking('project'), [id]);
 
   if (!project) {
     return (

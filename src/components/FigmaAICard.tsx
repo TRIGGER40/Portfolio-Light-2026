@@ -50,7 +50,7 @@ export function FigmaAICard() {
               target="_blank"
               rel="noopener noreferrer"
               className={styles.cta}
-              onClick={() => track('cta_click', { label: 'figma_ai_experiment' })}
+              onClick={() => track('cta_click', { label: 'See the Figma AI experiment' })}
             >
               See the experiment
               <i className="bi bi-arrow-up-right" style={{ fontSize: '13px' }} aria-hidden="true" />
