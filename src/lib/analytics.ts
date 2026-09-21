@@ -23,6 +23,7 @@ export type EventType =
   | 'linkedin_click'
   | 'cta_click'
   | 'session_start'
+  | 'session_end'
   | 'egg_discovered'
   | 'egg_all_found'
   | 'hero_company_card';
@@ -85,6 +86,8 @@ function scheduleFlush() {
 }
 
 /* ── Core track ──────────────────────────────────── */
+let lastEvent: { type: EventType; data: Record<string, unknown> } | null = null;
+
 export function track(type: EventType, data: Record<string, unknown> = {}): void {
   if (localStorage.getItem(OWNER_KEY)) return;
   try {
@@ -96,6 +99,7 @@ export function track(type: EventType, data: Record<string, unknown> = {}): void
       vid:  getVisitorId(),
       data,
     };
+    lastEvent = { type, data };
     // Local cache
     const all = getLocalEvents();
     all.push(event);
@@ -207,4 +211,57 @@ export function initScrollTracking() {
     });
   };
   window.addEventListener('scroll', onScroll, { passive: true });
+}
+
+/* ── Session end ─────────────────────────────────── */
+let sessionEndSent = false;
+
+function sendSessionEnd() {
+  if (sessionEndSent) return;
+  if (localStorage.getItem(OWNER_KEY)) return;
+  if (!lastEvent) return; // nothing happened yet this session
+  sessionEndSent = true;
+  try {
+    const event: AEvent = {
+      id:   uid(),
+      type: 'session_end',
+      ts:   Date.now(),
+      sid:  getSessionId(),
+      vid:  getVisitorId(),
+      data: { last_type: lastEvent.type, last_data: lastEvent.data },
+    };
+    const all = getLocalEvents();
+    all.push(event);
+    localStorage.setItem(LOCAL_KEY, JSON.stringify(all.slice(-2000)));
+    if (!SUPABASE_ENABLED) return;
+    // Bypass the batched queue — the tab may close before the 2s flush timer
+    // fires, so this goes out immediately with keepalive so it survives unload.
+    fetch(`${SUPABASE_URL}/rest/v1/analytics_events`, {
+      method: 'POST',
+      keepalive: true,
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY!,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Prefer': 'return=minimal',
+      },
+      body: JSON.stringify([{
+        type:       event.type,
+        session_id: event.sid,
+        visitor_id: event.vid,
+        data:       event.data,
+      }]),
+    }).catch(() => {});
+  } catch { /* quota errors */ }
+}
+
+let sessionEndListenerAdded = false;
+export function initSessionEndTracking() {
+  if (sessionEndListenerAdded || typeof window === 'undefined') return;
+  sessionEndListenerAdded = true;
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') sendSessionEnd();
+    else sessionEndSent = false; // came back — a later leave should mark a new end point
+  });
+  window.addEventListener('pagehide', sendSessionEnd);
 }

@@ -71,6 +71,7 @@ function eventColor(type: string): string {
     case 'cta_click':       return '#06b6d4';
     case 'egg_discovered':  return '#f59e0b';
     case 'egg_all_found':   return '#fbbf24';
+    case 'session_end':     return '#ef4444';
     default:                return 'rgba(255,255,255,0.3)';
   }
 }
@@ -99,6 +100,12 @@ function eventDataSummary(e: AEvent): string {
       return (e.data.egg_title as string) || (e.data.egg_id as string) || '';
     case 'egg_all_found':
       return 'All 3 eggs found';
+    case 'session_end': {
+      const lastType = e.data.last_type as string | undefined;
+      if (!lastType) return '';
+      const summary = eventDataSummary({ ...e, type: lastType as AEvent['type'], data: (e.data.last_data as Record<string, unknown>) || {} });
+      return `left after ${formatEventType(lastType)}${summary ? ` · ${summary}` : ''}`;
+    }
     default:
       return '';
   }
@@ -120,6 +127,7 @@ interface SessionSummary {
   scrollDepth: number;
   projectsClicked: string[];
   events: AEvent[];
+  lastEvent: AEvent;
 }
 
 function scrollDepthFromMilestone(milestone: string): number {
@@ -198,6 +206,10 @@ function SessionDetail({
             <span className={styles.sessionPill}>{session.referrer}</span>
           )}
           <span className={styles.sessionPill}>Scroll {session.scrollDepth}%</span>
+          <span className={styles.sessionPill} style={{ borderColor: eventColor(session.lastEvent.type) }}>
+            Last: {formatEventType(session.lastEvent.type)}
+            {eventDataSummary(session.lastEvent) ? ` · ${eventDataSummary(session.lastEvent)}` : ''}
+          </span>
         </div>
       </div>
 
@@ -269,6 +281,10 @@ function SessionsList({
               </div>
               <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', marginTop: 4 }}>
                 Scroll depth · {session.scrollDepth}%
+              </div>
+              <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', marginTop: 6 }}>
+                Last: {formatEventType(session.lastEvent.type)}
+                {eventDataSummary(session.lastEvent) ? ` · ${eventDataSummary(session.lastEvent)}` : ''}
               </div>
 
               {session.projectsClicked.length > 0 && (
@@ -685,6 +701,7 @@ export function AnalyticsDashboard({ onClose }: { onClose: () => void }) {
         scrollDepth,
         projectsClicked,
         events: sorted,
+        lastEvent: sorted[sorted.length - 1],
       });
     });
 
