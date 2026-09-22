@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { initScrollTracking, initGeoTracking, initSessionEndTracking, initPageScrollTracking } from './lib/analytics';
 import { AnalyticsDashboard } from './components/AnalyticsDashboard';
-import { EasterEggProvider } from './context/EasterEggContext';
+import { EasterEggProvider, EASTER_EGGS_ENABLED } from './context/EasterEggContext';
 import { DiscoveryModal } from './components/easter-egg/DiscoveryModal';
 import { ProgressModal } from './components/easter-egg/ProgressModal';
 import { CompletionOverlay } from './components/easter-egg/CompletionOverlay';
@@ -210,15 +210,20 @@ export default function App() {
       {/* Fixed bottom-right cluster: egg counter + theme toggle.
           On /ask mobile: moves to top-right and hides egg counter. */}
       <div className={`floating-controls${isAIPage ? ' floating-controls--ask' : ''}`}>
-        {!isAIPage && <EasterEggTracker floating />}
+        {!isAIPage && EASTER_EGGS_ENABLED && <EasterEggTracker floating />}
         <ThemeSwitcher />
       </div>
       {showAnalytics && <AnalyticsDashboard onClose={() => setShowAnalytics(false)} />}
-      {/* ── Easter Egg system — global modals ── */}
-      <DiscoveryModal />
-      <ProgressModal />
-      <CompletionOverlay />
-      <ManifestoModal />
+      {/* ── Easter Egg system — global modals. Gated by EASTER_EGGS_ENABLED
+          in EasterEggContext.tsx; flip that back to re-enable everything. ── */}
+      {EASTER_EGGS_ENABLED && (
+        <>
+          <DiscoveryModal />
+          <ProgressModal />
+          <CompletionOverlay />
+          <ManifestoModal />
+        </>
+      )}
       <Nav hidden={isAIPage} />
       {!isAIPage && <ScrollFade />}
       <AnimatePresence mode="wait">

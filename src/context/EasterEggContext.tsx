@@ -13,6 +13,10 @@ import { track } from '../lib/analytics';
 const LS_KEY    = 'ee_mkk_v1';      // discovered egg ids
 const LS_CS_KEY = 'ee_mkk_cs_v1';   // completion-shown flag
 
+// Single kill-switch for the whole easter egg system. Flip back to `true`
+// to fully re-enable discovery, the floating tracker, and all modals.
+export const EASTER_EGGS_ENABLED = false;
+
 interface EasterEggCtxValue {
   /* ── state ── */
   discovered: string[];
@@ -61,6 +65,7 @@ export function EasterEggProvider({ children }: { children: ReactNode }) {
 
   /* ── actions ── */
   const discover = useCallback((id: string) => {
+    if (!EASTER_EGGS_ENABLED)               return;   // system disabled
     if (discoveredRef.current.includes(id)) return;   // already found
     if (discoveringRef.current)             return;   // another reveal in progress
     setDiscovering(id);
