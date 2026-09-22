@@ -4,6 +4,10 @@ import { saveScrollBeforeLeave } from '../hooks/useScrollRestoration';
 import { track } from '../lib/analytics';
 import styles from './BookSessionCard.module.css';
 
+// Single kill-switch for mentorship surfaces (this card + related CTAs
+// elsewhere, e.g. PersonalSection). Flip back to `true` to re-enable.
+export const MENTORSHIP_ENABLED = false;
+
 const PHOTOS = [
   {
     src: '/About me/Workshop facilitation.webp',

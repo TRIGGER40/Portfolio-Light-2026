@@ -9,7 +9,7 @@ import { PersonalSection } from '../components/PersonalSection';
 import { CommunityCard } from '../components/CommunityCard';
 import { FigmaAICard } from '../components/FigmaAICard';
 import { SeeWorksCard } from '../components/SeeWorksCard';
-import { BookSessionCard } from '../components/BookSessionCard';
+import { BookSessionCard, MENTORSHIP_ENABLED } from '../components/BookSessionCard';
 import { MarkBoard } from '../components/MarkBoard';
 import { useEasterEgg } from '../context/EasterEggContext';
 import styles from './AboutPage.module.css';
@@ -332,7 +332,7 @@ export function AboutPage() {
           </div>
         </section>
 
-        {!bgExpanded && <BookSessionCard />}
+        {!bgExpanded && MENTORSHIP_ENABLED && <BookSessionCard />}
 
         {/* ── Education ── */}
         <section className={styles.eduSection}>

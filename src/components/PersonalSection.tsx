@@ -6,6 +6,7 @@ import { HobbiesCarousel } from './HobbiesCarousel';
 import { ImgSkeleton } from './ImgSkeleton';
 import { saveScrollBeforeLeave } from '../hooks/useScrollRestoration';
 import { track } from '../lib/analytics';
+import { MENTORSHIP_ENABLED } from './BookSessionCard';
 
 interface PersonalItem {
   img: string;
@@ -100,7 +101,7 @@ export function PersonalSection() {
               <div className={pStyles.personalCardBody}>
                 <h4 className={pStyles.personalCardLabel}>{item.label}</h4>
                 <p className={pStyles.personalCardText}>{item.text}</p>
-                {item.cta && (
+                {item.cta && MENTORSHIP_ENABLED && (
                   <button
                     className={pStyles.personalCardCta}
                     onClick={() => goToBooking(item.cta!.to, `Book a session: ${item.label}`)}
