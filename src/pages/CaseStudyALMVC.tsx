@@ -3,7 +3,7 @@ import { Footer } from '../components/Footer';
 import { ProjectCarousel } from '../components/ProjectCarousel';
 import { GoBackButton } from '../components/GoBackButton';
 import { useEggOnDeepRead } from '../hooks/useEggOnDeepRead';
-import { initPageScrollTracking } from '../lib/analytics';
+import { track, initPageScrollTracking } from '../lib/analytics';
 import styles from './CaseStudyQuiz.module.css';
 import aStyles from './CaseStudyALMVC.module.css';
 
@@ -621,6 +621,40 @@ export function CaseStudyALMVC() {
                 <p className={styles.learningB}>{l.b}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── LIVE ON ADOBE.COM ───────────────────────── */}
+      <section className={aStyles.liveHubSection}>
+        <div className={styles.container}>
+          <div className={aStyles.liveHubCard}>
+            <div className={aStyles.liveHubImgCol}>
+              <img
+                src="/ALMVC/adobe-live-hub.webp"
+                alt="ALM Live Hub product page on Adobe.com"
+                className={aStyles.liveHubImg}
+              />
+            </div>
+            <div className={aStyles.liveHubTextCol}>
+              <span className={aStyles.liveHubLabel}>Now live</span>
+              <h3 className={aStyles.liveHubTitle}>Shipped, and live on Adobe.com</h3>
+              <p className={aStyles.liveHubDesc}>
+                This project shipped as ALM Live Hub, the native virtual classroom for Adobe
+                Learning Manager. It's now featured on Adobe's own product page alongside the
+                platform's other learning capabilities.
+              </p>
+              <a
+                href="https://business.adobe.com/products/learning-manager/live-hub.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={aStyles.liveHubCta}
+                onClick={() => track('cta_click', { label: 'ALM Live Hub product page link' })}
+              >
+                View the product page
+                <i className="bi bi-arrow-up-right" style={{ fontSize: '13px' }} aria-hidden="true" />
+              </a>
+            </div>
           </div>
         </div>
       </section>
