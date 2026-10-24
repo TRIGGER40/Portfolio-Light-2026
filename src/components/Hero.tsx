@@ -5,7 +5,7 @@ import { PhoneStack } from './PhoneStack';
 import { track } from '../lib/analytics';
 
 const METRICS = [
-  { value: '6+',   label: 'years shipping enterprise products' },
+  { value: '7+',   label: 'years shipping enterprise products' },
   { value: '10M+', label: 'users delighted across products' },
   { value: '20+',  label: 'features owned, start to finish' },
 ];
@@ -74,7 +74,7 @@ export function Hero() {
           {/* Description */}
           <div className={styles.fadeUp} style={{ '--delay': '0.22s' } as React.CSSProperties}>
             <p className={styles.valueProp}>
-              Lead Product Designer, Adobe Connect. 6+ years of shipping complex
+              Lead Product Designer, Adobe Connect. 7+ years of shipping complex
               systems, AI-powered collaboration tools, and 0-1 products with
               impactful experiences globally.
             </p>
